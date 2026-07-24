@@ -1,7 +1,7 @@
 {
-    "height": 40,
-    "scriptKeys": [],
-    "templateKey": "6907",
-    "width": 60,
-    "lighttype": "default"
+  "height": 40,
+  "lightType": "default",
+  "scriptKeys": [],
+  "templateKey": "6907",
+  "width": 60
 }

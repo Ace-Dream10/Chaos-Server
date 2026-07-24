@@ -1,0 +1,9 @@
+{
+  "autoDayNightCycle": true,
+  "flags": "None",
+  "instanceId": "monsterTest",
+  "music": 1,
+  "name": "Monster Test",
+  "scriptKeys": [],
+  "templateKey": "6907"
+}

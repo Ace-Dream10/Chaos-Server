@@ -1,0 +1,42 @@
+{
+  "learningRequirements": {
+    "itemRequirements": [
+      {
+        "amountRequired": 20,
+        "itemTemplateKey": "apple"
+      }
+    ],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredGold": 5000,
+    "requiredStats": {
+      "con": 1,
+      "dex": 1,
+      "int": 1,
+      "str": 2,
+      "wis": 1
+    }
+  },
+  "class": "Warrior",
+  "cooldownMs": 10000,
+  "description": "Charge forward up to 5 tiles, attacking the first enemy in your path.",
+  "level": 1,
+  "name": "Lancer's Charge",
+  "panelSprite": 40,
+  "scriptKeys": ["bullRush"],
+  "scriptVars": {
+    "bullRush": {
+      "rushDistance": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "baseDamage": 5,
+      "damageStat": "str",
+      "damageStatMultiplier": 1.5,
+      "sound": 3,
+      "animation": {
+        "targetAnimation": 2,
+        "animationSpeed": 100
+      }
+    }
+  },
+  "templateKey": "bull_rush"
+}

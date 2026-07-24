@@ -1,0 +1,18 @@
+[
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 30,
+    "intervalVariancePct": 50,
+    "maxAmount": 10,
+    "maxPerSpawn": 3,
+    "monsterTemplateKey": "common_rat",
+    "spawnArea": {
+      "Top": 31,
+      "Left": 9,
+      "Width": 8,
+      "Height": 5
+    }
+  }
+]

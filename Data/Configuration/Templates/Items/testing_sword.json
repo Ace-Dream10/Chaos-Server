@@ -1,0 +1,25 @@
+{
+  "templateKey": "testing_sword",
+  "name": "Testing Sword",
+  "description": "A sword used for testing purposes.",
+  "category": "1h wep",
+  "panelSprite": 179,
+  "displaySprite": 20,
+  "color": "Default",
+  "weight": 5,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "isDyeable": false,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "modifiers": {
+    "str": 9
+  },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": {
+    "equipment": {}
+  }
+}
