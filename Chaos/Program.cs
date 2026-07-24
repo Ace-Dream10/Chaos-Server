@@ -48,8 +48,9 @@ Encoding.RegisterProvider(encodingProvider);
 
 GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
 
-Process.GetCurrentProcess()
-       .PriorityClass = ProcessPriorityClass.High;
+if (OperatingSystem.IsWindows())
+    Process.GetCurrentProcess()
+           .PriorityClass = ProcessPriorityClass.High;
 
 var currentDirectory = Directory.GetCurrentDirectory();
 
