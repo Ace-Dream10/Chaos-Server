@@ -1,0 +1,23 @@
+{
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredGold": 0,
+    "requiredStats": {
+      "con": 1,
+      "dex": 1,
+      "int": 1,
+      "str": 1,
+      "wis": 1
+    }
+  },
+  "spellType": "NoTarget",
+  "description": "Throwaway test spell for icon index 6.",
+  "level": 1,
+  "name": "Test Icon 6",
+  "panelSprite": 6,
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "test_icon_6"
+}
