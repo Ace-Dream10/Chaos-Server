@@ -22,7 +22,7 @@ public sealed class PersistentIdGenerator<T> : IIdGenerator<T> where T: INumber<
 
     // ReSharper disable once StaticMemberInGenericType
     private static readonly string SpecialDirectory = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Chaos",
         "PersistentIdentity",
         Assembly.GetEntryAssembly()
