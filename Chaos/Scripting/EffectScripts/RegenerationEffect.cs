@@ -20,7 +20,7 @@ public sealed class RegenerationEffect : ContinuousAnimationEffectBase
     protected override Animation Animation { get; } = new()
     {
         AnimationSpeed = 100,
-        TargetAnimation = 187
+        TargetAnimation = 108
     };
 
     /// <inheritdoc />

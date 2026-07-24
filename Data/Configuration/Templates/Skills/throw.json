@@ -22,7 +22,7 @@
   "description": "Throws the target 1 or 2 spaces.",
   "level": 10,
   "name": "Throw",
-  "panelSprite": 42,
+  "panelSprite": 24,
   "scriptKeys": [
     "throw"
   ],

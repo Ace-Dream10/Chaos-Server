@@ -21,7 +21,7 @@
     "description": "A basic attack that deals a small amount of damage to an enemy immediately in front of you.",
     "level": 1,
     "name": "Two-Handed Attack",
-    "panelSprite": 1,
+    "panelSprite": 0,
     "scriptKeys": ["damage"],
     "scriptVars": {
         "damage": {

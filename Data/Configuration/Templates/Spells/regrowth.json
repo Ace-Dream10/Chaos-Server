@@ -26,7 +26,7 @@
   "description": "Applies a regenerative effect to your target, and all friendlies around that target.",
   "level": 10,
   "name": "Regrowth",
-  "panelSprite": 146,
+  "panelSprite": 46,
   "scriptKeys": [
     "applyEffect"
   ],
