@@ -7,6 +7,7 @@ using Chaos.Geometry.Abstractions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -14,10 +15,10 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class BullRushScript : ConfigurableSkillScriptBase
+public class LancersChargeScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
-    public BullRushScript(Skill subject)
+    public LancersChargeScript(Skill subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -27,8 +28,7 @@ public class BullRushScript : ConfigurableSkillScriptBase
         var source = context.Source;
         var map = context.TargetMap;
 
-        // Play jump/charge body animation at the start of the rush
-        source.AnimateBody(BodyAnimation.JumpAttack);
+        source.AnimateBody(BodyAnimation);
 
         var endPoint = source.DirectionalOffset(source.Direction, RushDistance);
 
@@ -60,6 +60,10 @@ public class BullRushScript : ConfigurableSkillScriptBase
 
                     if (damage > 0)
                         ApplyDamageScript.ApplyDamage(source, creature, this, damage);
+
+                    var stasisEffect = new StasisEffect();
+                    stasisEffect.SetDuration(TimeSpan.FromMilliseconds(StasisDurationMs));
+                    creature.Effects.Apply(source, stasisEffect, this);
 
                     PlayHitEffects(context, creature);
                 } else
@@ -127,6 +131,11 @@ public class BullRushScript : ConfigurableSkillScriptBase
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.BaseDamage" />
     public int? BaseDamage { get; init; }
 
+    /// <summary>
+    ///     The body animation played by the caster when the charge begins
+    /// </summary>
+    public BodyAnimation BodyAnimation { get; init; }
+
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.DamageStat" />
     public Stat? DamageStat { get; init; }
 
@@ -152,6 +161,11 @@ public class BullRushScript : ConfigurableSkillScriptBase
     ///     Sound played during the rush on each tile traversed (optional, separate from hit sound)
     /// </summary>
     public byte? RushSound { get; init; }
+
+    /// <summary>
+    ///     How long, in milliseconds, the hit creature is stasised (rooted + invulnerable) after being struck
+    /// </summary>
+    public int StasisDurationMs { get; init; } = 5000;
 
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.AnimationAbilityComponent.IAnimationComponentOptions.Animation" />
     public Animation? Animation { get; init; }

@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Sky" } },
+  "templateKey": "hairstylist_color_set_Sky",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

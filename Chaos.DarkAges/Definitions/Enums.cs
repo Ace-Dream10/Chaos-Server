@@ -680,7 +680,7 @@ public enum StatUpdateType : byte
 public enum BaseClass : byte
 {
     Unassigned = 0,
-    Guardian = 1,
+    Lancer = 1,
     WeaponMaster = 2,
     Sorcerer = 3,
     Mystic = 4,

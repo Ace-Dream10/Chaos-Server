@@ -22,6 +22,10 @@ public class MoveToTargetScript : MonsterScriptBase
         if (Subject.Trackers.Tags.ContainsKey("stasis"))
             return;
 
+        //rooted by Lancer's Leash - don't move (but can still attack if already in range)
+        if (Subject.Trackers.Tags.ContainsKey("rooted"))
+            return;
+
         if ((Target == null) || !ShouldMove)
             return;
 

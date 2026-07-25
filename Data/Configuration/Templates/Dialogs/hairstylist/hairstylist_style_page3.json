@@ -1,0 +1,21 @@
+{
+  "options": [
+    { "dialogKey": "hairstylist_set_20", "optionText": "Style 20" },
+    { "dialogKey": "hairstylist_set_21", "optionText": "Style 21" },
+    { "dialogKey": "hairstylist_set_22", "optionText": "Style 22" },
+    { "dialogKey": "hairstylist_set_23", "optionText": "Style 23" },
+    { "dialogKey": "hairstylist_set_24", "optionText": "Style 24" },
+    { "dialogKey": "hairstylist_set_25", "optionText": "Style 25" },
+    { "dialogKey": "hairstylist_set_26", "optionText": "Style 26" },
+    { "dialogKey": "hairstylist_set_27", "optionText": "Style 27" },
+    { "dialogKey": "hairstylist_set_28", "optionText": "Style 28" },
+    { "dialogKey": "hairstylist_set_29", "optionText": "Style 29" },
+    { "dialogKey": "hairstylist_style_page2", "optionText": "<- Back" },
+    { "dialogKey": "hairstylist_style_page4", "optionText": "Next Page ->" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "hairstylist_style_page3",
+  "text": "Choose your hairstyle (page 3 of 7):",
+  "type": "Menu"
+}

@@ -1,0 +1,13 @@
+{
+  "options": [
+    { "dialogKey": "generic_learnskill_initial", "optionText": "Learn Skill" },
+    { "dialogKey": "generic_learnspell_initial", "optionText": "Learn Spell" },
+    { "dialogKey": "generic_forgetskill_initial", "optionText": "Forget Skill" },
+    { "dialogKey": "generic_forgetspell_initial", "optionText": "Forget Spell" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "master_trainer_initial",
+  "text": "I can teach you everything I know. What would you like to do?",
+  "type": "Menu"
+}

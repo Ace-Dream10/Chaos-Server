@@ -573,11 +573,11 @@ public sealed class UserStatSheetTests
     {
         var sheet = new UserStatSheet();
 
-        sheet.SetBaseClass(BaseClass.Guardian);
+        sheet.SetBaseClass(BaseClass.Lancer);
 
         sheet.BaseClass
              .Should()
-             .Be(BaseClass.Guardian);
+             .Be(BaseClass.Lancer);
     }
 
     [Test]

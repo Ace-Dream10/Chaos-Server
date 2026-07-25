@@ -1,0 +1,38 @@
+{
+  "itemsForSale": [],
+  "itemsToBuy": [],
+  "name": "Master Trainer",
+  "restockIntervalHrs": 6,
+  "restockPct": 100,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "master_trainer_initial" } },
+  "skillsToTeach": [
+    "assail",
+    "ambush",
+    "throw",
+    "twohandedattack",
+    "lancers_charge",
+    "bow_assail",
+    "mirror_image",
+    "lancers_leash",
+    "challenging_shout",
+    "voidwalker",
+    "death_blossom",
+    "arrowstep"
+  ],
+  "spellsToTeach": [
+    "fire_breath",
+    "healies",
+    "regrowth",
+    "speedy",
+    "chain_heal",
+    "stasis",
+    "fire_shot",
+    "trappers_net",
+    "deadcenter",
+    "rain_of_arrows",
+    "flechette"
+  ],
+  "sprite": 37,
+  "templateKey": "master_trainer"
+}

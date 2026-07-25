@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Ice" } },
+  "templateKey": "hairstylist_color_set_Ice",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

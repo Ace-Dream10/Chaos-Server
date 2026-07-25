@@ -21,6 +21,10 @@ public class WanderingScript : MonsterScriptBase
         if (Subject.Trackers.Tags.ContainsKey("stasis"))
             return;
 
+        //rooted by Lancer's Leash - don't wander
+        if (Subject.Trackers.Tags.ContainsKey("rooted"))
+            return;
+
         if ((Target != null) || !ShouldWander)
             return;
 

@@ -1,0 +1,11 @@
+{
+  "options": [
+    { "dialogKey": "hairstylist_style_page1", "optionText": "Change Hairstyle" },
+    { "dialogKey": "hairstylist_color_menu", "optionText": "Change Hair Color" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "hairstylist_initial",
+  "text": "Would you like to change your hairstyle or hair color?",
+  "type": "Menu"
+}

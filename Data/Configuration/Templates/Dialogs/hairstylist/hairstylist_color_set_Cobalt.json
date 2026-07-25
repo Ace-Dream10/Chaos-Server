@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Cobalt" } },
+  "templateKey": "hairstylist_color_set_Cobalt",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

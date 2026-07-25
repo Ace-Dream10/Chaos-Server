@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Flamingo" } },
+  "templateKey": "hairstylist_color_set_Flamingo",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

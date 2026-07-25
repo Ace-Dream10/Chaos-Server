@@ -1,0 +1,28 @@
+{
+  "templateKey": "lancers_leash",
+  "name": "Lancer's Leash",
+  "description": "Drag up to 6 nearby enemies to your location and force their attention onto you.",
+  "panelSprite": 46,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 1, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["lancersLeash"],
+  "scriptVars": {
+    "lancersLeash": {
+      "maxTargets": 6,
+      "rootDurationMs": 1500,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Swipe",
+      "animation": { "targetAnimation": 19, "animationSpeed": 100 },
+      "sound": 35
+    }
+  }
+}

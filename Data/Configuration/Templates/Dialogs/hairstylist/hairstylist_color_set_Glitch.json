@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Glitch" } },
+  "templateKey": "hairstylist_color_set_Glitch",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

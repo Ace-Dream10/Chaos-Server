@@ -1,0 +1,28 @@
+{
+  "templateKey": "trappers_net",
+  "name": "Trapper's Net",
+  "description": "Slow a target in place with a binding arrow.",
+  "panelSprite": 25,
+  "advClass": "Archer",
+  "spellType": "Targeted",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["captureSpell"],
+  "scriptVars": {
+    "captureSpell": {
+      "effectDurationMs": 8000,
+      "baseDamage": 30,
+      "slowAmount": 500,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 8,
+      "bodyAnimation": "HeavyBowShot",
+      "hitAnimation": { "targetAnimation": 114, "animationSpeed": 100 },
+      "overlayAnimation": { "targetAnimation": 382, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "templateKey": "flechette",
+  "name": "Flechette",
+  "description": "Loose a piercing arrow that tears through nearby enemies.",
+  "panelSprite": 25,
+  "advClass": "Archer",
+  "spellType": "Targeted",
+  "cooldownMs": 5000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["flechette"],
+  "scriptVars": {
+    "flechette": {
+      "baseDamage": 60,
+      "damageStat": "dex",
+      "damageStatMultiplier": 3,
+      "jumpRange": 5,
+      "jumpDelayMs": 400,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "BowShot",
+      "animation": { "targetAnimation": 327, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

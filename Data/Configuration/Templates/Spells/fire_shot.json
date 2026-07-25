@@ -4,7 +4,7 @@
   "description": "Loose a flaming arrow at your target.",
   "panelSprite": 25,
   "spellType": "Targeted",
-  "cooldownMs": 500,
+  "cooldownMs": 2000,
   "castLines": 0,
   "advClass": "Archer",
   "scriptKeys": ["damage"],

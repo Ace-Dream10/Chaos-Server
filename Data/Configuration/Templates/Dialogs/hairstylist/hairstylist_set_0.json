@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairStyle"],
+  "scriptVars": { "setHairStyle": { "hairStyle": 0 } },
+  "templateKey": "hairstylist_set_0",
+  "text": "Your style has been updated!",
+  "type": "Normal"
+}

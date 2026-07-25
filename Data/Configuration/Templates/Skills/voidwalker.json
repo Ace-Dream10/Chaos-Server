@@ -1,0 +1,33 @@
+{
+  "templateKey": "voidwalker",
+  "name": "Voidwalker",
+  "description": "Vanish into shadow and strike from behind your target.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["voidwalker"],
+  "scriptVars": {
+    "voidwalker": {
+      "range": 6,
+      "baseDamage": 80,
+      "damageStat": "dex",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HandsUp",
+      "arrivalBodyAnimation": "Stab",
+      "castEffect": { "targetAnimation": 133, "animationSpeed": 100 },
+      "casterAnimation": 76,
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

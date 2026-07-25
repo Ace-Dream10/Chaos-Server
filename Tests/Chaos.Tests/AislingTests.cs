@@ -880,7 +880,7 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnTrue_WhenCheckingPeasant()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
 
         aisling.HasClass(BaseClass.Unassigned)
                .Should()
@@ -893,7 +893,7 @@ public sealed class AislingTests
         var aisling = MockAisling.Create(Map);
         aisling.UserStatSheet.SetBaseClass(BaseClass.Diacht);
 
-        aisling.HasClass(BaseClass.Guardian)
+        aisling.HasClass(BaseClass.Lancer)
                .Should()
                .BeTrue();
 
@@ -910,9 +910,9 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnTrue_WhenExactMatch()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
 
-        aisling.HasClass(BaseClass.Guardian)
+        aisling.HasClass(BaseClass.Lancer)
                .Should()
                .BeTrue();
     }
@@ -921,7 +921,7 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnFalse_WhenDifferentClass()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
 
         aisling.HasClass(BaseClass.Sorcerer)
                .Should()

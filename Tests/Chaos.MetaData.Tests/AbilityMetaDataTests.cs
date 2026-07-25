@@ -15,7 +15,7 @@ public sealed class AbilityMetaDataTests
     public void AbilityMetaNode_Serialize_WithNullPrereqs_UsesDefaults()
     {
         // All optional properties null — covers ?? "0", ?? 0, ?? string.Empty branches
-        var node = new AbilityMetaNode("BasicAttack", true, BaseClass.Guardian)
+        var node = new AbilityMetaNode("BasicAttack", true, BaseClass.Lancer)
         {
             Level = 1,
             AbilityLevel = 0,
@@ -72,7 +72,7 @@ public sealed class AbilityMetaDataTests
     [Test]
     public void AbilityMetaNode_Serialize_WithPrereqs_WritesValues()
     {
-        var node = new AbilityMetaNode("AdvancedSlash", true, BaseClass.Guardian)
+        var node = new AbilityMetaNode("AdvancedSlash", true, BaseClass.Lancer)
         {
             Level = 20,
             AbilityLevel = 5,
@@ -135,7 +135,7 @@ public sealed class AbilityMetaDataTests
         var md = new AbilityMetaData("SClass2");
 
         md.AddNode(
-            new AbilityMetaNode("Assault", true, BaseClass.Guardian)
+            new AbilityMetaNode("Assault", true, BaseClass.Lancer)
             {
                 Level = 5,
                 AbilityLevel = 1,
@@ -183,7 +183,7 @@ public sealed class AbilityMetaDataTests
         var md = new AbilityMetaData("SClass1");
 
         md.AddNode(
-            new AbilityMetaNode("Slash", true, BaseClass.Guardian)
+            new AbilityMetaNode("Slash", true, BaseClass.Lancer)
             {
                 Level = 1,
                 AbilityLevel = 1,
@@ -191,7 +191,7 @@ public sealed class AbilityMetaDataTests
             });
 
         md.AddNode(
-            new AbilityMetaNode("Fireball", false, BaseClass.Guardian)
+            new AbilityMetaNode("Fireball", false, BaseClass.Lancer)
             {
                 Level = 3,
                 AbilityLevel = 2,

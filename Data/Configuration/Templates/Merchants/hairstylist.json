@@ -1,0 +1,13 @@
+{
+  "itemsForSale": [],
+  "itemsToBuy": [],
+  "name": "Hairstylist",
+  "restockIntervalHrs": 6,
+  "restockPct": 100,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "hairstylist_initial" } },
+  "skillsToTeach": [],
+  "spellsToTeach": [],
+  "sprite": 37,
+  "templateKey": "hairstylist"
+}

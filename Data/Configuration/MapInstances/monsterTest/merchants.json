@@ -5,5 +5,19 @@
     "extraScriptKeys": [],
     "merchantTemplateKey": "class_selector",
     "spawnPoint": "(33, 20)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "master_trainer",
+    "spawnPoint": "(34, 19)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "hairstylist",
+    "spawnPoint": "(35, 19)"
   }
 ]

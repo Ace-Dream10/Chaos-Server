@@ -16,7 +16,7 @@ public sealed class ItemMetaTests
         var node = new ItemMetaNode("Sword")
         {
             Level = 10,
-            Class = BaseClass.Guardian,
+            Class = BaseClass.Lancer,
             Weight = 5,
             Category = "weapon",
             Description = "desc"
@@ -44,7 +44,7 @@ public sealed class ItemMetaTests
 
         reader.ReadString16()
               .Should()
-              .Be(((int)BaseClass.Guardian).ToString());
+              .Be(((int)BaseClass.Lancer).ToString());
 
         reader.ReadString16()
               .Should()

@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Turqoise" } },
+  "templateKey": "hairstylist_color_set_Turqoise",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

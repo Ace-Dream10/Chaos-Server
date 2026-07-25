@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "DirtyBlonde" } },
+  "templateKey": "hairstylist_color_set_DirtyBlonde",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

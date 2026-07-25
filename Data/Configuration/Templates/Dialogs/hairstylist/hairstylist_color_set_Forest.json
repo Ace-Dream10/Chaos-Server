@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Forest" } },
+  "templateKey": "hairstylist_color_set_Forest",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

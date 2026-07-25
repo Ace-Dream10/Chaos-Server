@@ -31,7 +31,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -40,7 +40,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -49,7 +49,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Leader has a group
@@ -90,7 +90,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -99,7 +99,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Send the invite
@@ -164,7 +164,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -173,7 +173,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -182,7 +182,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var otherLeader = MockAisling.Create(
@@ -191,7 +191,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Form leader's group first, then send invite to receiver before receiver joins another group
@@ -230,7 +230,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -239,7 +239,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var otherLeader = MockAisling.Create(
@@ -248,7 +248,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Create the invite while receiver is ungrouped
@@ -284,7 +284,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -293,7 +293,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -302,7 +302,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Receiver must have a group for RequestToJoin to work
@@ -369,7 +369,7 @@ public sealed class GroupServiceTests
                 setup: a =>
                 {
                     a.Options.AllowGroup = true;
-                    a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                    a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
                 });
 
             leader.Group.Add(filler);
@@ -392,7 +392,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -401,7 +401,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -410,7 +410,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -486,7 +486,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -495,7 +495,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -504,7 +504,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -534,7 +534,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -543,7 +543,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // sender has no group
@@ -564,7 +564,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member1 = MockAisling.Create(
@@ -573,7 +573,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var leader2 = MockAisling.Create(
@@ -582,7 +582,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member2 = MockAisling.Create(
@@ -591,7 +591,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader1, member1);
@@ -615,7 +615,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -624,7 +624,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -633,7 +633,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -660,7 +660,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -669,7 +669,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -691,7 +691,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -700,7 +700,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // sender has no group
@@ -720,7 +720,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member1 = MockAisling.Create(
@@ -729,7 +729,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var leader2 = MockAisling.Create(
@@ -738,7 +738,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member2 = MockAisling.Create(
@@ -747,7 +747,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader1, member1);
@@ -772,7 +772,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -781,7 +781,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -790,7 +790,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -818,7 +818,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -827,7 +827,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.Invite(sender, receiver);
@@ -853,7 +853,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -862,7 +862,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Form a group first
@@ -879,7 +879,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         sender.Group!.Add(third);
 
@@ -900,7 +900,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Self-invite when not in a group — receiver.Group?.Leave(sender) is a no-op
@@ -920,7 +920,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         sender.Options.AllowGroup = false;
 
@@ -930,7 +930,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.Invite(sender, receiver);
@@ -952,7 +952,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -961,7 +961,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         receiver.Options.AllowGroup = false;
 
@@ -984,7 +984,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -993,7 +993,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var other = MockAisling.Create(
@@ -1002,7 +1002,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Put receiver in a group
@@ -1025,7 +1025,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1034,7 +1034,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var target = MockAisling.Create(
@@ -1043,7 +1043,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1073,7 +1073,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1082,7 +1082,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var target = MockAisling.Create(
@@ -1091,7 +1091,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1118,7 +1118,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1127,7 +1127,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -1136,7 +1136,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1164,7 +1164,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1173,7 +1173,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var third = MockAisling.Create(
@@ -1182,7 +1182,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1206,7 +1206,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1215,7 +1215,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         receiver.IgnoreList.Add("Sender");
@@ -1239,7 +1239,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1248,7 +1248,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var other = MockAisling.Create(
@@ -1257,7 +1257,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var otherMember = MockAisling.Create(
@@ -1266,7 +1266,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1292,7 +1292,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1301,7 +1301,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.Invite(sender, receiver);
@@ -1333,7 +1333,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member1 = MockAisling.Create(
@@ -1342,7 +1342,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member2 = MockAisling.Create(
@@ -1351,7 +1351,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Leader invites member1, creating a group
@@ -1379,7 +1379,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1388,7 +1388,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // No invite was sent — accept should do nothing
@@ -1412,7 +1412,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1421,7 +1421,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var other = MockAisling.Create(
@@ -1430,7 +1430,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Put receiver in another group
@@ -1461,7 +1461,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member = MockAisling.Create(
@@ -1470,7 +1470,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         MockAisling.Create(
@@ -1479,7 +1479,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(leader, member);
@@ -1494,7 +1494,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var member2 = MockAisling.Create(
@@ -1503,7 +1503,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var target2 = MockAisling.Create(
@@ -1512,7 +1512,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Create a new group service to get fresh state
@@ -1540,7 +1540,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1549,7 +1549,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         receiver.GroupBox = new GroupBox
@@ -1582,7 +1582,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1591,7 +1591,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1600,7 +1600,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Give receiver a group so RequestToJoin can be sent, then disband
@@ -1614,7 +1614,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver2 = MockAisling.Create(
@@ -1623,7 +1623,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var rcvPartner = MockAisling.Create(
@@ -1632,7 +1632,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // We need receiver2 to have a group for the request to be accepted
@@ -1678,7 +1678,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1687,7 +1687,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1696,7 +1696,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var groupService = MockGroupService.Create();
@@ -1723,7 +1723,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1732,7 +1732,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.AcceptRequestToJoin(sender, receiver);
@@ -1751,7 +1751,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1760,7 +1760,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1769,7 +1769,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var senderPartner = MockAisling.Create(
@@ -1778,7 +1778,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var groupService = MockGroupService.Create();
@@ -1806,7 +1806,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1815,7 +1815,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1824,7 +1824,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var groupService = MockGroupService.Create();
@@ -1852,7 +1852,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1861,7 +1861,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1870,7 +1870,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         sender.GroupBox = new GroupBox
@@ -1906,7 +1906,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1915,7 +1915,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1924,7 +1924,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(receiver, partner);
@@ -1946,7 +1946,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         sender.Options.AllowGroup = false;
 
@@ -1956,7 +1956,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -1965,7 +1965,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(receiver, partner);
@@ -1987,7 +1987,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -1996,7 +1996,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         receiver.Options.AllowGroup = false;
 
@@ -2017,7 +2017,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.RequestToJoin(sender, sender);
@@ -2037,7 +2037,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var senderPartner = MockAisling.Create(
@@ -2046,7 +2046,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2055,7 +2055,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2064,7 +2064,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(sender, senderPartner);
@@ -2087,7 +2087,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2096,7 +2096,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2105,7 +2105,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(receiver, partner);
@@ -2128,7 +2128,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2137,7 +2137,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2180,7 +2180,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2189,7 +2189,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2198,7 +2198,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         FormGroup(receiver, partner);
@@ -2223,7 +2223,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2232,7 +2232,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         GroupService.RequestToJoin(sender, receiver);
@@ -2254,7 +2254,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2263,7 +2263,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Invite creates a pending invite entry
@@ -2284,7 +2284,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2293,7 +2293,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         // Give receiver a group so RequestToJoin path is used
@@ -2303,7 +2303,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
         FormGroup(receiver, partner);
 
@@ -2325,7 +2325,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(
@@ -2334,7 +2334,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var requestType = GroupService.DetermineRequestType(sender, receiver);
@@ -2423,7 +2423,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2484,7 +2484,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2493,7 +2493,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         receiver.GroupBox = new GroupBox
@@ -2540,7 +2540,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var partner = MockAisling.Create(
@@ -2549,7 +2549,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         receiver.GroupBox = new GroupBox
@@ -2585,7 +2585,7 @@ public sealed class GroupServiceTests
             setup: a =>
             {
                 a.Options.AllowGroup = true;
-                a.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                a.UserStatSheet.SetBaseClass(BaseClass.Lancer);
             });
 
         var receiver = MockAisling.Create(

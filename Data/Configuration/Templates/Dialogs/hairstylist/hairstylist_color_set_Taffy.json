@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Taffy" } },
+  "templateKey": "hairstylist_color_set_Taffy",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

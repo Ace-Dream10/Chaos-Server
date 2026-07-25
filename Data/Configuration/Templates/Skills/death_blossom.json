@@ -1,0 +1,31 @@
+{
+  "templateKey": "death_blossom",
+  "name": "Death Blossom",
+  "description": "Unleash a devastating whirlwind striking all nearby enemies.",
+  "panelSprite": 50,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 6, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 60,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "shape": "allAround",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Stab",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

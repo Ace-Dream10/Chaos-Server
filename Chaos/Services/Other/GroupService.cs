@@ -354,7 +354,7 @@ public sealed class GroupService : IGroupService
         {
             var classLimit = sender.UserStatSheet.BaseClass switch
             {
-                BaseClass.Guardian => receiver.GroupBox.MaxWarriors,
+                BaseClass.Lancer => receiver.GroupBox.MaxWarriors,
                 BaseClass.Sorcerer  => receiver.GroupBox.MaxWizards,
                 BaseClass.WeaponMaster   => receiver.GroupBox.MaxRogues,
                 BaseClass.Mystic  => receiver.GroupBox.MaxPriests,

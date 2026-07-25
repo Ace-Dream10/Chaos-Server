@@ -20,7 +20,7 @@ public class SetClassScript : DialogScriptBase
         switch (Subject.Template.TemplateKey.ToLower())
         {
             case "class_selector_set_guardian":
-                source.UserStatSheet.SetBaseClass(BaseClass.Guardian);
+                source.UserStatSheet.SetBaseClass(BaseClass.Lancer);
                 source.UserStatSheet.SetAdvClass(AdvClass.None);
 
                 break;

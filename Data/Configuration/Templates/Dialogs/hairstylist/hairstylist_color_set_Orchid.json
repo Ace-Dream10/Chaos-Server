@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setHairColor"],
+  "scriptVars": { "setHairColor": { "hairColor": "Orchid" } },
+  "templateKey": "hairstylist_color_set_Orchid",
+  "text": "Your hair color has been updated!",
+  "type": "Normal"
+}

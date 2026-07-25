@@ -1120,7 +1120,7 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                         MinLevel = target.GroupBox.MinLevel,
                         MaxLevel = target.GroupBox.MaxLevel,
                         MaxWarriors = target.GroupBox.MaxWarriors,
-                        CurrentWarriors = classCounts[(int)BaseClass.Guardian],
+                        CurrentWarriors = classCounts[(int)BaseClass.Lancer],
                         MaxWizards = target.GroupBox.MaxWizards,
                         CurrentWizards = classCounts[(int)BaseClass.Sorcerer],
                         MaxRogues = target.GroupBox.MaxRogues,

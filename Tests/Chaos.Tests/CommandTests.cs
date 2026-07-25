@@ -1313,7 +1313,7 @@ public sealed class CommandTests
         aisling.UserStatSheet
                .BaseClass
                .Should()
-               .Be(BaseClass.Guardian);
+               .Be(BaseClass.Lancer);
 
         var clientMock = Mock.Get(aisling.Client);
 
