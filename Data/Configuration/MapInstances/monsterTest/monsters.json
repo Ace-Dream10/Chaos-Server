@@ -4,15 +4,31 @@
     "extraLootTableKeys": [],
     "extraScriptKeys": [],
     "intervalSecs": 30,
-    "intervalVariancePct": 50,
-    "maxAmount": 10,
-    "maxPerSpawn": 3,
+    "intervalVariancePct": 20,
+    "maxAmount": 15,
+    "maxPerSpawn": 6,
     "monsterTemplateKey": "common_rat",
     "spawnArea": {
       "Top": 31,
       "Left": 9,
       "Width": 8,
       "Height": 5
+    }
+  },
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 30,
+    "intervalVariancePct": 20,
+    "maxAmount": 15,
+    "maxPerSpawn": 5,
+    "monsterTemplateKey": "forest_bee",
+    "spawnArea": {
+      "Top": 30,
+      "Left": 52,
+      "Width": 6,
+      "Height": 8
     }
   }
 ]

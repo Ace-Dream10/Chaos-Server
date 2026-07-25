@@ -18,6 +18,10 @@ public class MoveToTargetScript : MonsterScriptBase
     {
         base.Update(delta);
 
+        //frozen by Stasis - don't move
+        if (Subject.Trackers.Tags.ContainsKey("stasis"))
+            return;
+
         if ((Target == null) || !ShouldMove)
             return;
 

@@ -1,0 +1,32 @@
+{
+  "aggroRange": 5,
+  "assailIntervalMs": 1000,
+  "expReward": 55,
+  "moveIntervalMs": 800,
+  "name": "Forest Bee",
+  "scriptKeys": [
+    "default"
+  ],
+  "scriptVars": {},
+  "skillIntervalMs": 1500,
+  "skillTemplateKeys": [
+    "assail"
+  ],
+  "spellIntervalMs": 10000,
+  "spellTemplateKeys": [],
+  "sprite": 1,
+  "statSheet": {
+    "level": 4,
+    "ac": 60,
+    "maximumHp": 1200,
+    "maximumMp": 0,
+    "str": 2,
+    "dex": 5,
+    "int": 1,
+    "wis": 1,
+    "con": 2
+  },
+  "templateKey": "forest_bee",
+  "type": "Normal",
+  "wanderIntervalMs": 1000
+}

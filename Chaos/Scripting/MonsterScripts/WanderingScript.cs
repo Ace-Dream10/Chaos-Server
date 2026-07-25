@@ -17,6 +17,10 @@ public class WanderingScript : MonsterScriptBase
     {
         base.Update(delta);
 
+        //frozen by Stasis - don't wander
+        if (Subject.Trackers.Tags.ContainsKey("stasis"))
+            return;
+
         if ((Target != null) || !ShouldWander)
             return;
 

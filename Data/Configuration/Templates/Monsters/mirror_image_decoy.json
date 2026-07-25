@@ -1,0 +1,35 @@
+{
+  "aggroRange": -1,
+  "assailIntervalMs": 0,
+  "expReward": 0,
+  "lootTableKeys": [],
+  "maxGoldDrop": 0,
+  "minGoldDrop": 0,
+  "moveIntervalMs": 0,
+  "name": "Mirror Image",
+  "scriptKeys": ["death", "decoyExpiration"],
+  "scriptVars": {
+    "decoyExpiration": {
+      "durationMs": 2500
+    }
+  },
+  "skillIntervalMs": 0,
+  "skillTemplateKeys": [],
+  "spellIntervalMs": 0,
+  "spellTemplateKeys": [],
+  "sprite": 32,
+  "statSheet": {
+    "level": 1,
+    "ac": 100,
+    "maximumHp": 1,
+    "maximumMp": 0,
+    "con": 1,
+    "dex": 1,
+    "int": 1,
+    "str": 1,
+    "wis": 1
+  },
+  "templateKey": "mirror_image_decoy",
+  "type": "WalkThrough",
+  "wanderIntervalMs": 0
+}

@@ -17,8 +17,8 @@
     "statSheet": {
         "level": 1,
         "ac": 50,
-        "maximumHp": 100,
-        "maximumMp": 100,
+        "maximumHp": 300,
+        "maximumMp": 300,
         "con": 2,
         "dex": 1,
         "int": 1,

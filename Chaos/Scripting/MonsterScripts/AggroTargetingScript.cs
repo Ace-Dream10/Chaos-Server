@@ -40,6 +40,10 @@ public class AggroTargetingScript : MonsterScriptBase
     {
         base.Update(delta);
 
+        //frozen by Stasis - don't acquire or hold a target
+        if (Subject.Trackers.Tags.ContainsKey("stasis"))
+            return;
+
         TargetUpdateTimer.Update(delta);
 
         if ((Target != null) && (!Target.IsAlive || !Target.OnSameMapAs(Subject)))

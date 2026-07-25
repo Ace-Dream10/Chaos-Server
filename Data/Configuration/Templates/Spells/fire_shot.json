@@ -1,0 +1,25 @@
+{
+  "templateKey": "fire_shot",
+  "name": "Fire Shot",
+  "description": "Loose a flaming arrow at your target.",
+  "panelSprite": 25,
+  "spellType": "Targeted",
+  "cooldownMs": 500,
+  "castLines": 0,
+  "advClass": "Archer",
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 40,
+      "element": "Fire",
+      "damageStat": "dex",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 8,
+      "bodyAnimation": "HeavyBowShot",
+      "animation": { "targetAnimation": 322, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

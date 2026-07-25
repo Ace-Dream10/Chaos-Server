@@ -1,0 +1,25 @@
+{
+  "templateKey": "mirror_image",
+  "name": "Decoy",
+  "description": "Summon a decoy that draws nearby enemies for a few seconds.",
+  "panelSprite": 74,
+  "cooldownMs": 15000,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["mirrorImage"],
+  "scriptVars": {
+    "mirrorImage": {
+      "durationMs": 2500,
+      "aggroRange": 8,
+      "animation": { "targetAnimation": 109, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}
