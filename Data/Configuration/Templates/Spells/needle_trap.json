@@ -23,7 +23,7 @@
   },
   "prompt": "",
   "spellType": "NoTarget",
-  "class": "Rogue",
+  "class": "WeaponMaster",
   "description": "Lays a trap on the ground which when stepped on by an enemy will deal a small amount of pure damage.",
   "level": 5,
   "name": "Needle Trap",

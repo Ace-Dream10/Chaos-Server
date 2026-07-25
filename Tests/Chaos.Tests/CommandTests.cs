@@ -1306,14 +1306,14 @@ public sealed class CommandTests
     {
         var command = new SetClassCommand();
         var aisling = MockAisling.Create();
-        var args = new ArgumentCollection("Warrior");
+        var args = new ArgumentCollection("Guardian");
 
         await command.ExecuteAsync(aisling, args);
 
         aisling.UserStatSheet
                .BaseClass
                .Should()
-               .Be(BaseClass.Warrior);
+               .Be(BaseClass.Guardian);
 
         var clientMock = Mock.Get(aisling.Client);
 
@@ -2093,7 +2093,8 @@ public sealed class CommandTests
     {
         var spellFactoryMock = new Mock<ISpellFactory>();
         var skillFactoryMock = new Mock<ISkillFactory>();
-        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object);
+        var clientRegistryMock = new Mock<IClientRegistry<IChaosWorldClient>>();
+        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object, clientRegistryMock.Object);
         var aisling = MockAisling.Create();
         var args = new ArgumentCollection();
 
@@ -2107,7 +2108,8 @@ public sealed class CommandTests
     {
         var spellFactoryMock = new Mock<ISpellFactory>();
         var skillFactoryMock = new Mock<ISkillFactory>();
-        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object);
+        var clientRegistryMock = new Mock<IClientRegistry<IChaosWorldClient>>();
+        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object, clientRegistryMock.Object);
         var aisling = MockAisling.Create();
         var args = new ArgumentCollection("spell");
 
@@ -2126,7 +2128,8 @@ public sealed class CommandTests
                         .Returns(spell);
 
         var skillFactoryMock = new Mock<ISkillFactory>();
-        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object);
+        var clientRegistryMock = new Mock<IClientRegistry<IChaosWorldClient>>();
+        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object, clientRegistryMock.Object);
         var aisling = MockAisling.Create();
         var args = new ArgumentCollection("spell testSpell");
 
@@ -2145,7 +2148,8 @@ public sealed class CommandTests
                         .Returns(skill);
 
         var spellFactoryMock = new Mock<ISpellFactory>();
-        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object);
+        var clientRegistryMock = new Mock<IClientRegistry<IChaosWorldClient>>();
+        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object, clientRegistryMock.Object);
         var aisling = MockAisling.Create();
         var args = new ArgumentCollection("skill testSkill");
 
@@ -2159,7 +2163,8 @@ public sealed class CommandTests
     {
         var spellFactoryMock = new Mock<ISpellFactory>();
         var skillFactoryMock = new Mock<ISkillFactory>();
-        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object);
+        var clientRegistryMock = new Mock<IClientRegistry<IChaosWorldClient>>();
+        var command = new LearnCommand(spellFactoryMock.Object, skillFactoryMock.Object, clientRegistryMock.Object);
         var aisling = MockAisling.Create();
         var args = new ArgumentCollection("unknown testKey");
 

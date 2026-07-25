@@ -102,7 +102,7 @@ public sealed record UserStatSheet : StatSheet
             _maximumMp = 50,
             _level = 1,
             _master = false,
-            _baseClass = BaseClass.Peasant,
+            _baseClass = BaseClass.Unassigned,
             _advClass = AdvClass.None
         };
 

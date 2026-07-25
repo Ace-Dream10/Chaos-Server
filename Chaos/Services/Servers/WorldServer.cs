@@ -1120,15 +1120,15 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                         MinLevel = target.GroupBox.MinLevel,
                         MaxLevel = target.GroupBox.MaxLevel,
                         MaxWarriors = target.GroupBox.MaxWarriors,
-                        CurrentWarriors = classCounts[(int)BaseClass.Warrior],
+                        CurrentWarriors = classCounts[(int)BaseClass.Guardian],
                         MaxWizards = target.GroupBox.MaxWizards,
-                        CurrentWizards = classCounts[(int)BaseClass.Wizard],
+                        CurrentWizards = classCounts[(int)BaseClass.Sorcerer],
                         MaxRogues = target.GroupBox.MaxRogues,
-                        CurrentRogues = classCounts[(int)BaseClass.Rogue],
+                        CurrentRogues = classCounts[(int)BaseClass.WeaponMaster],
                         MaxPriests = target.GroupBox.MaxPriests,
-                        CurrentPriests = classCounts[(int)BaseClass.Priest],
+                        CurrentPriests = classCounts[(int)BaseClass.Mystic],
                         MaxMonks = target.GroupBox.MaxMonks,
-                        CurrentMonks = classCounts[(int)BaseClass.Monk]
+                        CurrentMonks = classCounts[(int)BaseClass.MartialArtist]
                     };
 
                     client.SendDisplayGroupInvite(ServerGroupSwitch.ShowGroupBox, args.TargetName, groupBoxInfo);

@@ -72,7 +72,7 @@ public sealed class UserStatSheetTests
 
         sheet.BaseClass
              .Should()
-             .Be(BaseClass.Peasant);
+             .Be(BaseClass.Unassigned);
 
         sheet.AdvClass
              .Should()
@@ -573,11 +573,11 @@ public sealed class UserStatSheetTests
     {
         var sheet = new UserStatSheet();
 
-        sheet.SetBaseClass(BaseClass.Warrior);
+        sheet.SetBaseClass(BaseClass.Guardian);
 
         sheet.BaseClass
              .Should()
-             .Be(BaseClass.Warrior);
+             .Be(BaseClass.Guardian);
     }
 
     [Test]
@@ -585,11 +585,11 @@ public sealed class UserStatSheetTests
     {
         var sheet = new UserStatSheet();
 
-        sheet.SetAdvClass(AdvClass.Gladiator);
+        sheet.SetAdvClass(AdvClass.Assassin);
 
         sheet.AdvClass
              .Should()
-             .Be(AdvClass.Gladiator);
+             .Be(AdvClass.Assassin);
     }
 
     [Test]

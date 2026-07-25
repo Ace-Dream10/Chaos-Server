@@ -16,7 +16,7 @@ public sealed class ItemMetaTests
         var node = new ItemMetaNode("Sword")
         {
             Level = 10,
-            Class = BaseClass.Warrior,
+            Class = BaseClass.Guardian,
             Weight = 5,
             Category = "weapon",
             Description = "desc"
@@ -44,7 +44,7 @@ public sealed class ItemMetaTests
 
         reader.ReadString16()
               .Should()
-              .Be(((int)BaseClass.Warrior).ToString());
+              .Be(((int)BaseClass.Guardian).ToString());
 
         reader.ReadString16()
               .Should()
@@ -150,7 +150,7 @@ public sealed class ItemMetaTests
                 new ItemMetaNode($"Item{i}")
                 {
                     Level = i,
-                    Class = BaseClass.Peasant,
+                    Class = BaseClass.Unassigned,
                     Weight = 1
                 });
 
@@ -176,7 +176,7 @@ public sealed class ItemMetaTests
                 new ItemMetaNode($"Item{i}")
                 {
                     Level = i,
-                    Class = BaseClass.Peasant,
+                    Class = BaseClass.Unassigned,
                     Weight = i
                 });
 

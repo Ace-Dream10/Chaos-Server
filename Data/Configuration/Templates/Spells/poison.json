@@ -18,7 +18,7 @@
     }
   },
   "spellType": "Targeted",
-  "class": "Wizard",
+  "class": "Sorcerer",
   "description": "Applies a poison effect to your target, and all hostiles around that target.",
   "level": 10,
   "name": "Poison",

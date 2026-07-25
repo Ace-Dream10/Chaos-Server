@@ -15,7 +15,7 @@ public sealed class AbilityMetaDataTests
     public void AbilityMetaNode_Serialize_WithNullPrereqs_UsesDefaults()
     {
         // All optional properties null — covers ?? "0", ?? 0, ?? string.Empty branches
-        var node = new AbilityMetaNode("BasicAttack", true, BaseClass.Warrior)
+        var node = new AbilityMetaNode("BasicAttack", true, BaseClass.Guardian)
         {
             Level = 1,
             AbilityLevel = 0,
@@ -72,7 +72,7 @@ public sealed class AbilityMetaDataTests
     [Test]
     public void AbilityMetaNode_Serialize_WithPrereqs_WritesValues()
     {
-        var node = new AbilityMetaNode("AdvancedSlash", true, BaseClass.Warrior)
+        var node = new AbilityMetaNode("AdvancedSlash", true, BaseClass.Guardian)
         {
             Level = 20,
             AbilityLevel = 5,
@@ -135,7 +135,7 @@ public sealed class AbilityMetaDataTests
         var md = new AbilityMetaData("SClass2");
 
         md.AddNode(
-            new AbilityMetaNode("Assault", true, BaseClass.Warrior)
+            new AbilityMetaNode("Assault", true, BaseClass.Guardian)
             {
                 Level = 5,
                 AbilityLevel = 1,
@@ -159,7 +159,7 @@ public sealed class AbilityMetaDataTests
         var md = new AbilityMetaData("SClass3");
 
         md.AddNode(
-            new AbilityMetaNode("IceBlast", false, BaseClass.Wizard)
+            new AbilityMetaNode("IceBlast", false, BaseClass.Sorcerer)
             {
                 Level = 10,
                 AbilityLevel = 3,
@@ -183,7 +183,7 @@ public sealed class AbilityMetaDataTests
         var md = new AbilityMetaData("SClass1");
 
         md.AddNode(
-            new AbilityMetaNode("Slash", true, BaseClass.Warrior)
+            new AbilityMetaNode("Slash", true, BaseClass.Guardian)
             {
                 Level = 1,
                 AbilityLevel = 1,
@@ -191,7 +191,7 @@ public sealed class AbilityMetaDataTests
             });
 
         md.AddNode(
-            new AbilityMetaNode("Fireball", false, BaseClass.Warrior)
+            new AbilityMetaNode("Fireball", false, BaseClass.Guardian)
             {
                 Level = 3,
                 AbilityLevel = 2,

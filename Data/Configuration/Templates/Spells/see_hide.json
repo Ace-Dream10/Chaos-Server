@@ -18,7 +18,7 @@
     }
   },
   "spellType": "NoTarget",
-  "class": "Rogue",
+  "class": "WeaponMaster",
   "description": "Allows you to see hidden creatures, items, etc",
   "level": 25,
   "name": "See Hide",

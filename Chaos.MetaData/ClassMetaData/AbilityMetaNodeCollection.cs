@@ -28,8 +28,8 @@ public sealed class AbilityMetaNodeCollection : MetaNodeCollection<AbilityMetaNo
             IEnumerable<AbilityMetaNode> nodes = nodeGroup.Value;
 
             // anyone can learn peasant skills
-            if (nodeGroup.Key is not BaseClass.Peasant)
-                nodes = nodesByClass.TryGetValue(BaseClass.Peasant, out var peasantNodes) ? nodes.Concat(peasantNodes) : nodes;
+            if (nodeGroup.Key is not BaseClass.Unassigned)
+                nodes = nodesByClass.TryGetValue(BaseClass.Unassigned, out var peasantNodes) ? nodes.Concat(peasantNodes) : nodes;
 
             foreach (var node in nodes)
                 metadata.AddNode(node);

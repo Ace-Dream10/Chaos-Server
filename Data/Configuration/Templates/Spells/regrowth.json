@@ -22,7 +22,7 @@
     }
   },
   "spellType": "Targeted",
-  "class": "Priest",
+  "class": "Mystic",
   "description": "Applies a regenerative effect to your target, and all friendlies around that target.",
   "level": 10,
   "name": "Regrowth",

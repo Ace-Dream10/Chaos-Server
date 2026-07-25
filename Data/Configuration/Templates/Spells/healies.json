@@ -19,7 +19,7 @@
     }
   },
   "spellType": "Targeted",
-  "class": "Priest",
+  "class": "Mystic",
   "description": "Applies a small heal effect to your target, and all friendlies around that target.",
   "level": 10,
   "name": "healies",

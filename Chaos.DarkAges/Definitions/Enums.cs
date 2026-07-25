@@ -679,12 +679,15 @@ public enum StatUpdateType : byte
 /// </summary>
 public enum BaseClass : byte
 {
-    Peasant = 0,
-    Warrior = 1,
-    Rogue = 2,
-    Wizard = 3,
-    Priest = 4,
-    Monk = 5,
+    Unassigned = 0,
+    Guardian = 1,
+    WeaponMaster = 2,
+    Sorcerer = 3,
+    Mystic = 4,
+    MartialArtist = 5,
+    Recruit = 6,
+    Strider = 7,
+    Magus = 8,
     Diacht = 255
 }
 
@@ -694,8 +697,8 @@ public enum BaseClass : byte
 public enum AdvClass : byte
 {
     None = 0,
-    Gladiator = 1,
-    Druid = 2,
+    Assassin = 1,
+    Trickster = 2,
     Archer = 3,
     Bard = 4,
     Summoner = 5

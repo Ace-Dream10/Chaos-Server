@@ -486,7 +486,7 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     ///     </c>
     /// </returns>
     public bool HasClass(BaseClass @class)
-        => @class is BaseClass.Peasant
+        => @class is BaseClass.Unassigned
            || UserStatSheet.BaseClass switch
            {
                //Diacht "is" all classes

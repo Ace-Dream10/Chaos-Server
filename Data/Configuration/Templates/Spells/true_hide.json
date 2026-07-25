@@ -18,7 +18,7 @@
     }
   },
   "spellType": "NoTarget",
-  "class": "Rogue",
+  "class": "WeaponMaster",
   "description": "Shrouds you in darkness, hiding you from sight",
   "level": 35,
   "name": "True Hide",

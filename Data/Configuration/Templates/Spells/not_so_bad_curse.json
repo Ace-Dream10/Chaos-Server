@@ -18,7 +18,7 @@
     }
   },
   "spellType": "Targeted",
-  "class": "Priest",
+  "class": "Mystic",
   "description": "Applies a minor curse effect to your target that does absolutely nothing.",
   "level": 10,
   "name": "Not So Bad Curse",

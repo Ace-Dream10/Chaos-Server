@@ -26,7 +26,7 @@
     },
     "prompt": "",
     "spellType": "NoTarget",
-    "class": "Wizard",
+    "class": "Sorcerer",
     "description": "A powerful spell that deals damage in a long ranged cone shape in the direction you are facing.",
     "level": 5,
     "name": "Fire Breath",

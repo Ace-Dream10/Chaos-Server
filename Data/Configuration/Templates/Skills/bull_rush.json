@@ -17,7 +17,7 @@
       "wis": 1
     }
   },
-  "class": "Warrior",
+  "class": "Guardian",
   "cooldownMs": 10000,
   "description": "Charge forward up to 5 tiles, attacking the first enemy in your path.",
   "level": 1,

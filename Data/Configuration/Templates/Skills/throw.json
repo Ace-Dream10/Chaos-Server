@@ -17,7 +17,7 @@
       "wis": 1
     }
   },
-  "class": "Monk",
+  "class": "MartialArtist",
   "cooldownMs": 15000,
   "description": "Throws the target 1 or 2 spaces.",
   "level": 10,

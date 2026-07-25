@@ -17,7 +17,7 @@
       "wis": 1
     }
   },
-  "class": "Monk",
+  "class": "MartialArtist",
   "cooldownMs": 15000,
   "description": "Teleports the user behind the target, or around the target is behind is occupied.",
   "level": 10,

@@ -14,19 +14,19 @@ public sealed class AbilityMetaNodeCollectionTests
         var coll = new AbilityMetaNodeCollection();
 
         coll.AddNode(
-            new AbilityMetaNode("Peasant Skill", true, BaseClass.Peasant)
+            new AbilityMetaNode("Peasant Skill", true, BaseClass.Unassigned)
             {
                 Level = 1
             });
 
         coll.AddNode(
-            new AbilityMetaNode("Warrior Skill", true, BaseClass.Warrior)
+            new AbilityMetaNode("Warrior Skill", true, BaseClass.Guardian)
             {
                 Level = 2
             });
 
         coll.AddNode(
-            new AbilityMetaNode("Wizard Spell", false, BaseClass.Wizard)
+            new AbilityMetaNode("Wizard Spell", false, BaseClass.Sorcerer)
             {
                 Level = 3
             });
@@ -50,19 +50,19 @@ public sealed class AbilityMetaNodeCollectionTests
         var coll = new AbilityMetaNodeCollection();
 
         coll.AddNode(
-            new AbilityMetaNode("Z-HighSpell-Warrior", false, BaseClass.Warrior)
+            new AbilityMetaNode("Z-HighSpell-Warrior", false, BaseClass.Guardian)
             {
                 Level = 10
             });
 
         coll.AddNode(
-            new AbilityMetaNode("A-LowSkill-Warrior", true, BaseClass.Warrior)
+            new AbilityMetaNode("A-LowSkill-Warrior", true, BaseClass.Guardian)
             {
                 Level = 1
             });
 
         coll.AddNode(
-            new AbilityMetaNode("M-MidSkill-Warrior", true, BaseClass.Warrior)
+            new AbilityMetaNode("M-MidSkill-Warrior", true, BaseClass.Guardian)
             {
                 Level = 5
             });
