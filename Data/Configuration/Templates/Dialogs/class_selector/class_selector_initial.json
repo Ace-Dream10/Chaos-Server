@@ -1,0 +1,21 @@
+{
+  "options": [
+    {
+      "dialogKey": "class_selector_recruit",
+      "optionText": "The Way of Steel (Recruit)"
+    },
+    {
+      "dialogKey": "class_selector_strider",
+      "optionText": "The Way of Shadows (Strider)"
+    },
+    {
+      "dialogKey": "class_selector_magus",
+      "optionText": "The Way of Magic (Magus)"
+    }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "class_selector_initial",
+  "text": "Welcome, traveler. Choose your path wisely — this decision will shape your destiny.",
+  "type": "Menu"
+}

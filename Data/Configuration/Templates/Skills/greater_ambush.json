@@ -1,0 +1,30 @@
+{
+  "learningRequirements": {
+    "itemRequirements": [
+      {
+        "amountRequired": 20,
+        "itemTemplateKey": "apple"
+      }
+    ],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredGold": 5000,
+    "requiredStats": {
+      "con": 1,
+      "dex": 2,
+      "int": 1,
+      "str": 1,
+      "wis": 1
+    }
+  },
+  "cooldownMs": 15000,
+  "description": "Teleports the user behind the first creature in their path, up to 8 tiles away, or around them if the space behind is occupied.",
+  "level": 10,
+  "name": "Greater Ambush",
+  "panelSprite": 42,
+  "scriptKeys": [
+    "greaterAmbush"
+  ],
+  "scriptVars": {},
+  "templateKey": "greater_ambush"
+}

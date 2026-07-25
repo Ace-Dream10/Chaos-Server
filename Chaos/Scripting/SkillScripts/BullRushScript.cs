@@ -27,6 +27,9 @@ public class BullRushScript : ConfigurableSkillScriptBase
         var source = context.Source;
         var map = context.TargetMap;
 
+        // Play jump/charge body animation at the start of the rush
+        source.AnimateBody(BodyAnimation.JumpAttack);
+
         var endPoint = source.DirectionalOffset(source.Direction, RushDistance);
 
         var points = source.GetDirectPath(endPoint)
@@ -67,6 +70,13 @@ public class BullRushScript : ConfigurableSkillScriptBase
 
                 return;
             }
+
+            // Trail animation and sound during the rush
+            if (Animation != null)
+                map.ShowAnimation(Animation.GetPointAnimation(point, source.Id));
+
+            if (RushSound.HasValue)
+                map.PlaySound(RushSound.Value, point);
 
             lastWalkablePoint = point;
         }
@@ -133,8 +143,15 @@ public class BullRushScript : ConfigurableSkillScriptBase
     /// </summary>
     public int RushDistance { get; init; } = 5;
 
-    /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.SoundAbilityComponent.ISoundComponentOptions.Sound" />
+    /// <summary>
+    ///     Sound played on hit
+    /// </summary>
     public byte? Sound { get; init; }
+
+    /// <summary>
+    ///     Sound played during the rush on each tile traversed (optional, separate from hit sound)
+    /// </summary>
+    public byte? RushSound { get; init; }
 
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.AnimationAbilityComponent.IAnimationComponentOptions.Animation" />
     public Animation? Animation { get; init; }

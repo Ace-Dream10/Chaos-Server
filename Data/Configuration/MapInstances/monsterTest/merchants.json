@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "class_selector",
+    "spawnPoint": "(33, 20)"
+  }
+]

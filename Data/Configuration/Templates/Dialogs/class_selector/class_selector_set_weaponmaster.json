@@ -1,0 +1,11 @@
+{
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": [
+    "setClass"
+  ],
+  "scriptVars": {},
+  "templateKey": "class_selector_set_weaponmaster",
+  "text": "Your path is chosen. May it serve you well.",
+  "type": "Normal"
+}

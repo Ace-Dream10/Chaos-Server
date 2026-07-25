@@ -1,0 +1,41 @@
+{
+  "castLines": 0,
+  "cooldownMs": 1500,
+  "learningRequirements": {
+    "itemRequirements": [
+      {
+        "amountRequired": 20,
+        "itemTemplateKey": "apple"
+      }
+    ],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredGold": 5000,
+    "requiredStats": {
+      "con": 1,
+      "dex": 2,
+      "int": 1,
+      "str": 1,
+      "wis": 1
+    }
+  },
+  "spellType": "Targeted",
+  "description": "Select a target within 8 tiles and teleport directly behind them.",
+  "level": 10,
+  "name": "Shadow Step",
+  "panelSprite": 43,
+  "scriptKeys": [
+    "shadowStep"
+  ],
+  "scriptVars": {
+    "shadowStep": {
+      "range": 8,
+      "sound": 3,
+      "animation": {
+        "targetAnimation": 2,
+        "animationSpeed": 100
+      }
+    }
+  },
+  "templateKey": "shadow_step"
+}

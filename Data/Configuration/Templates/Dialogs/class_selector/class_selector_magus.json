@@ -1,0 +1,25 @@
+{
+  "options": [
+    {
+      "dialogKey": "class_selector_set_sorcerer",
+      "optionText": "Sorcerer — Elemental destruction"
+    },
+    {
+      "dialogKey": "class_selector_set_mystic",
+      "optionText": "Mystic — Battlefield control and healing"
+    },
+    {
+      "dialogKey": "class_selector_set_bard",
+      "optionText": "Bard — Buffs and support"
+    },
+    {
+      "dialogKey": "class_selector_initial",
+      "optionText": "Go back"
+    }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "class_selector_magus",
+  "text": "The Way of Magic channels the forces of the world. Choose your discipline:",
+  "type": "Menu"
+}

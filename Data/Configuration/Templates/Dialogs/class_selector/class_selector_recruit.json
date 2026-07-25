@@ -1,0 +1,25 @@
+{
+  "options": [
+    {
+      "dialogKey": "class_selector_set_guardian",
+      "optionText": "Guardian — Defender of the front line"
+    },
+    {
+      "dialogKey": "class_selector_set_martialartist",
+      "optionText": "Martial Artist — Speed and precision"
+    },
+    {
+      "dialogKey": "class_selector_set_weaponmaster",
+      "optionText": "Weapon Master — Master of all arms"
+    },
+    {
+      "dialogKey": "class_selector_initial",
+      "optionText": "Go back"
+    }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "class_selector_recruit",
+  "text": "The Way of Steel focuses on martial prowess and resilience. Choose your discipline:",
+  "type": "Menu"
+}
