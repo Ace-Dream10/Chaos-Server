@@ -248,6 +248,7 @@ ModelManifest.xml
 PATH.txt
 Data/Saved/
 Data/SavedBackups/
+Data/Configuration/Access/**/password.txt
 Tests/Reports/CoverageReport/
 
 # Logs
