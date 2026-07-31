@@ -9,9 +9,12 @@ namespace Chaos.Scripting.SkillScripts;
 /// <summary>
 ///     Reaper's Kiss is a passive - the actual heal-on-kill logic lives in
 ///     <see cref="Chaos.Scripting.AislingScripts.ReapersKissScript" />, which runs automatically for any Assassin
-///     who has learned this skill. This is just the placeholder activation for the skill pane entry itself.
+///     who has learned this skill. This is just the placeholder activation for the skill pane entry itself. Has no
+///     configurable variables, so it uses the plain <see cref="SkillScriptBase" /> rather than
+///     <see cref="ConfigurableSkillScriptBase" /> - the latter requires a matching scriptVars entry and throws if
+///     one isn't found.
 /// </summary>
-public class ReapersKissSkillScript : ConfigurableSkillScriptBase
+public class ReapersKissSkillScript : SkillScriptBase
 {
     /// <inheritdoc />
     public ReapersKissSkillScript(Skill subject)
