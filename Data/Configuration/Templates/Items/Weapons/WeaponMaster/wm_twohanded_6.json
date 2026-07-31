@@ -1,0 +1,21 @@
+{
+  "templateKey": "wm_twohanded_6",
+  "name": "Two-Handed FL6",
+  "description": "A Two-Handed weapon used for Weapon Master visual testing.",
+  "category": "2h wep",
+  "panelSprite": 2038,
+  "displaySprite": 145,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

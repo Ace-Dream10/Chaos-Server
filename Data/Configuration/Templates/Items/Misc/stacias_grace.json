@@ -1,0 +1,22 @@
+{
+  "templateKey": "stacias_grace",
+  "name": "Stacia's Grace",
+  "description": "A blessed scroll that revives a fallen ally. Stand in front of them and use it.",
+  "category": "consumable",
+  "panelSprite": 1,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 99,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "scriptKeys": ["revivalScroll"],
+  "scriptVars": {
+    "revivalScroll": {
+      "reviveHpPct": 25,
+      "sound": 15,
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 }
+    }
+  }
+}

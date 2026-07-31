@@ -1,0 +1,21 @@
+{
+  "templateKey": "lancer_wep_9",
+  "name": "Lancer Weapon 9",
+  "description": "A weapon used for Lancer visual testing.",
+  "category": "1h wep",
+  "panelSprite": 13404,
+  "displaySprite": 265,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

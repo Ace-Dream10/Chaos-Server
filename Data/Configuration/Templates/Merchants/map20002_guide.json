@@ -1,0 +1,11 @@
+{
+  "itemsForSale": [],
+  "itemsToBuy": [],
+  "name": "Guide",
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "map20002_guide_initial" } },
+  "skillsToTeach": [],
+  "spellsToTeach": [],
+  "sprite": 37,
+  "templateKey": "map20002_guide"
+}

@@ -14,24 +14,26 @@ using Chaos.Services.Servers.Options;
 
 namespace Chaos.Formulae.Damage;
 
-public class DefaultDamageFormula : IDamageFormula
+public class DefaultDamageFormula : IDamageFormula, IElementalDamageFormula
 {
     protected virtual ImmutableArray<ImmutableArray<decimal>> ElementalModifierLookup { get; } = new[]
     {
         // @formatter:off
         //mostly lifted from http://da-wizard.com/elements.html
+        //Lightning row/column is a local addition (no canonical source) - values are placeholder, tune as needed
         //                                                  D E F E N S E
-        //                         None,  Fire,  Water,  Wind,  Earth, Holy,  Darkness,  Wood,  Metal,  Undead
-        /*      None*/     new[] { 0.58m, 0.37m, 0.37m,  0.37m, 0.37m, 0.37m, 0.37m,     0.37m, 0.37m,  0.37m }.ToImmutableArray(),
-        /* O    Fire*/     new[] { 2.32m, 0.58m, 0.66m,  1.74m, 1.03m, 0.93m, 0.83m,     2.01m, 0.83m,  2.01m }.ToImmutableArray(),
-        /* F    Water*/    new[] { 2.32m, 1.74m, 0.58m,  1.03m, 0.66m, 0.93m, 0.83m,     0.58m, 1.74m,  0.93m }.ToImmutableArray(), 
-        /* F    Wind*/     new[] { 2.32m, 0.66m, 1.03m,  0.58m, 1.74m, 0.93m, 0.83m,     1.03m, 1.74m,  0.83m }.ToImmutableArray(),
-        /* E    Earth*/    new[] { 2.32m, 1.03m, 1.74m,  0.66m, 0.58m, 0.93m, 0.83m,     0.58m, 0.83m,  0.58m }.ToImmutableArray(),
-        /* N    Holy*/     new[] { 2.32m, 0.76m, 0.76m,  0.76m, 0.76m, 0.58m, 1.48m,     0.58m, 0.76m,  2.01m }.ToImmutableArray(),
-        /* S    Darkness*/ new[] { 2.32m, 1.25m, 1.25m,  1.25m, 1.25m, 1.48m, 0.58m,     1.48m, 0.58m,  0.58m }.ToImmutableArray(),
-        /* E    Wood*/     new[] { 2.32m, 0.58m, 0.76m,  1.03m, 1.74m, 0.93m, 0.83m,     0.58m, 1.03m,  0.83m }.ToImmutableArray(),
-        /*      Metal*/    new[] { 2.32m, 0.83m, 0.50m,  1.88m, 0.83m, 0.93m, 0.83m,     1.25m, 0.58m,  1.03m }.ToImmutableArray(),
-        /*      Undead*/   new[] { 2.32m, 0.50m, 0.83m,  0.83m, 1.88m, 0.93m, 0.83m,     0.58m, 0.76m,  0.58m }.ToImmutableArray() 
+        //                         None,  Fire,  Water,  Wind,  Earth, Holy,  Darkness,  Wood,  Metal,  Undead, Lightning
+        /*      None*/     new[] { 0.58m, 0.37m, 0.37m,  0.37m, 0.37m, 0.37m, 0.37m,     0.37m, 0.37m,  0.37m,  0.37m }.ToImmutableArray(),
+        /* O    Fire*/     new[] { 2.32m, 0.58m, 0.66m,  1.74m, 1.03m, 0.93m, 0.83m,     2.01m, 0.83m,  2.01m,  0.93m }.ToImmutableArray(),
+        /* F    Water*/    new[] { 2.32m, 1.74m, 0.58m,  1.03m, 0.66m, 0.93m, 0.83m,     0.58m, 1.74m,  0.93m,  0.66m }.ToImmutableArray(),
+        /* F    Wind*/     new[] { 2.32m, 0.66m, 1.03m,  0.58m, 1.74m, 0.93m, 0.83m,     1.03m, 1.74m,  0.83m,  1.03m }.ToImmutableArray(),
+        /* E    Earth*/    new[] { 2.32m, 1.03m, 1.74m,  0.66m, 0.58m, 0.93m, 0.83m,     0.58m, 0.83m,  0.58m,  1.74m }.ToImmutableArray(),
+        /* N    Holy*/     new[] { 2.32m, 0.76m, 0.76m,  0.76m, 0.76m, 0.58m, 1.48m,     0.58m, 0.76m,  2.01m,  0.93m }.ToImmutableArray(),
+        /* S    Darkness*/ new[] { 2.32m, 1.25m, 1.25m,  1.25m, 1.25m, 1.48m, 0.58m,     1.48m, 0.58m,  0.58m,  0.93m }.ToImmutableArray(),
+        /* E    Wood*/     new[] { 2.32m, 0.58m, 0.76m,  1.03m, 1.74m, 0.93m, 0.83m,     0.58m, 1.03m,  0.83m,  0.83m }.ToImmutableArray(),
+        /*      Metal*/    new[] { 2.32m, 0.83m, 0.50m,  1.88m, 0.83m, 0.93m, 0.83m,     1.25m, 0.58m,  1.03m,  1.74m }.ToImmutableArray(),
+        /*      Undead*/   new[] { 2.32m, 0.50m, 0.83m,  0.83m, 1.88m, 0.93m, 0.83m,     0.58m, 0.76m,  0.58m,  0.93m }.ToImmutableArray(),
+        /*      Lightning*/new[] { 2.32m, 0.93m, 2.01m,  1.03m, 0.66m, 0.93m, 0.93m,     0.83m, 1.74m,  0.93m,  0.58m }.ToImmutableArray()
         // @formatter:on
     }.ToImmutableArray();
 
@@ -57,6 +59,26 @@ public class DefaultDamageFormula : IDamageFormula
 
     protected virtual void ApplyElementalModifier(ref int damage, Element attackElement, Element defenseElement)
         => damage = Convert.ToInt32(damage * ElementalModifierLookup[(int)attackElement][(int)defenseElement]);
+
+    /// <inheritdoc />
+    public Element GetBestOffenseElement(Element defenseElement)
+    {
+        var best = Element.Fire;
+        var bestValue = ElementalModifierLookup[(int)best][(int)defenseElement];
+
+        for (var i = (int)Element.Fire + 1; i < ElementalModifierLookup.Length; i++)
+        {
+            var value = ElementalModifierLookup[i][(int)defenseElement];
+
+            if (value > bestValue)
+            {
+                bestValue = value;
+                best = (Element)i;
+            }
+        }
+
+        return best;
+    }
 
     protected virtual void ApplySkillSpellModifier(ref int damage, IScript source, Creature attacker)
     {

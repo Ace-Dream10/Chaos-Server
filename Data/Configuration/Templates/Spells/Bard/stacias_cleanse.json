@@ -1,0 +1,23 @@
+{
+  "templateKey": "stacias_cleanse",
+  "name": "Stacia's Cleanse",
+  "description": "Purge all negative effects from an ally with divine light.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 10000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasCleanse"],
+  "scriptVars": {
+    "staciasCleanse": {
+      "filter": "friendlyOnly, aliveOnly, othersOnly",
+      "range": 8,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

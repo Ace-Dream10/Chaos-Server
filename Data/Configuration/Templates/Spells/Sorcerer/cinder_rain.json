@@ -1,0 +1,30 @@
+{
+  "templateKey": "cinder_rain",
+  "name": "Cinder Rain",
+  "description": "Rain smoldering cinders across the area over 4 seconds, burning and slowing whatever they land on.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["randomAreaBarrage"],
+  "scriptVars": {
+    "randomAreaBarrage": {
+      "hitCount": 6,
+      "totalDurationMs": 4000,
+      "range": 3,
+      "baseDamage": 50,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Fire",
+      "slowDurationMs": 1500,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

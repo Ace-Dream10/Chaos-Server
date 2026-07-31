@@ -1,0 +1,29 @@
+{
+  "templateKey": "meteor",
+  "name": "Meteor",
+  "description": "Call down a meteor that slams into a target for massive fire damage after a brief delay.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 30000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["deadcenter"],
+  "scriptVars": {
+    "deadcenter": {
+      "baseDamage": 300,
+      "damageStat": "int",
+      "damageStatMultiplier": 6,
+      "element": "Fire",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 10,
+      "delayMs": 2000,
+      "manaCost": 0,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

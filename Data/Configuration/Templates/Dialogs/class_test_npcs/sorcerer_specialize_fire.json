@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_fire",
+  "text": "The flame consumes all. Your path is Pure Fire.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Fire",
+      "element2": null,
+      "specializationName": "Pure Fire (Pyromancer)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "fire_breath",
+        "flame_lance",
+        "ember_field",
+        "scorched_earth",
+        "meteor",
+        "infernal_rage",
+        "phoenix_rise",
+        "solar_flare"
+      ]
+    }
+  }
+}

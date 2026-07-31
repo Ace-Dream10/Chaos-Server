@@ -1,0 +1,11 @@
+{
+  "options": [
+    { "dialogKey": "appearance_changer_gender", "optionText": "Try Another" },
+    { "dialogKey": "appearance_changer_initial", "optionText": "Done" }
+  ],
+  "scriptKeys": ["setGender"],
+  "scriptVars": { "setGender": { "gender": "Male" } },
+  "templateKey": "appearance_changer_gender_male",
+  "text": "Your gender has been updated!",
+  "type": "Menu"
+}

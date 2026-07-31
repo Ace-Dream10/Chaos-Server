@@ -1,0 +1,31 @@
+{
+  "templateKey": "kick",
+  "name": "Kick",
+  "description": "A swift kick dealing moderate damage.",
+  "panelSprite": 74,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 2000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 40,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "shape": "front",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Kick",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

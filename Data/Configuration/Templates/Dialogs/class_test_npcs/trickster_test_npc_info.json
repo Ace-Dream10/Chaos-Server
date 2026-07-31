@@ -1,0 +1,8 @@
+{
+  "templateKey": "trickster_test_npc_info",
+  "text": "A chaos agent who controls the battlefield through tricks and deception.\n\nPrimary: DEX | Secondary: INT\n\nMP mechanic: MP generates passively from INT+DEX+gear - use Mana Burst to release it all as an AoE explosion.\n\nSkills:\nDecoy - summon mirror image that pulls aggro\nPoison Bomb - AoE poison DoT\nSmoke Bomb - 3x3 mobs lose target\nDelirium - mob attacks random nearby mobs\nBlackout - blind mob, stops attacking\nMana Burst - MP-scaled AoE explosion\nWeb Trap - place trap, first mob triggers root + slow\nPuppeteer - convert mob to fight other mobs for 8 seconds\nVanishing Act - 3-tile teleport + invisible for 3 seconds, drops all aggro",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "trickster_test_npc_initial", "optionText": "Back" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "templateKey": "gm_gear_lancer_menu",
+  "text": "What would you like to grant for Lancer?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "gm_gear_lancer_helm_m", "optionText": "Helms (Male)" },
+    { "dialogKey": "gm_gear_lancer_helm_f", "optionText": "Helms (Female)" },
+    { "dialogKey": "gm_gear_lancer_armor_m", "optionText": "Armor (Male)" },
+    { "dialogKey": "gm_gear_lancer_armor_f", "optionText": "Armor (Female)" },
+    { "dialogKey": "gm_gear_lancer_weapon", "optionText": "Weapons" },
+    { "dialogKey": "gm_gear_lancer_everything_m", "optionText": "Everything (Male)" },
+    { "dialogKey": "gm_gear_lancer_everything_f", "optionText": "Everything (Female)" },
+    { "dialogKey": "gm_gear_initial", "optionText": "Back" }
+  ]
+}

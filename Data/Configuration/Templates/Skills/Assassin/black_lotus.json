@@ -1,0 +1,29 @@
+{
+  "templateKey": "black_lotus",
+  "name": "Black Lotus",
+  "description": "Infect a target with deadly poison. If they die while infected, a dark explosion chains the poison to nearby enemies.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "BlackLotus",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 6,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 46, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

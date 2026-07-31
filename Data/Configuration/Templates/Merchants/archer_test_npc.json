@@ -1,0 +1,7 @@
+{
+  "templateKey": "archer_test_npc",
+  "name": "Archer Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "archer_test_npc_initial" } }
+}

@@ -1,0 +1,29 @@
+{
+  "templateKey": "death_mark",
+  "name": "Death Mark",
+  "description": "Mark a target for death. After 3 seconds the mark detonates for massive damage.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "DeathMark",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 6,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 374, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

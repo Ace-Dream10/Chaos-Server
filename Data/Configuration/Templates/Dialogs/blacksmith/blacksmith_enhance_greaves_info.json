@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "blacksmith_enhance_greaves_confirm", "optionText": "Enhance" }
+  ],
+  "scriptKeys": ["enhanceItemInfo"],
+  "scriptVars": {
+    "enhanceItemInfo": { "itemTemplateKey": "fl1_greaves", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_greaves_info",
+  "text": "{0}",
+  "type": "Menu"
+}

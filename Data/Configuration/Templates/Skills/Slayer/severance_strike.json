@@ -1,0 +1,31 @@
+{
+  "templateKey": "severance_strike",
+  "name": "Severance Strike",
+  "description": "A precise strike that marks the target with Severance.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 3000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["severanceStrike"],
+  "scriptVars": {
+    "severanceStrike": {
+      "baseDamage": 50,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "stacksToApply": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

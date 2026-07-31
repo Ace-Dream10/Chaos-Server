@@ -1,0 +1,7 @@
+{
+  "templateKey": "valkyrie_test_npc",
+  "name": "Valkyrie Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "valkyrie_test_npc_initial" } }
+}

@@ -1,0 +1,29 @@
+{
+  "templateKey": "delirium",
+  "name": "Delirium",
+  "description": "Fracture an enemy's mind, causing them to attack random nearby targets.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 3, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Delirium",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 6,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 46, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

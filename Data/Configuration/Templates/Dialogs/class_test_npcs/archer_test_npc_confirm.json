@@ -1,0 +1,19 @@
+{
+  "templateKey": "archer_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Archer",
+      "baseClass": "Strider",
+      "advClass": "Archer",
+      "skillTemplateKeys": ["bow_assail", "arrowstep", "focus"],
+      "spellTemplateKeys": ["arrow_shot", "fire_shot", "deadcenter", "trappers_net", "rain_of_arrows", "flechette", "precise_shot"],
+      "gearTemplateKeys": ["archer_wep_1", "rook_bow"],
+      "armorTemplateKeyMale": "fl1_armor_archer_m",
+      "armorTemplateKeyFemale": "fl1_armor_archer_f"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "options": [
+    { "dialogKey": "blacksmith_dye_blue", "optionText": "Dye Testing Sword Blue" },
+    { "dialogKey": "blacksmith_enhance_info", "optionText": "Enhance Testing Sword" },
+    { "dialogKey": "blacksmith_enhance_ring_info", "optionText": "Enhance Ring" },
+    { "dialogKey": "blacksmith_enhance_necklace_info", "optionText": "Enhance Necklace" },
+    { "dialogKey": "blacksmith_enhance_earrings_info", "optionText": "Enhance Earrings" },
+    { "dialogKey": "blacksmith_enhance_gauntlets_info", "optionText": "Enhance Gauntlets" },
+    { "dialogKey": "blacksmith_enhance_greaves_info", "optionText": "Enhance Greaves" },
+    { "dialogKey": "blacksmith_enhance_boots_info", "optionText": "Enhance Boots" },
+    { "dialogKey": "blacksmith_enhance_belt_info", "optionText": "Enhance Belt" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "blacksmith_initial",
+  "text": "I can work some color into your gear. What would you like?",
+  "type": "Menu"
+}

@@ -1,0 +1,30 @@
+{
+  "templateKey": "berserker_charge",
+  "name": "Berserker Charge",
+  "description": "Charge forward 2 tiles, crushing everything in your path.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["berserkerCharge"],
+  "scriptVars": {
+    "berserkerCharge": {
+      "rushDistance": 2,
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 164, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "templateKey": "fl4_helm_trickster_f",
+  "name": "FL4 Trickster Helm",
+  "description": "Placeholder helm for visual testing.",
+  "category": "f helm",
+  "panelSprite": 1107,
+  "displaySprite": 207,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Helmet",
+  "gender": "Female",
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

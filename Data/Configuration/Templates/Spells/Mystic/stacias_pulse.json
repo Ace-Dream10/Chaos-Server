@@ -1,0 +1,28 @@
+{
+  "templateKey": "stacias_pulse",
+  "name": "Stacia's Pulse",
+  "description": "Send forth a wave of divine energy that damages enemies and heals allies on both its journey and return.",
+  "panelSprite": 15,
+  "class": "Mystic",
+  "spellType": "NoTarget",
+  "cooldownMs": 12000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasPulse"],
+  "scriptVars": {
+    "staciasPulse": {
+      "range": 5,
+      "baseDamage": 60,
+      "baseHeal": 80,
+      "damageStat": "wis",
+      "damageStatMultiplier": 2,
+      "healStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 267, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

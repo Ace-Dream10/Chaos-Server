@@ -1,0 +1,27 @@
+{
+  "templateKey": "counter_strike",
+  "name": "Counter Strike",
+  "description": "Enter a defensive stance. The next attack against you is countered - negated and returned as a stunning blow.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "CounterStrike",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

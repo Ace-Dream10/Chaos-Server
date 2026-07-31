@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl10_boots",
+  "name": "FL10 Boots",
+  "description": "Placeholder boots for visual testing.",
+  "category": "boots",
+  "panelSprite": 1781,
+  "displaySprite": 8,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Boots",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

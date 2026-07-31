@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl10_armor_trickster_f",
+  "name": "FL10 Trickster Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "f armor",
+   "panelSprite": 13468,
+  "displaySprite": 377,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Female",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

@@ -1,0 +1,30 @@
+{
+  "templateKey": "flatten",
+  "name": "Flatten",
+  "description": "Bring your axe down with crushing force, stunning a single enemy.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 1, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Root",
+      "effectDurationOverride": "00:00:02.500",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

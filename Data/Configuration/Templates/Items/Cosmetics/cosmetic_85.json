@@ -1,0 +1,20 @@
+{
+  "templateKey": "cosmetic_85",
+  "name": "Cosmetic 85",
+  "description": "A cosmetic accessory.",
+  "category": "cosmetic",
+  "color": "Default",
+  "panelSprite": 85,
+  "displaySprite": 85,
+  "equipmentType": "Accessory",
+  "gender": "Unisex",
+  "isModifiable": true,
+  "level": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "weight": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

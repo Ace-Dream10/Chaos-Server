@@ -15,6 +15,14 @@ public class AttackingScript : MonsterScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
+        //blinded by Blackout - can't attack
+        if (Subject.Trackers.Tags.ContainsKey("blackout"))
+            return;
+
+        //asleep from Stacia's Lullaby - completely idle until woken by damage
+        if (Subject.Trackers.Tags.ContainsKey("asleep"))
+            return;
+
         //if target is invalid or we're not close enough
         //reset attack delay and return
         if (Target is not { IsAlive: true } || (Subject.ManhattanDistanceFrom(Target) != 1))

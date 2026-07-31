@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_trickster_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "trickster",
+
+      "weaponKeyPrefixes": ["trickster_wep"]
+    }
+  }
+}

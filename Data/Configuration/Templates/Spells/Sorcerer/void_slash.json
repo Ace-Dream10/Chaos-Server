@@ -1,0 +1,27 @@
+{
+  "templateKey": "void_slash",
+  "name": "Void Slash",
+  "description": "Rip a tear through space, teleporting forward and lashing out at whoever's waiting on the other side.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["voidSlash"],
+  "scriptVars": {
+    "voidSlash": {
+      "teleportDistance": 3,
+      "baseDamage": 80,
+      "damageStat": "int",
+      "damageStatMultiplier": 3,
+      "element": "Wind",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl8_armor_mystic_m",
+  "name": "FL8 Mystic Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "m armor",
+  "panelSprite": 1990,
+  "displaySprite": 298,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Male",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

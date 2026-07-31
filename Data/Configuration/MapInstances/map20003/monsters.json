@@ -1,0 +1,66 @@
+[
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 10,
+    "intervalVariancePct": 20,
+    "maxAmount": 10,
+    "maxPerSpawn": 4,
+    "monsterTemplateKey": "hooded_shade",
+    "spawnArea": {
+      "Top": 0,
+      "Left": 224,
+      "Width": 29,
+      "Height": 31
+    }
+  },
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 10,
+    "intervalVariancePct": 20,
+    "maxAmount": 10,
+    "maxPerSpawn": 4,
+    "monsterTemplateKey": "field_beaver",
+    "spawnArea": {
+      "Top": 0,
+      "Left": 148,
+      "Width": 40,
+      "Height": 30
+    }
+  },
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 10,
+    "intervalVariancePct": 20,
+    "maxAmount": 10,
+    "maxPerSpawn": 4,
+    "monsterTemplateKey": "violet_acolyte",
+    "spawnArea": {
+      "Top": 0,
+      "Left": 84,
+      "Width": 39,
+      "Height": 30
+    }
+  },
+  {
+    "blackList": [],
+    "extraLootTableKeys": [],
+    "extraScriptKeys": [],
+    "intervalSecs": 10,
+    "intervalVariancePct": 20,
+    "maxAmount": 10,
+    "maxPerSpawn": 4,
+    "monsterTemplateKey": "flame_wisp",
+    "spawnArea": {
+      "Top": 60,
+      "Left": 227,
+      "Width": 27,
+      "Height": 15
+    }
+  }
+]

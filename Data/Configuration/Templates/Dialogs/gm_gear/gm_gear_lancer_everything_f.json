@@ -1,0 +1,17 @@
+{
+  "templateKey": "gm_gear_lancer_everything_f",
+  "text": "Here you go - full kit.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "lancer",
+      "gender": "f",
+      "grantHelm": true,
+      "grantArmor": true,
+
+      "weaponKeyPrefixes": ["lancer_wep", "lancer_shield"]
+    }
+  }
+}

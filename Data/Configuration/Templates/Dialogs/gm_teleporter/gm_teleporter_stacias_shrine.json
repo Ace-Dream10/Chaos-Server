@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["teleportToLocation"],
+  "scriptVars": {
+    "teleportToLocation": { "mapInstanceId": "monsterTest", "x": 5, "y": 5 }
+  },
+  "templateKey": "gm_teleporter_stacias_shrine",
+  "text": "Teleporting to Stacia's Shrine (placeholder location)...",
+  "type": "Normal"
+}

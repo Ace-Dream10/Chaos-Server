@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_martial_artist_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "martial_artist",
+
+      "weaponKeyPrefixes": ["martial_artist_wep"]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "templateKey": "fl8_helm_archer_f",
+  "name": "FL8 Archer Helm",
+  "description": "Placeholder helm for visual testing.",
+  "category": "f helm",
+  "panelSprite": 2393,
+  "displaySprite": 251,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Helmet",
+  "gender": "Female",
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

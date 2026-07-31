@@ -32,6 +32,17 @@ public class ArrowstepScript : ConfigurableSkillScriptBase
             return;
         }
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            if (source is Aisling manaAisling)
+                manaAisling.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        if (source is Aisling attackerAisling)
+            attackerAisling.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var endPoint = source.DirectionalOffset(source.Direction, RushDistance);
@@ -87,6 +98,11 @@ public class ArrowstepScript : ConfigurableSkillScriptBase
     ///     The filter used to determine which creatures in the path block the dash
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this skill
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum number of tiles the caster will dash forward

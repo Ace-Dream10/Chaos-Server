@@ -13,6 +13,7 @@
     }
   },
   "spellType": "NoTarget",
+  "castLines": 0,
   "description": "Throwaway test spell for icon index 3.",
   "level": 1,
   "name": "Test Icon 3",

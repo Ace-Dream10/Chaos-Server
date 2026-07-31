@@ -1,0 +1,27 @@
+{
+  "templateKey": "stacias_vitae",
+  "name": "Stacia's Vitae",
+  "description": "Channel the goddess's life force in a single burst, mending a wounded ally instantly.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 6000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["heal"],
+  "scriptVars": {
+    "heal": {
+      "baseHeal": 200,
+      "healStat": "wis",
+      "healStatMultiplier": 4,
+      "filter": "friendlyOnly, aliveOnly",
+      "singleTarget": true,
+      "range": 8,
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

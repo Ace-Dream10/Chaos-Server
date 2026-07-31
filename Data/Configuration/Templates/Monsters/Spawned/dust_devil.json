@@ -1,0 +1,33 @@
+{
+    "aggroRange": 8,
+    "assailIntervalMs": 1000,
+    "expReward": 0,
+    "lootTableKeys": [],
+    "maxGoldDrop": 0,
+    "minGoldDrop": 0,
+    "moveIntervalMs": 1000,
+    "name": "Dust Devil",
+    "scriptKeys": ["death", "decoyExpiration", "shadowCloneAggro", "attacking", "moveToTarget"],
+    "scriptVars": {
+        "decoyExpiration": { "durationMs": 5000 }
+    },
+    "skillIntervalMs": 500,
+    "skillTemplateKeys": ["assail"],
+    "spellIntervalMs": 99999,
+    "spellTemplateKeys": [],
+    "sprite": 285,
+    "statSheet": {
+        "level": 1,
+        "ac": 50,
+        "maximumHp": 999999,
+        "maximumMp": 0,
+        "con": 1,
+        "dex": 10,
+        "int": 1,
+        "str": 8,
+        "wis": 1
+    },
+    "templateKey": "dust_devil",
+    "type": "WalkThrough",
+    "wanderIntervalMs": 99999
+}

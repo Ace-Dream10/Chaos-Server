@@ -1,0 +1,29 @@
+{
+  "templateKey": "earthquake",
+  "name": "Earthquake",
+  "description": "Rupture the ground around you, dealing massive damage and hurling everything nearby away from you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 30000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["knockbackAoe"],
+  "scriptVars": {
+    "knockbackAoe": {
+      "shape": "allAround",
+      "range": 3,
+      "baseDamage": 150,
+      "damageStat": "int",
+      "damageStatMultiplier": 4,
+      "element": "Earth",
+      "knockbackTiles": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

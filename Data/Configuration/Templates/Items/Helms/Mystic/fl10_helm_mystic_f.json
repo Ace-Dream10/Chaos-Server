@@ -1,0 +1,20 @@
+{
+  "templateKey": "fl10_helm_mystic_f",
+  "name": "FL10 Mystic Helm",
+  "description": "Placeholder helm for visual testing.",
+  "category": "f helm",
+  "panelSprite": 13447,
+  "displaySprite": 446,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Helmet",
+  "gender": "Female",
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

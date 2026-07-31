@@ -1,0 +1,27 @@
+{
+  "templateKey": "lancers_retribution",
+  "name": "Lancer's Retribution",
+  "description": "Every strike against you is returned in kind. The stronger your defense, the harder the counter.",
+  "panelSprite": 50,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "LancersRetribution",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 24, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

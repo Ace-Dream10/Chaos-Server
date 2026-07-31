@@ -1,0 +1,11 @@
+{
+  "templateKey": "spirit_guide_initial",
+  "text": "I sense the beast within you, warrior. Choose your spirit form - this path is permanent and cannot be changed.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "spirit_guide_fenrir_info", "optionText": "Tell me about Fenrir Form" },
+    { "dialogKey": "spirit_guide_celestial_info", "optionText": "Tell me about Celestial Form" },
+    { "dialogKey": "spirit_guide_basilisk_info", "optionText": "Tell me about Basilisk Form" }
+  ],
+  "scriptKeys": ["spiritGuideInitial"]
+}

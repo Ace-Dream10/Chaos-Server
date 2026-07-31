@@ -12,9 +12,11 @@ public readonly struct Tile(ushort background, ushort leftForeground, ushort rig
 
     public bool IsWall
         => ((LeftForeground > 0)
+            && (LeftForeground <= Sotp.Length)
             && Sotp[LeftForeground - 1]
                 .HasFlag(TileFlags.Wall))
            || ((RightForeground > 0)
+               && (RightForeground <= Sotp.Length)
                && Sotp[RightForeground - 1]
                    .HasFlag(TileFlags.Wall));
 

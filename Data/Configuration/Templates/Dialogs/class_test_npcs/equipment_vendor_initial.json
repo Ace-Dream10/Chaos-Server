@@ -1,0 +1,8 @@
+{
+  "templateKey": "equipment_vendor_initial",
+  "text": "I've got a full set of floor 1 accessories for testing - rings, necklace, earrings, gauntlets, greaves, boots, a belt, and a Return Stone to get you back here. I'll just drop them in your bag, whatever you're already wearing stays put.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "equipment_vendor_confirm", "optionText": "Give me accessories" }
+  ]
+}

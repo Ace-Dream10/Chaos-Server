@@ -1,0 +1,7 @@
+{
+  "templateKey": "berserker_test_npc",
+  "name": "Berserker Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "berserker_test_npc_initial" } }
+}

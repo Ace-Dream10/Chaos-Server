@@ -1,0 +1,8 @@
+{
+  "templateKey": "martial_artist_test_npc_info",
+  "text": "A powerful brawler who builds inner Chi through combat.\n\nPrimary: STR | Secondary: CON\n\nMP mechanic: MP = Chi, builds from hitting mobs and Meditate - never decays. Activate Tiger Stance to double Chi generation. At 100 Chi, transform with Beast Form.\n\nSkills:\nKick - fast strike\nSweeping Kick - frontal AoE\nMeditate - Chi + MP restore\nTiger Stance - STR/DEX/speed buff + double Chi\nRoundhouse - spinning kick AoE\nOne Inch Punch - massive damage + 2-tile pushback\nAlpha Strike - blink to 3 targets\nCounter Strike - negate next hit + counter stun\nChi Burst - release all Chi as AoE\nBeast Form - transform into Fenrir/Celestial/Basilisk",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "martial_artist_test_npc_initial", "optionText": "Back" }
+  ]
+}

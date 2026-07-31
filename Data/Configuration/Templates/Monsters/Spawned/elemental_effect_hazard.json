@@ -1,0 +1,34 @@
+{
+    "aggroRange": 0,
+    "assailIntervalMs": 99999,
+    "expReward": 0,
+    "lootTableKeys": [],
+    "maxGoldDrop": 0,
+    "minGoldDrop": 0,
+    "moveIntervalMs": 99999,
+    "name": "Elemental Hazard",
+    "scriptKeys": ["decoyExpiration", "areaEffectPulse"],
+    "scriptVars": {
+        "decoyExpiration": { "durationMs": 6000 },
+        "areaEffectPulse": { "durationMs": 6000 }
+    },
+    "skillIntervalMs": 99999,
+    "skillTemplateKeys": [],
+    "spellIntervalMs": 99999,
+    "spellTemplateKeys": [],
+    "sprite": 637,
+    "statSheet": {
+        "level": 1,
+        "ac": -10000,
+        "maximumHp": 99999,
+        "maximumMp": 0,
+        "con": 1,
+        "dex": 1,
+        "int": 1,
+        "str": 1,
+        "wis": 1
+    },
+    "templateKey": "elemental_effect_hazard",
+    "type": "WalkThrough",
+    "wanderIntervalMs": 99999
+}

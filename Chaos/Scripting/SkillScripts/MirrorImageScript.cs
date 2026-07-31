@@ -50,17 +50,20 @@ public class MirrorImageScript : ConfigurableSkillScriptBase
     }
 
     /// <summary>
-    ///     Finds the first walkable point adjacent to the source, preferring the point directly behind them and working
-    ///     clockwise around them (so the point directly in front is checked last)
+    ///     Finds the closest walkable point to the source, spiraling outward, so a spawn point is always found
+    ///     regardless of walls or creatures immediately surrounding the caster
     /// </summary>
     private static bool TryFindSpawnPoint(ActivationContext context, out Point spawnPoint)
     {
         var source = context.Source;
         var map = context.TargetMap;
 
-        foreach (var direction in source.Direction.Reverse().AsEnumerable())
+        foreach (var point in Point.From(source)
+                                   .SpiralSearch())
         {
-            var point = source.DirectionalOffset(direction);
+            //skip the caster's own tile, which SpiralSearch yields first
+            if (point == Point.From(source))
+                continue;
 
             if (map.IsWalkable(point, source, false))
             {

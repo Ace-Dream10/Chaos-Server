@@ -1,0 +1,33 @@
+{
+    "aggroRange": 6,
+    "assailIntervalMs": 1100,
+    "expReward": 500,
+    "lootTableKeys": [],
+    "maxGoldDrop": 120,
+    "minGoldDrop": 60,
+    "maxGamePointsDrop": 15,
+    "minGamePointsDrop": 6,
+    "moveIntervalMs": 1100,
+    "name": "Violet Acolyte",
+    "scriptKeys": ["default"],
+    "scriptVars": {},
+    "skillIntervalMs": 1100,
+    "skillTemplateKeys": ["Assail"],
+    "spellIntervalMs": 10000,
+    "spellTemplateKeys": [],
+    "sprite": 1016,
+    "statSheet": {
+        "level": 10,
+        "ac": 90,
+        "maximumHp": 6000,
+        "maximumMp": 3000,
+        "con": 7,
+        "dex": 10,
+        "int": 3,
+        "str": 10,
+        "wis": 3
+    },
+    "templateKey": "violet_acolyte",
+    "type": "Normal",
+    "wanderIntervalMs": 2000
+}

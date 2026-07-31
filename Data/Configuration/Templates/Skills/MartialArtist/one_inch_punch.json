@@ -1,0 +1,31 @@
+{
+  "templateKey": "one_inch_punch",
+  "name": "One Inch Punch",
+  "description": "Channel all your Chi into a single devastating punch that sends enemies flying.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["oneInchPunch"],
+  "scriptVars": {
+    "oneInchPunch": {
+      "baseDamage": 150,
+      "damageStat": "str",
+      "damageStatMultiplier": 5,
+      "pushbackTiles": 2,
+      "stunDurationMs": 1000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

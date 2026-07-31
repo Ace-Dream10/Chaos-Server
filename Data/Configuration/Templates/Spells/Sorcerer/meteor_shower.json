@@ -1,0 +1,29 @@
+{
+  "templateKey": "meteor_shower",
+  "name": "Meteor Shower",
+  "description": "Rain meteors down across a wide area over 5 seconds, striking randomly.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 45000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["randomAreaBarrage"],
+  "scriptVars": {
+    "randomAreaBarrage": {
+      "hitCount": 8,
+      "totalDurationMs": 5000,
+      "range": 4,
+      "baseDamage": 90,
+      "damageStat": "int",
+      "damageStatMultiplier": 3,
+      "element": "Earth",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

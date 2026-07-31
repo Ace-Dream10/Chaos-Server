@@ -1,0 +1,17 @@
+{
+  "templateKey": "stacias_tear",
+  "name": "Stacia's Tear",
+  "description": "A crystallized tear of the goddess Stacia, released when her corrupted power is reclaimed from the monsters of the Tower.",
+  "category": "essence",
+  "panelSprite": 1,
+  "color": "Default",
+  "weight": 0,
+  "maxStacks": 999,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "noTrade": true,
+  "preventBanking": true,
+  "scriptKeys": [],
+  "scriptVars": {}
+}

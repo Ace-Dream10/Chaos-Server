@@ -1,0 +1,11 @@
+{
+  "itemsForSale": [],
+  "itemsToBuy": [],
+  "name": "Appearance Changer",
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "appearance_changer_initial" } },
+  "skillsToTeach": [],
+  "spellsToTeach": [],
+  "sprite": 37,
+  "templateKey": "appearance_changer"
+}

@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["teleportToLocation"],
+  "scriptVars": {
+    "teleportToLocation": { "mapInstanceId": "monsterTest" }
+  },
+  "templateKey": "gm_teleporter_monstertest",
+  "text": "Teleporting to Monster Test...",
+  "type": "Normal"
+}

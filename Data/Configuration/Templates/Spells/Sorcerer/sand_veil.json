@@ -1,0 +1,28 @@
+{
+  "templateKey": "sand_veil",
+  "name": "Sand Veil",
+  "description": "Whip up a stinging veil of sand, blinding nearby enemies and wearing down their armor.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyTwoEffects"],
+  "scriptVars": {
+    "applyTwoEffects": {
+      "shape": "allAround",
+      "range": 2,
+      "effectKey1": "Blackout",
+      "duration1Ms": 2000,
+      "effectKey2": "SandVeil",
+      "duration2Ms": 5000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

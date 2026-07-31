@@ -40,9 +40,19 @@ public sealed record MonsterTemplateSchema
     public ICollection<string> LootTableKeys { get; set; } = [];
 
     /// <summary>
+    ///     Maximum amount of game points for this monster to drop
+    /// </summary>
+    public int MaxGamePointsDrop { get; set; }
+
+    /// <summary>
     ///     Maximum amount of gold for this monster to drop
     /// </summary>
     public int MaxGoldDrop { get; set; }
+
+    /// <summary>
+    ///     Minimum amount of game points for this monster to drop
+    /// </summary>
+    public int MinGamePointsDrop { get; set; }
 
     /// <summary>
     ///     Minimum amount of gold for this monster to drop

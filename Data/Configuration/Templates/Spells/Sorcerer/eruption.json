@@ -1,0 +1,29 @@
+{
+  "templateKey": "eruption",
+  "name": "Eruption",
+  "description": "Mark a location that erupts into a massive fiery explosion after a short delay.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 60000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["delayedAoe"],
+  "scriptVars": {
+    "delayedAoe": {
+      "range": 2,
+      "baseDamage": 300,
+      "damageStat": "int",
+      "damageStatMultiplier": 6,
+      "element": "Fire",
+      "delayMs": 3000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "explosionAnimation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

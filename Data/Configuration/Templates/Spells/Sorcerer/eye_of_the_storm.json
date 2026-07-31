@@ -1,0 +1,23 @@
+{
+  "templateKey": "eye_of_the_storm",
+  "name": "Eye of the Storm",
+  "description": "Become the calm center of destruction - invulnerable while blasting everything around you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 45000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "EyeOfTheStorm",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "templateKey": "web_trap",
+  "scriptKeys": ["webTrapReactor"],
+  "scriptVars": {
+    "webTrapReactor": {
+      "rootDurationMs": 3000,
+      "slowDurationMs": 5000,
+      "trapDurationMs": 30000,
+      "animation": { "targetAnimation": 46, "animationSpeed": 100 }
+    }
+  }
+}

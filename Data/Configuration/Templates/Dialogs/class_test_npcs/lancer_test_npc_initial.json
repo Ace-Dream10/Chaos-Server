@@ -1,0 +1,9 @@
+{
+  "templateKey": "lancer_test_npc_initial",
+  "text": "I can remake you into a Lancer - full skill/spell kit and floor 1 gear, but it wipes your current skills, spells, equipped items, and inventory completely. There's no undoing it from here.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "lancer_test_npc_confirm", "optionText": "Become this class" },
+    { "dialogKey": "lancer_test_npc_info", "optionText": "About this class" }
+  ]
+}

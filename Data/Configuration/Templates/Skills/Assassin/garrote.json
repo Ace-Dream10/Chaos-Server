@@ -1,0 +1,30 @@
+{
+  "templateKey": "garrote",
+  "name": "Garrote",
+  "description": "Silence and bleed a target from behind. Requires the target to have their back turned.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["garrote"],
+  "scriptVars": {
+    "garrote": {
+      "silenceDurationMs": 3000,
+      "bleedDurationMs": 5000,
+      "bleedDamagePerTick": 30,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

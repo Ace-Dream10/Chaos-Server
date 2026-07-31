@@ -1,0 +1,35 @@
+{
+  "templateKey": "heat_wave",
+  "name": "Heat Wave",
+  "description": "Radiate scorching heat, sapping the strength and speed of every enemy nearby.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyEffect", "damage"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Slow",
+      "effectDurationOverride": "00:00:05.000",
+      "shape": "allAround",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    },
+    "damage": {
+      "baseDamage": 35,
+      "damageStat": "int",
+      "damageStatMultiplier": 1.5,
+      "element": "Fire",
+      "shape": "allAround",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

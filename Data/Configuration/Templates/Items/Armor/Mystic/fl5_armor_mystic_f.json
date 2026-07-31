@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl5_armor_mystic_f",
+  "name": "FL5 Mystic Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "f armor",
+  "panelSprite": 2014,
+  "displaySprite": 297,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Female",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

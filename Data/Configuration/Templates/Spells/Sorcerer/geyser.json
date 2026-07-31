@@ -1,0 +1,29 @@
+{
+  "templateKey": "geyser",
+  "name": "Geyser",
+  "description": "Erupt a scalding geyser at a target point, blasting everything nearby away from its center.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 30000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["knockbackAoe"],
+  "scriptVars": {
+    "knockbackAoe": {
+      "shape": "allAround",
+      "range": 2,
+      "baseDamage": 100,
+      "damageStat": "int",
+      "damageStatMultiplier": 3,
+      "element": "Fire",
+      "knockbackTiles": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

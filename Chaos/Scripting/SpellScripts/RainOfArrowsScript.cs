@@ -37,6 +37,17 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
             return;
         }
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            if (source is Aisling manaAisling)
+                manaAisling.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        if (source is Aisling attackerAisling)
+            attackerAisling.Client.SendAttributes(StatUpdateType.Vitality);
+
         var map = context.TargetMap;
         var targetPoint = context.TargetPoint;
 
@@ -152,6 +163,11 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
     ///     The filter used to determine which creatures in the target area are valid targets
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The radius around the target point affected by each volley

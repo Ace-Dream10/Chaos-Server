@@ -56,6 +56,20 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     public IgnoreList IgnoreList { get; init; }
     public IInventory Inventory { get; private set; }
     public bool IsAdmin { get; set; }
+
+    /// <summary>
+    ///     Whether this Aisling has been permanently banished to the Underworld after failing to be revived as a
+    ///     hardcore character. Banished Aislings are alive and can act normally, but cannot leave the map they were
+    ///     banished to (see <see cref="Chaos.Services.Other.MapTraversalService.TraverseMap" />)
+    /// </summary>
+    public bool IsBanished { get; set; }
+
+    /// <summary>
+    ///     Whether this Aisling is playing in hardcore mode - if they die and are not revived within the death timer,
+    ///     they are banished to the Underworld instead of being auto-revived at a Stacia's Shrine
+    /// </summary>
+    public bool Hardcore { get; set; }
+
     public LanternSize LanternSize { get; private set; }
     public Collections.Legend Legend { get; private set; }
     public MailBox MailBox { get; set; } = null!;
@@ -168,7 +182,16 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
 
         ScriptKeys = new HashSet<string>
         {
-            ScriptBase.GetScriptKey(typeof(DefaultAislingScript))
+            ScriptBase.GetScriptKey(typeof(DefaultAislingScript)),
+            ScriptBase.GetScriptKey(typeof(ExecuteIndicatorScript)),
+            ScriptBase.GetScriptKey(typeof(ValkyrieFuryScript)),
+            ScriptBase.GetScriptKey(typeof(BerserkerRageScript)),
+            ScriptBase.GetScriptKey(typeof(MartialArtistChiScript)),
+            ScriptBase.GetScriptKey(typeof(LancerShieldScript)),
+            ScriptBase.GetScriptKey(typeof(AssassinFrenzyScript)),
+            ScriptBase.GetScriptKey(typeof(ReapersKissScript)),
+            ScriptBase.GetScriptKey(typeof(TricksterManaScript)),
+            ScriptBase.GetScriptKey(typeof(ArcherResourceScript))
         };
         Script = scriptProvider.CreateScript<IAislingScript, Aisling>(ScriptKeys, this);
     }
@@ -224,7 +247,8 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
         SpellThrottle = new ResettingCounter(WorldOptions.Instance.MaxSpellsPerSecond);
         SkillThrottle = new ResettingCounter(WorldOptions.Instance.MaxSkillsPerSecond);
         ItemThrottle = new ResettingCounter(WorldOptions.Instance.MaxItemsPerSecond);
-        WalkCounter = new ResettingCounter(4, 2);
+        //TODO: tripled for local testing - was (4, 2). Revert before any real deploy.
+        WalkCounter = new ResettingCounter(12, 2);
         TurnThrottle = new ResettingCounter(3);
         AssailIntervalMs = WorldOptions.Instance.AislingAssailIntervalMs;
         ChannelSettings = [];
@@ -773,6 +797,29 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
         return true;
     }
 
+    public bool TryGiveGamePoints(int amount)
+    {
+        if (amount < 0)
+            throw new ArgumentOutOfRangeException(nameof(amount), "Cannot give negative game points.");
+
+        GamePoints += amount;
+
+        Client.SendAttributes(StatUpdateType.ExpGold);
+        SyncColItem();
+
+        return true;
+    }
+
+    /// <summary>
+    ///     Keeps the Stacia's Pouch display item's stack count in sync with the actual GamePoints total, if the
+    ///     player has one
+    /// </summary>
+    private void SyncColItem()
+    {
+        if (Inventory.TryGetObjectByTemplateKey("stacias_pouch", out var pouchItem))
+            Inventory.Update(pouchItem.Slot, localItem => localItem.Count = GamePoints);
+    }
+
     public bool TryGiveGold(int amount)
     {
         if (amount < 0)
@@ -911,6 +958,31 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
         return false;
     }
 
+    public bool TryPickupGamePoints(GamePointPile gamePointPile)
+    {
+        if (!gamePointPile.CanBePickedUp(this))
+        {
+            SendActiveMessage("You can't pick that up right now");
+
+            return false;
+        }
+
+        if (TryGiveGamePoints(gamePointPile.Amount))
+        {
+            Logger.WithTopics(Topics.Entities.Aisling, Topics.Actions.Pickup)
+                  .WithProperty(this)
+                  .LogInformation("Aisling {@AislingName} picked up {Amount} game points", Name, gamePointPile.Amount);
+
+            SendOrangeBarMessage($"You got {gamePointPile.Amount} Stacia's Tear{(gamePointPile.Amount == 1 ? string.Empty : "s")}");
+
+            MapInstance.RemoveEntity(gamePointPile);
+
+            return true;
+        }
+
+        return false;
+    }
+
     private bool TryStartExchange(Aisling source, [MaybeNullWhen(false)] out Exchange exchange)
     {
         exchange = ExchangeFactory.Create(source, this);
@@ -995,6 +1067,31 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
 
         Gold = @new;
         Client.SendAttributes(StatUpdateType.ExpGold);
+
+        return true;
+    }
+
+    public bool TryTakeGamePoints(int amount)
+    {
+        // ReSharper disable once ConvertIfStatementToSwitchStatement
+        if (amount < 0)
+            throw new ArgumentOutOfRangeException(nameof(amount), "Cannot take negative game points.");
+
+        if (amount == 0)
+            return true;
+
+        var @new = GamePoints - amount;
+
+        if (@new < 0)
+        {
+            SendOrangeBarMessage($"You do not have enough game points, you need a total of {amount}");
+
+            return false;
+        }
+
+        GamePoints = @new;
+        Client.SendAttributes(StatUpdateType.ExpGold);
+        SyncColItem();
 
         return true;
     }

@@ -1,0 +1,26 @@
+{
+  "templateKey": "smoke_bomb",
+  "name": "Smoke Bomb",
+  "description": "Detonate a smoke bomb, causing nearby enemies to lose sight of their targets.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 4, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["smokeBomb"],
+  "scriptVars": {
+    "smokeBomb": {
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "BowShot",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

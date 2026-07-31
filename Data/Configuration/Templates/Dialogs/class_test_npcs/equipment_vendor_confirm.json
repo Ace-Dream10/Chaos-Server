@@ -1,0 +1,23 @@
+{
+  "templateKey": "equipment_vendor_confirm",
+  "text": "Here you go - check your inventory.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["giveItems"],
+  "scriptVars": {
+    "giveItems": {
+      "itemTemplateKeys": [
+        "fl1_ring",
+        "fl1_ring",
+        "fl1_necklace",
+        "fl1_earrings",
+        "fl1_gauntlets",
+        "fl1_gauntlets",
+        "fl1_greaves",
+        "fl1_boots",
+        "fl1_belt",
+        "return_stone"
+      ]
+    }
+  }
+}

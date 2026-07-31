@@ -1,0 +1,26 @@
+{
+  "templateKey": "stacias_chorus",
+  "name": "Stacia's Chorus",
+  "description": "A healing melody that bounces between allies, mending wounds as it travels.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["chainHeal"],
+  "scriptVars": {
+    "chainHeal": {
+      "baseHeal": 100,
+      "healStat": "wis",
+      "healStatMultiplier": 2,
+      "jumpRange": 6,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

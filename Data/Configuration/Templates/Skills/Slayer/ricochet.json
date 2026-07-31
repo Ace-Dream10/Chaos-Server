@@ -1,0 +1,30 @@
+{
+  "templateKey": "ricochet",
+  "name": "Ricochet",
+  "description": "A slashing strike that bounces between nearby enemies with decreasing force.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["ricochet"],
+  "scriptVars": {
+    "ricochet": {
+      "baseDamage": 80,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "jumpRange": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

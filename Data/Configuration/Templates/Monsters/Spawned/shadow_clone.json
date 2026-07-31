@@ -1,0 +1,35 @@
+{
+    "aggroRange": 6,
+    "assailIntervalMs": 1000,
+    "expReward": 0,
+    "lootTableKeys": [],
+    "maxGoldDrop": 0,
+    "minGoldDrop": 0,
+    "moveIntervalMs": 99999,
+    "name": "Shadow Clone",
+    "scriptKeys": ["death", "decoyExpiration", "shadowCloneAggro", "attacking", "moveToTarget"],
+    "scriptVars": {
+        "decoyExpiration": {
+            "durationMs": 5000
+        }
+    },
+    "skillIntervalMs": 500,
+    "skillTemplateKeys": ["assail"],
+    "spellIntervalMs": 99999,
+    "spellTemplateKeys": [],
+    "sprite": 284,
+    "statSheet": {
+        "level": 1,
+        "ac": 100,
+        "maximumHp": 1,
+        "maximumMp": 0,
+        "con": 1,
+        "dex": 10,
+        "int": 1,
+        "str": 10,
+        "wis": 1
+    },
+    "templateKey": "shadow_clone",
+    "type": "WalkThrough",
+    "wanderIntervalMs": 99999
+}

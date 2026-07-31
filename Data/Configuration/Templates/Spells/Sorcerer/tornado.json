@@ -1,0 +1,28 @@
+{
+  "templateKey": "tornado",
+  "name": "Tornado",
+  "description": "Send a traveling vortex of wind forward, damaging and knocking back anything it touches.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 10000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["travelingLine"],
+  "scriptVars": {
+    "travelingLine": {
+      "range": 3,
+      "baseDamage": 60,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Wind",
+      "knockbackTiles": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "templateKey": "flourish",
+  "name": "Flourish",
+  "description": "A rapid series of precise forward slashes - a deadly fencing combo.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["flourish"],
+  "scriptVars": {
+    "flourish": {
+      "hitCount": 5,
+      "hitIntervalMs": 150,
+      "baseDamage": 40,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

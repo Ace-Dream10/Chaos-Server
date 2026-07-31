@@ -3,8 +3,8 @@
   "name": "Testing Sword",
   "description": "A sword used for testing purposes.",
   "category": "1h wep",
-  "panelSprite": 179,
-  "displaySprite": 20,
+  "panelSprite": 175,
+  "displaySprite": 270,
   "color": "Default",
   "weight": 5,
   "maxStacks": 1,
@@ -12,13 +12,13 @@
   "buyCost": 0,
   "sellValue": 0,
   "isModifiable": true,
-  "isDyeable": false,
+  "isDyeable": true,
   "equipmentType": "Weapon",
   "gender": "Unisex",
   "modifiers": {
     "str": 9
   },
-  "scriptKeys": ["Equipment"],
+  "scriptKeys": ["Equipment", "enhancement"],
   "scriptVars": {
     "equipment": {}
   }

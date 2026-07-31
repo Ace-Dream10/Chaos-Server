@@ -1,0 +1,7 @@
+{
+  "templateKey": "equipment_vendor",
+  "name": "Equipment Vendor",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "equipment_vendor_initial" } }
+}

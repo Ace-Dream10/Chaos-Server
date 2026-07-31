@@ -1,0 +1,17 @@
+{
+  "templateKey": "gm_gear_martial_artist_everything_m",
+  "text": "Here you go - full kit.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "martial_artist",
+      "gender": "m",
+      "grantHelm": true,
+      "grantArmor": true,
+
+      "weaponKeyPrefixes": ["martial_artist_wep"]
+    }
+  }
+}

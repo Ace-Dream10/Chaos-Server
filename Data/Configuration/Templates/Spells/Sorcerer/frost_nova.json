@@ -1,0 +1,28 @@
+{
+  "templateKey": "frost_nova",
+  "name": "Frost Nova",
+  "description": "Detonate a burst of freezing cold around you, locking nearby enemies in ice.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyTwoEffects"],
+  "scriptVars": {
+    "applyTwoEffects": {
+      "shape": "allAround",
+      "range": 2,
+      "effectKey1": "Stasis",
+      "duration1Ms": 2000,
+      "effectKey2": "Slow",
+      "duration2Ms": 5000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

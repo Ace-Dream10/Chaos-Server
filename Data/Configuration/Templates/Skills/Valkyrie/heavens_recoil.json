@@ -1,0 +1,29 @@
+{
+  "templateKey": "heavens_recoil",
+  "name": "Heaven's Recoil",
+  "description": "A powerful slash that sends nearby enemies flying back.",
+  "panelSprite": 46,
+  "advClass": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["heavensRecoil"],
+  "scriptVars": {
+    "heavensRecoil": {
+      "baseDamage": 60,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HeavySwipe",
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

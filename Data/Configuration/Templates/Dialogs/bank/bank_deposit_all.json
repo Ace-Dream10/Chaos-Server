@@ -1,0 +1,9 @@
+{
+  "templateKey": "bank_deposit_all",
+  "text": "Deposit all items to Stacia's Vault? Items marked as non-bankable will remain.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "bank_deposit_all_confirm", "optionText": "Yes, deposit all" },
+    { "dialogKey": "bank_initial", "optionText": "Cancel" }
+  ]
+}

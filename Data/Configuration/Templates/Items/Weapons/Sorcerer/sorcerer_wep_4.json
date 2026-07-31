@@ -1,0 +1,21 @@
+{
+  "templateKey": "sorcerer_wep_4",
+  "name": "Sorcerer Weapon 4",
+  "description": "A weapon used for Sorcerer visual testing.",
+  "category": "1h wep",
+  "panelSprite": 1977,
+  "displaySprite": 139,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

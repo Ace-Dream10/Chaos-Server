@@ -1,0 +1,25 @@
+{
+  "templateKey": "stacias_bubble",
+  "name": "Stacia's Bubble",
+  "description": "Encase an ally in a divine barrier that absorbs incoming damage.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasBubble"],
+  "scriptVars": {
+    "staciasBubble": {
+      "baseShield": 200,
+      "shieldStat": "wis",
+      "shieldStatMultiplier": 5,
+      "filter": "friendlyOnly, aliveOnly",
+      "range": 8,
+      "bodyAnimation": "None",
+      "sound": 10
+    }
+  }
+}

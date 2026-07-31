@@ -134,13 +134,6 @@ public sealed class DisplayAislingConverter : PacketConverterBase<DisplayAisling
             writer.WriteByte((byte)args.HeadColor);
             writer.WriteByte((byte)args.BootsColor);
             writer.WriteBytes(new byte[6]);
-        } else if (args.IsDead)
-        {
-            writer.WriteUInt16(args.HeadSprite);
-            writer.WriteByte((byte)(args.Gender == Gender.Male ? BodySprite.MaleGhost : BodySprite.FemaleGhost));
-            writer.WriteBytes(new byte[25]);
-            writer.WriteBoolean(args.IsTransparent);
-            writer.WriteByte(args.FaceSprite);
         } else
         {
             var pantsColor = (byte)(args.PantsColor ?? 0);

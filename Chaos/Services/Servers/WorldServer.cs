@@ -1373,6 +1373,11 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                             return default;
 
                         break;
+                    case GamePointPile gamePointPile:
+                        if (localClient.Aisling.TryPickupGamePoints(gamePointPile))
+                            return default;
+
+                        break;
                 }
 
             return default;

@@ -1,0 +1,29 @@
+{
+  "templateKey": "scythe",
+  "name": "Scythe",
+  "description": "Reap your accumulated Severance stacks for devastating damage. More stacks = more destruction.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 5000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["scythe"],
+  "scriptVars": {
+    "scythe": {
+      "baseDamage": 100,
+      "stackMultiplier": 50,
+      "range": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 138, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

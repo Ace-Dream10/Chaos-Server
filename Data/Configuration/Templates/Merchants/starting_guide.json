@@ -1,0 +1,11 @@
+{
+  "itemsForSale": [],
+  "itemsToBuy": [],
+  "name": "Starting Guide",
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "starting_guide_initial" } },
+  "skillsToTeach": [],
+  "spellsToTeach": [],
+  "sprite": 37,
+  "templateKey": "starting_guide"
+}

@@ -18,6 +18,7 @@
     }
   },
   "spellType": "NoTarget",
+  "castLines": 0,
   "class": "WeaponMaster",
   "description": "Allows you to see well hidden creatures, items, etc",
   "level": 55,

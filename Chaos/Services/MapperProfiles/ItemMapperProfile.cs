@@ -8,6 +8,7 @@ using Chaos.Schemas.Aisling;
 using Chaos.Schemas.Data;
 using Chaos.Schemas.Templates;
 using Chaos.Scripting.Abstractions;
+using Chaos.Scripting.ItemScripts;
 using Chaos.Storage.Abstractions;
 using Chaos.TypeMapper.Abstractions;
 #endregion
@@ -91,6 +92,15 @@ public sealed class ItemMapperProfile(ISimpleCache simpleCache, IScriptProvider 
         item.Suffix = obj.Suffix;
         item.NotepadText = obj.NotepadText;
 
+        if (obj.EnhancementLevel is > 0)
+        {
+            item.EnhancementLevel = obj.EnhancementLevel.Value;
+
+            //EnhancementLevel persists, but the resulting Modifiers don't - recompute them here so an enhanced
+            //item's stats aren't silently lost the next time it's loaded (e.g. after a relog or restart)
+            new EnhancementScript(item).RecalculateModifiers();
+        }
+
         return item;
     }
 
@@ -126,7 +136,8 @@ public sealed class ItemMapperProfile(ISimpleCache simpleCache, IScriptProvider 
             Weight = obj.Weight == obj.Template.Weight ? null : obj.Weight,
             PanelSprite = obj.ItemSprite.PanelSprite == obj.Template.ItemSprite.PanelSprite ? null : obj.ItemSprite.PanelSprite,
             DisplaySprite = obj.ItemSprite.DisplaySprite == obj.Template.ItemSprite.DisplaySprite ? null : obj.ItemSprite.DisplaySprite,
-            NotepadText = obj.NotepadText
+            NotepadText = obj.NotepadText,
+            EnhancementLevel = obj.EnhancementLevel == 0 ? null : obj.EnhancementLevel
         };
 
         return ret;

@@ -50,6 +50,15 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
         var target = context.TargetCreature!;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var slowEffect = new SlowEffect
@@ -99,6 +108,11 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
     ///     The animation played on the target on hit
     /// </summary>
     public Animation? HitAnimation { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The animation played as an overlay, centered on the target's tile

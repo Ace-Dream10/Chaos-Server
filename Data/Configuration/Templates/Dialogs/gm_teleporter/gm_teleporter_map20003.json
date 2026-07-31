@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["teleportToLocation"],
+  "scriptVars": {
+    "teleportToLocation": { "mapInstanceId": "map20003", "x": 233, "y": 85 }
+  },
+  "templateKey": "gm_teleporter_map20003",
+  "text": "Teleporting to the Class Testing Grounds...",
+  "type": "Normal"
+}

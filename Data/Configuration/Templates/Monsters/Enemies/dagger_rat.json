@@ -1,0 +1,29 @@
+{
+  "aggroRange": 6,
+  "assailIntervalMs": 1500,
+  "expReward": 50,
+  "lootTableKeys": ["dagger_rat_drops"],
+  "moveIntervalMs": 1500,
+  "name": "Dagger Rat",
+  "scriptKeys": ["default"],
+  "scriptVars": {},
+  "skillIntervalMs": 1500,
+  "skillTemplateKeys": [],
+  "spellIntervalMs": 10000,
+  "spellTemplateKeys": [],
+  "sprite": 1183,
+  "statSheet": {
+    "level": 3,
+    "ac": 53,
+    "maximumHp": 199,
+    "maximumMp": 0,
+    "str": 1,
+    "dex": 1,
+    "int": 1,
+    "wis": 1,
+    "con": 2
+  },
+  "templateKey": "dagger_rat",
+  "type": "Normal",
+  "wanderIntervalMs": 2000
+}

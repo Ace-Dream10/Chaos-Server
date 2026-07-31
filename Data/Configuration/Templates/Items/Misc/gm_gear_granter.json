@@ -1,0 +1,20 @@
+{
+  "templateKey": "gm_gear_granter",
+  "name": "GM Gear Granter",
+  "description": "Quickly grants full fl1-fl10 gear sets for testing.",
+  "category": "gm",
+  "panelSprite": 1,
+  "color": "Default",
+  "weight": 0,
+  "maxStacks": 1,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "noTrade": true,
+  "preventBanking": true,
+  "scriptKeys": ["showdialog", "undroppable"],
+  "scriptVars": {
+    "showdialog": { "dialogKey": "gm_gear_initial" },
+    "undroppable": {}
+  }
+}

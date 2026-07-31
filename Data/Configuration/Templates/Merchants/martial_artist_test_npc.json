@@ -1,0 +1,7 @@
+{
+  "templateKey": "martial_artist_test_npc",
+  "name": "Martial Artist Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "martial_artist_test_npc_initial" } }
+}

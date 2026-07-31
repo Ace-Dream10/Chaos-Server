@@ -1,0 +1,28 @@
+{
+  "templateKey": "grand_finale",
+  "name": "Grand Finale",
+  "description": "Your greatest performance - a sustained storm of divine energy damages all enemies near an ally for 10 seconds.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 120000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["grandFinale"],
+  "scriptVars": {
+    "grandFinale": {
+      "baseDamage": 40,
+      "damageStat": "wis",
+      "damageStatMultiplier": 2,
+      "tickCount": 10,
+      "tickIntervalMs": 1000,
+      "damageRange": 3,
+      "filter": "friendlyOnly, aliveOnly, aislingsOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 267, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

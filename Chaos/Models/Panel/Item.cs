@@ -34,6 +34,11 @@ public sealed class Item : PanelEntityBase, IScripted<IItemScript>, IDialogSourc
     public int? CurrentDurability { get; set; }
     public string? CustomDisplayName { get; set; }
 
+    /// <summary>
+    ///     The item's current enhancement tier, from 0 (unenhanced) to 9
+    /// </summary>
+    public int EnhancementLevel { get; set; }
+
     public string? CustomNameOverride
     {
         get => NameComposer.CustomName;

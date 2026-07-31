@@ -1,0 +1,29 @@
+{
+  "templateKey": "berserker_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Berserker",
+      "baseClass": "WeaponMaster",
+      "advClass": "Berserker",
+      "skillTemplateKeys": [
+        "assail",
+        "cyclone",
+        "thunderstrike",
+        "vampiric_strike",
+        "broad_swipe",
+        "intimidating_shout",
+        "flatten",
+        "axe_block",
+        "berserker_charge"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_blunt_1"],
+      "armorTemplateKeyMale": "fl1_armor_berserker_m",
+      "armorTemplateKeyFemale": "fl1_armor_berserker_f"
+    }
+  }
+}

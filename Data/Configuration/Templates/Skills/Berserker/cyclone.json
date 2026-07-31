@@ -1,0 +1,30 @@
+{
+  "templateKey": "cyclone",
+  "name": "Cyclone",
+  "description": "Spin clockwise, striking any hostile creature adjacent to you with each swing. Gains additional rotations as it levels up.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["cyclone"],
+  "scriptVars": {
+    "cyclone": {
+      "baseDamage": 60,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "hitIntervalMs": 250,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

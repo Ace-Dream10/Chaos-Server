@@ -1,0 +1,9 @@
+{
+  "templateKey": "spirit_guide_basilisk_info",
+  "text": "The Basilisk Form channels the spirit of the ancient serpent. Endurance and sustain define this path - a balance of power and survival, healing you as you fight. Primary bonus: STR +10, CON +15, WIS +10.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "spirit_guide_basilisk_confirm", "optionText": "Choose Basilisk Form" },
+    { "dialogKey": "spirit_guide_initial", "optionText": "Back" }
+  ]
+}

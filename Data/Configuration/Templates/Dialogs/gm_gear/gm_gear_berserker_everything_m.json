@@ -1,0 +1,17 @@
+{
+  "templateKey": "gm_gear_berserker_everything_m",
+  "text": "Here you go - full kit.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "berserker",
+      "gender": "m",
+      "grantHelm": true,
+      "grantArmor": true,
+
+      "weaponKeyPrefixes": ["wm_blunt"]
+    }
+  }
+}

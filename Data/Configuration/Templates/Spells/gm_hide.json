@@ -1,5 +1,6 @@
 {
   "spellType": "NoTarget",
+  "castLines": 0,
   "class": "Diacht",
   "description": "Shrouds you in darkness, hiding you from sight",
   "level": 35,

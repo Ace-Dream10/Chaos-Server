@@ -1,0 +1,24 @@
+{
+  "templateKey": "testing_dagger",
+  "name": "Testing Dagger",
+  "description": "A sharp dagger used for testing.",
+  "category": "dagger",
+  "panelSprite": 256,
+  "displaySprite": 32,
+  "color": "Default",
+  "weight": 3,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "modifiers": {
+    "dex": 10,
+    "str": 5
+  },
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

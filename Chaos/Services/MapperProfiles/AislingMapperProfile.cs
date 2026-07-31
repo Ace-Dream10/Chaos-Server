@@ -3,6 +3,7 @@ using Chaos.Collections;
 using Chaos.Collections.Synchronized;
 using Chaos.Common.Abstractions;
 using Chaos.DarkAges.Definitions;
+using Chaos.DarkAges.Extensions;
 using Chaos.Definitions;
 using Chaos.Geometry.Abstractions;
 using Chaos.Models.Data;
@@ -93,7 +94,9 @@ public sealed class AislingMapperProfile(
             Options = Mapper.Map<UserOptions>(obj.UserOptions),
             UserStatSheet = Mapper.Map<UserStatSheet>(obj.StatSheet),
             IsAdmin = obj.IsAdmin,
+            IsBanished = obj.IsBanished,
             IsDead = obj.IsDead,
+            Hardcore = obj.Hardcore,
             ChannelSettings = new SynchronizedHashSet<ChannelSettings>(Mapper.MapMany<ChannelSettings>(obj.ChannelSettings))
         };
 
@@ -128,7 +131,9 @@ public sealed class AislingMapperProfile(
             X = obj.X,
             Y = obj.Y,
             IsAdmin = obj.IsAdmin,
+            IsBanished = obj.IsBanished,
             IsDead = obj.IsDead,
+            Hardcore = obj.Hardcore,
             StatSheet = Mapper.Map<UserStatSheetSchema>(obj.StatSheet),
             Titles = obj.Titles.ToList(),
             UserOptions = Mapper.Map<UserOptionsSchema>(obj.Options),
@@ -351,10 +356,10 @@ public sealed class AislingMapperProfile(
         => new()
         {
             DisplayClass = obj.UserStatSheet.AdvClass != AdvClass.None
-                ? obj.UserStatSheet.AdvClass.ToString()
+                ? obj.UserStatSheet.AdvClass.GetDisplayName()
                 : obj.UserStatSheet.Master
                     ? "Master"
-                    : obj.UserStatSheet.BaseClass.ToString(),
+                    : obj.UserStatSheet.BaseClass.GetDisplayName(),
             BaseClass = obj.UserStatSheet.BaseClass,
             Equipment = obj.Equipment.ToDictionary(i => (EquipmentSlot)i.Slot, Mapper.Map<ItemInfo>)!,
             GroupOpen = obj.Options.AllowGroup,
@@ -377,10 +382,10 @@ public sealed class AislingMapperProfile(
         => new()
         {
             DisplayClass = obj.UserStatSheet.AdvClass != AdvClass.None
-                ? obj.UserStatSheet.AdvClass.ToString()
+                ? obj.UserStatSheet.AdvClass.GetDisplayName()
                 : obj.UserStatSheet.Master
                     ? "Master"
-                    : obj.UserStatSheet.BaseClass.ToString(),
+                    : obj.UserStatSheet.BaseClass.GetDisplayName(),
             BaseClass = obj.UserStatSheet.BaseClass,
             Equipment = obj.Equipment.ToDictionary(i => (EquipmentSlot)i.Slot, Mapper.Map<ItemInfo>),
             GroupOpen = obj.Options.AllowGroup,

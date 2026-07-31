@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["teleportToLocation"],
+  "scriptVars": {
+    "teleportToLocation": { "mapInstanceId": "monsterTest", "x": 5, "y": 35 }
+  },
+  "templateKey": "gm_teleporter_underworld",
+  "text": "Teleporting to the Underworld (placeholder location)...",
+  "type": "Normal"
+}

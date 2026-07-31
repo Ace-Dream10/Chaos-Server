@@ -1,0 +1,12 @@
+{
+  "templateKey": "bank_initial",
+  "text": "Welcome to Stacia's Vault. How may I assist you?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "generic_deposititem_initial", "optionText": "Deposit item" },
+    { "dialogKey": "generic_withdrawitem_initial", "optionText": "Withdraw item" },
+    { "dialogKey": "bank_deposit_all", "optionText": "Deposit ALL items" },
+    { "dialogKey": "bank_balance", "optionText": "Check balance" },
+    { "dialogKey": "close", "optionText": "Goodbye" }
+  ]
+}

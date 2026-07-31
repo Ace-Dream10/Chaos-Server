@@ -1,0 +1,9 @@
+{
+  "templateKey": "bank",
+  "name": "Stacia's Vault",
+  "sprite": 54,
+  "scriptKeys": ["showDialog", "defaultBehaviors"],
+  "scriptVars": {
+    "showDialog": { "dialogKey": "bank_initial" }
+  }
+}

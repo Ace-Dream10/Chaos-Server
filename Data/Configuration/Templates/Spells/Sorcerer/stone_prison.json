@@ -1,0 +1,26 @@
+{
+  "templateKey": "stone_prison",
+  "name": "Stone Prison",
+  "description": "Entomb a single enemy in solid stone for a long time.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 25000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Stasis",
+      "effectDurationOverride": "00:00:06.000",
+      "singleTarget": true,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "templateKey": "frost_bolt",
+  "name": "Frost Bolt",
+  "description": "Launch a bolt of ice that slows its target.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 4000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage", "applyEffect"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 80,
+      "damageStat": "int",
+      "damageStatMultiplier": 3,
+      "element": "Water",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 8,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    },
+    "applyEffect": {
+      "effectKey": "Slow",
+      "effectDurationOverride": "00:00:03",
+      "singleTarget": true,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    }
+  }
+}

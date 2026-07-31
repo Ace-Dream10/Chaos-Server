@@ -1,0 +1,23 @@
+{
+  "templateKey": "dust_devil",
+  "name": "Dust Devil",
+  "description": "Summon a traveling dust devil that chases down and batters nearby enemies on its own.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["dustDevil"],
+  "scriptVars": {
+    "dustDevil": {
+      "devilTemplateKey": "dust_devil",
+      "durationMs": 5000,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

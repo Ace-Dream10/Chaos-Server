@@ -1,0 +1,29 @@
+{
+  "templateKey": "mudslide",
+  "name": "Mudslide",
+  "description": "Send a wave of heavy mud crashing forward, knocking back and mucking down anything in its path.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 12000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["travelingLine"],
+  "scriptVars": {
+    "travelingLine": {
+      "range": 4,
+      "baseDamage": 70,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Earth",
+      "knockbackTiles": 2,
+      "slowDurationMs": 3000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

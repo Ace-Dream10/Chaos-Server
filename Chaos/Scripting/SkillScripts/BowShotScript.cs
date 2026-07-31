@@ -34,6 +34,17 @@ public class BowShotScript : ConfigurableSkillScriptBase
             return;
         }
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            if (source is Aisling manaAisling)
+                manaAisling.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        if (source is Aisling attackerAisling)
+            attackerAisling.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var map = context.TargetMap;
@@ -113,6 +124,11 @@ public class BowShotScript : ConfigurableSkillScriptBase
     ///     The filter used to determine whether the first creature encountered is a valid (hostile) target
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this skill
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum number of tiles the arrow will travel looking for a target

@@ -1,0 +1,28 @@
+{
+  "templateKey": "earthen_grip",
+  "name": "Earthen Grip",
+  "description": "Bind a single enemy in roots of stone, then leave them sluggish once they break free.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyTwoEffects"],
+  "scriptVars": {
+    "applyTwoEffects": {
+      "singleTarget": true,
+      "range": 8,
+      "effectKey1": "Root",
+      "duration1Ms": 4000,
+      "effectKey2": "Slow",
+      "duration2Ms": 7000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

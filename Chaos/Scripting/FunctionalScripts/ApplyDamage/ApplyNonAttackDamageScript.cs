@@ -22,6 +22,13 @@ public class ApplyNonAttackDamageScript : ScriptBase, IApplyDamageScript
         int damage,
         Element? elementOverride = null)
     {
+        if (!elementOverride.HasValue
+            && source.StatSheet.AdaptiveOffenseElement
+            && (DamageFormula is IElementalDamageFormula elementalDamageFormula))
+            elementOverride = elementalDamageFormula.GetBestOffenseElement(target.StatSheet.DefenseElement);
+
+        source.Trackers.LastAttackElement = elementOverride ?? source.StatSheet.OffenseElement;
+
         damage = DamageFormula.Calculate(
             source,
             target,

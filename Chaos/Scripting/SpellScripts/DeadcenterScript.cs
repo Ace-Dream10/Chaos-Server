@@ -52,6 +52,15 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
         var target = context.TargetCreature!;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         //cast effect traveling from caster to target
         target.Animate(
             new Animation
@@ -159,6 +168,11 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
     ///     The filter used to determine whether the selected target is valid
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum distance, in tiles, a target can be selected from

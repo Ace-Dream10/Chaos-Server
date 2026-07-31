@@ -1,0 +1,21 @@
+{
+  "templateKey": "martial_artist_wep_10",
+  "name": "MartialArtist Weapon 10",
+  "description": "A weapon used for MartialArtist visual testing.",
+  "category": "1h wep",
+  "panelSprite": 13484,
+  "displaySprite": 274,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

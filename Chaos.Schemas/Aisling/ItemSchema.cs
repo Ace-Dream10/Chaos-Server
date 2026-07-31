@@ -44,6 +44,11 @@ public sealed record ItemSchema : PanelEntitySchema
     public string? CustomNameOverride { get; set; }
 
     /// <summary>
+    ///     The item's current enhancement tier, from 0 (unenhanced) to 9, if it's been enhanced
+    /// </summary>
+    public int? EnhancementLevel { get; set; }
+
+    /// <summary>
     ///     The sprite to display for this item if it's different than what is specified by it's template
     /// </summary>
     public ushort? DisplaySprite { get; set; }

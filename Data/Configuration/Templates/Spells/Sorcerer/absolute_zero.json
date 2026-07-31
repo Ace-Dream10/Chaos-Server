@@ -1,0 +1,38 @@
+{
+  "templateKey": "absolute_zero",
+  "name": "Absolute Zero",
+  "description": "Strike a single enemy with devastating cold, freezing them solid and leaving them sluggish after.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 45000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["deadcenter", "applyTwoEffects"],
+  "scriptVars": {
+    "deadcenter": {
+      "baseDamage": 250,
+      "damageStat": "int",
+      "damageStatMultiplier": 5,
+      "element": "Water",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 10,
+      "delayMs": 500,
+      "manaCost": 0,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    },
+    "applyTwoEffects": {
+      "singleTarget": true,
+      "range": 10,
+      "effectKey1": "Stasis",
+      "duration1Ms": 5000,
+      "effectKey2": "Slow",
+      "duration2Ms": 8000,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    }
+  }
+}

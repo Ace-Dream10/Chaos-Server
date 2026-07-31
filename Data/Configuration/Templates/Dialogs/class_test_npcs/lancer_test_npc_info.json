@@ -1,0 +1,8 @@
+{
+  "templateKey": "lancer_test_npc_info",
+  "text": "A frontline tank who charges into battle and protects allies.\n\nPrimary: CON | Secondary: STR\n\nMP mechanic: MP charges from taking damage - activate Lancer's Shield to convert MP into a damage-absorbing barrier at 2.25x rate.\n\nSkills:\nLancer's Charge - rush + stun\nLancer's Leash - pull 6 mobs\nChallenging Shout - aggro all screen\nIron Bastion - AC self buff\nShield Bash - stun, requires shield\nStacia's Will - absorb ally damage 100%->25% over duration\nLancer's Retribution - reflect damage scaled by AC\nLancer's Shield - MP damage barrier\nIron Will - CON-based self heal, doubled while shield active\nShield Wall - wide frontal cone stun",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "lancer_test_npc_initial", "optionText": "Back" }
+  ]
+}

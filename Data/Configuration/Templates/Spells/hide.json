@@ -18,6 +18,7 @@
     }
   },
   "spellType": "NoTarget",
+  "castLines": 0,
   "class": "WeaponMaster",
   "description": "Shrouds you in darkness, hiding you from sight",
   "level": 15,

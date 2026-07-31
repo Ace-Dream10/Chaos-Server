@@ -3,11 +3,14 @@ using Chaos.Collections;
 using Chaos.Collections.Abstractions;
 using Chaos.DarkAges.Definitions;
 using Chaos.Formulae;
+using Chaos.Geometry;
+using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.AislingScripts.Abstractions;
 using Chaos.Scripting.Behaviors;
+using Chaos.Services.Other.Abstractions;
 using Chaos.Services.Servers.Options;
 using Chaos.Storage.Abstractions;
 using Chaos.Time;
@@ -18,21 +21,65 @@ namespace Chaos.Scripting.AislingScripts;
 
 public class DefaultAislingScript : AislingScriptBase
 {
+    /// <summary>
+    ///     How long an Aisling can remain dead before being auto-revived at a Stacia's Shrine (or banished to the
+    ///     Underworld, if hardcore)
+    /// </summary>
+    private static readonly TimeSpan DeathTimerDuration = TimeSpan.FromSeconds(12);
+
+    /// <summary>
+    ///     How often the skull visual is re-played while the Aisling is dead
+    /// </summary>
+    private static readonly TimeSpan SkullAnimationRefreshInterval = TimeSpan.FromMilliseconds(500);
+
+    private static readonly Animation SkullAnimation = new()
+    {
+        TargetAnimation = 24,
+        AnimationSpeed = 100
+    };
+
+    /// <summary>
+    ///     PLACEHOLDER - no real Stacia's Shrine map exists yet, so this points at the class testing grounds (next
+    ///     to the class NPCs) for now. Swap this for a real location once it's built. The Underworld below is still
+    ///     unbuilt and points at monsterTest.
+    /// </summary>
+    private static readonly Point StaciasShrinePoint = new(233, 85);
+
+    private const string StaciasShrineMapInstanceId = "map20003";
+    private static readonly Point UnderworldPoint = new(5, 35);
+    private const string UnderworldMapInstanceId = "monsterTest";
+
+    /// <summary>
+    ///     The percentage of max HP an Aisling is revived with when the death timer expires (non-hardcore)
+    /// </summary>
+    private const int ShrineReviveHpPct = 25;
+
     private readonly IStore<BulletinBoard> BoardStore;
+    private readonly ISimpleCache Cache;
     private readonly IIntervalTimer ClearOrangeBarTimer;
+    private readonly IMapTraversalService MapTraversalService;
     private readonly IStore<MailBox> MailStore;
     private readonly IIntervalTimer SleepAnimationTimer;
+    private TimeSpan SinceDeath;
+    private TimeSpan SinceLastSkullAnimation;
     private SocialStatus PreAfkSocialStatus { get; set; }
     protected virtual RelationshipBehavior RelationshipBehavior { get; }
     protected virtual RestrictionBehavior RestrictionBehavior { get; }
     protected virtual VisibilityBehavior VisibilityBehavior { get; }
 
     /// <inheritdoc />
-    public DefaultAislingScript(Aisling subject, IStore<MailBox> mailStore, IStore<BulletinBoard> boardStore)
+    public DefaultAislingScript(
+        Aisling subject,
+        IStore<MailBox> mailStore,
+        IStore<BulletinBoard> boardStore,
+        ISimpleCache cache,
+        IMapTraversalService mapTraversalService)
         : base(subject)
     {
         MailStore = mailStore;
         BoardStore = boardStore;
+        Cache = cache;
+        MapTraversalService = mapTraversalService;
         RestrictionBehavior = new RestrictionBehavior();
         VisibilityBehavior = new VisibilityBehavior();
         RelationshipBehavior = new RelationshipBehavior();
@@ -127,6 +174,38 @@ public class DefaultAislingScript : AislingScriptBase
         Subject.IsDead = true;
         Subject.Refresh(true);
         Subject.Display();
+
+        Subject.Animate(SkullAnimation, Subject.Id);
+        SinceLastSkullAnimation = TimeSpan.Zero;
+        SinceDeath = TimeSpan.Zero;
+    }
+
+    /// <summary>
+    ///     Called when the death timer expires without the Aisling being revived. Hardcore Aislings are banished to
+    ///     the Underworld (alive, but unable to leave). Everyone else is auto-revived at a Stacia's Shrine.
+    /// </summary>
+    private void HandleDeathTimerExpired()
+    {
+        if (Subject.Hardcore)
+        {
+            Subject.IsBanished = true;
+            Subject.IsDead = false;
+            Subject.StatSheet.SetHealthPct(100);
+            Subject.SendOrangeBarMessage("Your journey ends here. You have been banished to the Underworld.");
+
+            var underworld = Cache.Get<MapInstance>(UnderworldMapInstanceId);
+            MapTraversalService.TraverseMap(Subject, underworld, UnderworldPoint);
+        } else
+        {
+            Subject.IsDead = false;
+            Subject.StatSheet.SetHealthPct(ShrineReviveHpPct);
+            Subject.SendOrangeBarMessage("Stacia's Shrine has called your soul back to the living.");
+
+            var shrine = Cache.Get<MapInstance>(StaciasShrineMapInstanceId);
+            MapTraversalService.TraverseMap(Subject, shrine, StaciasShrinePoint);
+        }
+
+        Subject.Refresh(true);
     }
 
     /// <inheritdoc />
@@ -141,6 +220,22 @@ public class DefaultAislingScript : AislingScriptBase
     {
         SleepAnimationTimer.Update(delta);
         ClearOrangeBarTimer.Update(delta);
+
+        if (Subject.IsDead)
+        {
+            SinceLastSkullAnimation += delta;
+
+            if (SinceLastSkullAnimation >= SkullAnimationRefreshInterval)
+            {
+                SinceLastSkullAnimation = TimeSpan.Zero;
+                Subject.Animate(SkullAnimation, Subject.Id);
+            }
+
+            SinceDeath += delta;
+
+            if (SinceDeath >= DeathTimerDuration)
+                HandleDeathTimerExpired();
+        }
 
         if (SleepAnimationTimer.IntervalElapsed)
         {

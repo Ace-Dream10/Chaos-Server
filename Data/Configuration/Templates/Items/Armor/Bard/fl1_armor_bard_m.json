@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl1_armor_bard_m",
+  "name": "FL1 Bard Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "m armor",
+  "panelSprite": 413,
+  "displaySprite": 93,
+  "color": "Brown",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Male",
+  "level": 1,
+      "modifiers": { "wis": 5, "int": 5, "maximumHp": 1500 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

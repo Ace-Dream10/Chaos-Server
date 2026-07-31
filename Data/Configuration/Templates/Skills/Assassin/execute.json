@@ -1,0 +1,30 @@
+{
+  "templateKey": "execute",
+  "name": "Execute",
+  "description": "Strike a weakened enemy with lethal force. Below 20% HP, the blow is fatal.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["execute"],
+  "scriptVars": {
+    "execute": {
+      "baseDamage": 120,
+      "damageStat": "dex",
+      "damageStatMultiplier": 4,
+      "executeThresholdPct": 20,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Stab",
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -19,5 +19,19 @@
     "extraScriptKeys": [],
     "merchantTemplateKey": "hairstylist",
     "spawnPoint": "(35, 19)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "blacksmith",
+    "spawnPoint": "(36, 19)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "bank",
+    "spawnPoint": "(37, 19)"
   }
 ]

@@ -1,0 +1,33 @@
+{
+    "aggroRange": 6,
+    "assailIntervalMs": 1200,
+    "expReward": 350,
+    "lootTableKeys": [],
+    "maxGoldDrop": 90,
+    "minGoldDrop": 40,
+    "maxGamePointsDrop": 12,
+    "minGamePointsDrop": 4,
+    "moveIntervalMs": 1200,
+    "name": "Field Beaver",
+    "scriptKeys": ["default"],
+    "scriptVars": {},
+    "skillIntervalMs": 1200,
+    "skillTemplateKeys": ["Assail"],
+    "spellIntervalMs": 10000,
+    "spellTemplateKeys": [],
+    "sprite": 1015,
+    "statSheet": {
+        "level": 7,
+        "ac": 75,
+        "maximumHp": 4500,
+        "maximumMp": 2100,
+        "con": 5,
+        "dex": 7,
+        "int": 2,
+        "str": 7,
+        "wis": 2
+    },
+    "templateKey": "field_beaver",
+    "type": "Normal",
+    "wanderIntervalMs": 2000
+}

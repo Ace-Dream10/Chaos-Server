@@ -1,0 +1,15 @@
+{
+  "options": [],
+  "scriptKeys": ["grantStarterKit"],
+  "scriptVars": {
+    "grantStarterKit": {
+      "baseClass": "Strider",
+      "hardcore": false,
+      "starterItemTemplateKeys": [],
+      "starterGold": 500
+    }
+  },
+  "templateKey": "starting_guide_set_strider_normal",
+  "text": "Welcome, Strider! You've been given some gold to get started. Head to floor 1 to choose your discipline - good luck!",
+  "type": "Normal"
+}

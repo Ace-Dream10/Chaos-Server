@@ -1,0 +1,27 @@
+{
+  "templateKey": "healing_waters",
+  "name": "Healing Waters",
+  "description": "Wash over your allies with soothing water, restoring health to everyone nearby.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["heal"],
+  "scriptVars": {
+    "heal": {
+      "baseHeal": 60,
+      "healStat": "wis",
+      "healStatMultiplier": 2,
+      "shape": "allAround",
+      "range": 3,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "templateKey": "stacias_shrine",
+  "name": "Stacia's Shrine",
+  "description": "Summon a sacred shrine that radiates Stacia's healing energy for 5 seconds.",
+  "panelSprite": 12,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasShrine"],
+  "scriptVars": {
+    "staciasShrine": {
+      "healPerTick": 60,
+      "shrineTemplateKey": "stacias_shrine",
+      "healRange": 3,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "PriestCast",
+      "animation": { "targetAnimation": 267, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

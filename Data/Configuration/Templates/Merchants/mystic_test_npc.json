@@ -1,0 +1,7 @@
+{
+  "templateKey": "mystic_test_npc",
+  "name": "Mystic Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "mystic_test_npc_initial" } }
+}

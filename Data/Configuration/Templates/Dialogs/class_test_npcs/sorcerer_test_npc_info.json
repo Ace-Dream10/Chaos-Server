@@ -1,0 +1,8 @@
+{
+  "templateKey": "sorcerer_test_npc_info",
+  "text": "An elemental destroyer who specializes in two elements to unlock a master fusion.\n\nPrimary: INT | Secondary: WIS\n\nMP mechanic: MP regenerates natively for spell costs. Choose Fire/Earth/Water/Wind at specialization, then choose again for a second element - your master/fusion spells unlock based on both choices.\n\nUniversal spells:\nArcane Bolt\nArcane Gate\n\nStarter spells:\nFire Breath, Flame Lance (Fire)\nEarth Spike, Stone Skin (Earth)\nFrost Bolt, Tidal Wave (Water)\nWind Slash, Gale Force (Wind)\n\nPlus all pure-element master spells and two-element fusion spells, unlocked based on your specialization choice.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "sorcerer_test_npc_initial", "optionText": "Back" }
+  ]
+}

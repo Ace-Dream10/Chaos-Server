@@ -1,0 +1,31 @@
+{
+  "templateKey": "chi_burst",
+  "name": "Chi Burst",
+  "description": "Release all stored Chi in a devastating explosion. More Chi = more destruction. Even stronger in Beast Form.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 3, "con": 5 }
+  },
+  "scriptKeys": ["chiBurst"],
+  "scriptVars": {
+    "chiBurst": {
+      "baseDamage": 50,
+      "chiMultiplier": 1.5,
+      "minimumMp": 50,
+      "beastFormBonus": 1.5,
+      "range": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 167, "animationSpeed": 100 },
+      "sound": 35
+    }
+  }
+}

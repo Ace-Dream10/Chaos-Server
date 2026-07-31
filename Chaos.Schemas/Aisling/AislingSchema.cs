@@ -52,6 +52,11 @@ public sealed record AislingSchema
     public int GamePoints { get; set; }
 
     /// <summary>
+    ///     Whether or not this aisling is playing in hardcore mode
+    /// </summary>
+    public bool Hardcore { get; set; }
+
+    /// <summary>
     ///     The gender of the aisling
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
@@ -87,6 +92,11 @@ public sealed record AislingSchema
     ///     Whether or not this aisling has admin privileges
     /// </summary>
     public bool IsAdmin { get; set; }
+
+    /// <summary>
+    ///     Whether or not this aisling has been permanently banished to the Underworld
+    /// </summary>
+    public bool IsBanished { get; set; }
 
     /// <summary>
     ///     Whether or not this aisling is dead

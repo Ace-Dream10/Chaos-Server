@@ -1,0 +1,27 @@
+{
+  "templateKey": "iron_bastion",
+  "name": "Iron Bastion",
+  "description": "Harden your defenses, reducing incoming damage for 8 seconds.",
+  "panelSprite": 50,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "IronBastion",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 24, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

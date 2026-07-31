@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_blizzard",
+  "text": "Water and wind howl as one. Your path is Blizzard.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Water",
+      "element2": "Wind",
+      "specializationName": "Blizzard (Water + Wind)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "frost_bolt",
+        "tidal_wave",
+        "wind_slash",
+        "gale_force",
+        "glacial_barrier",
+        "frost_nova",
+        "ice_lance",
+        "whiteout"
+      ]
+    }
+  }
+}

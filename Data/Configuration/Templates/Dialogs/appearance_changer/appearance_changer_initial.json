@@ -1,0 +1,13 @@
+{
+  "options": [
+    { "dialogKey": "appearance_changer_gender", "optionText": "Change Gender" },
+    { "dialogKey": "appearance_changer_skincolor", "optionText": "Change Skin Color" },
+    { "dialogKey": "hairstylist_style_page1", "optionText": "Change Hairstyle" },
+    { "dialogKey": "hairstylist_color_menu", "optionText": "Change Hair Color" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "appearance_changer_initial",
+  "text": "What would you like to change?",
+  "type": "Menu"
+}

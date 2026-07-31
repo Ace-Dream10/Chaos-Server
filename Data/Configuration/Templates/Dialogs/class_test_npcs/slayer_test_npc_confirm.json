@@ -1,0 +1,33 @@
+{
+  "templateKey": "slayer_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Slayer",
+      "baseClass": "WeaponMaster",
+      "advClass": "Slayer",
+      "skillTemplateKeys": [
+        "assail",
+        "severance_strike",
+        "deep_cut",
+        "scythe",
+        "evade",
+        "cold_blood",
+        "whirlwind",
+        "flourish",
+        "cross_slash",
+        "death_march",
+        "ricochet",
+        "crippling_blow",
+        "slayers_rush"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_twohanded_1"],
+      "armorTemplateKeyMale": "fl1_armor_slayer_m",
+      "armorTemplateKeyFemale": "fl1_armor_slayer_f"
+    }
+  }
+}

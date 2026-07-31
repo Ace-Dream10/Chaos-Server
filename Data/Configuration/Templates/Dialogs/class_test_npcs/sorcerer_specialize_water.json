@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_water",
+  "text": "The tide always returns. Your path is Pure Water.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Water",
+      "element2": null,
+      "specializationName": "Pure Water (Hydromancer)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "frost_bolt",
+        "tidal_wave",
+        "glacial_prison",
+        "whirlpool",
+        "tsunami",
+        "ice_age",
+        "healing_waters",
+        "absolute_zero"
+      ]
+    }
+  }
+}

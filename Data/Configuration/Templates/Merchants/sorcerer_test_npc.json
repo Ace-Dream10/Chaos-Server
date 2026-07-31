@@ -1,0 +1,7 @@
+{
+  "templateKey": "sorcerer_test_npc",
+  "name": "Sorcerer Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "sorcerer_test_npc_initial" } }
+}

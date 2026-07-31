@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_assassin_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "assassin",
+
+      "weaponKeyPrefixes": ["assassin_wep"]
+    }
+  }
+}

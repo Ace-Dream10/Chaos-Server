@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["enhanceItem"],
+  "scriptVars": {
+    "enhanceItem": { "itemTemplateKey": "testing_sword", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_confirm",
+  "text": "{0}",
+  "type": "Normal"
+}

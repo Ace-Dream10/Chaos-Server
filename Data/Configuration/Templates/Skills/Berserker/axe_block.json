@@ -1,0 +1,27 @@
+{
+  "templateKey": "axe_block",
+  "name": "Axe Block",
+  "description": "Raise your axe to deflect all incoming damage for 3 seconds.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "AxeBlock",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 24, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

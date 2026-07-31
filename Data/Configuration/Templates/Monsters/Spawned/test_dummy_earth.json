@@ -1,0 +1,26 @@
+{
+  "templateKey": "test_dummy_earth",
+  "name": "Earth Dummy",
+  "sprite": 637,
+  "type": "Normal",
+  "aggroRange": 0,
+  "assailIntervalMs": 99999,
+  "moveIntervalMs": 99999,
+  "skillIntervalMs": 99999,
+  "spellIntervalMs": 99999,
+  "wanderIntervalMs": 99999,
+  "expReward": 0,
+  "scriptKeys": ["setDefenseElement"],
+  "scriptVars": {
+    "setDefenseElement": { "defenseElement": "Earth" }
+  },
+  "skillTemplateKeys": [],
+  "spellTemplateKeys": [],
+  "statSheet": {
+    "level": 1,
+    "ac": 0,
+    "maximumHp": 99999,
+    "maximumMp": 0,
+    "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1
+  }
+}

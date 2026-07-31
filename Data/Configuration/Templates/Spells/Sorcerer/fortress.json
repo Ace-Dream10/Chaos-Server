@@ -1,0 +1,23 @@
+{
+  "templateKey": "fortress",
+  "name": "Fortress",
+  "description": "Become an unmovable bastion of stone - massive AC, CON, and STR, but you cannot move.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 25000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Fortress",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

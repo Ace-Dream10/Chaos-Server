@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl1_armor_valkyrie_f",
+  "name": "FL1 Valkyrie Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "f armor",
+  "panelSprite": 1645,
+  "displaySprite": 66,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Female",
+  "level": 1,
+  "modifiers": { "str": 5, "dex": 5, "maximumHp": 1500 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

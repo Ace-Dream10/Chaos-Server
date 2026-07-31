@@ -1,0 +1,21 @@
+{
+  "templateKey": "bard_wep_7",
+  "name": "Bard Weapon 7",
+  "description": "A weapon used for Bard visual testing.",
+  "category": "1h wep",
+  "panelSprite": 2371,
+  "displaySprite": 173,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

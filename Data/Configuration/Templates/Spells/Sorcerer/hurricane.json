@@ -1,0 +1,29 @@
+{
+  "templateKey": "hurricane",
+  "name": "Hurricane",
+  "description": "Summon a raging hurricane around you, blasting everything nearby away with massive force.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 30000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["knockbackAoe"],
+  "scriptVars": {
+    "knockbackAoe": {
+      "shape": "allAround",
+      "range": 2,
+      "baseDamage": 150,
+      "damageStat": "int",
+      "damageStatMultiplier": 4,
+      "element": "Wind",
+      "knockbackTiles": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

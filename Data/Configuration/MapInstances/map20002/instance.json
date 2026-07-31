@@ -1,0 +1,9 @@
+{
+  "instanceId": "map20002",
+  "templateKey": "20002",
+  "name": "New Map",
+  "music": 1,
+  "flags": "None",
+  "autoDayNightCycle": true,
+  "scriptKeys": []
+}

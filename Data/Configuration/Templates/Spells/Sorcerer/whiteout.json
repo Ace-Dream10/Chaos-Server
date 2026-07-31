@@ -1,0 +1,37 @@
+{
+  "templateKey": "whiteout",
+  "name": "Whiteout",
+  "description": "Summon a blinding blizzard that slows, damages, and briefly freezes every enemy nearby.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 60000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage", "applyTwoEffects"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 150,
+      "damageStat": "int",
+      "damageStatMultiplier": 4,
+      "element": "Water",
+      "shape": "allAround",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    },
+    "applyTwoEffects": {
+      "shape": "allAround",
+      "range": 3,
+      "effectKey1": "Slow",
+      "duration1Ms": 4000,
+      "effectKey2": "Stasis",
+      "duration2Ms": 1000,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    }
+  }
+}

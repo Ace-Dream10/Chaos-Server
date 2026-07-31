@@ -1,0 +1,28 @@
+{
+  "templateKey": "blink_sorcerer",
+  "name": "Blink",
+  "description": "Instantly teleport a short distance forward.",
+  "panelSprite": 25,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 5000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 2, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["blink"],
+  "scriptVars": {
+    "blink": {
+      "range": 4,
+      "departureAnimation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "arrivalAnimation": { "targetAnimation": 134, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

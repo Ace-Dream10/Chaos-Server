@@ -1,0 +1,107 @@
+[
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "lancer_test_npc",
+    "spawnPoint": "(233, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "martial_artist_test_npc",
+    "spawnPoint": "(234, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "valkyrie_test_npc",
+    "spawnPoint": "(235, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "slayer_test_npc",
+    "spawnPoint": "(236, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "berserker_test_npc",
+    "spawnPoint": "(237, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "assassin_test_npc",
+    "spawnPoint": "(238, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "trickster_test_npc",
+    "spawnPoint": "(239, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "archer_test_npc",
+    "spawnPoint": "(240, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "sorcerer_test_npc",
+    "spawnPoint": "(241, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "mystic_test_npc",
+    "spawnPoint": "(242, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "bard_test_npc",
+    "spawnPoint": "(243, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "equipment_vendor",
+    "spawnPoint": "(244, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "spirit_guide",
+    "spawnPoint": "(245, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "blacksmith",
+    "spawnPoint": "(246, 85)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "bank",
+    "spawnPoint": "(247, 85)"
+  }
+]

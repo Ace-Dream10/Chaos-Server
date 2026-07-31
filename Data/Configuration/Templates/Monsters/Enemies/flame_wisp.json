@@ -1,0 +1,33 @@
+{
+    "aggroRange": 6,
+    "assailIntervalMs": 1400,
+    "expReward": 150,
+    "lootTableKeys": [],
+    "maxGoldDrop": 50,
+    "minGoldDrop": 20,
+    "maxGamePointsDrop": 8,
+    "minGamePointsDrop": 2,
+    "moveIntervalMs": 1400,
+    "name": "Flame Wisp",
+    "scriptKeys": ["default"],
+    "scriptVars": {},
+    "skillIntervalMs": 1400,
+    "skillTemplateKeys": ["Assail"],
+    "spellIntervalMs": 10000,
+    "spellTemplateKeys": [],
+    "sprite": 758,
+    "statSheet": {
+        "level": 3,
+        "ac": 55,
+        "maximumHp": 900,
+        "maximumMp": 900,
+        "con": 3,
+        "dex": 3,
+        "int": 1,
+        "str": 3,
+        "wis": 1
+    },
+    "templateKey": "flame_wisp",
+    "type": "Normal",
+    "wanderIntervalMs": 2000
+}

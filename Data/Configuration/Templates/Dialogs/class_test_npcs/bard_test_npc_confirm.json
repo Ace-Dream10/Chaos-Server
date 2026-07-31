@@ -1,0 +1,19 @@
+{
+  "templateKey": "bard_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Bard",
+      "baseClass": "Magus",
+      "advClass": "Bard",
+      "skillTemplateKeys": ["assail"],
+      "spellTemplateKeys": ["stacias_vitae", "red_requiem", "stacias_blessing", "stacias_lullaby", "stacias_hymn", "stacias_march", "stacias_chorus", "stacias_cleanse", "void_crescendo", "stacias_veil", "stacias_armor", "stacias_bubble", "grand_finale"],
+      "gearTemplateKeys": ["bard_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_bard_m",
+      "armorTemplateKeyFemale": "fl1_armor_bard_f"
+    }
+  }
+}

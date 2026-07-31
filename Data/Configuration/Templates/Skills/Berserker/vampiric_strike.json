@@ -1,0 +1,31 @@
+{
+  "templateKey": "vampiric_strike",
+  "name": "Vampiric Strike",
+  "description": "A vicious strike that drains the life force of your enemy to heal yourself.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 1, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["vampiricStrike"],
+  "scriptVars": {
+    "vampiricStrike": {
+      "baseDamage": 80,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "healPct": 40,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

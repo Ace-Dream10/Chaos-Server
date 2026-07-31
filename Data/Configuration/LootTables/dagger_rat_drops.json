@@ -1,0 +1,11 @@
+{
+  "key": "dagger_rat_drops",
+  "lootDrops": [
+    {
+      "dropChance": 0.2,
+      "itemTemplateKey": "stacias_tear",
+      "minAmount": 1,
+      "maxAmount": 3
+    }
+  ]
+}

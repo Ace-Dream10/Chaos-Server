@@ -1,0 +1,8 @@
+{
+  "templateKey": "slayer_test_npc_info",
+  "text": "A methodical hunter who marks targets with Severance stacks then executes them.\n\nPrimary: STR | Secondary: CON\n\nMP mechanic: No MP system - Severance stacks build on enemies via skills. Switching targets resets all stacks. At 5 stacks use Scythe for devastating damage.\n\nSkills:\nSeverance Strike - +1 stack\nDeep Cut - +2 stacks\nScythe - consume stacks for massive damage\nCold Blood - 15sec full MP = max Scythe potential\nEvade - 1-tile dodge backward, skips if blocked\nWhirlwind - tornado 3 tiles forward\nFlourish - 5 rapid forward hits\nCross Slash - X pattern diagonal AoE\nDeath March - walk 3 tiles slashing everything\nRicochet - melee chain bounce 3 targets\nCrippling Blow - single target stun\nSlayer's Rush - 2-tile rush + Severance stack on hit",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "slayer_test_npc_initial", "optionText": "Back" }
+  ]
+}

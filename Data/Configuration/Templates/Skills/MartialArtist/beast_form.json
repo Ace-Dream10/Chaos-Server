@@ -1,0 +1,26 @@
+{
+  "templateKey": "beast_form",
+  "name": "Beast Form",
+  "description": "Channel your inner Chi to transform into your chosen beast. Drains 1 Chi per second.",
+  "panelSprite": 50,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["beastForm"],
+  "scriptVars": {
+    "beastForm": {
+      "minimumMp": 20,
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

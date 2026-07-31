@@ -1,8 +1,11 @@
 {
-  "options": [],
+  "options": [
+    { "dialogKey": "hairstylist_color_menu", "optionText": "Try Another" },
+    { "dialogKey": "hairstylist_initial", "optionText": "Done" }
+  ],
   "scriptKeys": ["setHairColor"],
   "scriptVars": { "setHairColor": { "hairColor": "Tangerine" } },
   "templateKey": "hairstylist_color_set_Tangerine",
   "text": "Your hair color has been updated!",
-  "type": "Normal"
+  "type": "Menu"
 }

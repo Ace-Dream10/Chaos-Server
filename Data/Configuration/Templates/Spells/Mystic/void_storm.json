@@ -1,0 +1,28 @@
+{
+  "templateKey": "void_storm",
+  "name": "Void Storm",
+  "description": "Unleash a cone of dark energy that devastates all in its path.",
+  "panelSprite": 12,
+  "class": "Mystic",
+  "spellType": "NoTarget",
+  "cooldownMs": 10000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 80,
+      "damageStat": "wis",
+      "damageStatMultiplier": 3,
+      "element": "Darkness",
+      "shape": "frontalCone",
+      "range": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

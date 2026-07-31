@@ -1,0 +1,30 @@
+{
+  "templateKey": "iron_will",
+  "name": "Iron Will",
+  "description": "Draw on your endurance to heal yourself. Even more effective while your shield is active.",
+  "panelSprite": 46,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["ironWill"],
+  "scriptVars": {
+    "ironWill": {
+      "baseHeal": 100,
+      "healStat": "con",
+      "healStatMultiplier": 3,
+      "shieldBonusMultiplier": 2,
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

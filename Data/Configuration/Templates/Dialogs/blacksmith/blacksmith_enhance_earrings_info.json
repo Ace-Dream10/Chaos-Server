@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "blacksmith_enhance_earrings_confirm", "optionText": "Enhance" }
+  ],
+  "scriptKeys": ["enhanceItemInfo"],
+  "scriptVars": {
+    "enhanceItemInfo": { "itemTemplateKey": "fl1_earrings", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_earrings_info",
+  "text": "{0}",
+  "type": "Menu"
+}

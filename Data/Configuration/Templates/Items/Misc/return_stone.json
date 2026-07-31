@@ -1,0 +1,21 @@
+{
+  "templateKey": "return_stone",
+  "name": "Return Stone",
+  "description": "A magical stone that returns you to the Class Testing Grounds.",
+  "category": "consumable",
+  "panelSprite": 100,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 99,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "scriptKeys": ["useToWarp"],
+  "scriptVars": {
+    "useToWarp": {
+      "destinationMap": "map20003",
+      "destinationX": 233,
+      "destinationY": 85
+    }
+  }
+}

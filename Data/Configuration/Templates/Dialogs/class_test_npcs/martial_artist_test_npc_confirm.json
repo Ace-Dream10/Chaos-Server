@@ -1,0 +1,34 @@
+{
+  "templateKey": "martial_artist_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Martial Artist",
+      "baseClass": "MartialArtist",
+      "advClass": "MartialArtist",
+      "skillTemplateKeys": [
+        "assail",
+        "kick",
+        "sweeping_kick",
+        "meditate",
+        "beast_form",
+        "fenrir_claw",
+        "celestial_bolt",
+        "basilisk_bite",
+        "alpha_strike",
+        "counter_strike",
+        "chi_burst",
+        "roundhouse",
+        "one_inch_punch",
+        "tiger_stance"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["martial_artist_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_martial_artist_m",
+      "armorTemplateKeyFemale": "fl1_armor_martial_artist_f"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "templateKey": "alpha_strike",
+  "name": "Alpha Strike",
+  "description": "Blink between up to 3 enemies striking each with blinding speed.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["alphaStrike"],
+  "scriptVars": {
+    "alphaStrike": {
+      "maxTargets": 3,
+      "baseDamage": 80,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "range": 5,
+      "blinkIntervalMs": 200,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

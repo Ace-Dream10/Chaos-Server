@@ -1,0 +1,33 @@
+{
+    "aggroRange": 6,
+    "assailIntervalMs": 1300,
+    "expReward": 250,
+    "lootTableKeys": [],
+    "maxGoldDrop": 70,
+    "minGoldDrop": 30,
+    "maxGamePointsDrop": 10,
+    "minGamePointsDrop": 3,
+    "moveIntervalMs": 1300,
+    "name": "Hooded Shade",
+    "scriptKeys": ["default"],
+    "scriptVars": {},
+    "skillIntervalMs": 1300,
+    "skillTemplateKeys": ["Assail"],
+    "spellIntervalMs": 10000,
+    "spellTemplateKeys": [],
+    "sprite": 1014,
+    "statSheet": {
+        "level": 5,
+        "ac": 65,
+        "maximumHp": 2800,
+        "maximumMp": 1500,
+        "con": 4,
+        "dex": 5,
+        "int": 2,
+        "str": 5,
+        "wis": 2
+    },
+    "templateKey": "hooded_shade",
+    "type": "Normal",
+    "wanderIntervalMs": 2000
+}

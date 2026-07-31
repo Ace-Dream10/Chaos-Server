@@ -1,0 +1,28 @@
+{
+  "templateKey": "chain_lightning",
+  "name": "Chain Lightning",
+  "description": "Strike a target with lightning that arcs to nearby enemies, weakening with each jump.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 10000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["chainBounce"],
+  "scriptVars": {
+    "chainBounce": {
+      "baseDamage": 120,
+      "damageStat": "int",
+      "damageStatMultiplier": 4,
+      "element": "Wind",
+      "jumpRange": 4,
+      "jumpDelayMs": 250,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 80, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

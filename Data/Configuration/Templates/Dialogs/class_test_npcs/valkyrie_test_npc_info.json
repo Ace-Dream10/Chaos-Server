@@ -1,0 +1,8 @@
+{
+  "templateKey": "valkyrie_test_npc_info",
+  "text": "A mobile fury warrior who builds rage through skill use.\n\nPrimary: STR | Secondary: DEX\n\nMP mechanic: MP = Fury, generates from skill use even without mobs, decays when idle - release with Ragnarok for massive burst.\n\nSkills:\nGlaive Leap - 2-tile dash\nDragoon's Wrath - STR/DEX/speed self buff + bonus fury\nMaelstrom - AoE all around\nValkyrie's Call - pull 4 mobs 2 tiles\nHeaven's Recoil - push mobs 1 tile\nRagnarok - dump all fury for massive AoE burst, min 50 fury",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "valkyrie_test_npc_initial", "optionText": "Back" }
+  ]
+}

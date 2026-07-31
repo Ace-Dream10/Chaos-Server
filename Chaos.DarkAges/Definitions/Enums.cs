@@ -599,7 +599,8 @@ public enum Element : byte
     Darkness = 6,
     Wood = 7,
     Metal = 8,
-    Undead = 9
+    Undead = 9,
+    Lightning = 10
 }
 
 /// <summary>
@@ -701,7 +702,22 @@ public enum AdvClass : byte
     Trickster = 2,
     Archer = 3,
     Bard = 4,
-    Summoner = 5
+    Summoner = 5,
+    Valkyrie = 6,
+    Berserker = 7,
+    Slayer = 8,
+    MartialArtist = 9
+}
+
+/// <summary>
+///     A byte representing the beast spirit form chosen by a Martial Artist. Set permanently via the Spirit Guide.
+/// </summary>
+public enum BeastFormType
+{
+    None = 0,
+    Fenrir = 1,
+    Celestial = 2,
+    Basilisk = 3
 }
 
 /// <summary>

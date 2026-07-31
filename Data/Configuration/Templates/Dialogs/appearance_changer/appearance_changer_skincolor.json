@@ -1,0 +1,20 @@
+{
+  "options": [
+    { "dialogKey": "appearance_changer_skincolor_set_White", "optionText": "White" },
+    { "dialogKey": "appearance_changer_skincolor_set_Pale", "optionText": "Pale" },
+    { "dialogKey": "appearance_changer_skincolor_set_Brown", "optionText": "Brown" },
+    { "dialogKey": "appearance_changer_skincolor_set_Green", "optionText": "Green" },
+    { "dialogKey": "appearance_changer_skincolor_set_Yellow", "optionText": "Yellow" },
+    { "dialogKey": "appearance_changer_skincolor_set_Tan", "optionText": "Tan" },
+    { "dialogKey": "appearance_changer_skincolor_set_Grey", "optionText": "Grey" },
+    { "dialogKey": "appearance_changer_skincolor_set_LightBlue", "optionText": "LightBlue" },
+    { "dialogKey": "appearance_changer_skincolor_set_Orange", "optionText": "Orange" },
+    { "dialogKey": "appearance_changer_skincolor_set_Purple", "optionText": "Purple" },
+    { "dialogKey": "appearance_changer_initial", "optionText": "<- Back" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "appearance_changer_skincolor",
+  "text": "Choose your skin color:",
+  "type": "Menu"
+}

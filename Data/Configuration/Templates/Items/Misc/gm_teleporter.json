@@ -1,0 +1,20 @@
+{
+  "templateKey": "gm_teleporter",
+  "name": "GM Teleporter",
+  "description": "Teleports you to one of the locations currently being tested.",
+  "category": "gm",
+  "panelSprite": 1,
+  "color": "Default",
+  "weight": 0,
+  "maxStacks": 1,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "noTrade": true,
+  "preventBanking": true,
+  "scriptKeys": ["showdialog", "undroppable"],
+  "scriptVars": {
+    "showdialog": { "dialogKey": "gm_teleporter_initial" },
+    "undroppable": {}
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "templateKey": "precise_shot",
+  "name": "Precise Shot",
+  "description": "A carefully aimed shot dealing heavy damage.",
+  "panelSprite": 25,
+  "advClass": "Archer",
+  "spellType": "Targeted",
+  "cooldownMs": 3000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["preciseShot"],
+  "scriptVars": {
+    "preciseShot": {
+      "baseDamage": 80,
+      "damageStat": "dex",
+      "damageStatMultiplier": 4,
+      "manaCost": 15,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 10,
+      "bodyAnimation": "HeavyBowShot",
+      "animation": { "targetAnimation": 1, "sourceAnimation": 7, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

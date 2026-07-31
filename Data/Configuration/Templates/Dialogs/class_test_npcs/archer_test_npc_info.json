@@ -1,0 +1,8 @@
+{
+  "templateKey": "archer_test_npc_info",
+  "text": "A precision ranged fighter who manages focus to fire powerful shots.\n\nPrimary: DEX | Secondary: WIS\n\nMP mechanic: MP regenerates passively from DEX+WIS+gear - all bow skills and spells cost MP. Run out of focus and your shots fail.\n\nSkills:\nBow Assail - basic bow attack\nArrowstep - 2-tile dash\n\nSpells:\nArrow Shot - basic ranged auto-attack\nFire Shot - fire damage\nDeadcenter - massive precision shot, 3 cast lines, lock-on visual\nTrapper's Net - slow with net animation\nRain of Arrows - 5-volley area bombardment\nFlechette - chain bounce 3 targets\nPrecise Shot - heavy single target\nFocus - self buff, accuracy + damage",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "archer_test_npc_initial", "optionText": "Back" }
+  ]
+}

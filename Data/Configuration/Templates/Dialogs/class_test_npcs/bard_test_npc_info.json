@@ -1,0 +1,8 @@
+{
+  "templateKey": "bard_test_npc_info",
+  "text": "A divine support who channels Stacia's power to protect and revive allies.\n\nPrimary: WIS | Secondary: INT\n\nMP mechanic: MP regenerates natively for spell costs.\n\nSpells:\nStacia's Vitae - instant burst heal\nRed Requiem - resurrection\nStacia's Blessing - 30min map-wide all-stats buff\nStacia's Lullaby - sleep CC\nStacia's Hymn - party damage boost, 30s\nStacia's March - party attack speed boost\nStacia's Chorus - bouncing chain heal, 3 targets\nStacia's Cleanse - remove all debuffs from an ally\nVoid Crescendo - MP-scaling damage, more MP means a bigger hit\nStacia's Veil - 20% damage reduction for the party\nStacia's Armor - AC boost for the party\nGrand Finale - 10-second sustained AoE around a targeted ally\nStacia's Bubble - damage-absorb shield on an ally",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "bard_test_npc_initial", "optionText": "Back" }
+  ]
+}

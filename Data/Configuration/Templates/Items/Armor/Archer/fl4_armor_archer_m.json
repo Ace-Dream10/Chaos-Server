@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl4_armor_archer_m",
+  "name": "FL4 Archer Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "m armor",
+  "panelSprite": 1995,
+  "displaySprite": 310,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Male",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

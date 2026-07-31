@@ -1,0 +1,28 @@
+{
+  "templateKey": "shadow_clone",
+  "name": "Shadow Clone",
+  "description": "Summon a shadow copy that draws enemy attention and attacks nearby foes.",
+  "panelSprite": 46,
+  "advClass": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 6, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["shadowClone"],
+  "scriptVars": {
+    "shadowClone": {
+      "cloneTemplateKey": "shadow_clone",
+      "aggroRange": 8,
+      "durationMs": 5000,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

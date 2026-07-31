@@ -26,6 +26,10 @@ public class MoveToTargetScript : MonsterScriptBase
         if (Subject.Trackers.Tags.ContainsKey("rooted"))
             return;
 
+        //asleep from Stacia's Lullaby - completely idle until woken by damage
+        if (Subject.Trackers.Tags.ContainsKey("asleep"))
+            return;
+
         if ((Target == null) || !ShouldMove)
             return;
 

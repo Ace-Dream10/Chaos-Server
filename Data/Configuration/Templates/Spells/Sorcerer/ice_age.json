@@ -1,0 +1,24 @@
+{
+  "templateKey": "ice_age",
+  "name": "Ice Age",
+  "description": "Freeze the world itself - every enemy on the map is slowed to a crawl.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 60000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["iceAge"],
+  "scriptVars": {
+    "iceAge": {
+      "durationMs": 5000,
+      "slowAmount": 400,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

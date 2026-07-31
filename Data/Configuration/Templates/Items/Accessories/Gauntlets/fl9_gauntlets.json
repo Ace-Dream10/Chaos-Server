@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl9_gauntlets",
+  "name": "FL9 Gauntlets",
+  "description": "Placeholder gauntlets for visual testing.",
+  "category": "gauntlets",
+  "panelSprite": 13435,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Gauntlet",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

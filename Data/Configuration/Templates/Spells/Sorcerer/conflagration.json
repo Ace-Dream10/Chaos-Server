@@ -1,0 +1,29 @@
+{
+  "templateKey": "conflagration",
+  "name": "Conflagration",
+  "description": "Set a wide area ablaze with lingering, heavy fire.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 60000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["hazardField"],
+  "scriptVars": {
+    "hazardField": {
+      "footprint": "circle2",
+      "hazardTemplateKey": "elemental_hazard",
+      "baseDamage": 60,
+      "damageStat": "int",
+      "damageStatMultiplier": 2.5,
+      "pulseIntervalMs": 500,
+      "durationMs": 8000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

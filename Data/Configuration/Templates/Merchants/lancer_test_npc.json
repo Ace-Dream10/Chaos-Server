@@ -1,0 +1,7 @@
+{
+  "templateKey": "lancer_test_npc",
+  "name": "Lancer Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "lancer_test_npc_initial" } }
+}

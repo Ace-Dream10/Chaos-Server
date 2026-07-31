@@ -1,0 +1,10 @@
+{
+  "templateKey": "gm_gear_valkyrie_helm_f",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": { "classKey": "valkyrie", "gender": "f", "grantHelm": true }
+  }
+}

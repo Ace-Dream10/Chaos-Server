@@ -1,0 +1,18 @@
+{
+  "templateKey": "gm_gear_initial",
+  "text": "Which class do you want to grant gear for?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "gm_gear_archer_menu", "optionText": "Archer" },
+    { "dialogKey": "gm_gear_assassin_menu", "optionText": "Assassin" },
+    { "dialogKey": "gm_gear_bard_menu", "optionText": "Bard" },
+    { "dialogKey": "gm_gear_berserker_menu", "optionText": "Berserker" },
+    { "dialogKey": "gm_gear_lancer_menu", "optionText": "Lancer" },
+    { "dialogKey": "gm_gear_martial_artist_menu", "optionText": "Martial Artist" },
+    { "dialogKey": "gm_gear_mystic_menu", "optionText": "Mystic" },
+    { "dialogKey": "gm_gear_slayer_menu", "optionText": "Slayer" },
+    { "dialogKey": "gm_gear_sorcerer_menu", "optionText": "Sorcerer" },
+    { "dialogKey": "gm_gear_trickster_menu", "optionText": "Trickster" },
+    { "dialogKey": "gm_gear_valkyrie_menu", "optionText": "Valkyrie" }
+  ]
+}

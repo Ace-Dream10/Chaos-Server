@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_wind",
+  "text": "The storm never rests. Your path is Pure Wind.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Wind",
+      "element2": null,
+      "specializationName": "Pure Wind (Aeromancer)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "wind_slash",
+        "gale_force",
+        "tornado",
+        "lightning_bolt",
+        "hurricane",
+        "void_slash",
+        "chain_lightning",
+        "eye_of_the_storm"
+      ]
+    }
+  }
+}

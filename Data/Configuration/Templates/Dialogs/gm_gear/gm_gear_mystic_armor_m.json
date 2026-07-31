@@ -1,0 +1,10 @@
+{
+  "templateKey": "gm_gear_mystic_armor_m",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": { "classKey": "mystic", "gender": "m", "grantArmor": true }
+  }
+}

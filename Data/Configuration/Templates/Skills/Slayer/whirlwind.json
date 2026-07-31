@@ -1,0 +1,32 @@
+{
+  "templateKey": "whirlwind",
+  "name": "Whirlwind",
+  "description": "Launch a spinning tornado that tears through enemies for 3 tiles.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 3, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["whirlwind"],
+  "scriptVars": {
+    "whirlwind": {
+      "range": 3,
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "slowDurationMs": 2000,
+      "travelIntervalMs": 150,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

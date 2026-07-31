@@ -1,0 +1,27 @@
+{
+  "templateKey": "tiger_stance",
+  "name": "Tiger Stance",
+  "description": "Enter the Tiger Stance - dramatically boosting your power and doubling Chi generation.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 40000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 3, "con": 5 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "TigerStance",
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

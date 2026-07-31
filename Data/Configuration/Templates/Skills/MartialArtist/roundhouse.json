@@ -1,0 +1,31 @@
+{
+  "templateKey": "roundhouse",
+  "name": "Roundhouse",
+  "description": "A powerful spinning kick that strikes all enemies around you.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 60,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "shape": "allAround",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

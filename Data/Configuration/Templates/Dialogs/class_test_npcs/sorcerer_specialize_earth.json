@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_earth",
+  "text": "The mountain does not yield. Your path is Pure Earth.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Earth",
+      "element2": null,
+      "specializationName": "Pure Earth (Geomancer)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "earth_spike",
+        "stone_skin",
+        "tremor",
+        "petrify",
+        "fortress",
+        "earthquake",
+        "stone_prison",
+        "meteor_shower"
+      ]
+    }
+  }
+}

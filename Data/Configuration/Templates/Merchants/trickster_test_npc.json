@@ -1,0 +1,7 @@
+{
+  "templateKey": "trickster_test_npc",
+  "name": "Trickster Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "trickster_test_npc_initial" } }
+}

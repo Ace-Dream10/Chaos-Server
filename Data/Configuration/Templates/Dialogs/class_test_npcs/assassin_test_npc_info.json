@@ -1,0 +1,8 @@
+{
+  "templateKey": "assassin_test_npc_info",
+  "text": "A deadly killer who thrives on eliminating targets.\n\nPrimary: DEX | Secondary: STR\n\nMP mechanic: MP builds from kills (+20 per kill) - 5 kills = full Bloodlust. During Bloodlust, Execute resets on kill.\n\nSkills:\nVoidwalker - teleport behind + backstab\nDeath Blossom - AoE whirlwind\nExecute - massive damage, instant kill below 20% HP\nCoup de Grace - vault behind, double strike if mob turned\nBloodlust - kill-powered frenzy, speed + damage boost\nDeath Mark - mark target, detonates after 3 seconds\nGarrote - silence + bleed from behind, requires mob turned\nEviscerate - 2.5x damage on bleeding targets\nVenom Blade - next attack poisons + bleeds\nShadow Clone - dark decoy that attacks\nNightfall - AoE blind all nearby\nReaper's Kiss - passive, heal on each kill\nBlack Lotus - poison DoT, kill triggers chain explosion to nearby mobs",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "assassin_test_npc_initial", "optionText": "Back" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "templateKey": "glacial_barrier",
+  "name": "Glacial Barrier",
+  "description": "Erect a wall of ice that blocks passage. Mastery expands its reach, and at its peak scorches anything it touches with cold.",
+  "panelSprite": 30,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["glacialBarrier"],
+  "scriptVars": {
+    "glacialBarrier": {
+      "wallDurationMs": 3000,
+      "tickIntervalMs": 1000,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

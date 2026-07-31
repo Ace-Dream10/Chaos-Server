@@ -1,0 +1,32 @@
+{
+  "templateKey": "celestial_bolt",
+  "name": "Celestial Bolt",
+  "description": "A bolt of heavenly light channeling the celestial spirit's power. Only usable while in Celestial Beast Form.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 2000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 5, "con": 1 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 50,
+      "damageStat": "wis",
+      "damageStatMultiplier": 3,
+      "shape": "front",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 200, "animationSpeed": 100 },
+      "sound": 98
+    },
+    "beastform": { "beastFormOnly": true, "requiredForm": "Celestial" }
+  }
+}

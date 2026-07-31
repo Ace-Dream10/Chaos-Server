@@ -18,6 +18,14 @@ public class CastingScript : MonsterScriptBase
     {
         base.Update(delta);
 
+        //blinded by Blackout - can't cast
+        if (Subject.Trackers.Tags.ContainsKey("blackout"))
+            return;
+
+        //asleep from Stacia's Lullaby - completely idle until woken by damage
+        if (Subject.Trackers.Tags.ContainsKey("asleep"))
+            return;
+
         if (Target is not { IsAlive: true } || !ShouldUseSpell || !Target.WithinRange(Subject))
             return;
 

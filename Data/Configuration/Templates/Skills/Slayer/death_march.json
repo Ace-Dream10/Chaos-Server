@@ -1,0 +1,31 @@
+{
+  "templateKey": "death_march",
+  "name": "Death March",
+  "description": "March forward 3 tiles, cutting down everything in your path.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 7, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["deathMarch"],
+  "scriptVars": {
+    "deathMarch": {
+      "marchDistance": 3,
+      "stepIntervalMs": 300,
+      "baseDamage": 80,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -16,6 +16,16 @@ public record StatSheet : Attributes
         init => _abilityLevel = value;
     }
 
+    /// <summary>
+    ///     Whether the entity's offense element should be dynamically recalculated per-attack to whatever performs
+    ///     best against the current target's defense element, instead of using the static <see cref="OffenseElement" />
+    /// </summary>
+    public bool AdaptiveOffenseElement
+    {
+        get => _adaptiveOffenseElement;
+        init => _adaptiveOffenseElement = value;
+    }
+
     public int AcMod
     {
         get => _acMod;
@@ -267,6 +277,8 @@ public record StatSheet : Attributes
             _        => throw new ArgumentOutOfRangeException()
         };
 
+    public void SetAdaptiveOffenseElement(bool value) => _adaptiveOffenseElement = value;
+
     public void SetDefenseElement(Element element) => _defenseElement = element;
 
     public void SetHealthPct(decimal pct)
@@ -397,6 +409,7 @@ public record StatSheet : Attributes
     protected int _level;
     protected Element _defenseElement;
     protected Element _offenseElement;
+    protected bool _adaptiveOffenseElement;
     #endregion
 
     #region Mods

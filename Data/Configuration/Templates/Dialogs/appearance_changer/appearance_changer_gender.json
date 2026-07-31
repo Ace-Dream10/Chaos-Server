@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "appearance_changer_gender_male", "optionText": "Male" },
+    { "dialogKey": "appearance_changer_gender_female", "optionText": "Female" },
+    { "dialogKey": "appearance_changer_initial", "optionText": "<- Back" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "appearance_changer_gender",
+  "text": "Choose your gender:",
+  "type": "Menu"
+}

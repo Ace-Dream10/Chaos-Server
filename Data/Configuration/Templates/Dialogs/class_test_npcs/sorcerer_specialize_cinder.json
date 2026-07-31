@@ -1,0 +1,27 @@
+{
+  "templateKey": "sorcerer_specialize_cinder",
+  "text": "Fire and water hiss into steam. Your path is Cinder.",
+  "type": "Normal",
+  "nextDialogKey": "Close",
+  "options": [],
+  "scriptKeys": ["sorcererSpecialize"],
+  "scriptVars": {
+    "sorcererSpecialize": {
+      "element1": "Fire",
+      "element2": "Water",
+      "specializationName": "Cinder (Fire + Water)",
+      "spellTemplateKeys": [
+        "arcane_bolt",
+        "arcane_gate",
+        "fire_breath",
+        "flame_lance",
+        "frost_bolt",
+        "tidal_wave",
+        "steam_cloud",
+        "boiling_blood",
+        "cinder_rain",
+        "geyser"
+      ]
+    }
+  }
+}

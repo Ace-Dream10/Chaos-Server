@@ -1,0 +1,28 @@
+{
+  "templateKey": "puppeteer",
+  "name": "Puppeteer",
+  "description": "Take control of an enemy's mind, turning them against their allies for 8 seconds.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 5, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["puppeteer"],
+  "scriptVars": {
+    "puppeteer": {
+      "durationMs": 8000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 4,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 46, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

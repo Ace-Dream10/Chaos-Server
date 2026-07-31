@@ -35,6 +35,15 @@ public class EquipmentScript(Item subject) : ConfigurableItemScriptBase(subject)
             return;
         }
 
+        //only Weapon Master can dual wield - this is a Shield-slot item flagged as an off-hand weapon,
+        //not a real shield, so the check is keyed off the flag rather than EquipmentType.Shield itself
+        if (IsOffHandWeapon && !source.HasClass(BaseClass.WeaponMaster))
+        {
+            source.SendOrangeBarMessage("You lack the training to wield two weapons.");
+
+            return;
+        }
+
         if (template.Class.HasValue && !source.HasClass(template.Class.Value))
         {
             source.SendOrangeBarMessage($"{Subject.DisplayName} does not seem to fit you");
@@ -83,6 +92,12 @@ public class EquipmentScript(Item subject) : ConfigurableItemScriptBase(subject)
     }
 
     #region ScriptVars
+    /// <summary>
+    ///     Whether this item is a dual-wield off-hand weapon (using the Shield slot so it actually renders)
+    ///     rather than a real shield - only Weapon Master can equip these
+    /// </summary>
+    protected bool IsOffHandWeapon { get; init; }
+
     protected int? StatAmountRequired { get; init; }
     protected Stat? StatRequired { get; init; }
     #endregion

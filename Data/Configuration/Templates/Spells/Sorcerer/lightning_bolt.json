@@ -1,0 +1,39 @@
+{
+  "templateKey": "lightning_bolt",
+  "name": "Lightning Bolt",
+  "description": "Call down a crackling bolt of lightning in a cone before you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 4000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["cascadingDamage"],
+  "scriptVars": {
+    "cascadingDamage": {
+      "sound": 167,
+      "bodyAnimation": "HandsUp2"
+    },
+    "cascadingDamageTile": {
+      "invertShape": true,
+      "damageStat": "int",
+      "animatePoints": true,
+      "shape": "circle",
+      "exclusionRange": 3,
+      "minSoundIntervalMs": 900,
+      "range": 9,
+      "sound": 167,
+      "animation": {
+        "targetAnimation": 80,
+        "animationSpeed": 100
+      },
+      "cascadeIntervalMs": 300,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "damageStatMultiplier": 3,
+      "baseDamage": 80,
+      "element": "lightning"
+    }
+  }
+}

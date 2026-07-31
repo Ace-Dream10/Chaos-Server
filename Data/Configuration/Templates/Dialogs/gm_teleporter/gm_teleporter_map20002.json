@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["teleportToLocation"],
+  "scriptVars": {
+    "teleportToLocation": { "mapInstanceId": "map20002" }
+  },
+  "templateKey": "gm_teleporter_map20002",
+  "text": "Teleporting to the new map...",
+  "type": "Normal"
+}

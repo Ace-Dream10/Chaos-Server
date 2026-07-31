@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_slayer_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "slayer",
+
+      "weaponKeyPrefixes": ["wm_twohanded"]
+    }
+  }
+}

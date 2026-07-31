@@ -1,0 +1,27 @@
+{
+  "templateKey": "lancers_shield",
+  "name": "Lancer's Shield",
+  "description": "Convert accumulated shield charge into a barrier that absorbs all incoming damage.",
+  "panelSprite": 50,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["lancersShield"],
+  "scriptVars": {
+    "lancersShield": {
+      "damageToMpRate": 2.25,
+      "filter": "selfOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 157, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

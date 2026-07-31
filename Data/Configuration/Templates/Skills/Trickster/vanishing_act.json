@@ -1,0 +1,27 @@
+{
+  "templateKey": "vanishing_act",
+  "name": "Vanishing Act",
+  "description": "Disappear in a flash, teleporting forward and vanishing from enemy sight for 3 seconds.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 3, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["vanishingAct"],
+  "scriptVars": {
+    "vanishingAct": {
+      "teleportDistance": 3,
+      "vanishDurationMs": 3000,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

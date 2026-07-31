@@ -3,6 +3,7 @@ using System.Net;
 using Chaos.Collections.Common;
 using Chaos.Collections.Specialized;
 using Chaos.Collections.Time;
+using Chaos.DarkAges.Definitions;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
 using Chaos.Time.Abstractions;
@@ -68,12 +69,45 @@ public class Trackers : IDeltaUpdatable
 
     #region Not Persistent
     /// <summary>
+    ///     The element used by this entity's most recent attack (static or adaptively-chosen)
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public Element? LastAttackElement { get; set; }
+
+    /// <summary>
     ///     The creature that last damaged this entity
     /// </summary>
     /// <remarks>
     ///     NOT PERSISTENT / SERIALIZED TO FILE
     /// </remarks>
     public Creature? LastDamagedBy { get; set; }
+
+    /// <summary>
+    ///     The time this entity last landed a killing blow on a monster
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public DateTime? LastKillTime { get; set; }
+
+    /// <summary>
+    ///     The effective max HP of the monster this entity most recently landed a killing blow on - snapshotted
+    ///     alongside <see cref="LastKillTime" /> so passives like Reaper's Kiss can scale healing off it
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public int? LastKilledMonsterMaxHp { get; set; }
+
+    /// <summary>
+    ///     The time this entity last dealt damage to a monster
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public DateTime? LastDamagedEnemy { get; set; }
 
     /// <summary>
     ///     The instance of the last map this entity was on (excluding the current map)
@@ -162,6 +196,25 @@ public class Trackers : IDeltaUpdatable
     ///     NOT PERSISTENT / SERIALIZED TO FILE
     /// </remarks>
     public DateTime? LastWalk { get; set; }
+
+    /// <summary>
+    ///     The Sorcerer's first chosen elemental specialization (Fire/Earth/Water/Wind), if any - set by the
+    ///     specialization-testing NPC. Scaffolding for the full specialization lock system, which isn't built yet;
+    ///     nothing currently reads this to restrict spell access.
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public string? SorcererElement1 { get; set; }
+
+    /// <summary>
+    ///     The Sorcerer's second chosen elemental specialization, if any - absent for pure single-element
+    ///     specializations. See <see cref="SorcererElement1" />.
+    /// </summary>
+    /// <remarks>
+    ///     NOT PERSISTENT / SERIALIZED TO FILE
+    /// </remarks>
+    public string? SorcererElement2 { get; set; }
     #endregion
 }
 

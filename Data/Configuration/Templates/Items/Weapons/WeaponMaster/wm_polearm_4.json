@@ -1,0 +1,21 @@
+{
+  "templateKey": "wm_polearm_4",
+  "name": "Polearm FL4",
+  "description": "A Polearm weapon used for Weapon Master visual testing.",
+  "category": "polearm",
+  "panelSprite": 1979,
+  "displaySprite": 137,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

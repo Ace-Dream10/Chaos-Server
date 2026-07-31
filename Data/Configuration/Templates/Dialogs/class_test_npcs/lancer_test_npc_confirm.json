@@ -1,0 +1,31 @@
+{
+  "templateKey": "lancer_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Lancer",
+      "baseClass": "Lancer",
+      "advClass": null,
+      "skillTemplateKeys": [
+        "assail",
+        "lancers_charge",
+        "lancers_leash",
+        "challenging_shout",
+        "iron_bastion",
+        "shield_bash",
+        "stacias_will",
+        "lancers_retribution",
+        "lancers_shield",
+        "iron_will",
+        "shield_wall"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["lancer_wep_1", "lancer_shield_1"],
+      "armorTemplateKeyMale": "fl1_armor_lancer_m",
+      "armorTemplateKeyFemale": "fl1_armor_lancer_f"
+    }
+  }
+}

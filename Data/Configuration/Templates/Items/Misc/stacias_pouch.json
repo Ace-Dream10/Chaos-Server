@@ -1,0 +1,17 @@
+{
+  "templateKey": "stacias_pouch",
+  "name": "Stacia's Pouch",
+  "description": "Tracks your current Stacia's Tears. Cannot be dropped or traded.",
+  "category": "currency",
+  "panelSprite": 13035,
+  "color": "Default",
+  "weight": 0,
+  "maxStacks": 999999999,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": false,
+  "noTrade": true,
+  "preventBanking": true,
+  "scriptKeys": ["undroppable"],
+  "scriptVars": { "undroppable": {} }
+}

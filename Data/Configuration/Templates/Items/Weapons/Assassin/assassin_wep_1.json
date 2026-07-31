@@ -1,0 +1,21 @@
+{
+  "templateKey": "assassin_wep_1",
+  "name": "Assassin Weapon 1",
+  "description": "A weapon used for Assassin visual testing.",
+  "category": "1h wep",
+  "panelSprite": 257,
+  "displaySprite": 33,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "dex": 8, "str": 5 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

@@ -1,0 +1,32 @@
+{
+  "templateKey": "slayers_rush",
+  "name": "Slayer's Rush",
+  "description": "Dash forward 2 tiles, striking all enemies in your path and marking them with Severance.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["slayersRush"],
+  "scriptVars": {
+    "slayersRush": {
+      "rushDistance": 2,
+      "baseDamage": 60,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "severanceStacksToApply": 1,
+      "rootDurationMs": 1000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 164, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

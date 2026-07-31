@@ -65,6 +65,8 @@ public sealed class MonsterMapperProfile(IMonsterFactory monsterFactory, ISimple
             ExpReward = obj.ExpReward,
             MaxGoldDrop = obj.MaxGoldDrop,
             MinGoldDrop = obj.MinGoldDrop,
+            MaxGamePointsDrop = obj.MaxGamePointsDrop,
+            MinGamePointsDrop = obj.MinGamePointsDrop,
             ScriptKeys = new HashSet<string>(obj.ScriptKeys, StringComparer.OrdinalIgnoreCase),
             SkillTemplateKeys = new HashSet<string>(obj.SkillTemplateKeys, StringComparer.OrdinalIgnoreCase),
             SpellTemplateKeys = new HashSet<string>(obj.SpellTemplateKeys, StringComparer.OrdinalIgnoreCase),

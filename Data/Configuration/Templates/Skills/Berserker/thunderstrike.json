@@ -1,0 +1,31 @@
+{
+  "templateKey": "thunderstrike",
+  "name": "Thunderstrike",
+  "description": "Slam your axe into the ground with devastating force, damaging all nearby enemies.",
+  "panelSprite": 46,
+  "advClass": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 100,
+      "damageStat": "str",
+      "damageStatMultiplier": 4,
+      "shape": "allAround",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -1,8 +1,11 @@
 {
-  "options": [],
+  "options": [
+    { "dialogKey": "hairstylist_style_page1", "optionText": "Try Another" },
+    { "dialogKey": "hairstylist_initial", "optionText": "Done" }
+  ],
   "scriptKeys": ["setHairStyle"],
   "scriptVars": { "setHairStyle": { "hairStyle": 51 } },
   "templateKey": "hairstylist_set_51",
   "text": "Your style has been updated!",
-  "type": "Normal"
+  "type": "Menu"
 }

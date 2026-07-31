@@ -1,0 +1,8 @@
+{
+  "templateKey": "berserker_test_npc_info",
+  "text": "A savage axe warrior whose rage grows through combat.\n\nPrimary: STR | Secondary: CON\n\nMP mechanic: MP = Rage, builds only from hitting mobs, decays when not fighting - higher rage means more passive damage on every hit. Never spend it, just maintain it.\n\nSkills:\nCyclone - spin 8 directions hitting adjacent mobs, evolves to 16 hits at max level\nThunderstrike - massive overhead AoE slam\nVampiric Strike - heals 40% of damage dealt\nBroad Swipe - hit front + east + west tiles\nIntimidating Shout - fear nearby mobs, they flee\nFlatten - single target stun\nAxe Block - 3 second invulnerability\nBerserker Charge - 2-tile rush hits all in path",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "berserker_test_npc_initial", "optionText": "Back" }
+  ]
+}

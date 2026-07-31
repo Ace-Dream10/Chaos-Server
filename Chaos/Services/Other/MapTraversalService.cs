@@ -206,6 +206,12 @@ public sealed class MapTraversalService : BackgroundService, IMapTraversalServic
         }
     }
 
+    /// <summary>
+    ///     PLACEHOLDER - must match DefaultAislingScript's UnderworldMapInstanceId. Banished Aislings are allowed to
+    ///     traverse into this map (the initial banishment), but never out of it, via non-admin traversal.
+    /// </summary>
+    private const string UnderworldMapInstanceId = "monsterTest";
+
     /// <inheritdoc />
     public void TraverseMap(
         Creature creature,
@@ -214,7 +220,16 @@ public sealed class MapTraversalService : BackgroundService, IMapTraversalServic
         bool ignoreSharding = false,
         bool fromWorldMap = false,
         Func<Task>? onTraverse = null)
-        => Channel.Writer.TryWrite(
+    {
+        if ((creature is Aisling { IsBanished: true } banishedAisling)
+            && !destinationMap.InstanceId.EqualsI(UnderworldMapInstanceId))
+        {
+            banishedAisling.SendActiveMessage("You cannot leave the Underworld.");
+
+            return;
+        }
+
+        Channel.Writer.TryWrite(
             new TraversalRequest(
                 creature,
                 destinationMap,
@@ -223,6 +238,7 @@ public sealed class MapTraversalService : BackgroundService, IMapTraversalServic
                 fromWorldMap,
                 false,
                 onTraverse));
+    }
 
     internal MapInstance CreateNewShard(MapInstance baseMap)
     {

@@ -1,0 +1,29 @@
+{
+  "templateKey": "cross_slash",
+  "name": "Cross Slash",
+  "description": "Slash in an X pattern hitting enemies on all diagonal tiles.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 3, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["crossSlash"],
+  "scriptVars": {
+    "crossSlash": {
+      "baseDamage": 65,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

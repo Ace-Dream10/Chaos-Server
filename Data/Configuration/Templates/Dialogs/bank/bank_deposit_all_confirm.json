@@ -1,0 +1,7 @@
+{
+  "templateKey": "bank_deposit_all_confirm",
+  "text": "Your items have been safely stored in Stacia's Vault.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["bankDepositAll"]
+}

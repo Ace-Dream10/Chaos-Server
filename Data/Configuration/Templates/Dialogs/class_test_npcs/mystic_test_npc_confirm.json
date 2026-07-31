@@ -1,0 +1,19 @@
+{
+  "templateKey": "mystic_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Mystic",
+      "baseClass": "Mystic",
+      "advClass": null,
+      "skillTemplateKeys": ["assail"],
+      "spellTemplateKeys": ["quick_mend", "stasis", "stacias_shrine", "stacias_pulse", "stacias_judgment", "void_storm", "jaunt"],
+      "gearTemplateKeys": ["mystic_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_mystic_m",
+      "armorTemplateKeyFemale": "fl1_armor_mystic_f"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "options": [],
+  "scriptKeys": ["enhanceItem"],
+  "scriptVars": {
+    "enhanceItem": { "itemTemplateKey": "fl1_ring", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_ring_confirm",
+  "text": "{0}",
+  "type": "Normal"
+}

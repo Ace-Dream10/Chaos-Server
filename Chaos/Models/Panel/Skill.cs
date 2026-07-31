@@ -73,7 +73,14 @@ public sealed class Skill : PanelEntityBase, IScripted<ISkillScript>
         {
             var assailInterval = context.Source.StatSheet.CalculateEffectiveAssailInterval(context.Source.AssailIntervalMs);
             Cooldown = TimeSpan.FromMilliseconds(assailInterval);
-        }
+        } else if (Template.Cooldown is { } baseCooldown)
+
+            //CalculateEffectiveAssailInterval is really just a generic "scale this interval by atk speed" formula
+            //despite the name - reuse it here so atk speed gear/buffs speed up all skill cooldowns, not just assail.
+            //Always scale from the template's base cooldown (not the current possibly-already-scaled Cooldown) so
+            //repeated uses don't compound the scaling.
+            Cooldown = TimeSpan.FromMilliseconds(
+                context.Source.StatSheet.CalculateEffectiveAssailInterval((int)baseCooldown.TotalMilliseconds));
 
         BeginCooldown(context.Source);
     }

@@ -1,0 +1,19 @@
+{
+  "templateKey": "valkyrie_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Valkyrie",
+      "baseClass": "WeaponMaster",
+      "advClass": "Valkyrie",
+      "skillTemplateKeys": ["assail", "glaive_leap", "dragoons_wrath", "maelstrom", "valkyries_call", "heavens_recoil", "ragnarok"],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_polearm_1"],
+      "armorTemplateKeyMale": "fl1_armor_valkyrie_m",
+      "armorTemplateKeyFemale": "fl1_armor_valkyrie_f"
+    }
+  }
+}

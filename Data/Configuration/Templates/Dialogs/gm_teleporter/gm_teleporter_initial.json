@@ -1,0 +1,14 @@
+{
+  "options": [
+    { "dialogKey": "gm_teleporter_monstertest", "optionText": "Monster Test" },
+    { "dialogKey": "gm_teleporter_map20002", "optionText": "New Map (map20002)" },
+    { "dialogKey": "gm_teleporter_map20003", "optionText": "Class Testing Grounds (map20003)" },
+    { "dialogKey": "gm_teleporter_stacias_shrine", "optionText": "Stacia's Shrine (placeholder)" },
+    { "dialogKey": "gm_teleporter_underworld", "optionText": "Underworld (placeholder)" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "gm_teleporter_initial",
+  "text": "Where would you like to go?",
+  "type": "Menu"
+}

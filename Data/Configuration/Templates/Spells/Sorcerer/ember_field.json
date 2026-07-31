@@ -1,0 +1,29 @@
+{
+  "templateKey": "ember_field",
+  "name": "Ember Field",
+  "description": "Scatter smoldering embers in a wide field around you, burning anything that stands on them.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 12000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["hazardField"],
+  "scriptVars": {
+    "hazardField": {
+      "footprint": "grid3x3",
+      "hazardTemplateKey": "elemental_hazard",
+      "baseDamage": 25,
+      "damageStat": "int",
+      "damageStatMultiplier": 1,
+      "pulseIntervalMs": 500,
+      "durationMs": 5000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

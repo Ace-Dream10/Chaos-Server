@@ -1,0 +1,29 @@
+{
+  "templateKey": "lava_surge",
+  "name": "Lava Surge",
+  "description": "Erupt a patch of molten lava at a target location that scorches anything standing on it.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["hazardField"],
+  "scriptVars": {
+    "hazardField": {
+      "footprint": "grid2x2",
+      "hazardTemplateKey": "elemental_hazard",
+      "baseDamage": 45,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "pulseIntervalMs": 500,
+      "durationMs": 5000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

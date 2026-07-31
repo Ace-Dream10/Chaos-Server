@@ -1,0 +1,8 @@
+{
+  "templateKey": "mystic_test_npc_info",
+  "text": "A battlefield controller who heals allies and dominates enemies.\n\nPrimary: WIS | Secondary: INT\n\nMP mechanic: MP regenerates natively for spell costs. Chain Heal has been removed and replaced by the shrine and pulse spells below.\n\nSpells:\nQuick Mend - fast low-cooldown heal\nStasis - freeze + invulnerable AoE\nStacia's Shrine - evolving shrine, heals then adds attack buff, then shield, then speed at higher levels\nStacia's Judgment - damage shrine\nStacia's Pulse - boomerang, damages enemies and heals allies on both directions\nVoid Storm - frontal cone darkness damage\nJaunt - 3-tile blink gap closer",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "mystic_test_npc_initial", "optionText": "Back" }
+  ]
+}

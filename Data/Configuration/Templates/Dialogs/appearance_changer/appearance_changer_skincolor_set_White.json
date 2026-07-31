@@ -1,0 +1,11 @@
+{
+  "options": [
+    { "dialogKey": "appearance_changer_skincolor", "optionText": "Try Another" },
+    { "dialogKey": "appearance_changer_initial", "optionText": "Done" }
+  ],
+  "scriptKeys": ["setBodyColor"],
+  "scriptVars": { "setBodyColor": { "bodyColor": "White" } },
+  "templateKey": "appearance_changer_skincolor_set_White",
+  "text": "Your skin color has been updated!",
+  "type": "Menu"
+}

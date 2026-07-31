@@ -1,0 +1,20 @@
+{
+  "templateKey": "testing_offhand",
+  "name": "Testing Offhand Sword",
+  "description": "A second sword for dual wielding.",
+  "category": "1h wep",
+  "panelSprite": 179,
+  "displaySprite": 13,
+  "color": "Default",
+  "weight": 5,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Shield",
+  "modifiers": { "str": 5, "dex": 5 },
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": { "isOffHandWeapon": true } }
+}

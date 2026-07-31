@@ -1,0 +1,18 @@
+{
+  "templateKey": "inspect_item",
+  "name": "Inspect Item",
+  "description": "Reads the name, description, and stats of the item in your first inventory slot.",
+  "panelSprite": 1,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": false,
+  "cooldownMs": 1000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["inspectItem"],
+  "scriptVars": { "inspectItem": {} }
+}

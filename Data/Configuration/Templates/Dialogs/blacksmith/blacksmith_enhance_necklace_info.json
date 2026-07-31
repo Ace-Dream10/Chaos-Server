@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "blacksmith_enhance_necklace_confirm", "optionText": "Enhance" }
+  ],
+  "scriptKeys": ["enhanceItemInfo"],
+  "scriptVars": {
+    "enhanceItemInfo": { "itemTemplateKey": "fl1_necklace", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_necklace_info",
+  "text": "{0}",
+  "type": "Menu"
+}

@@ -1,0 +1,29 @@
+{
+  "templateKey": "stacias_blessing",
+  "name": "Stacia's Blessing",
+  "description": "Invoke the goddess's grace upon all allies, boosting their power for 30 minutes.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "NoTarget",
+  "cooldownMs": 300000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasBlessing"],
+  "scriptVars": {
+    "staciasBlessing": {
+      "strBonus": 5,
+      "dexBonus": 5,
+      "intBonus": 5,
+      "wisBonus": 5,
+      "conBonus": 5,
+      "hpBonus": 500,
+      "mpBonus": 300,
+      "filter": "friendlyOnly, aliveOnly, aislingsOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

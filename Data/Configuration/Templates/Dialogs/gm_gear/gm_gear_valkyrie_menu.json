@@ -1,0 +1,15 @@
+{
+  "templateKey": "gm_gear_valkyrie_menu",
+  "text": "What would you like to grant for Valkyrie?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "gm_gear_valkyrie_helm_m", "optionText": "Helms (Male)" },
+    { "dialogKey": "gm_gear_valkyrie_helm_f", "optionText": "Helms (Female)" },
+    { "dialogKey": "gm_gear_valkyrie_armor_m", "optionText": "Armor (Male)" },
+    { "dialogKey": "gm_gear_valkyrie_armor_f", "optionText": "Armor (Female)" },
+    { "dialogKey": "gm_gear_valkyrie_weapon", "optionText": "Weapons" },
+    { "dialogKey": "gm_gear_valkyrie_everything_m", "optionText": "Everything (Male)" },
+    { "dialogKey": "gm_gear_valkyrie_everything_f", "optionText": "Everything (Female)" },
+    { "dialogKey": "gm_gear_initial", "optionText": "Back" }
+  ]
+}

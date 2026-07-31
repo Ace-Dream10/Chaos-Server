@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl1_armor_berserker_m",
+  "name": "FL1 Berserker Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "m armor",
+  "panelSprite": 757,
+  "displaySprite": 145,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Male",
+  "level": 1,
+    "modifiers": { "str": 5, "con": 8, "maximumHp": 1500 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

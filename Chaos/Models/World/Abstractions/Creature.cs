@@ -539,6 +539,32 @@ public abstract class Creature : NamedEntity, IAffected, IScripted<ICreatureScri
         return true;
     }
 
+    public virtual bool TryDropGamePoints(IPoint point, int amount, [MaybeNullWhen(false)] out GamePointPile gamePointPile)
+    {
+        gamePointPile = null;
+
+        if ((amount <= 0) || (amount > GamePoints))
+            return false;
+
+        GamePoints -= amount;
+
+        gamePointPile = new GamePointPile(amount, MapInstance, point);
+
+        MapInstance.AddEntity(gamePointPile, point);
+
+        Logger.WithTopics(Topics.Entities.Creature, Topics.Actions.Drop)
+              .WithProperty(this)
+              .LogInformation(
+                  "{@CreatureType} {@CreatureName} dropped {Amount} game points at {@Location}",
+                  GetType()
+                      .Name,
+                  Name,
+                  gamePointPile.Amount,
+                  ILocation.ToString(gamePointPile));
+
+        return true;
+    }
+
     public virtual bool TryUseSkill(Skill skill)
     {
         if (!CanUse(skill, out var context))

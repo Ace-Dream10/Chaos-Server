@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "blacksmith_enhance_confirm", "optionText": "Enhance" }
+  ],
+  "scriptKeys": ["enhanceItemInfo"],
+  "scriptVars": {
+    "enhanceItemInfo": { "itemTemplateKey": "testing_sword", "costPerLevel": 100 }
+  },
+  "templateKey": "blacksmith_enhance_info",
+  "text": "{0}",
+  "type": "Menu"
+}

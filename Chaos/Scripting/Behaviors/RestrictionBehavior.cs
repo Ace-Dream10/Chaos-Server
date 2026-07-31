@@ -15,7 +15,7 @@ public class RestrictionBehavior
     public virtual bool CanDropMoney(Aisling aisling, int amount) => aisling.IsAlive;
 
     public virtual bool CanDropMoneyOn(Aisling aisling, int amount, Creature target) => aisling.IsAlive;
-    public virtual bool CanMove(Creature creature) => creature.IsAlive;
+    public virtual bool CanMove(Creature creature) => creature.IsAlive && !creature.Trackers.Tags.ContainsKey("fortified");
 
     public virtual bool CanPickupItem(Aisling aisling, GroundItem groundItem) => aisling.IsAlive;
 

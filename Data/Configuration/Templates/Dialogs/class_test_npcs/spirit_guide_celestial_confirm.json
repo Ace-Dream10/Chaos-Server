@@ -1,0 +1,10 @@
+{
+  "templateKey": "spirit_guide_celestial_confirm",
+  "text": "The celestial spirit binds to your soul. From this moment, you walk the path of the Celestial. There is no return.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["chooseBeastForm"],
+  "scriptVars": {
+    "chooseBeastForm": { "form": "Celestial" }
+  }
+}

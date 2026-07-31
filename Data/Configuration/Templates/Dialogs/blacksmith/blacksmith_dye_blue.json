@@ -1,0 +1,8 @@
+{
+  "options": [],
+  "scriptKeys": ["setItemColor"],
+  "scriptVars": { "setItemColor": { "itemTemplateKey": "testing_sword", "color": "Blue" } },
+  "templateKey": "blacksmith_dye_blue",
+  "text": "Your Testing Sword has been dyed blue!",
+  "type": "Normal"
+}

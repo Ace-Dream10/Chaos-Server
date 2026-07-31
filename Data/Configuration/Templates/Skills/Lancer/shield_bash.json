@@ -1,0 +1,30 @@
+{
+  "templateKey": "shield_bash",
+  "name": "Shield Bash",
+  "description": "Slam your shield into an enemy, dealing damage and briefly stunning them.",
+  "panelSprite": 46,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 1, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["shieldBash"],
+  "scriptVars": {
+    "shieldBash": {
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "rootDurationMs": 1500,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Punch",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

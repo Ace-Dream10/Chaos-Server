@@ -1,0 +1,28 @@
+{
+  "templateKey": "ice_lance",
+  "name": "Ice Lance",
+  "description": "Fire a piercing lance of ice that skewers everything in a line before you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["travelingLine"],
+  "scriptVars": {
+    "travelingLine": {
+      "range": 5,
+      "baseDamage": 70,
+      "damageStat": "int",
+      "damageStatMultiplier": 2.5,
+      "element": "Water",
+      "slowDurationMs": 3000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

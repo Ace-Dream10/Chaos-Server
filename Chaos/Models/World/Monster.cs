@@ -89,6 +89,7 @@ public sealed class Monster : Creature, IScripted<IMonsterScript>, IDialogSource
         Experience = template.ExpReward;
         AbilityExperience = template.AbilityReward;
         Gold = Random.Shared.Next(template.MinGoldDrop, template.MaxGoldDrop + 1);
+        GamePoints = Random.Shared.Next(template.MinGamePointsDrop, template.MaxGamePointsDrop + 1);
         Items = [];
         Skills = [];
         Spells = [];

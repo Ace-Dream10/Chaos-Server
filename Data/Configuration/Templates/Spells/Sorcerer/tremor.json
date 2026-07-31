@@ -1,0 +1,29 @@
+{
+  "templateKey": "tremor",
+  "name": "Tremor",
+  "description": "Shake the ground beneath nearby enemies, knocking them back.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["knockbackAoe"],
+  "scriptVars": {
+    "knockbackAoe": {
+      "shape": "allAround",
+      "range": 2,
+      "baseDamage": 55,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Earth",
+      "knockbackTiles": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "templateKey": "stacias_judgment_shrine",
+  "name": "Stacia's Judgment",
+  "sprite": 637,
+  "type": "Normal",
+  "aggroRange": 0,
+  "assailIntervalMs": 99999,
+  "moveIntervalMs": 99999,
+  "skillIntervalMs": 99999,
+  "spellIntervalMs": 99999,
+  "wanderIntervalMs": 99999,
+  "expReward": 0,
+  "scriptKeys": ["decoyExpiration", "staciasJudgmentPulse"],
+  "scriptVars": {
+    "decoyExpiration": { "durationMs": 7000 },
+    "staciasJudgmentPulse": {}
+  },
+  "skillTemplateKeys": [],
+  "spellTemplateKeys": [],
+  "statSheet": {
+    "level": 1,
+    "ac": -10000,
+    "maximumHp": 99999,
+    "maximumMp": 0,
+    "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1
+  }
+}

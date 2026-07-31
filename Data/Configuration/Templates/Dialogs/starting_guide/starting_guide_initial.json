@@ -1,0 +1,12 @@
+{
+  "options": [
+    { "dialogKey": "starting_guide_set_recruit", "optionText": "The Way of Steel (Recruit)" },
+    { "dialogKey": "starting_guide_set_strider", "optionText": "The Way of Shadows (Strider)" },
+    { "dialogKey": "starting_guide_set_magus", "optionText": "The Way of Magic (Magus)" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "starting_guide_initial",
+  "text": "Welcome, traveler! Tell me, what path calls to you? You'll choose your specific discipline once you reach floor 1.",
+  "type": "Menu"
+}

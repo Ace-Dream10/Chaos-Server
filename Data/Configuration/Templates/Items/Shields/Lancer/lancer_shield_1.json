@@ -1,0 +1,21 @@
+{
+  "templateKey": "lancer_shield_1",
+  "name": "Lancer Shield 1",
+  "description": "A shield used for Lancer visual testing.",
+  "category": "shield",
+  "panelSprite": 189,
+  "displaySprite": 6,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Shield",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

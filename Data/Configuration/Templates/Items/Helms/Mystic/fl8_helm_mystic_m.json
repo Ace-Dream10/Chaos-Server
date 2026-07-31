@@ -1,0 +1,20 @@
+{
+  "templateKey": "fl8_helm_mystic_m",
+  "name": "FL8 Mystic Helm",
+  "description": "Placeholder helm for visual testing.",
+  "category": "m helm",
+  "panelSprite": 1005,
+  "displaySprite": 167, 
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Helmet",
+  "gender": "Male",
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

@@ -1,0 +1,23 @@
+{
+  "templateKey": "whirlpool",
+  "name": "Whirlpool",
+  "description": "Conjure a swirling vortex that drags nearby enemies toward you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 12000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["whirlpool"],
+  "scriptVars": {
+    "whirlpool": {
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

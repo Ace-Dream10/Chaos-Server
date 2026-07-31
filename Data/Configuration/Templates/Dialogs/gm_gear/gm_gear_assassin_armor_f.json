@@ -1,0 +1,10 @@
+{
+  "templateKey": "gm_gear_assassin_armor_f",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": { "classKey": "assassin", "gender": "f", "grantArmor": true }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "templateKey": "wind_slash",
+  "name": "Wind Slash",
+  "description": "Unleash a cutting gust in a wide arc before you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 4000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 80,
+      "damageStat": "dex",
+      "damageStatMultiplier": 3,
+      "element": "Wind",
+      "shape": "frontalCone",
+      "range": 4,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

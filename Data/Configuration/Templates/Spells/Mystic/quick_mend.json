@@ -1,0 +1,27 @@
+{
+  "templateKey": "quick_mend",
+  "name": "Quick Mend",
+  "description": "A swift healing touch that mends wounds instantly.",
+  "panelSprite": 12,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 3000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["heal"],
+  "scriptVars": {
+    "heal": {
+      "baseHeal": 60,
+      "healStat": "wis",
+      "healStatMultiplier": 1.5,
+      "filter": "friendlyOnly, aliveOnly",
+      "singleTarget": true,
+      "range": 8,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "templateKey": "red_requiem",
+  "name": "Red Requiem",
+  "description": "Call upon Stacia's mercy to pull a fallen ally back from death.",
+  "panelSprite": 20,
+  "advClass": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 120000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["redRequiem"],
+  "scriptVars": {
+    "redRequiem": {
+      "reviveHpPct": 25,
+      "filter": "friendlyOnly, deadOnly",
+      "singleTarget": true,
+      "range": 6,
+      "bodyAnimation": "PriestCast",
+      "animation": { "targetAnimation": 167, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

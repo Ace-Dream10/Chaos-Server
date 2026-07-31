@@ -1,0 +1,34 @@
+{
+  "templateKey": "assassin_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Assassin",
+      "baseClass": "Strider",
+      "advClass": "Assassin",
+      "skillTemplateKeys": [
+        "assail",
+        "voidwalker",
+        "death_blossom",
+        "execute",
+        "coup_de_grace",
+        "bloodlust",
+        "death_mark",
+        "garrote",
+        "eviscerate",
+        "venom_blade",
+        "shadow_clone",
+        "nightfall",
+        "reapers_kiss",
+        "black_lotus"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["assassin_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_assassin_m",
+      "armorTemplateKeyFemale": "fl1_armor_assassin_f"
+    }
+  }
+}

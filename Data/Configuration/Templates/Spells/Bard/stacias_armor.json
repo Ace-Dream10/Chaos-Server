@@ -1,0 +1,24 @@
+{
+  "templateKey": "stacias_armor",
+  "name": "Stacia's Armor",
+  "description": "Fortify all allies with divine protection, greatly boosting their defense for 1 minute.",
+  "panelSprite": 15,
+  "advClass": "Bard",
+  "spellType": "NoTarget",
+  "cooldownMs": 90000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["staciasArmor"],
+  "scriptVars": {
+    "staciasArmor": {
+      "acBonus": -20,
+      "durationMs": 60000,
+      "filter": "friendlyOnly, aliveOnly, aislingsOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_lancer_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "lancer",
+
+      "weaponKeyPrefixes": ["lancer_wep", "lancer_shield"]
+    }
+  }
+}

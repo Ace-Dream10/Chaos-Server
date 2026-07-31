@@ -1,0 +1,23 @@
+{
+  "templateKey": "arcane_gate",
+  "name": "Arcane Gate",
+  "description": "Teleport forward 5 tiles, leaving a portal that allies can use for 5 seconds.",
+  "panelSprite": 30,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["arcaneGate"],
+  "scriptVars": {
+    "arcaneGate": {
+      "teleportDistance": 5,
+      "gateDurationMs": 5000,
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "templateKey": "maelstrom",
+  "name": "Maelstrom",
+  "description": "Unleash a devastating spin attack hitting all enemies around you.",
+  "panelSprite": 50,
+  "advClass": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "shape": "allAround",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Swipe",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

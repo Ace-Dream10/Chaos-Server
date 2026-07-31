@@ -1,0 +1,20 @@
+{
+  "templateKey": "fl9_helm_bard_m",
+  "name": "FL9 Bard Helm",
+  "description": "Placeholder helm for visual testing.",
+  "category": "m helm",
+  "panelSprite": 2376,
+  "Displaysprite": 246,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Helmet",
+  "gender": "Male",
+  "level": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

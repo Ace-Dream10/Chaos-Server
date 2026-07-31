@@ -1,0 +1,35 @@
+{
+  "templateKey": "sirocco_eye_of_storm",
+  "name": "Eye of the Storm",
+  "description": "Summon a raging sandstorm that blinds and batters everything nearby.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 60000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage", "applyEffect"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 200,
+      "damageStat": "int",
+      "damageStatMultiplier": 5,
+      "element": "Wind",
+      "shape": "allAround",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    },
+    "applyEffect": {
+      "effectKey": "Blackout",
+      "effectDurationOverride": "00:00:03.000",
+      "shape": "allAround",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    }
+  }
+}

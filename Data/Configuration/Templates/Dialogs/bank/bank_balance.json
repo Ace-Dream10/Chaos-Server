@@ -1,0 +1,7 @@
+{
+  "templateKey": "bank_balance",
+  "text": "You have {0} gold and {1} item stack(s) stored in Stacia's Vault.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["bank"]
+}

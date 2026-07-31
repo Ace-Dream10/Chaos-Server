@@ -1,0 +1,29 @@
+{
+  "templateKey": "blackout",
+  "name": "Blackout",
+  "description": "Blind an enemy, preventing them from attacking.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 2, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Blackout",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "singleTarget": true,
+      "range": 6,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

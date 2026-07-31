@@ -1,0 +1,9 @@
+{
+  "templateKey": "spirit_guide_celestial_info",
+  "text": "The Celestial Form channels the spirit of the heavens. Wisdom and spell-craft define this path. Your magic will strike true, but your fists will be weak. Primary bonus: WIS +20, INT +15, Flat Spell Damage +25.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "spirit_guide_celestial_confirm", "optionText": "Choose Celestial Form" },
+    { "dialogKey": "spirit_guide_initial", "optionText": "Back" }
+  ]
+}

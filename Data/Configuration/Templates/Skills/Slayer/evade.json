@@ -1,0 +1,25 @@
+{
+  "templateKey": "evade",
+  "name": "Evade",
+  "description": "A swift backward step to dodge incoming attacks. Skips a tile if blocked.",
+  "panelSprite": 46,
+  "advClass": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 6000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["evade"],
+  "scriptVars": {
+    "evade": {
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 164, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

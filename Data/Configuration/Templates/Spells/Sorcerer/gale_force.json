@@ -1,0 +1,29 @@
+{
+  "templateKey": "gale_force",
+  "name": "Gale Force",
+  "description": "A cone of howling wind that blasts enemies away from you.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 6000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["knockbackAoe"],
+  "scriptVars": {
+    "knockbackAoe": {
+      "shape": "frontalCone",
+      "range": 3,
+      "baseDamage": 60,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Wind",
+      "knockbackTiles": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 60, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

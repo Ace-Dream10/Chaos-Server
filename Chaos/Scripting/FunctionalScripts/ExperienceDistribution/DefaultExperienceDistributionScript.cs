@@ -64,7 +64,9 @@ public class DefaultExperienceDistributionScript(ILogger<DefaultExperienceDistri
               .LogInformation("Aisling {@AislingName} has gained {Amount:N0} experience", aisling.Name, amount);
 
         while (amount > 0)
-            if (aisling.UserStatSheet.Level >= WorldOptions.Instance.MaxLevel)
+            //hardcoded floor 1 cap - once floor tracking exists this should look up the aisling's current floor
+            if ((aisling.UserStatSheet.Level >= WorldOptions.Instance.MaxLevel)
+                || (aisling.UserStatSheet.Level >= DefaultLevelUpScript.FloorLevelCap))
             {
                 aisling.UserStatSheet.AddTotalExp(amount);
                 amount = 0;

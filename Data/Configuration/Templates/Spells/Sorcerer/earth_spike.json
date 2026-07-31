@@ -1,0 +1,35 @@
+{
+  "templateKey": "earth_spike",
+  "name": "Earth Spike",
+  "description": "Erupt the ground in a line before you, slowing anything struck.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 4000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["damage", "applyEffect"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 80,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "element": "Earth",
+      "shape": "front",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    },
+    "applyEffect": {
+      "effectKey": "Slow",
+      "effectDurationOverride": "00:00:03",
+      "shape": "front",
+      "range": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly"
+    }
+  }
+}

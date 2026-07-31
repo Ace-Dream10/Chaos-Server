@@ -19,7 +19,7 @@ public sealed class Equipment : PanelBase<Item>, IEquipment
     ///     The items to populate this panel with
     /// </param>
     public Equipment(IEnumerable<Item>? items = null)
-        : base(PanelType.Equipment, 19, [0])
+        : base(PanelType.Equipment, 20, [0])
     {
         items ??= [];
 

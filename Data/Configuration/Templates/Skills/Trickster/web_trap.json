@@ -1,0 +1,26 @@
+{
+  "templateKey": "web_trap",
+  "name": "Web Trap",
+  "description": "Place an invisible web trap. The first enemy to step on it is rooted and slowed.",
+  "panelSprite": 46,
+  "advClass": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 3, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["webTrap"],
+  "scriptVars": {
+    "webTrap": {
+      "maxTraps": 2,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 46, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

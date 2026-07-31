@@ -44,6 +44,14 @@ public class AggroTargetingScript : MonsterScriptBase
         if (Subject.Trackers.Tags.ContainsKey("stasis"))
             return;
 
+        //feared by Intimidating Shout - lose target and don't re-acquire one
+        if (Subject.Trackers.Tags.ContainsKey("feared"))
+        {
+            Target = null;
+
+            return;
+        }
+
         TargetUpdateTimer.Update(delta);
 
         if ((Target != null) && (!Target.IsAlive || !Target.OnSameMapAs(Subject)))
@@ -60,6 +68,34 @@ public class AggroTargetingScript : MonsterScriptBase
         if (!Map.HasAislings)
             return;
 
+        //confused by Delirium - attack a random nearby creature instead of the usual aggro/aisling logic
+        if (Subject.Trackers.Tags.ContainsKey("delirium"))
+        {
+            Subject.Effects.TryGetEffect("Delirium", out var deliriumEffect);
+            var caster = deliriumEffect?.Source;
+
+            var candidates = Map.GetEntitiesWithinRange<Creature>(Subject, AggroRange)
+                                .Where(creature => creature.IsAlive
+                                                    && !creature.Equals(Subject)
+                                                    && ((caster == null) || !creature.Equals(caster))
+                                                    && Subject.CanSee(creature))
+                                .ToArray();
+
+            Target = candidates.Length > 0 ? candidates[Random.Shared.Next(candidates.Length)] : null;
+
+            return;
+        }
+
+        //puppeteered by Trickster's Puppeteer - attack other monsters instead of Aislings
+        if (Subject.Trackers.Tags.ContainsKey("puppeteered"))
+        {
+            Target = Map.GetEntitiesWithinRange<Monster>(Subject, AggroRange)
+                        .Where(monster => monster.IsAlive && !monster.Equals(Subject))
+                        .ClosestOrDefault(Subject);
+
+            return;
+        }
+
         var isBlind = Subject.IsBlind;
 
         //first try to get target via aggro list
@@ -70,6 +106,10 @@ public class AggroTargetingScript : MonsterScriptBase
                 continue;
 
             if (!possibleTarget.IsAlive || !Subject.CanSee(possibleTarget) || !possibleTarget.WithinRange(Subject))
+                continue;
+
+            //vanished via Trickster's Vanishing Act - can't be (re)targeted while hidden
+            if (possibleTarget.Trackers.Tags.ContainsKey("vanished"))
                 continue;
 
             //if we're blind, we can only target things within 1 tile
@@ -92,6 +132,7 @@ public class AggroTargetingScript : MonsterScriptBase
                       .ThatAreVisibleTo(Subject)
                       .Where(obj => !obj.Equals(Subject)
                                     && obj.IsAlive
+                                    && !obj.Trackers.Tags.ContainsKey("vanished")
                                     && Subject.ApproachTime.TryGetValue(obj, out var time)
                                     && ((DateTime.UtcNow - time).TotalSeconds >= 1.5))
                       .ClosestOrDefault(Subject);

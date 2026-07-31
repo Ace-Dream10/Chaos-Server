@@ -1,0 +1,11 @@
+{
+  "options": [
+    { "dialogKey": "starting_guide_set_magus_normal", "optionText": "Normal" },
+    { "dialogKey": "starting_guide_set_magus_hardcore", "optionText": "Hardcore" }
+  ],
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "starting_guide_set_magus",
+  "text": "One more thing - will you walk this path as a normal traveler, or a hardcore one? If a hardcore character isn't revived within 12 seconds of falling, they are banished to the Underworld forever.",
+  "type": "Menu"
+}

@@ -1,0 +1,14 @@
+{
+  "templateKey": "gm_gear_valkyrie_weapon",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "valkyrie",
+
+      "weaponKeyPrefixes": ["wm_polearm"]
+    }
+  }
+}

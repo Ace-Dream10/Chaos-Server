@@ -1,4 +1,5 @@
 #region
+using System.Text.RegularExpressions;
 using Chaos.DarkAges.Definitions;
 #endregion
 
@@ -7,8 +8,27 @@ namespace Chaos.DarkAges.Extensions;
 /// <summary>
 ///     Provides extension methods for various enums
 /// </summary>
-public static class EnumExtensions
+public static partial class EnumExtensions
 {
+    [GeneratedRegex("(?<=[a-z])(?=[A-Z])")]
+    private static partial Regex PascalCaseBoundaryRegex();
+
+    /// <summary>
+    ///     Formats a PascalCase enum name into spaced words for display (e.g. "WeaponMaster" -&gt; "Weapon Master")
+    /// </summary>
+    /// <param name="baseClass">
+    ///     A <see cref="BaseClass" /> value
+    /// </param>
+    public static string GetDisplayName(this BaseClass baseClass) => PascalCaseBoundaryRegex().Replace(baseClass.ToString(), " ");
+
+    /// <summary>
+    ///     Formats a PascalCase enum name into spaced words for display
+    /// </summary>
+    /// <param name="advClass">
+    ///     An <see cref="AdvClass" /> value
+    /// </param>
+    public static string GetDisplayName(this AdvClass advClass) => PascalCaseBoundaryRegex().Replace(advClass.ToString(), " ");
+
     /// <summary>
     ///     Converts an <see cref="EquipmentType" /> to one or more <see cref="EquipmentSlot" />s
     /// </summary>

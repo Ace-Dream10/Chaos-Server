@@ -1,0 +1,21 @@
+{
+  "templateKey": "ma_gauntlet_1",
+  "name": "Gauntlet FL1",
+  "description": "A Gauntlet weapon used for Martial Artist visual testing.",
+  "category": "gauntlet",
+  "panelSprite": 1,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 8, "con": 5 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

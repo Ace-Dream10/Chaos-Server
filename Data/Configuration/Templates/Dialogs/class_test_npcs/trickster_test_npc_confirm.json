@@ -1,0 +1,30 @@
+{
+  "templateKey": "trickster_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Trickster",
+      "baseClass": "Strider",
+      "advClass": "Trickster",
+      "skillTemplateKeys": [
+        "assail",
+        "mirror_image",
+        "poison_bomb",
+        "smoke_bomb",
+        "delirium",
+        "blackout",
+        "mana_burst",
+        "web_trap",
+        "puppeteer",
+        "vanishing_act"
+      ],
+      "spellTemplateKeys": ["shadow_step"],
+      "gearTemplateKeys": ["trickster_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_trickster_m",
+      "armorTemplateKeyFemale": "fl1_armor_trickster_f"
+    }
+  }
+}

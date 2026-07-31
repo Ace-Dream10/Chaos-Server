@@ -1,0 +1,28 @@
+{
+  "templateKey": "challenging_shout",
+  "name": "Challenging Shout",
+  "description": "Bellow a war cry that forces every enemy on the field to focus on you.",
+  "panelSprite": 50,
+  "class": "Lancer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 30000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["challengingShout"],
+  "scriptVars": {
+    "challengingShout": {
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HandsUp2",
+      "casterAnimation": { "targetAnimation": 73, "animationSpeed": 100 },
+      "mobAnimation": { "targetAnimation": 41, "animationSpeed": 100 },
+      "mobAnimationDurationMs": 2500,
+      "sound": 35
+    }
+  }
+}

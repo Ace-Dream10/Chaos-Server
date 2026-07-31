@@ -1,0 +1,28 @@
+{
+  "templateKey": "firestorm",
+  "name": "Firestorm",
+  "description": "Ignite a target tile - the fire spreads to adjacent tiles in waves over 2 seconds.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["firestorm"],
+  "scriptVars": {
+    "firestorm": {
+      "rings": 2,
+      "ringDelayMs": 500,
+      "baseDamage": 80,
+      "damageStat": "int",
+      "damageStatMultiplier": 3,
+      "element": "Fire",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "templateKey": "basilisk_bite",
+  "name": "Basilisk Bite",
+  "description": "A venomous bite channeling the serpent spirit's endurance. Only usable while in Basilisk Beast Form.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 2000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 50,
+      "damageStat": "con",
+      "damageStatMultiplier": 3,
+      "shape": "front",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 98
+    },
+    "beastform": { "beastFormOnly": true, "requiredForm": "Basilisk" }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "templateKey": "fl2_armor_valkyrie_m",
+  "name": "FL2 Valkyrie Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "m armor",
+  "panelSprite": 371,
+  "displaySprite": 43,
+  "color": "Default",
+  "pantsColor": "Navy",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Male",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

@@ -1,0 +1,10 @@
+{
+  "templateKey": "gm_gear_martial_artist_helm_m",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": { "classKey": "martial_artist", "gender": "m", "grantHelm": true }
+  }
+}

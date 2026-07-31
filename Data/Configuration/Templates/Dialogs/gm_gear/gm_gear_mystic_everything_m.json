@@ -1,0 +1,17 @@
+{
+  "templateKey": "gm_gear_mystic_everything_m",
+  "text": "Here you go - full kit.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": {
+      "classKey": "mystic",
+      "gender": "m",
+      "grantHelm": true,
+      "grantArmor": true,
+
+      "weaponKeyPrefixes": ["mystic_wep"]
+    }
+  }
+}

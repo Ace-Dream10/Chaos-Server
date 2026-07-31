@@ -1,0 +1,37 @@
+{
+  "templateKey": "sinkhole",
+  "name": "Sinkhole",
+  "description": "Swallow a single enemy into the earth, crushing them the moment they break free.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "Targeted",
+  "cooldownMs": 35000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["applyEffect", "deadcenter"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "Stasis",
+      "effectDurationOverride": "00:00:03.000",
+      "singleTarget": true,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 }
+    },
+    "deadcenter": {
+      "baseDamage": 180,
+      "damageStat": "int",
+      "damageStatMultiplier": 4,
+      "element": "Earth",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 8,
+      "delayMs": 3000,
+      "manaCost": 0,
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

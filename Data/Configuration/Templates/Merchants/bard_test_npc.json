@@ -1,0 +1,7 @@
+{
+  "templateKey": "bard_test_npc",
+  "name": "Bard Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "bard_test_npc_initial" } }
+}

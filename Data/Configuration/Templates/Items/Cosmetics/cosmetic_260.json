@@ -1,0 +1,20 @@
+{
+  "templateKey": "cosmetic_260",
+  "name": "Cosmetic 260",
+  "description": "A cosmetic accessory.",
+  "category": "cosmetic",
+  "color": "Default",
+  "panelSprite": 260,
+  "displaySprite": 260,
+  "equipmentType": "Accessory",
+  "gender": "Unisex",
+  "isModifiable": true,
+  "level": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "weight": 1,
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

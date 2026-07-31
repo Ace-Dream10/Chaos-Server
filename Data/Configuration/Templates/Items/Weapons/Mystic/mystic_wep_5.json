@@ -1,0 +1,21 @@
+{
+  "templateKey": "mystic_wep_5",
+  "name": "Mystic Weapon 5",
+  "description": "A staff used for Mystic visual testing.",
+  "category": "staff",
+  "panelSprite": 11974,
+  "displaySprite": 239,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

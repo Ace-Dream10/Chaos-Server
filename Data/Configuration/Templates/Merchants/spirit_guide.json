@@ -1,0 +1,7 @@
+{
+  "templateKey": "spirit_guide",
+  "name": "Spirit Guide",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "spirit_guide_initial" } }
+}

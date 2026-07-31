@@ -1,0 +1,29 @@
+{
+  "templateKey": "tidal_wave",
+  "name": "Tidal Wave",
+  "description": "A wave of water surges forward, knocking back and drenching anything in its path.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 6000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["travelingLine"],
+  "scriptVars": {
+    "travelingLine": {
+      "range": 5,
+      "baseDamage": 60,
+      "damageStat": "int",
+      "damageStatMultiplier": 2,
+      "element": "Water",
+      "knockbackTiles": 1,
+      "slowDurationMs": 2000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

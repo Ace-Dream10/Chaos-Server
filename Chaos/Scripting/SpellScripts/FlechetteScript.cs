@@ -39,6 +39,17 @@ public class FlechetteScript : ConfigurableSpellScriptBase
         if ((context.TargetCreature is not { IsAlive: true } initialTarget) || !Filter.IsValidTarget(source, initialTarget))
             return;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            if (source is Aisling manaAisling)
+                manaAisling.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        if (source is Aisling attackerAisling)
+            attackerAisling.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var hitTargets = new List<Creature>
@@ -194,6 +205,11 @@ public class FlechetteScript : ConfigurableSpellScriptBase
     ///     The number of milliseconds to wait before each bounce lands
     /// </summary>
     public int JumpDelayMs { get; init; } = 400;
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum distance a bounce can travel to find its next target
