@@ -249,6 +249,9 @@ PATH.txt
 Data/Saved/
 Data/SavedBackups/
 Data/Configuration/Access/**/password.txt
+Data/Configuration/Access/blacklist.txt
+Data/Configuration/Access/whitelist.txt
+Data/Configuration/Access/clientIdBan.txt
 Tests/Reports/CoverageReport/
 
 # Logs
