@@ -3,6 +3,7 @@ using Chaos.DarkAges.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.World;
 using Chaos.Scripting.AislingScripts.Abstractions;
+using Microsoft.Extensions.Logging;
 #endregion
 
 namespace Chaos.Scripting.AislingScripts;
@@ -28,7 +29,7 @@ public class BerserkerRageScript : AislingScriptBase
     private const int MaxAuraThreshold = 90;
     private const decimal RageDamageBonusPerMp = 0.5m;
     private static readonly TimeSpan IdleDrainInterval = TimeSpan.FromSeconds(2);
-    private static readonly TimeSpan AuraPulseInterval = TimeSpan.FromMilliseconds(1500);
+    private static readonly TimeSpan AuraPulseInterval = TimeSpan.FromMilliseconds(500);
 
     private static readonly Animation MediumAura = new()
     {
@@ -42,14 +43,17 @@ public class BerserkerRageScript : AislingScriptBase
         AnimationSpeed = 100
     };
 
+    private readonly ILogger<BerserkerRageScript> Logger;
     private int LastAppliedDamageBonus;
     private DateTime? LastObservedDamageTime;
+    private int? LastLoggedAuraTier;
     private TimeSpan SinceLastAuraPulse = TimeSpan.Zero;
     private TimeSpan SinceLastHit = TimeSpan.Zero;
 
     /// <inheritdoc />
-    public BerserkerRageScript(Aisling subject)
-        : base(subject) { }
+    public BerserkerRageScript(Aisling subject, ILogger<BerserkerRageScript> logger)
+        : base(subject)
+        => Logger = logger;
 
     /// <inheritdoc />
     public override bool CanMove() => !Subject.Trackers.Tags.ContainsKey(CyclingTag);
@@ -120,6 +124,20 @@ public class BerserkerRageScript : AislingScriptBase
         SinceLastAuraPulse = TimeSpan.Zero;
 
         var currentMp = Subject.StatSheet.CurrentMp;
+        var tier = currentMp >= MaxAuraThreshold ? 2 : currentMp >= MediumAuraThreshold ? 1 : 0;
+
+        if (tier != LastLoggedAuraTier)
+        {
+            Logger.LogInformation(
+                "BerserkerRage: {Name} rage={CurrentMp} crossed into tier {Tier} (0=none,1=medium@{MediumThreshold},2=max@{MaxThreshold})",
+                Subject.Name,
+                currentMp,
+                tier,
+                MediumAuraThreshold,
+                MaxAuraThreshold);
+
+            LastLoggedAuraTier = tier;
+        }
 
         if (currentMp >= MaxAuraThreshold)
             Subject.Animate(MaxAura, Subject.Id);
