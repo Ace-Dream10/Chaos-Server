@@ -15,7 +15,7 @@
     "skillTemplateKeys": ["Assail"],
     "spellIntervalMs": 10000,
     "spellTemplateKeys": [],
-    "sprite": 1016,
+    "sprite": 469,
     "statSheet": {
         "level": 10,
         "ac": 90,
