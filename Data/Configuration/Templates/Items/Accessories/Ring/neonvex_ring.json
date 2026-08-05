@@ -1,0 +1,21 @@
+{
+  "templateKey": "neonvex_ring",
+  "name": "Neonvex Ring",
+  "description": "Placeholder ring for visual testing.",
+  "category": "ring",
+  "panelSprite": 3328,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Ring",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

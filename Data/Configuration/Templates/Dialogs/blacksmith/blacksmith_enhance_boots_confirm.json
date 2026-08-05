@@ -2,7 +2,7 @@
   "options": [],
   "scriptKeys": ["enhanceItem"],
   "scriptVars": {
-    "enhanceItem": { "itemTemplateKey": "fl1_boots", "costPerLevel": 100 }
+    "enhanceItem": { "itemTemplateKey": "wayfarer_boots", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_boots_confirm",
   "text": "{0}",

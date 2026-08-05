@@ -4,7 +4,7 @@
   ],
   "scriptKeys": ["enhanceItemInfo"],
   "scriptVars": {
-    "enhanceItemInfo": { "itemTemplateKey": "fl1_belt", "costPerLevel": 100 }
+    "enhanceItemInfo": { "itemTemplateKey": "wayfarer_belt", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_belt_info",
   "text": "{0}",

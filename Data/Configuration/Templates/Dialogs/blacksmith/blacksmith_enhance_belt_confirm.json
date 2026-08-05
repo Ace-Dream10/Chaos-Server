@@ -2,7 +2,7 @@
   "options": [],
   "scriptKeys": ["enhanceItem"],
   "scriptVars": {
-    "enhanceItem": { "itemTemplateKey": "fl1_belt", "costPerLevel": 100 }
+    "enhanceItem": { "itemTemplateKey": "wayfarer_belt", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_belt_confirm",
   "text": "{0}",

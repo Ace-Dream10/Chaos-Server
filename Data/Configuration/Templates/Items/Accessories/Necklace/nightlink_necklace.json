@@ -1,0 +1,21 @@
+{
+  "templateKey": "nightlink_necklace",
+  "name": "Nightlink Necklace",
+  "description": "Placeholder necklace for visual testing.",
+  "category": "necklace",
+  "panelSprite": 13452,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Necklace",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment", "adaptiveElement"],
+  "scriptVars": { "equipment": {}, "adaptiveElement": {} }
+}

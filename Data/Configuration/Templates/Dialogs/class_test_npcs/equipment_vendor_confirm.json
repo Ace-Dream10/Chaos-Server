@@ -7,15 +7,15 @@
   "scriptVars": {
     "giveItems": {
       "itemTemplateKeys": [
-        "fl1_ring",
-        "fl1_ring",
-        "fl1_necklace",
-        "fl1_earrings",
-        "fl1_gauntlets",
-        "fl1_gauntlets",
-        "fl1_greaves",
-        "fl1_boots",
-        "fl1_belt",
+        "wayfarer_ring",
+        "wayfarer_ring",
+        "wayfarer_necklace",
+        "wayfarer_earrings",
+        "wayfarer_gauntlets",
+        "wayfarer_gauntlets",
+        "wayfarer_greaves",
+        "wayfarer_boots",
+        "wayfarer_belt",
         "return_stone"
       ]
     }

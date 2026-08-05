@@ -4,7 +4,7 @@
   ],
   "scriptKeys": ["enhanceItemInfo"],
   "scriptVars": {
-    "enhanceItemInfo": { "itemTemplateKey": "fl1_gauntlets", "costPerLevel": 100 }
+    "enhanceItemInfo": { "itemTemplateKey": "wayfarer_gauntlets", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_gauntlets_info",
   "text": "{0}",

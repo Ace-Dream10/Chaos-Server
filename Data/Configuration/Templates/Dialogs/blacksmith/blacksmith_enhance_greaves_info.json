@@ -4,7 +4,7 @@
   ],
   "scriptKeys": ["enhanceItemInfo"],
   "scriptVars": {
-    "enhanceItemInfo": { "itemTemplateKey": "fl1_greaves", "costPerLevel": 100 }
+    "enhanceItemInfo": { "itemTemplateKey": "wayfarer_greaves", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_greaves_info",
   "text": "{0}",

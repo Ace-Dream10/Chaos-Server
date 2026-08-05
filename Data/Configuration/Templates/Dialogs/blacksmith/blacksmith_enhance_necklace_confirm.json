@@ -2,7 +2,7 @@
   "options": [],
   "scriptKeys": ["enhanceItem"],
   "scriptVars": {
-    "enhanceItem": { "itemTemplateKey": "fl1_necklace", "costPerLevel": 100 }
+    "enhanceItem": { "itemTemplateKey": "wayfarer_necklace", "costPerLevel": 100 }
   },
   "templateKey": "blacksmith_enhance_necklace_confirm",
   "text": "{0}",

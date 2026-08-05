@@ -1,0 +1,21 @@
+{
+  "templateKey": "cinderfell_necklace",
+  "name": "Cinderfell Necklace",
+  "description": "Placeholder necklace for visual testing.",
+  "category": "necklace",
+  "panelSprite": 13383,
+  "displaySprite": 1,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Necklace",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment", "adaptiveElement"],
+  "scriptVars": { "equipment": {}, "adaptiveElement": {} }
+}
