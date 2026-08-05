@@ -188,6 +188,34 @@ public abstract class Creature : NamedEntity, IAffected, IScripted<ICreatureScri
         return spell.Script.CanUse(spellContext);
     }
 
+    /// <summary>
+    ///     Ground-targeted variant of the entity-target <c>CanUse(Spell, Creature, ...)</c> overload above - no entity
+    ///     target, just a map point. Only called for spells with <c>Template.GroundTargeted</c> set; see
+    ///     <c>Aisling.TryUseSpell</c>.
+    /// </summary>
+    public virtual bool CanUse(
+        Spell spell,
+        IPoint target,
+        MapInstance map,
+        string? promptResponse,
+        [MaybeNullWhen(false)] out SpellContext spellContext)
+    {
+        spellContext = null;
+
+        if (spell.Template.AdminOnly && this is not Aisling { IsAdmin: true })
+            return false;
+
+        if (!Script.CanUseSpell(spell))
+            return false;
+
+        if (!spell.CanUse())
+            return false;
+
+        spellContext = new SpellContext(this, target, map, promptResponse);
+
+        return spell.Script.CanUse(spellContext);
+    }
+
     public virtual void Chant(string message) => ShowPublicMessage(PublicMessageType.Chant, message);
 
     public Direction FindOptimalDirection(IPoint target, IPathOptions? pathOptions = null, bool ignoreCollision = false)
@@ -583,7 +611,7 @@ public abstract class Creature : NamedEntity, IAffected, IScripted<ICreatureScri
         return true;
     }
 
-    public virtual bool TryUseSpell(Spell spell, uint? targetId = null, string? promptResponse = null)
+    public virtual bool TryUseSpell(Spell spell, uint? targetId = null, string? promptResponse = null, Point? targetPoint = null)
     {
         Creature? target;
 

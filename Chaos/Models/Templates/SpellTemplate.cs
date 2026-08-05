@@ -8,6 +8,7 @@ public sealed record SpellTemplate : PanelEntityTemplateBase
 {
     public required bool AdminOnly { get; init; }
     public required byte CastLines { get; init; }
+    public required bool GroundTargeted { get; init; }
     public required LearningRequirements? LearningRequirements { get; init; }
     public required bool LevelsUp { get; init; }
     public required byte MaxLevel { get; init; }

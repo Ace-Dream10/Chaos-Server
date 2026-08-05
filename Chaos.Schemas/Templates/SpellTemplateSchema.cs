@@ -25,6 +25,15 @@ public sealed record SpellTemplateSchema : PanelEntityTemplateSchema
     public byte CastLines { get; set; }
 
     /// <summary>
+    ///     Defaults to false. Only meaningful when <see cref="SpellType" /> is <see cref="Chaos.DarkAges.Definitions.SpellType.Targeted" />.
+    ///     If true, this spell can be cast at an empty map point with no entity under the cursor (the client sends
+    ///     entity ID 0 alongside the point in that case) - see <c>Aisling.TryUseSpell</c>. Existing Targeted spells
+    ///     default to false and are unaffected; this is an explicit opt-in per spell, not a blanket capability
+    ///     unlocked for every Targeted spell.
+    /// </summary>
+    public bool GroundTargeted { get; set; }
+
+    /// <summary>
     ///     Default null
     ///     <br />
     ///     If set, these are the requirements for the spell to be learned

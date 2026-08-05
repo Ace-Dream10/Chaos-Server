@@ -1926,6 +1926,58 @@ public sealed class AislingTests
                .Should()
                .BeFalse();
     }
+
+    [Test]
+    public void TryUseSpell_ShouldReturnTrue_WhenGroundTargetedAndPointProvided()
+    {
+        var aisling = MockAisling.Create(Map);
+        MockAisling.SetupScriptAllows(aisling);
+
+        var spell = MockSpell.Create(templateSetup: t => t with { SpellType = SpellType.Targeted, GroundTargeted = true });
+
+        Mock.Get(spell.Script)
+            .Setup(x => x.CanUse(It.IsAny<SpellContext>()))
+            .Returns(true);
+
+        // entity id 0 (client sends this when there's no entity under the cursor) + a point, no target entity
+        var result = aisling.TryUseSpell(spell, 0, targetPoint: new Point(5, 5));
+
+        result.Should()
+              .BeTrue();
+
+        aisling.Trackers
+               .LastUsedSpell
+               .Should()
+               .Be(spell);
+    }
+
+    [Test]
+    public void TryUseSpell_ShouldReturnFalse_WhenTargetedButNotGroundTargeted_EvenWithPoint()
+    {
+        var aisling = MockAisling.Create(Map);
+        MockAisling.SetupScriptAllows(aisling);
+
+        // GroundTargeted defaults to false - a point alone shouldn't unlock ground-targeting for every
+        // Targeted spell, only ones explicitly opted in
+        var spell = MockSpell.Create(templateSetup: t => t with { SpellType = SpellType.Targeted });
+
+        aisling.TryUseSpell(spell, 0, targetPoint: new Point(5, 5))
+               .Should()
+               .BeFalse();
+    }
+
+    [Test]
+    public void TryUseSpell_ShouldReturnFalse_WhenGroundTargetedButNoPointProvided()
+    {
+        var aisling = MockAisling.Create(Map);
+        MockAisling.SetupScriptAllows(aisling);
+
+        var spell = MockSpell.Create(templateSetup: t => t with { SpellType = SpellType.Targeted, GroundTargeted = true });
+
+        aisling.TryUseSpell(spell, 0)
+               .Should()
+               .BeFalse();
+    }
     #endregion
 
     #region ShowPublicMessage

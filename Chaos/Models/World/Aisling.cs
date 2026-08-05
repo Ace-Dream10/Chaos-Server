@@ -1147,25 +1147,39 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     }
 
     /// <inheritdoc />
-    public override bool TryUseSpell(Spell spell, uint? targetId = null, string? promptResponse = null)
+    public override bool TryUseSpell(Spell spell, uint? targetId = null, string? promptResponse = null, Point? targetPoint = null)
     {
-        Creature? target;
+        SpellContext? context;
 
-        if (!targetId.HasValue)
+        //entity id 0 (or no id at all) alongside a Targeted spell means the client had no entity under the
+        //cursor - only support this for spells explicitly opted into ground-targeting, not every Targeted spell
+        if ((targetId is null or 0) && (spell.Template.SpellType == SpellType.Targeted) && spell.Template.GroundTargeted)
         {
-            if (spell.Template.SpellType == SpellType.Targeted)
+            if (targetPoint is null)
                 return false;
 
-            target = this;
-        } else if (!MapInstance.TryGetEntity(targetId.Value, out target))
-            return false;
+            if (!CanUse(spell, targetPoint.Value, MapInstance, promptResponse, out context))
+                return false;
+        } else
+        {
+            Creature? target;
 
-        if (!CanUse(
-                spell,
-                target!,
-                promptResponse,
-                out var context))
-            return false;
+            if (!targetId.HasValue || (targetId.Value == 0))
+            {
+                if (spell.Template.SpellType == SpellType.Targeted)
+                    return false;
+
+                target = this;
+            } else if (!MapInstance.TryGetEntity(targetId.Value, out target))
+                return false;
+
+            if (!CanUse(
+                    spell,
+                    target!,
+                    promptResponse,
+                    out context))
+                return false;
+        }
 
         if (!ActionThrottle.TryIncrement())
             return false;

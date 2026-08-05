@@ -1,0 +1,25 @@
+{
+  "templateKey": "test_ground_target",
+  "name": "Test Ground Target",
+  "description": "Investigation-only test spell validating the ground-targeted casting pipeline end to end - casts a small damage circle at a clicked map point instead of requiring an entity target. Not real game content; grant via \"/learn spell test_ground_target\".",
+  "panelSprite": 1,
+  "spellType": "Targeted",
+  "groundTargeted": true,
+  "cooldownMs": 500,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": false,
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 1,
+      "shape": "circle",
+      "range": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 1
+    }
+  }
+}

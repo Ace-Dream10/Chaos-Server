@@ -98,7 +98,8 @@ public sealed class SpellMapperProfile(ISimpleCache simpleCache, IScriptProvider
             RequiresMaster = obj.RequiresMaster,
             LevelsUp = obj.LevelsUp,
             MaxLevel = obj.MaxLevel ?? 100,
-            AdminOnly = obj.AdminOnly
+            AdminOnly = obj.AdminOnly,
+            GroundTargeted = obj.GroundTargeted
         };
 
     public SpellTemplateSchema Map(SpellTemplate obj) => throw new NotImplementedException();

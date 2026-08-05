@@ -1753,6 +1753,7 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                 Creature source = localClient.Aisling;
                 var promptResponse = default(string?);
                 uint? targetId = null;
+                Point? targetPoint = null;
 
                 //if we expect the spell we're casting to be more than 0 lines
                 //it should have started a chant... so we check the chant timer for validation
@@ -1781,8 +1782,7 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                                           | (targetIdSegment[2] << 8)
                                           | targetIdSegment[3]);
 
-                        // ReSharper disable once UnusedVariable
-                        var targetPoint = new Point(
+                        targetPoint = new Point(
                             (targetPointSegment[0] << 8) | targetPointSegment[1],
                             (targetPointSegment[2] << 8) | targetPointSegment[3]);
 
@@ -1801,7 +1801,7 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                         throw new ArgumentOutOfRangeException();
                 }
 
-                localClient.Aisling.TryUseSpell(spell, targetId, promptResponse);
+                localClient.Aisling.TryUseSpell(spell, targetId, promptResponse, targetPoint);
             }
 
             localClient.Aisling.UserState &= ~UserState.IsChanting;

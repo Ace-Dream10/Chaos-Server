@@ -65,7 +65,8 @@ public sealed class SpellFactory(ISimpleCache simpleCache, IScriptProvider scrip
             CastLines = 0,
             Prompt = null,
             SpellType = SpellType.NoTarget,
-            AdminOnly = false
+            AdminOnly = false,
+            GroundTargeted = false
         };
 
         var spell = new Spell(

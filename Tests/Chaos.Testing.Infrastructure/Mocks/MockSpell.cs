@@ -34,6 +34,7 @@ public static class MockSpell
             Description = null,
             RequiresMaster = false,
             AdminOnly = false,
+            GroundTargeted = false,
             ScriptKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase),
             ScriptVars = new Dictionary<string, IScriptVars>(StringComparer.OrdinalIgnoreCase)
         };
