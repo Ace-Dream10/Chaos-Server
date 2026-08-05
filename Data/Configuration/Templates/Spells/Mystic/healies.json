@@ -35,7 +35,7 @@
       "sound": 8,
       "baseHeal": 500,
       "animation": {
-        "targetAnimation": 200,
+        "targetAnimation": 157,
         "animationSpeed": 1000
       },
       "bodyAnimation": "priestCast",

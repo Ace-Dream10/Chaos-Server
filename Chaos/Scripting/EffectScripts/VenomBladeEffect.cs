@@ -24,7 +24,7 @@ public sealed class VenomBladeEffect : EffectBase
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(30000);
 
     /// <inheritdoc />
-    public override byte Icon => 58;
+    public override byte Icon => 147;
 
     /// <inheritdoc />
     public override string Name => "Venom Blade";

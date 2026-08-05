@@ -32,8 +32,10 @@ public class LancersLeashScript : ConfigurableSkillScriptBase
 
         var scanArea = new Rectangle(context.SourcePoint, ScanWidth, ScanHeight);
 
+        //monsters already adjacent to the caster don't need to be pulled - they're already right there
         var candidates = map.GetEntitiesAtPoints<Monster>(scanArea.GetPoints())
                             .Where(monster => Filter.IsValidTarget(source, monster))
+                            .Where(monster => !context.SourcePoint.IsAdjacentTo(Point.From(monster)))
                             .ToArray();
 
         Random.Shared.Shuffle(candidates);

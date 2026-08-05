@@ -14,7 +14,8 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Silences and bleeds a target, but only from behind - the target must be facing away from the caster.
+///     Silences and bleeds a target from the front or side; deals bonus bleed damage if the target is facing away
+///     from the caster (caught from behind).
 /// </summary>
 public class GarroteScript : ConfigurableSkillScriptBase
 {
@@ -38,20 +39,14 @@ public class GarroteScript : ConfigurableSkillScriptBase
         var directionToFaceCaster = context.SourcePoint.DirectionalRelationTo(Point.From(target));
         var isFacingAway = target.Direction == directionToFaceCaster.Reverse();
 
-        if (!isFacingAway)
-        {
-            context.SourceAisling?.SendOrangeBarMessage("Your target must have their back turned.");
-
-            return;
-        }
-
         source.AnimateBody(BodyAnimation);
 
         var blackoutEffect = new BlackoutEffect();
         blackoutEffect.SetDuration(TimeSpan.FromMilliseconds(SilenceDurationMs));
         target.Effects.Apply(source, blackoutEffect, this);
 
-        var bleedEffect = new BleedEffect { BleedDamage = BleedDamagePerTick };
+        var bleedDamage = isFacingAway ? Convert.ToInt32(BleedDamagePerTick * BehindDamageBonusMultiplier) : BleedDamagePerTick;
+        var bleedEffect = new BleedEffect { BleedDamage = bleedDamage };
         bleedEffect.SetDuration(TimeSpan.FromMilliseconds(BleedDurationMs));
         target.Effects.Apply(source, bleedEffect, this);
 
@@ -77,6 +72,12 @@ public class GarroteScript : ConfigurableSkillScriptBase
     ///     The amount of bleed damage dealt per tick
     /// </summary>
     public int BleedDamagePerTick { get; init; } = 30;
+
+    /// <summary>
+    ///     The multiplier applied to bleed damage when the target is facing away from the caster (caught from
+    ///     behind)
+    /// </summary>
+    public decimal BehindDamageBonusMultiplier { get; init; } = 1.5m;
 
     /// <summary>
     ///     The body animation played by the caster

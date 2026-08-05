@@ -4,6 +4,7 @@ using Chaos.Definitions;
 using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
+using Chaos.Geometry.Abstractions.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
@@ -15,6 +16,8 @@ namespace Chaos.Scripting.SkillScripts;
 
 public class IntimidatingShoutScript : ConfigurableSkillScriptBase
 {
+    private static readonly Direction[] CardinalDirections = [Direction.Up, Direction.Right, Direction.Down, Direction.Left];
+
     /// <inheritdoc />
     public IntimidatingShoutScript(Skill subject)
         : base(subject) { }
@@ -27,21 +30,27 @@ public class IntimidatingShoutScript : ConfigurableSkillScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        foreach (var monster in map.GetEntitiesWithinRange<Monster>(context.SourcePoint, Range))
+        //only the 4 tiles directly adjacent to the caster (north/south/east/west), not a full radius
+        foreach (var direction in CardinalDirections)
         {
-            if (!Filter.IsValidTarget(source, monster))
-                continue;
+            var point = context.SourcePoint.DirectionalOffset(direction);
 
-            //the direction the monster would need to face to be looking at the caster, reversed to face away
-            var directionToFaceCaster = context.SourcePoint.DirectionalRelationTo(Point.From(monster));
-            monster.Turn(directionToFaceCaster.Reverse(), forced: true);
+            foreach (var monster in map.GetEntitiesAtPoints<Monster>(point))
+            {
+                if (!Filter.IsValidTarget(source, monster))
+                    continue;
 
-            var fearedEffect = new FearedEffect();
-            fearedEffect.SetDuration(TimeSpan.FromMilliseconds(FearDurationMs));
-            monster.Effects.Apply(source, fearedEffect, this);
+                //the direction the monster would need to face to be looking at the caster, reversed to face away
+                var directionToFaceCaster = context.SourcePoint.DirectionalRelationTo(Point.From(monster));
+                monster.Turn(directionToFaceCaster.Reverse(), forced: true);
 
-            if (Animation != null)
-                monster.Animate(Animation, source.Id);
+                var fearedEffect = new FearedEffect();
+                fearedEffect.SetDuration(TimeSpan.FromMilliseconds(FearDurationMs));
+                monster.Effects.Apply(source, fearedEffect, this);
+
+                if (Animation != null)
+                    monster.Animate(Animation, source.Id);
+            }
         }
 
         if (Sound.HasValue)
@@ -68,11 +77,6 @@ public class IntimidatingShoutScript : ConfigurableSkillScriptBase
     ///     The filter used to determine which monsters within range are affected
     /// </summary>
     public TargetFilter Filter { get; init; }
-
-    /// <summary>
-    ///     The radius around the caster affected by the shout
-    /// </summary>
-    public int Range { get; init; } = 3;
 
     /// <summary>
     ///     The sound played at the caster's position on cast

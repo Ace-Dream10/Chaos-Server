@@ -68,4 +68,19 @@ public static class PointExtensions
         return Point.From(point)
                     .WithinRange(Point.From(other), distance);
     }
+
+    /// <summary>
+    ///     Determines whether the other point is within the 8 tiles surrounding this point (or the same tile).
+    ///     Unlike <see cref="WithinRange(Chaos.Geometry.Point,Chaos.Geometry.Point,int)" />, which is Manhattan
+    ///     distance, this is Chebyshev distance - a diagonal neighbor counts as adjacent too
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool IsAdjacentTo(this IPoint point, IPoint other)
+    {
+        ArgumentNullException.ThrowIfNull(point);
+
+        ArgumentNullException.ThrowIfNull(other);
+
+        return (Math.Abs(point.X - other.X) <= 1) && (Math.Abs(point.Y - other.Y) <= 1);
+    }
 }

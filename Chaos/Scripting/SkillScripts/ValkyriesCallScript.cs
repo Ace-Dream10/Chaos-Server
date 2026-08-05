@@ -28,8 +28,10 @@ public class ValkyriesCallScript : ConfigurableSkillScriptBase
 
         source.AnimateBody(BodyAnimation);
 
+        //monsters already adjacent to the caster don't need to be pulled - they're already right there
         var candidates = map.GetEntitiesWithinRange<Monster>(source, PullRange)
                             .Where(monster => Filter.IsValidTarget(source, monster))
+                            .Where(monster => !context.SourcePoint.IsAdjacentTo(Point.From(monster)))
                             .ToArray();
 
         Random.Shared.Shuffle(candidates);

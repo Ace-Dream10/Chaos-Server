@@ -15,9 +15,9 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     A short rush, modeled on Lancer's Charge, but crashing straight through everything in its path instead of
-///     stopping at the first creature - every hostile on every tile crossed takes damage, and rage flows through the
-///     existing <see cref="Chaos.Scripting.AislingScripts.BerserkerRageScript" /> hook whenever a hit lands.
+///     A short rush, modeled on Lancer's Charge - stops at the first creature in its path (unpassable) rather than
+///     crashing through everything, dealing damage there. Rage flows through the existing
+///     <see cref="Chaos.Scripting.AislingScripts.BerserkerRageScript" /> hook whenever a hit lands.
 /// </summary>
 public class BerserkerChargeScript : ConfigurableSkillScriptBase
 {
@@ -46,18 +46,25 @@ public class BerserkerChargeScript : ConfigurableSkillScriptBase
 
             var creature = map.GetEntitiesAtPoints<Creature>(point).TopOrDefault();
 
-            if ((creature != null) && Filter.IsValidTarget(source, creature))
+            //unpassable - the charge stops at the first creature in its path, valid target or not, rather than
+            //continuing through them
+            if (creature != null)
             {
-                var damage = CalculateDamage(source);
+                if (Filter.IsValidTarget(source, creature))
+                {
+                    var damage = CalculateDamage(source);
 
-                if (damage > 0)
-                    ApplyDamageScript.ApplyDamage(source, creature, this, damage);
+                    if (damage > 0)
+                        ApplyDamageScript.ApplyDamage(source, creature, this, damage);
 
-                if (Animation != null)
-                    creature.Animate(Animation, source.Id);
+                    if (Animation != null)
+                        creature.Animate(Animation, source.Id);
 
-                if (Sound.HasValue)
-                    map.PlaySound(Sound.Value, point);
+                    if (Sound.HasValue)
+                        map.PlaySound(Sound.Value, point);
+                }
+
+                break;
             }
 
             lastWalkablePoint = point;
