@@ -3,7 +3,7 @@
   "name": "Iron Bastion",
   "description": "Harden your defenses, reducing incoming damage for 8 seconds.",
   "panelSprite": 50,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

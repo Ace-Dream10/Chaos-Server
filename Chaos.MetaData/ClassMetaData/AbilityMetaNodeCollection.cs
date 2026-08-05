@@ -27,9 +27,9 @@ public sealed class AbilityMetaNodeCollection : MetaNodeCollection<AbilityMetaNo
             var metadata = new AbilityMetaData(name);
             IEnumerable<AbilityMetaNode> nodes = nodeGroup.Value;
 
-            // anyone can learn peasant skills
-            if (nodeGroup.Key is not BaseClass.Unassigned)
-                nodes = nodesByClass.TryGetValue(BaseClass.Unassigned, out var peasantNodes) ? nodes.Concat(peasantNodes) : nodes;
+            // anyone can learn universal (unregistered-restricted) skills
+            if (nodeGroup.Key is not BaseClass.Unregistered)
+                nodes = nodesByClass.TryGetValue(BaseClass.Unregistered, out var universalNodes) ? nodes.Concat(universalNodes) : nodes;
 
             foreach (var node in nodes)
                 metadata.AddNode(node);

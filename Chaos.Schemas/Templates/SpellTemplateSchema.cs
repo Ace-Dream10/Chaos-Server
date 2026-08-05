@@ -11,6 +11,15 @@ namespace Chaos.Schemas.Templates;
 public sealed record SpellTemplateSchema : PanelEntityTemplateSchema
 {
     /// <summary>
+    ///     Defaults to false. If true, only an admin (<c>Aisling.IsAdmin</c>) can cast this spell - checked in
+    ///     <c>Creature.CanUse(Spell, ...)</c> alongside the other universal pre-cast checks. Replaces the old
+    ///     convention of restricting GM-only spells via a fake <c>BaseClass</c> value (e.g. the removed
+    ///     <c>Diacht</c>), which had no real enforcement at cast time and only worked by nobody ever teaching the
+    ///     spell to a non-admin.
+    /// </summary>
+    public bool AdminOnly { get; set; }
+
+    /// <summary>
     ///     The number of chant lines this spell requires by default
     /// </summary>
     public byte CastLines { get; set; }

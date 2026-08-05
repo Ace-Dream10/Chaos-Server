@@ -69,11 +69,11 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
             && int.TryParse(previousBonusStr, out var previousBonus))
             source.StatSheet.SubtractBonus(new Attributes { MaximumMp = previousBonus });
 
-        var advClassValue = AdvClass ?? Chaos.DarkAges.Definitions.AdvClass.None;
-
-        if (advClassValue is Chaos.DarkAges.Definitions.AdvClass.Assassin
-            or Chaos.DarkAges.Definitions.AdvClass.Berserker
-            or Chaos.DarkAges.Definitions.AdvClass.Valkyrie)
+        //Assassin/Berserker/Valkyrie moved from AdvClass to BaseClass values in the class-flatten - check BaseClass
+        //directly now instead of the (now Sorcerer/MartialArtist-specialization-only) AdvClass scriptVar
+        if (BaseClass is Chaos.DarkAges.Definitions.BaseClass.Assassin
+            or Chaos.DarkAges.Definitions.BaseClass.Berserker
+            or Chaos.DarkAges.Definitions.BaseClass.Valkyrie)
         {
             var shortfall = ResourceMpFloor - (int)source.StatSheet.EffectiveMaximumMp;
 

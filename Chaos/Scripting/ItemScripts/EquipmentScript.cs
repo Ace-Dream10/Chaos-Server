@@ -35,9 +35,13 @@ public class EquipmentScript(Item subject) : ConfigurableItemScriptBase(subject)
             return;
         }
 
-        //only Weapon Master can dual wield - this is a Shield-slot item flagged as an off-hand weapon,
-        //not a real shield, so the check is keyed off the flag rather than EquipmentType.Shield itself
-        if (IsOffHandWeapon && !source.HasClass(BaseClass.WeaponMaster))
+        //only the old WeaponMaster cluster (now Berserker/Slayer/Valkyrie individually, post class-flatten) can
+        //dual wield - this is a Shield-slot item flagged as an off-hand weapon, not a real shield, so the check is
+        //keyed off the flag rather than EquipmentType.Shield itself
+        if (IsOffHandWeapon
+            && !source.HasClass(BaseClass.Berserker)
+            && !source.HasClass(BaseClass.Slayer)
+            && !source.HasClass(BaseClass.Valkyrie))
         {
             source.SendOrangeBarMessage("You lack the training to wield two weapons.");
 

@@ -3,7 +3,7 @@
   "name": "Shield Wall",
   "description": "Slam your shield forward in a wide arc, stunning all enemies in front of you.",
   "panelSprite": 46,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

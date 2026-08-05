@@ -510,13 +510,9 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     ///     </c>
     /// </returns>
     public bool HasClass(BaseClass @class)
-        => @class is BaseClass.Unassigned
-           || UserStatSheet.BaseClass switch
-           {
-               //Diacht "is" all classes
-               BaseClass.Diacht => true,
-               _                => UserStatSheet.BaseClass == @class
-           };
+        //IsAdmin replaces the old Diacht "is all classes" wildcard sentinel - GMs pass every class check directly
+        //via their admin flag rather than a fake class value
+        => (@class is BaseClass.Unregistered) || IsAdmin || (UserStatSheet.BaseClass == @class);
 
     public bool Illuminates(VisibleEntity entity)
     {

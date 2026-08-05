@@ -33,6 +33,7 @@ public static class MockSpell
             Cooldown = null,
             Description = null,
             RequiresMaster = false,
+            AdminOnly = false,
             ScriptKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase),
             ScriptVars = new Dictionary<string, IScriptVars>(StringComparer.OrdinalIgnoreCase)
         };

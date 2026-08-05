@@ -22,7 +22,7 @@ public class BerserkerRageScript : AislingScriptBase
     /// </summary>
     public const string CyclingTag = "cycloning";
 
-    private const int RagePerHit = 10;
+    private const int RagePerHit = 5;
     private const int IdleDrainAmount = 5;
     private const int HardCap = 100;
     private const int MediumAuraThreshold = 50;
@@ -64,7 +64,7 @@ public class BerserkerRageScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Berserker)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Berserker)
             return;
 
         var lastDamageTime = Subject.Trackers.LastDamagedEnemy;

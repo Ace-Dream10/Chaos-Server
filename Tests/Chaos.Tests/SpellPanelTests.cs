@@ -43,6 +43,7 @@ public sealed class SpellPanelTests
             Cooldown = cooldown,
             Description = null,
             RequiresMaster = false,
+            AdminOnly = false,
             ScriptKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase),
             ScriptVars = new Dictionary<string, IScriptVars>(StringComparer.OrdinalIgnoreCase)
         };

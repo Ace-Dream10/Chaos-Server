@@ -134,7 +134,7 @@ public class MetaDataStore : IMetaDataStore
                 }.Where(obj => obj is not null)
                  .ToArray();
 
-            var node = new AbilityMetaNode(template.Name, template is SkillTemplate, template.Class ?? BaseClass.Unassigned)
+            var node = new AbilityMetaNode(template.Name, template is SkillTemplate, template.Class ?? BaseClass.Unregistered)
             {
                 Level = template.Level,
                 RequiresMaster = template.RequiresMaster,
@@ -205,7 +205,7 @@ public class MetaDataStore : IMetaDataStore
             var node = new ItemMetaNode(template.Name)
             {
                 Level = template.Level,
-                Class = template.Class ?? BaseClass.Unassigned,
+                Class = template.Class ?? BaseClass.Unregistered,
                 Weight = template.Weight,
                 Description = template.Description ?? string.Empty,
                 Category = template.Category

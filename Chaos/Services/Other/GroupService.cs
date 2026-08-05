@@ -352,14 +352,19 @@ public sealed class GroupService : IGroupService
         //check class limits if the target has a groupBox open
         if (receiver.GroupBox is not null)
         {
+            //Pre-existing behavior, unchanged by the class-flatten: any class not explicitly listed here defaults to
+            //a limit of 0 (effectively can't join a group-box'd group at all) via the `_` case below - this already
+            //affected every AdvClass-subclassed character before the flatten (Berserker/Slayer/Valkyrie/Assassin/
+            //Trickster/Archer/Bard), not something newly introduced here. BaseClass.WeaponMaster no longer exists as
+            //a value (its 3 successor classes fall through to the same `_ => 0` the other majority already did) -
+            //real retail-bucket mapping for the new 11-class list is a separate, later GroupBox redesign phase.
             var classLimit = sender.UserStatSheet.BaseClass switch
             {
-                BaseClass.Lancer => receiver.GroupBox.MaxWarriors,
-                BaseClass.Sorcerer  => receiver.GroupBox.MaxWizards,
-                BaseClass.WeaponMaster   => receiver.GroupBox.MaxRogues,
-                BaseClass.Mystic  => receiver.GroupBox.MaxPriests,
-                BaseClass.MartialArtist    => receiver.GroupBox.MaxMonks,
-                _                 => 0
+                BaseClass.Bastion => receiver.GroupBox.MaxWarriors,
+                BaseClass.Sorcerer => receiver.GroupBox.MaxWizards,
+                BaseClass.Mystic => receiver.GroupBox.MaxPriests,
+                BaseClass.MartialArtist => receiver.GroupBox.MaxMonks,
+                _ => 0
             };
 
             var currentClassCount = receiver.Group?.Count(m => m.UserStatSheet.BaseClass == sender.UserStatSheet.BaseClass)

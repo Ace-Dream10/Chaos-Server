@@ -171,6 +171,12 @@ public abstract class Creature : NamedEntity, IAffected, IScripted<ICreatureScri
     {
         spellContext = null;
 
+        //GM-only spells (e.g. gm_hide) - replaces the old convention of restricting them via a fake BaseClass
+        //value (the removed Diacht), which had no real cast-time enforcement. Monsters never pass this (they have
+        //no admin flag), which is the correct default - admin-only spells shouldn't be usable by monster AI.
+        if (spell.Template.AdminOnly && this is not Aisling { IsAdmin: true })
+            return false;
+
         if (!Script.CanUseSpell(spell))
             return false;
 

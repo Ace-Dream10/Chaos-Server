@@ -14,13 +14,13 @@ public sealed class AbilityMetaNodeCollectionTests
         var coll = new AbilityMetaNodeCollection();
 
         coll.AddNode(
-            new AbilityMetaNode("Peasant Skill", true, BaseClass.Unassigned)
+            new AbilityMetaNode("Peasant Skill", true, BaseClass.Unregistered)
             {
                 Level = 1
             });
 
         coll.AddNode(
-            new AbilityMetaNode("Warrior Skill", true, BaseClass.Lancer)
+            new AbilityMetaNode("Warrior Skill", true, BaseClass.Bastion)
             {
                 Level = 2
             });
@@ -50,19 +50,19 @@ public sealed class AbilityMetaNodeCollectionTests
         var coll = new AbilityMetaNodeCollection();
 
         coll.AddNode(
-            new AbilityMetaNode("Z-HighSpell-Warrior", false, BaseClass.Lancer)
+            new AbilityMetaNode("Z-HighSpell-Warrior", false, BaseClass.Bastion)
             {
                 Level = 10
             });
 
         coll.AddNode(
-            new AbilityMetaNode("A-LowSkill-Warrior", true, BaseClass.Lancer)
+            new AbilityMetaNode("A-LowSkill-Warrior", true, BaseClass.Bastion)
             {
                 Level = 1
             });
 
         coll.AddNode(
-            new AbilityMetaNode("M-MidSkill-Warrior", true, BaseClass.Lancer)
+            new AbilityMetaNode("M-MidSkill-Warrior", true, BaseClass.Bastion)
             {
                 Level = 5
             });

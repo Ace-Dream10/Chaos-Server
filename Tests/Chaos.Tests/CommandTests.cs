@@ -1306,14 +1306,18 @@ public sealed class CommandTests
     {
         var command = new SetClassCommand();
         var aisling = MockAisling.Create();
-        var args = new ArgumentCollection("Guardian");
+
+        //this command parses the literal enum member name (no fuzzy/display-name aliasing) - was "Guardian" before
+        //the class-flatten, which never matched an actual BaseClass member (the enum value was always "Lancer");
+        //using the real member name "Bastion" now
+        var args = new ArgumentCollection("Bastion");
 
         await command.ExecuteAsync(aisling, args);
 
         aisling.UserStatSheet
                .BaseClass
                .Should()
-               .Be(BaseClass.Lancer);
+               .Be(BaseClass.Bastion);
 
         var clientMock = Mock.Get(aisling.Client);
 

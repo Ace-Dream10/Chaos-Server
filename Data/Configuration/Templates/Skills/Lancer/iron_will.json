@@ -3,7 +3,7 @@
   "name": "Iron Will",
   "description": "Draw on your endurance to heal yourself. Even more effective while your shield is active.",
   "panelSprite": 46,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

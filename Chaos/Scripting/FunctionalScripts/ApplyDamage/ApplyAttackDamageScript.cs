@@ -97,7 +97,7 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                 if (aisling.Trackers.Tags.ContainsKey(AxeBlockEffect.BlockingTag))
                 {
                     //damage negated entirely, nothing further to apply
-                } else if ((aisling.UserStatSheet.BaseClass == BaseClass.Lancer)
+                } else if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
                     && aisling.Effects.TryGetEffect("Lancer's Shield", out var shieldEffect)
                     && (shieldEffect is LancerShieldEffect lancerShield))
                 {
@@ -166,7 +166,7 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     aisling.ShowHealth();
 
                     //Lancers passively charge shield MP from monster hits while the shield isn't already up
-                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Lancer) && (source is Monster))
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion) && (source is Monster))
                     {
                         aisling.StatSheet.AddMp(damage);
                         aisling.Client.SendAttributes(StatUpdateType.Vitality);

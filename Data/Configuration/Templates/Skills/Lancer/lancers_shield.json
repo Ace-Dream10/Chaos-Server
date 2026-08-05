@@ -3,7 +3,7 @@
   "name": "Lancer's Shield",
   "description": "Convert accumulated shield charge into a barrier that absorbs all incoming damage.",
   "panelSprite": 50,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

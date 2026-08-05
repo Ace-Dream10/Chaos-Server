@@ -3,7 +3,7 @@
   "name": "Stacia's Will",
   "description": "Channel Stacia's power to absorb your allies' pain. Your resilience is their shield - only the sturdiest Lancers should attempt this.",
   "panelSprite": 50,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

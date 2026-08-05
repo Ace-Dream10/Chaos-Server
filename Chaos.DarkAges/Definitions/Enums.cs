@@ -676,37 +676,72 @@ public enum StatUpdateType : byte
 
 #region Profile
 /// <summary>
-///     A byte representing the 'temuair class' of an aisling. Used in many places.
+///     A byte representing an aisling's class. Flattened from the old BaseClass/AdvClass two-tier path system
+///     (WeaponMaster+Berserker/Slayer/Valkyrie, Strider+Assassin/Trickster/Archer, Magus+Bard, standalone
+///     Sorcerer/Mystic) into one flat list of 11 real classes plus <see cref="Unregistered" />. Renumbered
+///     sequentially rather than preserving the old ordinals (old values: Unassigned=0, Lancer=1, WeaponMaster=2,
+///     Sorcerer=3, Mystic=4, MartialArtist=5, Recruit=6, Strider=7, Magus=8, Diacht=255) - nothing depends on the
+///     specific old byte values surviving, and the old <c>Diacht=255</c> GM-wildcard sentinel is gone entirely
+///     (replaced by a direct <c>source.IsAdmin</c> check). <c>Lancer</c> is renamed to <c>Bastion</c> (display and
+///     symbol both), not a new class - same underlying skills/identity.
 /// </summary>
 public enum BaseClass : byte
 {
-    Unassigned = 0,
-    Lancer = 1,
-    WeaponMaster = 2,
-    Sorcerer = 3,
-    Mystic = 4,
-    MartialArtist = 5,
-    Recruit = 6,
-    Strider = 7,
-    Magus = 8,
-    Diacht = 255
+    /// <summary>
+    ///     Pre-class-selection state. Was <c>Unassigned</c>.
+    /// </summary>
+    Unregistered = 0,
+
+    /// <summary>
+    ///     Guardian path. Was <c>Lancer</c> - literal rename, same class.
+    /// </summary>
+    Bastion = 1,
+    Berserker = 2,
+    Slayer = 3,
+    Valkyrie = 4,
+    Assassin = 5,
+    Trickster = 6,
+    Archer = 7,
+    Sorcerer = 8,
+    Mystic = 9,
+    Bard = 10,
+    MartialArtist = 11
 }
 
 /// <summary>
-///     A byte representing the 'medenia class' of an aisling. Used in many places.
+///     A byte representing an aisling's sub-specialization. Narrowed from a general-purpose "advanced class" field
+///     (formerly used by 8 different classes) to exactly two uses: <see cref="Chaos.DarkAges.Definitions.BaseClass.Sorcerer" />'s
+///     11-path elemental specialization (chosen progressively at Floor 3/5/7 - picking one of the 5 pure paths
+///     ending in <see cref="Arcanist" /> skips the second choice) and
+///     <see cref="Chaos.DarkAges.Definitions.BaseClass.MartialArtist" />'s 3-way Floor-2 specialization. Every other
+///     class uses <see cref="None" /> permanently. <c>Assassin</c>/<c>Trickster</c>/<c>Archer</c>/<c>Bard</c>/
+///     <c>Valkyrie</c>/<c>Berserker</c>/<c>Slayer</c>/<c>MartialArtist</c>(the old flat value)/<c>Summoner</c> are
+///     removed - the first eight moved to being <see cref="BaseClass" /> values directly, and
+///     <c>Summoner</c> was confirmed unreferenced anywhere in the codebase before removal.
 /// </summary>
 public enum AdvClass : byte
 {
     None = 0,
-    Assassin = 1,
-    Trickster = 2,
-    Archer = 3,
-    Bard = 4,
-    Summoner = 5,
-    Valkyrie = 6,
-    Berserker = 7,
-    Slayer = 8,
-    MartialArtist = 9
+
+    #region Sorcerer elemental specialization (5 pure + 6 hybrid)
+    Ignis = 1,
+    Hydrosage = 2,
+    Tempest = 3,
+    Earthshaper = 4,
+    Arcanist = 5,
+    Magma = 6,
+    Cinder = 7,
+    Inferno = 8,
+    Torrent = 9,
+    Sirocco = 10,
+    Blizzard = 11,
+    #endregion
+
+    #region MartialArtist Floor-2 specialization
+    Fighter = 12,
+    Tank = 13,
+    RangedChi = 14
+    #endregion
 }
 
 /// <summary>

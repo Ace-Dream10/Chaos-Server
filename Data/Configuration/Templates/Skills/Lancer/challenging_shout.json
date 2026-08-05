@@ -3,7 +3,7 @@
   "name": "Challenging Shout",
   "description": "Bellow a war cry that forces every enemy on the field to focus on you.",
   "panelSprite": 50,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

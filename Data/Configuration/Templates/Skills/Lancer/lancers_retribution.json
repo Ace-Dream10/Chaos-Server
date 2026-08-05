@@ -3,7 +3,7 @@
   "name": "Lancer's Retribution",
   "description": "Every strike against you is returned in kind. The stronger your defense, the harder the counter.",
   "panelSprite": 50,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

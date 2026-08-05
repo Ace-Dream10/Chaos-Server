@@ -1,16 +1,48 @@
 {
   "options": [
     {
-      "dialogKey": "class_selector_recruit",
-      "optionText": "The Way of Steel (Recruit)"
+      "dialogKey": "class_selector_set_bastion",
+      "optionText": "Bastion — Defender of the front line"
     },
     {
-      "dialogKey": "class_selector_strider",
-      "optionText": "The Way of Shadows (Strider)"
+      "dialogKey": "class_selector_set_berserker",
+      "optionText": "Berserker — Rage fuels every strike"
     },
     {
-      "dialogKey": "class_selector_magus",
-      "optionText": "The Way of Magic (Magus)"
+      "dialogKey": "class_selector_set_slayer",
+      "optionText": "Slayer — Ruthless, focused execution"
+    },
+    {
+      "dialogKey": "class_selector_set_valkyrie",
+      "optionText": "Valkyrie — Aerial polearm assault"
+    },
+    {
+      "dialogKey": "class_selector_set_assassin",
+      "optionText": "Assassin — High burst execution"
+    },
+    {
+      "dialogKey": "class_selector_set_trickster",
+      "optionText": "Trickster — Mob control and mobility"
+    },
+    {
+      "dialogKey": "class_selector_set_archer",
+      "optionText": "Archer — Precision at range"
+    },
+    {
+      "dialogKey": "class_selector_set_sorcerer",
+      "optionText": "Sorcerer — Elemental destruction"
+    },
+    {
+      "dialogKey": "class_selector_set_mystic",
+      "optionText": "Mystic — Battlefield control and healing"
+    },
+    {
+      "dialogKey": "class_selector_set_bard",
+      "optionText": "Bard — Buffs and support"
+    },
+    {
+      "dialogKey": "class_selector_set_martialartist",
+      "optionText": "Martial Artist — Speed and precision"
     }
   ],
   "scriptKeys": [],

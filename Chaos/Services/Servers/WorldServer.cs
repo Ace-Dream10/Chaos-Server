@@ -1100,17 +1100,26 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                         return default;
                     }
 
-                    var classCounts = new byte[6];
+                    //Sized to the full BaseClass range (was byte[6], hardcoded to the old 5-base-identity + 0 shape)
+                    //so indexing by (int)BaseClass.X can't go out of bounds now that BaseClass has 12 values. This
+                    //is a safety fix only - it does NOT solve the real problem, which is that the retail GroupBox
+                    //protocol only has 5 fixed buckets (Warriors/Wizards/Rogues/Priests/Monks) and Elysium now has
+                    //11 real classes to fit into them. That mapping is deliberately deferred to a later, dedicated
+                    //GroupBox redesign phase (same pattern as the floor-tracker packet - a new protocol, not a
+                    //reshuffle of these 5 slots).
+                    var classCounts = new byte[Enum.GetValues<BaseClass>().Length];
 
+                    //IsAdmin replaces the old Diacht "is all classes" wildcard - GMs are excluded from group-box
+                    //class counting via their admin flag directly rather than a fake class value
                     if (target.Group is not null)
                         foreach (var member in target.Group)
                         {
-                            if (member.UserStatSheet.BaseClass == BaseClass.Diacht)
+                            if (member.IsAdmin)
                                 continue;
 
                             classCounts[(int)member.UserStatSheet.BaseClass]++;
                         }
-                    else if (target.UserStatSheet.BaseClass != BaseClass.Diacht)
+                    else if (!target.IsAdmin)
                         classCounts[(int)target.UserStatSheet.BaseClass]++;
 
                     var groupBoxInfo = new DisplayGroupBoxInfo
@@ -1120,11 +1129,15 @@ public sealed class WorldServer : ServerBase<IChaosWorldClient>, IWorldServer<IC
                         MinLevel = target.GroupBox.MinLevel,
                         MaxLevel = target.GroupBox.MaxLevel,
                         MaxWarriors = target.GroupBox.MaxWarriors,
-                        CurrentWarriors = classCounts[(int)BaseClass.Lancer],
+                        CurrentWarriors = classCounts[(int)BaseClass.Bastion],
                         MaxWizards = target.GroupBox.MaxWizards,
                         CurrentWizards = classCounts[(int)BaseClass.Sorcerer],
                         MaxRogues = target.GroupBox.MaxRogues,
-                        CurrentRogues = classCounts[(int)BaseClass.WeaponMaster],
+
+                        //BaseClass.WeaponMaster no longer exists (its 3 successor classes - Berserker/Slayer/
+                        //Valkyrie - aren't individually counted into any bucket here yet); hardcoded 0 rather than
+                        //guessing which one "is" Rogues now. See the classCounts comment above.
+                        CurrentRogues = 0,
                         MaxPriests = target.GroupBox.MaxPriests,
                         CurrentPriests = classCounts[(int)BaseClass.Mystic],
                         MaxMonks = target.GroupBox.MaxMonks,

@@ -3,7 +3,7 @@
   "name": "Lancer's Leash",
   "description": "Drag up to 6 nearby enemies to your location and force their attention onto you.",
   "panelSprite": 46,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

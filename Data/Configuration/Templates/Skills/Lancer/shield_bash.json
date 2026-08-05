@@ -3,7 +3,7 @@
   "name": "Shield Bash",
   "description": "Slam your shield into an enemy, dealing damage and briefly stunning them.",
   "panelSprite": 46,
-  "class": "Lancer",
+  "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

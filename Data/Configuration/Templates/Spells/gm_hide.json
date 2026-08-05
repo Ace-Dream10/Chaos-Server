@@ -1,7 +1,7 @@
 {
   "spellType": "NoTarget",
+  "adminOnly": true,
   "castLines": 0,
-  "class": "Diacht",
   "description": "Shrouds you in darkness, hiding you from sight",
   "level": 35,
   "name": "Gm Hide",

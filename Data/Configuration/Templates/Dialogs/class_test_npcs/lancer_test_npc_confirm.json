@@ -6,8 +6,8 @@
   "scriptKeys": ["becomeClass"],
   "scriptVars": {
     "becomeClass": {
-      "className": "Lancer",
-      "baseClass": "Lancer",
+      "className": "Bastion",
+      "baseClass": "Bastion",
       "advClass": null,
       "skillTemplateKeys": [
         "assail",

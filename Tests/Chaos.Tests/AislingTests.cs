@@ -880,20 +880,22 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnTrue_WhenCheckingPeasant()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Bastion);
 
-        aisling.HasClass(BaseClass.Unassigned)
+        aisling.HasClass(BaseClass.Unregistered)
                .Should()
                .BeTrue();
     }
 
     [Test]
-    public void HasClass_ShouldReturnTrue_WhenDiacht()
+    public void HasClass_ShouldReturnTrue_WhenAdmin()
     {
+        //Diacht (the old "is all classes" GM wildcard class) is gone - IsAdmin replaces it directly
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Diacht);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Mystic);
+        aisling.IsAdmin = true;
 
-        aisling.HasClass(BaseClass.Lancer)
+        aisling.HasClass(BaseClass.Bastion)
                .Should()
                .BeTrue();
 
@@ -910,9 +912,9 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnTrue_WhenExactMatch()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Bastion);
 
-        aisling.HasClass(BaseClass.Lancer)
+        aisling.HasClass(BaseClass.Bastion)
                .Should()
                .BeTrue();
     }
@@ -921,7 +923,7 @@ public sealed class AislingTests
     public void HasClass_ShouldReturnFalse_WhenDifferentClass()
     {
         var aisling = MockAisling.Create(Map);
-        aisling.UserStatSheet.SetBaseClass(BaseClass.Lancer);
+        aisling.UserStatSheet.SetBaseClass(BaseClass.Bastion);
 
         aisling.HasClass(BaseClass.Sorcerer)
                .Should()
