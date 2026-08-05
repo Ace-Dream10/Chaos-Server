@@ -36,14 +36,23 @@ the class system is still being finalized.
 
 ## Floor Progression
 
-20 floors total (decided, not yet implemented — there is no floor-tracking system in code today).
+**10 floors total** (revised from an earlier 20-floor draft — corrected during the floor-tracker design
+pass; see `FLOOR_TRACKER_DESIGN.md`). Target endgame character level is **255**, which is also a hard
+wire-protocol ceiling, not just a design target: `Chaos.Networking/Entities/Server/AttributesArgs.cs`
+sends `Level` as a `byte`, so nothing above 255 can display correctly on the client regardless of what
+the server-side `int` `Level` holds.
 
-- Each floor has a level cap. **Floor 1 cap is 19**, hardcoded as of this session
-  (`DefaultLevelUpScript.FloorLevelCap`, enforced in `DefaultExperienceDistributionScript.GiveExp`).
-  Caps for floors 2–20 are not yet decided.
+- Each floor has a level cap. **Floor 1 cap is 19**, hardcoded as of an earlier session
+  (`DefaultLevelUpScript.FloorLevelCap`, enforced in `DefaultExperienceDistributionScript.GiveExp`) —
+  that number was set against the old 20-floor plan and has **not been re-derived for 10 floors**.
+  Simply halving the floor count doesn't obviously imply a new per-floor curve (evenly spacing 255
+  across 10 floors gives ~25-26/floor, which doesn't match a floor-1 value of 19 either) — this needs an
+  explicit decision, not a guess. Caps for floors 2–10 are also still undecided.
 - Chamber rewards per floor: not yet decided beyond the accessory-set concept below.
-- **Not implemented**: which floor a player is currently on, floor unlock/progression logic, and a
-  per-floor cap lookup (right now `FloorLevelCap` is a single global constant, not floor-aware).
+- **Not implemented in code yet, but designed**: per-player current floor and highest-floor-cleared
+  (`Aisling.Trackers.Counters`), per-floor boss/first-clearer state (new `AscensionFloorStore`), and the
+  floor-tracker HUD packet. See `FLOOR_TRACKER_DESIGN.md` for the full design. Still not implemented: a
+  per-floor level-cap lookup (`FloorLevelCap` is still a single global constant, not floor-aware).
 
 ## Weapon Types Per Class
 
@@ -81,10 +90,14 @@ rather than a flat ability-point pool) has been raised but not designed or built
 
 ## Accessory Sets Per Floor
 
-Decided concept, not implemented: the first player/group to clear a floor gets the full accessory
-set for that floor; everyone else has to go hunt the next floor's set instead of getting a shot at
-the one already claimed. No mechanism exists yet for tracking "first clear," no accessory sets have
-been defined, and there's no floor-clear detection system to hook this into.
+Decided concept, not implemented: the first-clearer(s) of a floor get the full accessory set for that
+floor; everyone else has to go hunt the next floor's set instead of getting a shot at the one already
+claimed. "First clearer" credit is **participation-based**, not party/group membership: anyone who
+dealt damage to the floor boss or took damage from it during that fight is credited, regardless of
+whether they were grouped (see `FLOOR_TRACKER_DESIGN.md`'s Participation Tracking section for the
+mechanism). No accessory sets have been defined yet, and the reward-granting step itself (turning a
+tracked first-clear into actually handing out items) is not implemented — the tracker design covers
+detecting and persisting first-clear, not granting the reward.
 
 ## Stat System
 
@@ -99,6 +112,29 @@ manually.
 - Reconcile Sorcerer/Mystic into the Magus + AdvClass pattern (or decide they're genuinely separate
   from the 3x3 structure).
 - Wire up `AdvClass.Summoner` in the class selector.
-- Define floor 2–20 level caps and the actual floor-tracking mechanism.
+- Define floor 2–10 level caps, and re-derive floor 1's cap (currently 19, set against the old
+  20-floor plan) for the corrected 10-floor / level-255 target.
 - Decide weapon-type restrictions for every class besides Archer.
 - Decide what "materials" means for the enhancement system beyond gold.
+- **Class-flatten Phase 2 — save-migration tooling.** Existing character saves with pre-flatten
+  `baseClass`/`advClass` values were hand-fixed once (2026-08-04) as a one-off crash fix, not built
+  as reusable tooling. If more save-data drift happens in the future (e.g. further class changes),
+  there's no generic migration path to handle it.
+- **Class-flatten Phase 3 — content re-tagging.** `Skills/Lancer/` folder, in-game skill display
+  names ("Lancer's Shield," etc.), and the `LancersRetribution` effect key still reference "Lancer"
+  even though the class is now `Bastion`. Cosmetic/naming inconsistency, not broken.
+- **Class-flatten Phase 4 — GroupBox 11-into-5 bucket redesign.** Deferred by explicit decision to
+  "future state UI changes." Not urgent — 0 live characters currently in the affected classes.
+- **The 10 real Ascension Chamber floor maps.** Pure content/level-design work in
+  ChaosAssetManager's map editor. Currently 0 of 10 exist. Floor tracker code is fully ready
+  (`AscensionFloorNumber` field + detection) to support them once built.
+- **Pet/summon ownership resolution.** Fast-follow from the floor tracker's participant-tracking
+  work — ShadowClone/MirrorImage/DustDevil damage doesn't currently credit the summoning player for
+  first-clearer credit, since no ownership-tracking mechanism exists on `Monster` yet (see
+  `FLOOR_TRACKER_DESIGN.md` §6's "Known follow-up").
+- **This doc's own Class Structure section is stale.** Still documents the old
+  `Unassigned/Lancer/WeaponMaster/.../Diacht` model with `AdvClass` grouping — doesn't reflect the
+  current flat 12-class `BaseClass` enum.
+- **Ground-targeted/AoE-telegraph casting.** Investigation brief was sent (client targeting-mode UI,
+  a new packet for coordinate-based casting, `DamageScript`/shape resolution against an arbitrary
+  point) — no report has come back yet. Still unscoped.
