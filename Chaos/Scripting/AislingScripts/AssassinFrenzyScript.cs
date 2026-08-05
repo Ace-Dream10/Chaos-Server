@@ -48,7 +48,7 @@ public class AssassinFrenzyScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Assassin)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Assassin)
         {
             LastKnownMp = null;
 

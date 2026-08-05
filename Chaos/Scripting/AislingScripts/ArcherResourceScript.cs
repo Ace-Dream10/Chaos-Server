@@ -23,7 +23,7 @@ public class ArcherResourceScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Archer)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Archer)
             return;
 
         SinceLastTick += delta;

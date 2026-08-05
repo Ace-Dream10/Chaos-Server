@@ -23,7 +23,7 @@ public class TricksterManaScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Trickster)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Trickster)
             return;
 
         SinceLastTick += delta;

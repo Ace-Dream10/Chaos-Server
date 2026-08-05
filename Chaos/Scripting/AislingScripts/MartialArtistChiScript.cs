@@ -26,7 +26,7 @@ public class MartialArtistChiScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.MartialArtist)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.MartialArtist)
             return;
 
         var lastDamageTime = Subject.Trackers.LastDamagedEnemy;

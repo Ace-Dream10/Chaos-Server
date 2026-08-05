@@ -31,7 +31,7 @@ public class ValkyrieFuryScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Valkyrie)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Valkyrie)
             return;
 
         var lastSkillUse = Subject.Trackers.LastSkillUse;

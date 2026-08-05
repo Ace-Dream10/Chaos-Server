@@ -33,7 +33,7 @@ public class ReapersKissScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.AdvClass != AdvClass.Assassin)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Assassin)
             return;
 
         if (!Subject.SkillBook.TryGetObjectByTemplateKey("reapers_kiss", out _))

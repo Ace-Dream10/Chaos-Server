@@ -33,7 +33,7 @@ public class LancerShieldScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.BaseClass != BaseClass.Lancer)
+        if (Subject.UserStatSheet.BaseClass != BaseClass.Bastion)
             return;
 
         if (!Subject.Trackers.Tags.ContainsKey(LancerShieldEffect.ShieldActiveTag))
