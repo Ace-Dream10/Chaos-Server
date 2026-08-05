@@ -3,7 +3,7 @@
   "name": "Deadcenter",
   "description": "A perfectly placed shot dealing massive damage.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 12000,
   "castLines": 0,

@@ -3,7 +3,7 @@
   "name": "Coup de Grâce",
   "description": "Vault behind your target. Strike twice if they are turned, once if not - but they will be turned for next time.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

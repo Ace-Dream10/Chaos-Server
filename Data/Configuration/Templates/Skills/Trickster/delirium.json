@@ -3,7 +3,7 @@
   "name": "Delirium",
   "description": "Fracture an enemy's mind, causing them to attack random nearby targets.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

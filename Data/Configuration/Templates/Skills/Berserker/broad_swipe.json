@@ -3,7 +3,7 @@
   "name": "Broad Swipe",
   "description": "A wide horizontal axe sweep hitting enemies in front and to both sides.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

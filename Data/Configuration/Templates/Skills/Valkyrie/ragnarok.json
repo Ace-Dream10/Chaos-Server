@@ -3,7 +3,7 @@
   "name": "Ragnarok",
   "description": "Release all stored fury in a devastating burst of destruction.",
   "panelSprite": 46,
-  "advClass": "Valkyrie",
+  "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

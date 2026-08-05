@@ -3,7 +3,7 @@
   "name": "Heaven's Recoil",
   "description": "A powerful slash that sends nearby enemies flying back.",
   "panelSprite": 46,
-  "advClass": "Valkyrie",
+  "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

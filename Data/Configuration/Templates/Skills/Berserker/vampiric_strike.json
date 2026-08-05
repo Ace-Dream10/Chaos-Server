@@ -3,7 +3,7 @@
   "name": "Vampiric Strike",
   "description": "A vicious strike that drains the life force of your enemy to heal yourself.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

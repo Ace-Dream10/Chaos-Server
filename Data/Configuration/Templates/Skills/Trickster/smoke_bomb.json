@@ -3,7 +3,7 @@
   "name": "Smoke Bomb",
   "description": "Detonate a smoke bomb, causing nearby enemies to lose sight of their targets.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

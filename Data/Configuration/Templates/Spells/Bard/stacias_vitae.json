@@ -3,7 +3,7 @@
   "name": "Stacia's Vitae",
   "description": "Channel the goddess's life force in a single burst, mending a wounded ally instantly.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 6000,
   "castLines": 0,

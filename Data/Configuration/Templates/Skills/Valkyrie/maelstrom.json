@@ -3,7 +3,7 @@
   "name": "Maelstrom",
   "description": "Unleash a devastating spin attack hitting all enemies around you.",
   "panelSprite": 50,
-  "advClass": "Valkyrie",
+  "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

@@ -3,7 +3,7 @@
   "name": "Stacia's Chorus",
   "description": "A healing melody that bounces between allies, mending wounds as it travels.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 8000,
   "castLines": 0,

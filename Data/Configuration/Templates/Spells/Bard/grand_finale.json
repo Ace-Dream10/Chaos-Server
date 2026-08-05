@@ -3,7 +3,7 @@
   "name": "Grand Finale",
   "description": "Your greatest performance - a sustained storm of divine energy damages all enemies near an ally for 10 seconds.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 120000,
   "castLines": 0,

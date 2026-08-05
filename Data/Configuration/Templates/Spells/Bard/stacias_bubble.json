@@ -3,7 +3,7 @@
   "name": "Stacia's Bubble",
   "description": "Encase an ally in a divine barrier that absorbs incoming damage.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 20000,
   "castLines": 0,

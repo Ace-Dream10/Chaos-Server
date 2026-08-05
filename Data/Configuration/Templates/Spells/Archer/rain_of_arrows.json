@@ -3,7 +3,7 @@
   "name": "Rain of Arrows",
   "description": "Unleash a sustained volley of arrows raining down on a target area.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 12000,
   "castLines": 0,

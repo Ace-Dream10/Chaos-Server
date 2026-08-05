@@ -6,7 +6,7 @@
   "spellType": "Targeted",
   "cooldownMs": 1250,
   "castLines": 0,
-  "advClass": "Archer",
+  "class": "Archer",
   "scriptKeys": ["fireShot"],
   "scriptVars": {
     "fireShot": {

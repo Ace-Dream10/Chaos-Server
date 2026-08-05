@@ -3,7 +3,7 @@
   "name": "Reaper's Kiss",
   "description": "Each kill restores a portion of your health. Death feeds life.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

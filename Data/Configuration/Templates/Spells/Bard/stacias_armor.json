@@ -3,7 +3,7 @@
   "name": "Stacia's Armor",
   "description": "Fortify all allies with divine protection, greatly boosting their defense for 1 minute.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 90000,
   "castLines": 0,

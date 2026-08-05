@@ -3,7 +3,7 @@
   "name": "Stacia's March",
   "description": "A rousing march that accelerates all allies' attack speed for 30 seconds.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 60000,
   "castLines": 0,

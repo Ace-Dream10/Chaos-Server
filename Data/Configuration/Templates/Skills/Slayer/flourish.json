@@ -3,7 +3,7 @@
   "name": "Flourish",
   "description": "A rapid series of precise forward slashes - a deadly fencing combo.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

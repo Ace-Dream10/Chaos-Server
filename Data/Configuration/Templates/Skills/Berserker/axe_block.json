@@ -3,7 +3,7 @@
   "name": "Axe Block",
   "description": "Raise your axe to deflect all incoming damage for 3 seconds.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

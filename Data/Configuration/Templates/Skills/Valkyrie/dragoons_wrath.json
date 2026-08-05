@@ -3,7 +3,7 @@
   "name": "Dragoon's Wrath",
   "description": "Channel your inner fury, boosting attack power and accelerating fury generation.",
   "panelSprite": 50,
-  "advClass": "Valkyrie",
+  "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

@@ -3,7 +3,7 @@
   "name": "Puppeteer",
   "description": "Take control of an enemy's mind, turning them against their allies for 8 seconds.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

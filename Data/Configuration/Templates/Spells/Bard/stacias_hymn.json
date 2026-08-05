@@ -3,7 +3,7 @@
   "name": "Stacia's Hymn",
   "description": "A powerful hymn that empowers all allies' attacks for 30 seconds.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 60000,
   "castLines": 0,

@@ -3,7 +3,7 @@
   "name": "Intimidating Shout",
   "description": "Unleash a terrifying war cry that sends nearby enemies fleeing in the opposite direction.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
@@ -17,7 +17,6 @@
   "scriptKeys": ["intimidatingShout"],
   "scriptVars": {
     "intimidatingShout": {
-      "range": 3,
       "fearDurationMs": 2000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "None",

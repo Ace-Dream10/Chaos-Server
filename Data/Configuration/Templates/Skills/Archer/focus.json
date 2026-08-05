@@ -3,7 +3,7 @@
   "name": "Focus",
   "description": "Take aim, greatly increasing accuracy and damage of your next shot.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

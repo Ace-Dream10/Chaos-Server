@@ -3,7 +3,7 @@
   "name": "Precise Shot",
   "description": "A carefully aimed shot dealing heavy damage.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 3000,
   "castLines": 0,

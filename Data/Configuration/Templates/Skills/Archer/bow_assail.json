@@ -4,7 +4,7 @@
   "description": "Loose an arrow at a distant target.",
   "panelSprite": 74,
   "isAssail": true,
-  "advClass": "Archer",
+  "class": "Archer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

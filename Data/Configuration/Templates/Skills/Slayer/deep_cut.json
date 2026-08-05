@@ -3,7 +3,7 @@
   "name": "Deep Cut",
   "description": "A vicious slash that applies two Severance marks at once.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

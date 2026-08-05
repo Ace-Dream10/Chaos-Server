@@ -7,8 +7,8 @@
   "scriptVars": {
     "becomeClass": {
       "className": "Archer",
-      "baseClass": "Strider",
-      "advClass": "Archer",
+      "baseClass": "Archer",
+      "advClass": null,
       "skillTemplateKeys": ["bow_assail", "arrowstep", "focus"],
       "spellTemplateKeys": ["arrow_shot", "fire_shot", "deadcenter", "trappers_net", "rain_of_arrows", "flechette", "precise_shot"],
       "gearTemplateKeys": ["archer_wep_1", "rook_bow"],

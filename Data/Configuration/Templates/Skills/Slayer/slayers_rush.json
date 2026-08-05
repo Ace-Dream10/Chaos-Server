@@ -3,7 +3,7 @@
   "name": "Slayer's Rush",
   "description": "Dash forward 2 tiles, striking all enemies in your path and marking them with Severance.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

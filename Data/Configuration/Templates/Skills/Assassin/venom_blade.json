@@ -3,7 +3,7 @@
   "name": "Venom Blade",
   "description": "Coat your blade in lethal venom. Your next attack poisons and bleeds the target.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

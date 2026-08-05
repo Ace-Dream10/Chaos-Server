@@ -3,7 +3,7 @@
   "name": "Stacia's Blessing",
   "description": "Invoke the goddess's grace upon all allies, boosting their power for 30 minutes.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 300000,
   "castLines": 0,

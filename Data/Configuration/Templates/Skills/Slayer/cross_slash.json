@@ -3,7 +3,7 @@
   "name": "Cross Slash",
   "description": "Slash in an X pattern hitting enemies on all diagonal tiles.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

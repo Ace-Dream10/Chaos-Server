@@ -7,8 +7,8 @@
   "scriptVars": {
     "becomeClass": {
       "className": "Trickster",
-      "baseClass": "Strider",
-      "advClass": "Trickster",
+      "baseClass": "Trickster",
+      "advClass": null,
       "skillTemplateKeys": [
         "assail",
         "mirror_image",

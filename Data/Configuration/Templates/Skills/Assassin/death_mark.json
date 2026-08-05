@@ -3,7 +3,7 @@
   "name": "Death Mark",
   "description": "Mark a target for death. After 3 seconds the mark detonates for massive damage.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

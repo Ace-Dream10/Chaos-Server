@@ -3,7 +3,7 @@
   "name": "Crippling Blow",
   "description": "A devastating strike that stuns a single enemy.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

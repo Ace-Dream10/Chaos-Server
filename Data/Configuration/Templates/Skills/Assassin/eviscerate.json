@@ -3,7 +3,7 @@
   "name": "Eviscerate",
   "description": "A brutal finishing slash. Devastating against bleeding targets.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

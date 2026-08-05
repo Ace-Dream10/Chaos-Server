@@ -3,7 +3,7 @@
   "name": "Blink",
   "description": "Instantly teleport a short distance forward.",
   "panelSprite": 25,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 5000,
   "castLines": 0,

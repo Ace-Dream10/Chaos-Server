@@ -19,7 +19,7 @@
   },
   "spellType": "NoTarget",
   "castLines": 0,
-  "class": "WeaponMaster",
+  "adminOnly": true,
   "description": "Allows you to see well hidden creatures, items, etc",
   "level": 55,
   "name": "See True Hide",

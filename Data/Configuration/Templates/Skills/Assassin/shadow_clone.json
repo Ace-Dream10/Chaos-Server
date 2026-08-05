@@ -3,7 +3,7 @@
   "name": "Shadow Clone",
   "description": "Summon a shadow copy that draws enemy attention and attacks nearby foes.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

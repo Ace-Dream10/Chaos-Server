@@ -7,8 +7,8 @@
   "scriptVars": {
     "becomeClass": {
       "className": "Slayer",
-      "baseClass": "WeaponMaster",
-      "advClass": "Slayer",
+      "baseClass": "Slayer",
+      "advClass": null,
       "skillTemplateKeys": [
         "assail",
         "severance_strike",

@@ -3,7 +3,7 @@
   "name": "Flechette",
   "description": "Loose a piercing arrow that tears through nearby enemies.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 5000,
   "castLines": 0,

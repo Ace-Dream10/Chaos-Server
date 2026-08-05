@@ -3,7 +3,7 @@
   "name": "Execute",
   "description": "Strike a weakened enemy with lethal force. Below 20% HP, the blow is fatal.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

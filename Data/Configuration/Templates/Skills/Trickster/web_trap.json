@@ -3,7 +3,7 @@
   "name": "Web Trap",
   "description": "Place an invisible web trap. The first enemy to step on it is rooted and slowed.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

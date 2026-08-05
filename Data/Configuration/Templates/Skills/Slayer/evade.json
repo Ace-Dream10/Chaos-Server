@@ -3,7 +3,7 @@
   "name": "Evade",
   "description": "A swift backward step to dodge incoming attacks. Skips a tile if blocked.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

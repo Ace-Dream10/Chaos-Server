@@ -3,7 +3,7 @@
   "name": "Glaive Leap",
   "description": "Leap forward up to 2 tiles with your glaive, closing the gap instantly.",
   "panelSprite": 46,
-  "advClass": "Valkyrie",
+  "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

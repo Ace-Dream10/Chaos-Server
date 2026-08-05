@@ -3,7 +3,7 @@
   "name": "Void Crescendo",
   "description": "Channel your inner harmony into a devastating blast. Power scales with your current mana.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 8000,
   "castLines": 0,

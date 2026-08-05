@@ -3,7 +3,7 @@
   "name": "Stacia's Cleanse",
   "description": "Purge all negative effects from an ally with divine light.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 10000,
   "castLines": 0,

@@ -3,7 +3,7 @@
   "name": "Arrow Shot",
   "description": "A quick, low-cost shot - the Archer's bread and butter.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 500,
   "castLines": 0,

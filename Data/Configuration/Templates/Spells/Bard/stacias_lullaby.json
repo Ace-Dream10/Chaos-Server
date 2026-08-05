@@ -3,7 +3,7 @@
   "name": "Stacia's Lullaby",
   "description": "Sing a divine melody that puts an enemy into a deep sleep.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 20000,
   "castLines": 0,

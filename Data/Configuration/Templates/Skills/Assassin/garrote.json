@@ -3,7 +3,7 @@
   "name": "Garrote",
   "description": "Silence and bleed a target from behind. Requires the target to have their back turned.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

@@ -3,7 +3,7 @@
   "name": "Stacia's Veil",
   "description": "Wrap all allies in Stacia's divine veil, reducing damage taken by 20% for 30 seconds.",
   "panelSprite": 15,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "NoTarget",
   "cooldownMs": 60000,
   "castLines": 0,

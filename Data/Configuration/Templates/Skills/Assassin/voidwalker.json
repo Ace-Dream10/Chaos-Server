@@ -3,7 +3,7 @@
   "name": "Voidwalker",
   "description": "Vanish into shadow and strike from behind your target.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

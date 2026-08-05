@@ -3,7 +3,7 @@
   "name": "Nightfall",
   "description": "Plunge all nearby enemies into darkness, blinding them briefly.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

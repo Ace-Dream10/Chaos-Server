@@ -3,7 +3,7 @@
   "name": "Berserker Charge",
   "description": "Charge forward 2 tiles, crushing everything in your path.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

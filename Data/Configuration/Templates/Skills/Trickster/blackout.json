@@ -3,7 +3,7 @@
   "name": "Blackout",
   "description": "Blind an enemy, preventing them from attacking.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

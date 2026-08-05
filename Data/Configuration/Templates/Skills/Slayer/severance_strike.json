@@ -3,7 +3,7 @@
   "name": "Severance Strike",
   "description": "A precise strike that marks the target with Severance.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

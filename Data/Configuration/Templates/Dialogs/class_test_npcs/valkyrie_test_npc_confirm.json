@@ -7,8 +7,8 @@
   "scriptVars": {
     "becomeClass": {
       "className": "Valkyrie",
-      "baseClass": "WeaponMaster",
-      "advClass": "Valkyrie",
+      "baseClass": "Valkyrie",
+      "advClass": null,
       "skillTemplateKeys": ["assail", "glaive_leap", "dragoons_wrath", "maelstrom", "valkyries_call", "heavens_recoil", "ragnarok"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_polearm_1"],

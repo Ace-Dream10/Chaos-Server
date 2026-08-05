@@ -24,7 +24,7 @@
   "prompt": "",
   "spellType": "NoTarget",
   "castLines": 0,
-  "class": "WeaponMaster",
+  "adminOnly": true,
   "description": "Lays a trap on the ground which when stepped on by an enemy will deal a small amount of pure damage.",
   "level": 5,
   "name": "Needle Trap",

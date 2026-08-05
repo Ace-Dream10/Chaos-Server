@@ -3,7 +3,7 @@
   "name": "Death Blossom",
   "description": "Unleash a devastating whirlwind striking all nearby enemies.",
   "panelSprite": 50,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

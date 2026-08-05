@@ -3,7 +3,7 @@
   "name": "Black Lotus",
   "description": "Infect a target with deadly poison. If they die while infected, a dark explosion chains the poison to nearby enemies.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

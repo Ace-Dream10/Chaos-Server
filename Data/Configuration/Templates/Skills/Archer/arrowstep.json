@@ -3,7 +3,7 @@
   "name": "Arrowstep",
   "description": "A swift dash propelled by the force of a loosed arrow.",
   "panelSprite": 74,
-  "advClass": "Archer",
+  "class": "Archer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

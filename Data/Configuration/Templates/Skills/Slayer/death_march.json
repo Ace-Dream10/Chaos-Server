@@ -3,7 +3,7 @@
   "name": "Death March",
   "description": "March forward 3 tiles, cutting down everything in your path.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

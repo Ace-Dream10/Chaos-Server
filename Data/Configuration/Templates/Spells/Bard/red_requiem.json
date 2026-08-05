@@ -3,7 +3,7 @@
   "name": "Red Requiem",
   "description": "Call upon Stacia's mercy to pull a fallen ally back from death.",
   "panelSprite": 20,
-  "advClass": "Bard",
+  "class": "Bard",
   "spellType": "Targeted",
   "cooldownMs": 120000,
   "castLines": 0,

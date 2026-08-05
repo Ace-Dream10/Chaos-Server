@@ -7,8 +7,8 @@
   "scriptVars": {
     "becomeClass": {
       "className": "Berserker",
-      "baseClass": "WeaponMaster",
-      "advClass": "Berserker",
+      "baseClass": "Berserker",
+      "advClass": null,
       "skillTemplateKeys": [
         "assail",
         "cyclone",

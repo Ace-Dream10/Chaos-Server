@@ -3,7 +3,7 @@
   "name": "Poison Bomb",
   "description": "Hurl a toxic bomb that poisons all nearby enemies.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

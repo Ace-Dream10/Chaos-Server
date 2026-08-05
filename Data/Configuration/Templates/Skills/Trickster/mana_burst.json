@@ -3,7 +3,7 @@
   "name": "Mana Burst",
   "description": "Release all stored mana in a devastating explosion. The fuller your reserves, the bigger the blast.",
   "panelSprite": 46,
-  "advClass": "Trickster",
+  "class": "Trickster",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

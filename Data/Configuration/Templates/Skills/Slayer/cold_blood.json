@@ -3,7 +3,7 @@
   "name": "Cold Blood",
   "description": "Enter a cold calculated state - your Severance potential is maximized for 15 seconds.",
   "panelSprite": 46,
-  "advClass": "Slayer",
+  "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

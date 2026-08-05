@@ -3,7 +3,7 @@
   "name": "Bloodlust",
   "description": "Channel the energy of your kills into a devastating frenzy. More kills = longer duration.",
   "panelSprite": 46,
-  "advClass": "Assassin",
+  "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

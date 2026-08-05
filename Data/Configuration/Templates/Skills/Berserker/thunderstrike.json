@@ -3,7 +3,7 @@
   "name": "Thunderstrike",
   "description": "Slam your axe into the ground with devastating force, damaging all nearby enemies.",
   "panelSprite": 46,
-  "advClass": "Berserker",
+  "class": "Berserker",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

@@ -8,7 +8,7 @@
     "becomeClass": {
       "className": "Martial Artist",
       "baseClass": "MartialArtist",
-      "advClass": "MartialArtist",
+      "advClass": null,
       "skillTemplateKeys": [
         "assail",
         "kick",

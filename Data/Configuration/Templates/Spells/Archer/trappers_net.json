@@ -3,7 +3,7 @@
   "name": "Trapper's Net",
   "description": "Slow a target in place with a binding arrow.",
   "panelSprite": 25,
-  "advClass": "Archer",
+  "class": "Archer",
   "spellType": "Targeted",
   "cooldownMs": 8000,
   "castLines": 0,
