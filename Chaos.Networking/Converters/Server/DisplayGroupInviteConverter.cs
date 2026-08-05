@@ -34,14 +34,17 @@ public sealed class DisplayGroupInviteConverter : PacketConverterBase<DisplayGro
             var maxWizards = reader.ReadByte();
             var currentWizards = reader.ReadByte();
 
-            var maxMonks = reader.ReadByte();
-            var currentMonks = reader.ReadByte();
+            //Rogue/Monk byte order corrected to match Serialize and the actual retail client order
+            //(Warrior, Wizard, Rogue, Priest, Monk) - these were previously transposed (Monk read where Rogue's
+            //values are on the wire, and vice versa), the same class of bug fixed upstream in dalib PR #22.
+            var maxRogues = reader.ReadByte();
+            var currentRogues = reader.ReadByte();
 
             var maxPriests = reader.ReadByte();
             var currentPriests = reader.ReadByte();
 
-            var maxRogues = reader.ReadByte();
-            var currentRogues = reader.ReadByte();
+            var maxMonks = reader.ReadByte();
+            var currentMonks = reader.ReadByte();
 
             groupBoxInfo = new DisplayGroupBoxInfo
             {
@@ -53,12 +56,12 @@ public sealed class DisplayGroupInviteConverter : PacketConverterBase<DisplayGro
                 CurrentWarriors = currentWarriors,
                 MaxWizards = maxWizards,
                 CurrentWizards = currentWizards,
-                MaxMonks = maxMonks,
-                CurrentMonks = currentMonks,
+                MaxRogues = maxRogues,
+                CurrentRogues = currentRogues,
                 MaxPriests = maxPriests,
                 CurrentPriests = currentPriests,
-                MaxRogues = maxRogues,
-                CurrentRogues = currentRogues
+                MaxMonks = maxMonks,
+                CurrentMonks = currentMonks
             };
         }
 
