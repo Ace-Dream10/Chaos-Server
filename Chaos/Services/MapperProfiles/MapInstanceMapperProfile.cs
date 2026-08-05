@@ -24,11 +24,13 @@ public sealed class MapInstanceMapperProfile(
     IMapTraversalService mapTraversalService,
     IAsyncStore<Aisling> aislingStore,
     CancellationTokenSource serverCtx,
-    ILoggerFactory loggerFactory) : IMapperProfile<MapInstance, MapInstanceSchema>,
-                                    IMapperProfile<MapTemplate, MapTemplateSchema>,
-                                    IMapperProfile<MapInstance, MapInfoArgs>
+    ILoggerFactory loggerFactory,
+    IStore<AscensionFloorState> floorStore) : IMapperProfile<MapInstance, MapInstanceSchema>,
+                                              IMapperProfile<MapTemplate, MapTemplateSchema>,
+                                              IMapperProfile<MapInstance, MapInfoArgs>
 {
     private readonly IAsyncStore<Aisling> AislingStore = aislingStore;
+    private readonly IStore<AscensionFloorState> FloorStore = floorStore;
     private readonly ILoggerFactory LoggerFactory = loggerFactory;
     private readonly ITypeMapper Mapper = mapper;
     private readonly IMapTraversalService MapTraversalService = mapTraversalService;
@@ -66,11 +68,13 @@ public sealed class MapInstanceMapperProfile(
             AislingStore,
             ServerCtx,
             LoggerFactory.CreateLogger<MapInstance>(),
-            obj.ScriptKeys)
+            obj.ScriptKeys,
+            FloorStore)
         {
             Music = obj.Music,
             MinimumLevel = obj.MinimumLevel,
             MaximumLevel = obj.MaximumLevel,
+            AscensionFloorNumber = obj.AscensionFloorNumber,
             ShardingOptions = obj.ShardingOptions == null ? null : Mapper.Map<ShardingOptions>(obj.ShardingOptions),
             AutoDayNightCycle = obj.AutoDayNightCycle
         };

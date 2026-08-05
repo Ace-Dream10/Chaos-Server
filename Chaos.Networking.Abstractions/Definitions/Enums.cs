@@ -790,5 +790,15 @@ public enum ServerOpCode : byte
     ///     <br />
     ///     Hex value: 0x7E
     /// </summary>
-    AcceptConnection = 126
+    AcceptConnection = 126,
+
+    /// <summary>
+    ///     Custom Elysium opcode (not a retail Dark Ages opcode) - sent to update a client's Ascension Chamber
+    ///     floor-tracker HUD state (current floor, boss status, first-clearers, highest floor cleared). Deliberately
+    ///     numbered well above the highest real retail opcode in this enum (126) to avoid any future collision if
+    ///     more retail opcodes are ever added.
+    ///     <br />
+    ///     Hex value: 0xC8
+    /// </summary>
+    AscensionFloorUpdate = 200
 }

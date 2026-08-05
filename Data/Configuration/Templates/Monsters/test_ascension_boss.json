@@ -1,0 +1,26 @@
+{
+  "templateKey": "test_ascension_boss",
+  "name": "Test Ascension Boss",
+  "sprite": 637,
+  "type": "Normal",
+  "aggroRange": 0,
+  "assailIntervalMs": 99999,
+  "moveIntervalMs": 99999,
+  "skillIntervalMs": 99999,
+  "spellIntervalMs": 99999,
+  "wanderIntervalMs": 99999,
+  "expReward": 0,
+  "scriptKeys": ["Death", "Contribution", "AscensionBossDeath"],
+  "scriptVars": {
+    "AscensionBossDeath": { "FloorNumber": 1 }
+  },
+  "skillTemplateKeys": [],
+  "spellTemplateKeys": [],
+  "statSheet": {
+    "level": 1,
+    "ac": 0,
+    "maximumHp": 500,
+    "maximumMp": 0,
+    "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1
+  }
+}

@@ -13,6 +13,7 @@ using Chaos.Models.Data;
 using Chaos.Models.Templates;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
+using Chaos.Networking.Entities.Server;
 using Chaos.NLog.Logging.Definitions;
 using Chaos.NLog.Logging.Extensions;
 using Chaos.Pathfinding.Abstractions;
@@ -36,6 +37,7 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
     private readonly IIntervalTimer DayNightCycleTimer;
     private readonly DeltaTime DeltaTime;
     private readonly PeriodicTimer DeltaTimer;
+    private readonly IStore<AscensionFloorState>? FloorStore;
     private readonly IIntervalTimer HandleShardLimitersTimer;
     private readonly TaskCompletionSource InitializationTcs;
     private readonly ILogger<MapInstance> Logger;
@@ -59,6 +61,14 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
     ///     The current light level being displayed on the map
     /// </summary>
     public LightLevel CurrentLightLevel { get; set; } = LightLevel.Lightest_A;
+
+    /// <summary>
+    ///     Default null
+    ///     <br />
+    ///     If specified, marks this map instance as Ascension Chamber floor N (1-10). Entering/leaving a map with
+    ///     this set drives the AscensionFloorUpdate HUD packet - see FLOOR_TRACKER_DESIGN.md.
+    /// </summary>
+    public int? AscensionFloorNumber { get; set; }
 
     /// <summary>
     ///     A flag, or combination of flags that should affect the map
@@ -205,6 +215,10 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
     /// <param name="extraScriptKeys">
     ///     Any extra script keys beyond those included via the template
     /// </param>
+    /// <param name="floorStore">
+    ///     The Ascension Chamber floor-state store, used to look up boss/first-clearer state when an aisling
+    ///     arrives on a floor map. Null in contexts that don't need floor tracking (e.g. some test mocks).
+    /// </param>
     public MapInstance(
         MapTemplate template,
         ISimpleCache simpleCache,
@@ -215,11 +229,13 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
         IAsyncStore<Aisling> aislingStore,
         CancellationTokenSource serverCtx,
         ILogger<MapInstance> logger,
-        ICollection<string>? extraScriptKeys = null)
+        ICollection<string>? extraScriptKeys = null,
+        IStore<AscensionFloorState>? floorStore = null)
     {
         Name = name;
         InstanceId = instanceId;
         AislingStore = aislingStore;
+        FloorStore = floorStore;
         TraversalService = mapTraversalService;
         Logger = logger;
         ServerShutdownToken = serverCtx.Token;
@@ -603,6 +619,12 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
                 aisling.Client.SendMapLoadComplete();
                 aisling.Client.SendDisplayAisling(aisling);
                 aisling.Client.SendLightLevel(CurrentLightLevel);
+
+                //Ascension Chamber floor tracking (see FLOOR_TRACKER_DESIGN.md) - this is the single seam that
+                //catches every way an aisling ends up on a map: portal walk, GM warp, teleport scripts, world
+                //map, and login/relog, since WorldServer's login path and every MapTraversalService traversal
+                //all funnel through AddAislingDirect -> InnerAddEntity
+                UpdateAscensionFloorTracking(aisling);
             } else //incoming entity needs full viewport updates so that they can see existing entities
             {
                 Script.OnEntered(c);
@@ -625,6 +647,75 @@ public sealed class MapInstance : IScripted<IMapScript>, IDeltaUpdatable
                 creature.UpdateViewPort();
             else
                 creature.UpdateViewPort(visibleEntity);
+    }
+
+    /// <summary>
+    ///     Updates an aisling's "currentFloor" counter to match this map's <see cref="AscensionFloorNumber" /> (or
+    ///     clears it to 0 if this map isn't a floor and they were previously tracked as being on one) and sends the
+    ///     resulting <see cref="Chaos.Networking.Abstractions.Definitions.ServerOpCode.AscensionFloorUpdate" />
+    ///     state to them. Always resends on arrival at a floor (not just on a floor-number change) so a relog or
+    ///     repeated visit refreshes stale boss-alive/first-clearer state - see FLOOR_TRACKER_DESIGN.md's relog
+    ///     concern about tile-only detection.
+    /// </summary>
+    private void UpdateAscensionFloorTracking(Aisling aisling)
+    {
+        if (AscensionFloorNumber is int floorNumber)
+        {
+            aisling.Trackers.Counters.Set("currentFloor", floorNumber);
+            SendAscensionFloorUpdate(aisling, floorNumber);
+
+            return;
+        }
+
+        //not a floor map - only send/clear if they were actually tracked as being on a floor, so every
+        //ordinary non-floor map transition in the game doesn't send a needless "not on a floor" packet
+        if (aisling.Trackers.Counters.TryGetValue("currentFloor", out var existingFloor) && (existingFloor != 0))
+        {
+            aisling.Trackers.Counters.Set("currentFloor", 0);
+            SendAscensionFloorUpdate(aisling, 0);
+        }
+    }
+
+    /// <summary>
+    ///     Builds and sends the current <see cref="AscensionFloorUpdateArgs" /> state for the given floor number
+    ///     (0 = not on a floor) to a single aisling - the same shape <see cref="Chaos.Messaging.Admin.AscensionFloorTestCommand" />
+    ///     and <see cref="Chaos.Scripting.MonsterScripts.AscensionBossDeathScript" /> already build for their own
+    ///     triggers.
+    /// </summary>
+    private void SendAscensionFloorUpdate(Aisling aisling, int floorNumber)
+    {
+        var highestFloorCleared = aisling.Trackers.Counters.TryGetValue("highestFloorCleared", out var highest) ? highest : 0;
+
+        if (floorNumber == 0)
+        {
+            aisling.Client.SendAscensionFloorUpdate(
+                new AscensionFloorUpdateArgs
+                {
+                    CurrentFloor = 0,
+                    BossAlive = false,
+                    BossName = null,
+                    FirstClearers = [],
+                    HighestFloorCleared = (byte)highestFloorCleared
+                });
+
+            return;
+        }
+
+        var key = floorNumber.ToString();
+
+        var state = FloorStore?.Exists(key) == true
+            ? FloorStore.Load(key)
+            : new AscensionFloorState { FloorNumber = floorNumber };
+
+        aisling.Client.SendAscensionFloorUpdate(
+            new AscensionFloorUpdateArgs
+            {
+                CurrentFloor = (byte)floorNumber,
+                BossAlive = state.BossAlive,
+                BossName = state.BossName,
+                FirstClearers = state.FirstClearers,
+                HighestFloorCleared = (byte)highestFloorCleared
+            });
     }
 
     /// <summary>

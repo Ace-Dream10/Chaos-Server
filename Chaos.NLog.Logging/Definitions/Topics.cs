@@ -55,6 +55,7 @@ public static class Topics
     {
         public static string AbilityExp => nameof(AbilityExp);
         public static string Aisling => nameof(Aisling);
+        public static string AscensionFloor => nameof(AscensionFloor);
         public static string Backup => nameof(Backup);
         public static string BulletinBoard => nameof(BulletinBoard);
         public static string Channel => nameof(Channel);

@@ -254,6 +254,11 @@ public static class ServiceCollectionExtensions
             services.AddHostedService<DirectoryBackupService<BulletinBoardStoreOptions>>();
             services.ConfigureOptions<DirectoryBoundOptionsConfigurer<BulletinBoardStoreOptions>>();
 
+            //add ascension floor store - no backup service, content is small and easily regenerated
+            services.AddOptionsFromConfig<AscensionFloorStoreOptions>(ConfigKeys.Options.Key);
+            services.AddSingleton<IStore<AscensionFloorState>, IHostedService, AscensionFloorStore>();
+            services.ConfigureOptions<DirectoryBoundOptionsConfigurer<AscensionFloorStoreOptions>>();
+
             //add aisling store with backup service
             services.AddOptionsFromConfig<AislingStoreOptions>(ConfigKeys.Options.Key);
             services.AddSingleton<IAsyncStore<Aisling>, IStore<Aisling>, AislingStore>();

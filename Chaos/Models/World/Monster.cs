@@ -42,6 +42,14 @@ public sealed class Monster : Creature, IScripted<IMonsterScript>, IDialogSource
     public Creature? Target { get; set; }
     public AggroList AggroList { get; }
     public ContributionList Contribution { get; }
+
+    /// <summary>
+    ///     Names of Aislings that dealt or received damage while this monster was alive - used by the Ascension Chamber
+    ///     floor tracker to credit "first clearer" status to every participant in a boss fight, not just the top
+    ///     damage-contributor. Not gated to boss monsters; present but unused on regular monsters, same as
+    ///     <see cref="Contribution" />.
+    /// </summary>
+    public ParticipantSet AscensionParticipants { get; } = new();
     public List<Item> Items { get; }
     public override ILogger<Monster> Logger { get; }
     public IIntervalTimer MoveTimer { get; }

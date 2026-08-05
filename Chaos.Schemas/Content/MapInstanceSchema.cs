@@ -12,6 +12,14 @@ namespace Chaos.Schemas.Content;
 public sealed record MapInstanceSchema
 {
     /// <summary>
+    ///     Default null
+    ///     <br />
+    ///     If specified, marks this map instance as Ascension Chamber floor N (1-10). Entering/leaving a map with
+    ///     this set drives the AscensionFloorUpdate HUD packet - see FLOOR_TRACKER_DESIGN.md.
+    /// </summary>
+    public int? AscensionFloorNumber { get; set; }
+
+    /// <summary>
     ///     Whether the map will experience day/night cycles automatically
     /// </summary>
     public bool AutoDayNightCycle { get; set; }

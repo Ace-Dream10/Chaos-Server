@@ -40,6 +40,7 @@ public interface IChaosWorldClient : IConnectedClient
     void SendAddSkillToPane(Skill skill);
     void SendAddSpellToPane(Spell spell);
     void SendAnimation(Animation animation);
+    void SendAscensionFloorUpdate(AscensionFloorUpdateArgs args);
     void SendAttributes(StatUpdateType statUpdateType);
     void SendBoardList(IEnumerable<BoardBase> boards);
     void SendBoardResponse(BoardOrResponseType responseType, string message, bool success);

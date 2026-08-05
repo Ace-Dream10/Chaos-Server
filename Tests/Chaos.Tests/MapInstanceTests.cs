@@ -12,6 +12,7 @@ using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Networking;
 using Chaos.Networking.Abstractions;
+using Chaos.Networking.Entities.Server;
 using Chaos.Services.Factories.Abstractions;
 using Chaos.Services.Other;
 using Chaos.Services.Other.Abstractions;
@@ -1679,6 +1680,79 @@ public sealed class MapInstanceTests
         Map.AddAislingDirect(aisling, new Point(5, 5));
 
         client.Verify(c => c.SendSound(Map.Music, true), Times.AtLeastOnce);
+    }
+
+    [Test]
+    public void AddAislingDirect_ShouldSetCurrentFloorAndSendUpdate_WhenMapIsAnAscensionFloor()
+    {
+        var floorMap = MockMapInstance.Create("floor3", setup: mi => mi.AscensionFloorNumber = 3);
+        var aisling = MockAisling.Create(Map, position: new Point(5, 5));
+        var client = Mock.Get(aisling.Client);
+
+        floorMap.AddAislingDirect(aisling, new Point(5, 5));
+
+        aisling.Trackers.Counters.TryGetValue("currentFloor", out var currentFloor)
+               .Should()
+               .BeTrue();
+
+        currentFloor.Should()
+                    .Be(3);
+
+        client.Verify(
+            c => c.SendAscensionFloorUpdate(It.Is<AscensionFloorUpdateArgs>(a => a.CurrentFloor == 3)),
+            Times.Once);
+    }
+
+    [Test]
+    public void AddAislingDirect_ShouldClearCurrentFloorAndSendUpdate_WhenLeavingAFloorForANonFloorMap()
+    {
+        var floorMap = MockMapInstance.Create("floor3", setup: mi => mi.AscensionFloorNumber = 3);
+        var aisling = MockAisling.Create(floorMap, position: new Point(5, 5));
+        aisling.Trackers.Counters.Set("currentFloor", 3);
+        var client = Mock.Get(aisling.Client);
+
+        Map.AddAislingDirect(aisling, new Point(5, 5));
+
+        aisling.Trackers.Counters.TryGetValue("currentFloor", out var currentFloor)
+               .Should()
+               .BeTrue();
+
+        currentFloor.Should()
+                    .Be(0);
+
+        client.Verify(
+            c => c.SendAscensionFloorUpdate(It.Is<AscensionFloorUpdateArgs>(a => a.CurrentFloor == 0)),
+            Times.Once);
+    }
+
+    [Test]
+    public void AddAislingDirect_ShouldNotSendFloorUpdate_WhenMovingBetweenNonFloorMaps()
+    {
+        var otherMap = MockMapInstance.Create("other_non_floor");
+        var aisling = MockAisling.Create(Map, position: new Point(5, 5));
+        var client = Mock.Get(aisling.Client);
+
+        otherMap.AddAislingDirect(aisling, new Point(5, 5));
+
+        client.Verify(c => c.SendAscensionFloorUpdate(It.IsAny<AscensionFloorUpdateArgs>()), Times.Never);
+    }
+
+    [Test]
+    public void AddAislingDirect_ShouldResendFloorUpdate_OnRelogToSameFloor()
+    {
+        //simulates a relog: the aisling's counter already says they're on floor 3 (persisted from their last
+        //session), and they're being added back onto the same floor map - this must still resend so the client
+        //gets fresh boss-alive/first-clearer state, not just a "nothing changed" no-op
+        var floorMap = MockMapInstance.Create("floor3", setup: mi => mi.AscensionFloorNumber = 3);
+        var aisling = MockAisling.Create(Map, position: new Point(5, 5));
+        aisling.Trackers.Counters.Set("currentFloor", 3);
+        var client = Mock.Get(aisling.Client);
+
+        floorMap.AddAislingDirect(aisling, new Point(5, 5));
+
+        client.Verify(
+            c => c.SendAscensionFloorUpdate(It.Is<AscensionFloorUpdateArgs>(a => a.CurrentFloor == 3)),
+            Times.Once);
     }
     #endregion
 

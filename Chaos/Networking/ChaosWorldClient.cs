@@ -157,6 +157,8 @@ public sealed class ChaosWorldClient : WorldClientBase, IChaosWorldClient
         }
     }
 
+    public void SendAscensionFloorUpdate(AscensionFloorUpdateArgs args) => Send(args);
+
     public void SendAttributes(StatUpdateType statUpdateType)
     {
         var args = Mapper.Map<AttributesArgs>(Aisling);
