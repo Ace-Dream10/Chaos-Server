@@ -5,36 +5,15 @@ implemented in code today and what's been decided but not yet built — each sec
 
 ## Class Structure
 
-Three base paths, each branching into specializations. `BaseClass` and `AdvClass` are defined in
-`Chaos.DarkAges/Definitions/Enums.cs`.
-
-```
-BaseClass: Unassigned, Lancer, WeaponMaster, Sorcerer, Mystic, MartialArtist, Recruit, Strider, Magus, Diacht
-AdvClass:  None, Assassin, Trickster, Archer, Bard, Summoner
-```
-
-**Recruit path** — melee specializations, set directly via `BaseClass` with no `AdvClass`:
-- Lancer (was "Guardian" — renamed mid-development)
-- WeaponMaster
-- MartialArtist
-
-**Strider path** — `BaseClass.Strider` stays constant, specialization is carried by `AdvClass`:
-- Archer
-- Assassin
-- Trickster
-
-**Magus path** — caster cluster. Currently only Bard is wired end-to-end
-(`BaseClass.Magus` + `AdvClass.Bard`). Sorcerer and Mystic exist as their own direct `BaseClass`
-values (same "no AdvClass" pattern as the Recruit path) rather than being grouped under Magus +
-AdvClass — this is a leftover inconsistency from iterative renames, not an intentional design
-choice, and should be reconciled before calling the 9-specialization structure "final."
-`AdvClass.Summoner` exists in the enum but has no class-selector wiring yet.
-
-Class assignment happens via the Class Selector NPC (`Chaos/Scripting/DialogScripts/SetClassScript.cs`),
-which currently allows free reclassing at any time (no lock-in) — a deliberate temporary choice while
-the class system is still being finalized.
+See **`ELYSIUM_CLASS_DESIGN.md`** for the authoritative, full 12-class design (all classes locked).
+This section previously duplicated an outdated 3-path/`AdvClass`-grouped model that no longer
+matches the flat 12-class `BaseClass` enum — rather than keep two sources of truth, class design
+now lives entirely in that document.
 
 ## Floor Progression
+
+See `ELYSIUM_FLOOR_DESIGN.md` for the per-floor content structure (vertical-slice checklist); this
+section covers level caps and progression mechanics, a different and complementary scope.
 
 **10 floors total** (revised from an earlier 20-floor draft — corrected during the floor-tracker design
 pass; see `FLOOR_TRACKER_DESIGN.md`). Target endgame character level is **255**, which is also a hard
@@ -132,9 +111,6 @@ manually.
   work — ShadowClone/MirrorImage/DustDevil damage doesn't currently credit the summoning player for
   first-clearer credit, since no ownership-tracking mechanism exists on `Monster` yet (see
   `FLOOR_TRACKER_DESIGN.md` §6's "Known follow-up").
-- **This doc's own Class Structure section is stale.** Still documents the old
-  `Unassigned/Lancer/WeaponMaster/.../Diacht` model with `AdvClass` grouping — doesn't reflect the
-  current flat 12-class `BaseClass` enum.
 - **Ground-targeted/AoE-telegraph casting.** Investigation brief was sent (client targeting-mode UI,
   a new packet for coordinate-based casting, `DamageScript`/shape resolution against an arbitrary
   point) — no report has come back yet. Still unscoped.
