@@ -291,4 +291,55 @@ public sealed class GroupTests
              .Be(0);
     }
     #endregion
+
+    #region MaxGroupSize
+    /// <summary>
+    ///     Group.ToString() builds the "Group members\n* Leader\n  Member2\n...\nTotal N" roster string that gets
+    ///     sent to the client over the wire via WriteString8 - a single-byte length prefix, silently truncated at
+    ///     255 bytes (SpanWriter.WriteString8) rather than throwing. This confirms a full group at the new
+    ///     MaxGroupSize (13) with realistic (if slightly padded) names stays comfortably under that limit.
+    /// </summary>
+    [Test]
+    public void ToString_ShouldStayUnderWireLengthLimit_AtNewMaxGroupSize()
+    {
+        var group = CreateGroup();
+        var map = group.Leader.MapInstance;
+
+        //13 members total (matches MaxGroupSize), padded names near the client-side max name length (~13 chars)
+        for (var i = 0; i < 11; i++)
+            group.Add(MockAisling.Create(map, $"MemberName{i:D2}"));
+
+        group.Count
+             .Should()
+             .Be(13);
+
+        var act = () => group.ToString();
+        act.Should()
+           .NotThrow();
+
+        var groupString = group.ToString();
+        var byteLength = System.Text.Encoding.UTF8.GetByteCount(groupString);
+
+        byteLength.Should()
+                  .BeLessThanOrEqualTo(255, "WriteString8 silently truncates beyond 255 bytes rather than throwing");
+    }
+
+    [Test]
+    public void Add_ShouldAllowGroupsLargerThanOldRetailCapOfSix()
+    {
+        var group = CreateGroup();
+        var map = group.Leader.MapInstance;
+
+        for (var i = 0; i < 11; i++)
+            group.Add(MockAisling.Create(map, $"Member{i}"));
+
+        group.Count
+             .Should()
+             .Be(13);
+
+        group.ToList()
+             .Should()
+             .HaveCount(13);
+    }
+    #endregion
 }

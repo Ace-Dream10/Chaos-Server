@@ -29,17 +29,24 @@ public class DefaultExperienceFormula : IExperienceFormula
         return 0;
     }
 
+    /// <summary>
+    ///     Deduction grows 10% per member starting at group size 3 (0%, 0%, 20%, 30%, 40%, 50%... - matches the
+    ///     original hardcoded 1-6 table exactly), clamped to 100% instead of throwing once <see cref="Chaos.Services.Servers.Options.WorldOptions.MaxGroupSize" />
+    ///     allows groups larger than the old size-6 ceiling this was originally written for. Note: this formula
+    ///     hits a 100% deduction (zero group XP) at group size 11 and stays there for anything larger - that's a
+    ///     straight-line continuation of the existing 1-6 curve, not a deliberately tuned answer for what a
+    ///     12-13 person group should earn. Revisit if very large groups getting zero group-kill XP isn't the
+    ///     intended balance.
+    /// </summary>
     protected virtual decimal GetGroupSizeDeductions(ICollection<Aisling> group)
-        => group.Count switch
-        {
-            1 => 0,
-            2 => 0,
-            3 => 0.20m,
-            4 => 0.30m,
-            5 => 0.40m,
-            6 => 0.50m,
-            _ => throw new ArgumentOutOfRangeException(nameof(group.Count), "Group size is too large.")
-        };
+    {
+        var count = group.Count;
+
+        if (count <= 2)
+            return 0;
+
+        return Math.Min(1m, 0.20m + (count - 3) * 0.10m);
+    }
 
     // ReSharper disable once ParameterTypeCanBeEnumerable.Global
     protected virtual decimal GetMonsterLevelDifferenceDeductions(ICollection<Aisling> group, Monster monster)
