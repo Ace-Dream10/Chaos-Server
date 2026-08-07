@@ -22,6 +22,7 @@ public static class MockSkill
             MaxLevel = 100,
             LevelsUp = false,
             IsAssail = isAssail,
+            IsPassive = false,
             LearningRequirements = null,
             Level = 1,
             AbilityLevel = 0,

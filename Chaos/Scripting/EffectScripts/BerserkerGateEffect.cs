@@ -9,7 +9,7 @@ namespace Chaos.Scripting.EffectScripts;
 ///     Applied by Berserker Gate - "the iconic go berserk button" (design doc's own phrasing). A flat damage
 ///     bonus paired with a defense penalty (higher AC = worse defense - see AC note in
 ///     <see cref="Chaos.Scripting.SkillScripts.BerserkerGateScript" />'s doc comment) for a duration. Magnitude and
-///     duration are NOT hardcoded here (unlike <see cref="UnbrokenEffect" />/<see cref="RootEffect" />) - they're
+///     duration are NOT hardcoded here (unlike <see cref="RootEffect" />) - they're
 ///     settable properties, populated by <see cref="Chaos.Scripting.SkillScripts.BerserkerGateScript" /> before
 ///     <c>Apply</c> is called, since this is one of Berserker's 5 evolving abilities (tier scales with the skill's
 ///     own level, same mechanism <see cref="CycloneScript" /> already uses).

@@ -32,6 +32,7 @@ public sealed class SkillPanelTests
             MaxLevel = maxLevel,
             LevelsUp = levelsUp,
             IsAssail = isAssail,
+            IsPassive = false,
             LearningRequirements = null,
             Level = 1,
             AbilityLevel = 0,

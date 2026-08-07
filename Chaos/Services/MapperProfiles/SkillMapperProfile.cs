@@ -78,6 +78,7 @@ public sealed class SkillMapperProfile(ISimpleCache simpleCache, IScriptProvider
             TemplateKey = obj.TemplateKey,
             Name = obj.Name,
             IsAssail = obj.IsAssail,
+            IsPassive = obj.IsPassive,
             PanelSprite = obj.PanelSprite,
             ScriptKeys = new HashSet<string>(obj.ScriptKeys, StringComparer.OrdinalIgnoreCase),
             Cooldown = obj.CooldownMs == null ? null : TimeSpan.FromMilliseconds(obj.CooldownMs.Value),

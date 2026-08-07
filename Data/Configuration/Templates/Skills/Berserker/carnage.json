@@ -1,7 +1,7 @@
 {
-  "templateKey": "unbroken",
-  "name": "Unbroken",
-  "description": "(Passive) Your will cannot be broken - once per minute, a hit that would kill you instead leaves you at 1 HP.",
+  "templateKey": "carnage",
+  "name": "Carnage",
+  "description": "(Passive) The lower your Health, the more damage you deal - a glass cannon's reward for staying in the fight.",
   "panelSprite": 46,
   "class": "Berserker",
   "level": 1,
@@ -12,7 +12,7 @@
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+    "requiredStats": { "str": 10, "dex": 1, "int": 1, "wis": 1, "con": 6 }
   },
   "scriptKeys": []
 }

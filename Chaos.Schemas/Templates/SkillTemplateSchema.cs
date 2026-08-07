@@ -16,6 +16,17 @@ public sealed record SkillTemplateSchema : PanelEntityTemplateSchema
     public bool IsAssail { get; set; }
 
     /// <summary>
+    ///     Defaults to false. Marks this skill as a display-only entry for a passive mechanic - the actual effect
+    ///     is delivered by an always-on AislingScript (see e.g. BerserkerRageScript/BerserkerUnbrokenScript/
+    ///     BerserkerCarnageScript), completely independent of whether this skill happens to be granted. This field
+    ///     is server-internal only for now - it is NOT yet transmitted to the client over the network (the
+    ///     AddSkillToPane packet is a fixed retail byte layout; adding a field to it means a coordinated wire-format
+    ///     change across both the server and client repos, not touched here - see the housing/berserker session
+    ///     notes on this).
+    /// </summary>
+    public bool IsPassive { get; set; }
+
+    /// <summary>
     ///     Defaults to null
     ///     <br />
     ///     If set, these are the requirements for the skill to be learned

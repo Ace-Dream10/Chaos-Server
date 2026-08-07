@@ -8,6 +8,7 @@ using Chaos.Models.Data;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.Abstractions;
+using Chaos.Scripting.AislingScripts;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 #endregion
@@ -93,11 +94,7 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         aisling.Trackers.Counters.Set(StaciasBubbleEffect.BubbleShieldCounter, bubbleShield);
                 }
 
-                //Unbroken - fully negate incoming damage while the block window is active
-                if (aisling.Trackers.Tags.ContainsKey(UnbrokenEffect.BlockingTag))
-                {
-                    //damage negated entirely, nothing further to apply
-                } else if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
+                if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
                     && aisling.Effects.TryGetEffect("Lancer's Shield", out var shieldEffect)
                     && (shieldEffect is LancerShieldEffect lancerShield))
                 {
@@ -159,6 +156,27 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
                         ApplyDamage(aisling, nearby, script, 80);
                     }
+                } else if ((damage >= aisling.StatSheet.CurrentHp)
+                    && aisling.Trackers.Tags.ContainsKey(BerserkerUnbrokenScript.ReadyTag))
+                {
+                    //Unbroken (Berserker passive, always-on - see BerserkerUnbrokenScript) - this hit would be
+                    //lethal and the passive is armed: survive at 1 HP instead, consume the arming tag.
+                    //BerserkerUnbrokenScript re-arms it automatically after its own cooldown, unlike Phoenix Rise
+                    //(a castable buff, one use per cast) this never needs to be reapplied - that's the actual
+                    //difference between an activated defensive cooldown and a true always-on passive.
+                    aisling.Trackers.Tags.TryRemove(BerserkerUnbrokenScript.ReadyTag, out _);
+                    aisling.StatSheet.SetHp(1);
+                    aisling.Client.SendAttributes(StatUpdateType.Vitality);
+                    aisling.ShowHealth();
+                    aisling.SendOrangeBarMessage("You refuse to fall.");
+
+                    aisling.Animate(
+                        new Animation
+                        {
+                            TargetAnimation = 24,
+                            AnimationSpeed = 100
+                        },
+                        aisling.Id);
                 } else
                 {
                     aisling.StatSheet.SubtractHp(damage);

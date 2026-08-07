@@ -49,6 +49,7 @@ public sealed class SkillFactory(ISimpleCache simpleCache, IScriptProvider scrip
             TemplateKey = "scriptProxy",
             Name = "Script Proxy",
             IsAssail = false,
+            IsPassive = false,
             LearningRequirements = null,
             LevelsUp = false,
             MaxLevel = 0,

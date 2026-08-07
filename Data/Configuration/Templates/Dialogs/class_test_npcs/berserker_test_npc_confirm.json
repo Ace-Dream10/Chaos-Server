@@ -16,7 +16,6 @@
         "vampiric_strike",
         "broad_swipe",
         "intimidating_shout",
-        "flatten",
         "unbroken",
         "berserker_charge",
         "battle_cry",
@@ -24,7 +23,8 @@
         "massacre",
         "titanic_fury",
         "ground_fracture",
-        "seismic_leap"
+        "seismic_leap",
+        "carnage"
       ],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_blunt_1"],
