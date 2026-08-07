@@ -1,7 +1,7 @@
 {
-  "templateKey": "axe_block",
-  "name": "Axe Block",
-  "description": "Raise your axe to deflect all incoming damage for 3 seconds.",
+  "templateKey": "unbroken",
+  "name": "Unbroken",
+  "description": "Steel your resolve, shrugging off all incoming damage for 3 seconds.",
   "panelSprite": 46,
   "class": "Berserker",
   "level": 1,
@@ -17,7 +17,7 @@
   "scriptKeys": ["applyEffect"],
   "scriptVars": {
     "applyEffect": {
-      "effectKey": "AxeBlock",
+      "effectKey": "Unbroken",
       "filter": "selfOnly, aliveOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 24, "animationSpeed": 100 },

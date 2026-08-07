@@ -1,0 +1,29 @@
+{
+  "templateKey": "battle_cry",
+  "name": "Battle Cry",
+  "description": "Let out a rallying war cry, bolstering the skill damage of yourself and nearby allies for a short time.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 30000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 7, "dex": 1, "int": 1, "wis": 1, "con": 6 }
+  },
+  "scriptKeys": ["applyEffect"],
+  "scriptVars": {
+    "applyEffect": {
+      "effectKey": "BattleCry",
+      "shape": "allAround",
+      "range": 4,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 35
+    }
+  }
+}

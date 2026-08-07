@@ -1,0 +1,29 @@
+{
+  "templateKey": "massacre",
+  "name": "Massacre",
+  "description": "A brutal cleave through everything in front of you. Widens and adds extra hits as you master it.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 14000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 10, "dex": 1, "int": 1, "wis": 1, "con": 6 }
+  },
+  "scriptKeys": ["massacre"],
+  "scriptVars": {
+    "massacre": {
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

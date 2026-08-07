@@ -17,8 +17,14 @@
         "broad_swipe",
         "intimidating_shout",
         "flatten",
-        "axe_block",
-        "berserker_charge"
+        "unbroken",
+        "berserker_charge",
+        "battle_cry",
+        "berserker_gate",
+        "massacre",
+        "titanic_fury",
+        "ground_fracture",
+        "seismic_leap"
       ],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_blunt_1"],

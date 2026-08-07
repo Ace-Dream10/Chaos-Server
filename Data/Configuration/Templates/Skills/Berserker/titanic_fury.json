@@ -1,0 +1,23 @@
+{
+  "templateKey": "titanic_fury",
+  "name": "Titanic Fury",
+  "description": "Burn your rage in a single devastating burst, striking faster and harder for a short time.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 45000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 12, "dex": 3, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["titanicFury"],
+  "scriptVars": {
+    "titanicFury": {
+      "sound": 98
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "templateKey": "ground_fracture",
+  "name": "Ground Fracture",
+  "description": "Slam the earth with immense force, shattering the ground beneath nearby enemies.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 16000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 13, "dex": 1, "int": 1, "wis": 1, "con": 9 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 130,
+      "damageStat": "str",
+      "damageStatMultiplier": 5,
+      "shape": "allAround",
+      "range": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

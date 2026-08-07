@@ -14,7 +14,7 @@ namespace Chaos.Scripting.EffectScripts;
 
 /// <summary>
 ///     The calm center of destruction - the caster becomes fully invulnerable (same AC-floor trick as
-///     <see cref="StasisEffect" />/<see cref="Chaos.Scripting.EffectScripts.AxeBlockEffect" />) while periodically
+///     <see cref="StasisEffect" />/<see cref="Chaos.Scripting.EffectScripts.UnbrokenEffect" />) while periodically
 ///     blasting every hostile nearby.
 /// </summary>
 public sealed class EyeOfTheStormEffect : IntervalEffectBase

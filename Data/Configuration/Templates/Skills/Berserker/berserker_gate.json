@@ -1,0 +1,23 @@
+{
+  "templateKey": "berserker_gate",
+  "name": "Berserker Gate",
+  "description": "Throw open the gates of rage, trading defense for devastating damage. Grows stronger and safer to use as you master it.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 40000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 9, "dex": 1, "int": 1, "wis": 1, "con": 6 }
+  },
+  "scriptKeys": ["berserkerGate"],
+  "scriptVars": {
+    "berserkerGate": {
+      "sound": 98
+    }
+  }
+}

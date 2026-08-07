@@ -1,0 +1,29 @@
+{
+  "templateKey": "seismic_leap",
+  "name": "Seismic Leap",
+  "description": "Leap forward and slam down with earth-shaking force, damaging everything nearby. Grows more punishing as you master it, eventually stunning on impact.",
+  "panelSprite": 46,
+  "class": "Berserker",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 18000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 4, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["seismicLeap"],
+  "scriptVars": {
+    "seismicLeap": {
+      "baseDamage": 90,
+      "damageStat": "str",
+      "damageStatMultiplier": 3,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 141, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

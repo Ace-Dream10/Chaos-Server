@@ -93,8 +93,8 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         aisling.Trackers.Counters.Set(StaciasBubbleEffect.BubbleShieldCounter, bubbleShield);
                 }
 
-                //Axe Block - fully negate incoming damage while the block window is active
-                if (aisling.Trackers.Tags.ContainsKey(AxeBlockEffect.BlockingTag))
+                //Unbroken - fully negate incoming damage while the block window is active
+                if (aisling.Trackers.Tags.ContainsKey(UnbrokenEffect.BlockingTag))
                 {
                     //damage negated entirely, nothing further to apply
                 } else if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
