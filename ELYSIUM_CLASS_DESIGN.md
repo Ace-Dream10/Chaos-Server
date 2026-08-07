@@ -282,6 +282,8 @@ maxing at Floor 10 likely still carries the finale feeling on its own.
 
 **Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
 floor schedule confirmed.**
+
+### Slayer
 **Role:** Single Target DPS
 
 **Identity:** Execution specialist. Marks a target, builds Execution on a
