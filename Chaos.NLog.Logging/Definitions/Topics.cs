@@ -70,6 +70,7 @@ public static class Topics
         public static string Gold => nameof(Gold);
         public static string Group => nameof(Group);
         public static string Guild => nameof(Guild);
+        public static string House => nameof(House);
         public static string Item => nameof(Item);
         public static string LootTable => nameof(LootTable);
         public static string Mail => nameof(Mail);

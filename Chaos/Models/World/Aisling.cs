@@ -42,6 +42,15 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     public Bank Bank { get; private set; }
     public BodyColor BodyColor { get; set; }
     public BodySprite BodySprite { get; set; }
+
+    /// <summary>
+    ///     A second, house-only storage container, in addition to <see cref="Bank" />. Access is exclusive to
+    ///     owning (or being a guest of) a house - see <see cref="Utilities.HouseAccessHelper" />. Persisted the same
+    ///     way as <see cref="Bank" /> (a dedicated "houseStorage.json" in the aisling's save directory), reusing the
+    ///     same <see cref="Collections.Bank" />/<see cref="Chaos.Schemas.Aisling.BankSchema" /> pair verbatim since
+    ///     the shape (gold + items) is identical.
+    /// </summary>
+    public Bank HouseStorage { get; private set; }
     public SynchronizedHashSet<ChannelSettings> ChannelSettings { get; init; }
     public IChaosWorldClient Client { get; set; }
     public IEquipment Equipment { get; private set; }
@@ -234,6 +243,7 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
         IgnoreList = [];
         Legend = new Collections.Legend();
         Bank = new Bank();
+        HouseStorage = new Bank();
         Equipment = new Equipment();
         Inventory = new Inventory();
         SkillBook = new SkillBook();
@@ -532,6 +542,7 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     public void Initialize(
         string name,
         Bank bank,
+        Bank houseStorage,
         Equipment equipment,
         Inventory inventory,
         SkillBook skillBook,
@@ -542,6 +553,7 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
     {
         Name = name;
         Bank = bank;
+        HouseStorage = houseStorage;
         Equipment = equipment;
         Inventory = inventory;
         SkillBook = skillBook;

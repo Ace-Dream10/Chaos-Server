@@ -259,6 +259,12 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IStore<AscensionFloorState>, IHostedService, AscensionFloorStore>();
             services.ConfigureOptions<DirectoryBoundOptionsConfigurer<AscensionFloorStoreOptions>>();
 
+            //add house ownership store with backup service - represents a purchased asset, not easily regenerated
+            services.AddOptionsFromConfig<HouseOwnershipStoreOptions>(ConfigKeys.Options.Key);
+            services.AddSingleton<IStore<HouseOwnership>, IHostedService, HouseOwnershipStore>();
+            services.AddHostedService<DirectoryBackupService<HouseOwnershipStoreOptions>>();
+            services.ConfigureOptions<DirectoryBoundOptionsConfigurer<HouseOwnershipStoreOptions>>();
+
             //add aisling store with backup service
             services.AddOptionsFromConfig<AislingStoreOptions>(ConfigKeys.Options.Key);
             services.AddSingleton<IAsyncStore<Aisling>, IStore<Aisling>, AislingStore>();

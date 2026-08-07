@@ -146,6 +146,7 @@ public sealed class AislingStore(
 
         var aislingPath = Path.Combine(directory, "aisling.json");
         var bankPath = Path.Combine(directory, "bank.json");
+        var houseStoragePath = Path.Combine(directory, "houseStorage.json");
         var trackersPath = Path.Combine(directory, "trackers.json");
         var legendPath = Path.Combine(directory, "legend.json");
         var inventoryPath = Path.Combine(directory, "inventory.json");
@@ -156,6 +157,13 @@ public sealed class AislingStore(
 
         var aislingTask = EntityRepository.LoadAndMapAsync<Aisling, AislingSchema>(aislingPath);
         var bankTask = EntityRepository.LoadAndMapAsync<Bank, BankSchema>(bankPath);
+
+        //houseStorage.json is new - existing saves predating this feature won't have one yet, so default to an
+        //empty container instead of trying (and failing) to load a file that was never created
+        var houseStorageTask = File.Exists(houseStoragePath)
+            ? EntityRepository.LoadAndMapAsync<Bank, BankSchema>(houseStoragePath)
+            : Task.FromResult(new Bank());
+
         var trackersTask = EntityRepository.LoadAndMapAsync<AislingTrackers, AislingTrackersSchema>(trackersPath);
 
         var effectsTask = EntityRepository.LoadAndMapManyAsync<IEffect, EffectSchema>(effectsPath)
@@ -178,6 +186,7 @@ public sealed class AislingStore(
 
         var aisling = await aislingTask;
         var bank = await bankTask;
+        var houseStorage = await houseStorageTask;
         var trackers = await trackersTask;
 
         var effectsBar = new EffectsBar(aisling, await effectsTask);
@@ -190,6 +199,7 @@ public sealed class AislingStore(
         aisling.Initialize(
             name,
             bank,
+            houseStorage,
             equipment,
             inventory,
             skillBook,
@@ -222,6 +232,7 @@ public sealed class AislingStore(
 
         var aisling = await aislingTask;
         var bank = new Bank();
+        var houseStorage = new Bank();
         var trackers = await trackersTask;
 
         var effectsBar = new EffectsBar(aisling);
@@ -234,6 +245,7 @@ public sealed class AislingStore(
         aisling.Initialize(
             name,
             bank,
+            houseStorage,
             equipment,
             inventory,
             skillBook,
@@ -249,6 +261,7 @@ public sealed class AislingStore(
     {
         var aislingPath = Path.Combine(directory, "aisling.json");
         var bankPath = Path.Combine(directory, "bank.json");
+        var houseStoragePath = Path.Combine(directory, "houseStorage.json");
         var trackersPath = Path.Combine(directory, "trackers.json");
         var legendPath = Path.Combine(directory, "legend.json");
         var inventoryPath = Path.Combine(directory, "inventory.json");
@@ -260,6 +273,7 @@ public sealed class AislingStore(
         return Task.WhenAll(
             EntityRepository.SaveAndMapAsync<Aisling, AislingSchema>(aisling, aislingPath),
             EntityRepository.SaveAndMapAsync<Bank, BankSchema>(aisling.Bank, bankPath),
+            EntityRepository.SaveAndMapAsync<Bank, BankSchema>(aisling.HouseStorage, houseStoragePath),
             EntityRepository.SaveAndMapAsync<AislingTrackers, AislingTrackersSchema>(aisling.Trackers, trackersPath),
             EntityRepository.SaveAndMapManyAsync<LegendMark, LegendMarkSchema>(aisling.Legend, legendPath),
             EntityRepository.SaveAndMapManyAsync<Item, ItemSchema>(aisling.Inventory, inventoryPath),

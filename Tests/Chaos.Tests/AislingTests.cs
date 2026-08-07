@@ -183,6 +183,7 @@ public sealed class AislingTests
     {
         var aisling = MockAisling.Create(Map);
         var bank = new Bank();
+        var houseStorage = new Bank();
         var equipment = new Equipment();
         var inventory = new Inventory();
         var skillBook = new SkillBook();
@@ -194,6 +195,7 @@ public sealed class AislingTests
         aisling.Initialize(
             "TestPlayer",
             bank,
+            houseStorage,
             equipment,
             inventory,
             skillBook,
@@ -209,6 +211,10 @@ public sealed class AislingTests
         aisling.Bank
                .Should()
                .BeSameAs(bank);
+
+        aisling.HouseStorage
+               .Should()
+               .BeSameAs(houseStorage);
 
         aisling.Equipment
                .Should()
