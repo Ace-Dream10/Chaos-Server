@@ -81,12 +81,13 @@ Associated with: Battle, Strength, Courage, Victory, Divine Wrath
 
 **Design note:** the two feel like natural opposites without being framed
 as good vs. evil — worth keeping that tension in mind for any future
-faction/alignment content. Thematic cross-reference: Valkyrie's identity
-("Holy battlefield commander," Divine Fury/Ragnarok, holy-damage kit) sits
-right at the intersection of both gods — worth deciding at some point
-whether Valkyrie is meant to be Valkor-aligned, Stacia-aligned, or
-deliberately a bridge between the two (the name itself suggests a Valkor
-connection, but the "holy"/healing-adjacent framing leans Stacia).
+faction/alignment content. **Resolved:** Valkyrie is confirmed as the one
+class that visibly answers to BOTH gods — Ragnarok/Divine Fury/Divine
+Verdict stay clearly Valkor-flavored (war, fury, conquest), while
+Stacia's Reprieve (revive) ties to Stacia's domain (grace, life,
+protection). Not a Valkor-leaning class with one Stacia name attached —
+a genuine bridge between both, fitting its "holy battlefield commander"
+identity.
 
 ---
 
@@ -158,22 +159,22 @@ Crowd Control
 | Ability | Role |
 |---|---|
 | Challenging Shout | Mass aggro |
-| Iron Bastion | Defensive cooldown |
-| Iron Will | Self heal |
+| Valkor's Aegis *(NEW — replaces "Iron Bastion," a redundant defensive cooldown)* | Hurl your shield in a line — ricochets between multiple enemies, damaging and staggering each, then boomerangs back. On return, grants a shield/heal scaled to enemies struck. Flat Floor 10 finale ability. |
+| Iron Will *(Floor 2)* | Self heal |
 | Bastion's Charge | Engage / mobility |
 | Lancer's Leash | Pull enemies together |
-| Lancer's Shield | Personal barrier |
+| Lancer's Shield *(Floor 1 — shield-focused starter trio)* | Personal barrier |
 | Iron Cairn | Area control / damage |
-| Pivot Strike | Reposition behind target |
-| Counter *(rename later)* | Timed counterattack |
-| Shield Thrust | Knockback |
-| Perfect Stand | Temporary invulnerability |
-| Slow Shout *(rename later)* | AoE attack speed slow |
+| Pivot Strike *(Floor 3 — moved earlier for early mobility)* | Reposition behind target |
+| Iron Reprisal *(renamed from "Counter" — Floor 1, shield-focused starter trio)* | Timed counterattack |
+| Shield Thrust *(Floor 1 — shield-focused starter trio)* | Knockback |
+| Stacia's Bulwark *(renamed from "Perfect Stand")* | Temporary invulnerability |
+| Stacia's Cleansing Light *(NEW — replaces "Weakening Shout" as a standalone ability, Floor 7, alongside Stacia's Bulwark)* | Removes negative effects from yourself |
 
 **Passive Abilities (3):**
 | Ability | Effect |
 |---|---|
-| Lancer's Retribution | Reflect/counter a portion of incoming damage |
+| Bastion's Retribution *(renamed from "Lancer's Retribution")* | Reflect/counter a portion of incoming damage |
 | Guardian's Resolve | Gain defenses based on nearby enemies |
 | Hold the Line | Enemies attacking nearby allies generate increased threat toward you |
 
@@ -183,18 +184,33 @@ Crowd Control
 2. **Lancer's Leash** — starts as a small pull. Eventually gathers entire
    groups, longer root, maybe applies a debuff.
 3. **Challenging Shout** — evolves into a more commanding tank tool.
-   Evolutions could add: larger radius, longer threat duration, attack
-   speed reduction, damage reduction while active, brief taunt immunity.
+   Evolutions add: larger radius, longer threat duration, attack speed
+   reduction, damage reduction while active, brief taunt immunity. **Final
+   (tier IV) evolution absorbs what was originally a separate ability,
+   "Weakening Shout" (AoE attack speed slow)** — Challenging Shout's max
+   tier now IS that AoE attack-speed-slow effect layered onto the base
+   aggro pull, rather than being its own standalone ability.
 4. **Bastion's Charge** — more range, more damage, better engage.
    Eventually could knock enemies aside or leave a cracked path.
-5. **Perfect Stand** — the ultimate defensive cooldown. Longer duration
-   and stronger effects with each evolution.
+5. **Stacia's Bulwark** *(renamed from "Perfect Stand")* — the ultimate
+   defensive cooldown. Longer duration and stronger effects with each
+   evolution.
+
+**Valkor's Aegis (flat, NOT one of the 5 evolving — deliberately, to keep
+the class-wide 5-evolving rule consistent):** hurl your shield in a line;
+it ricochets between multiple enemies, damaging and staggering each, then
+boomerangs back to your hand, granting a shield/heal scaled to how many
+enemies it struck. Ranged, multi-target, and self-rewarding — distinct
+from every other tool in the kit (all melee/single-target/purely
+defensive). Its reward already scales with combat performance rather than
+floor tier, so it doesn't need the evolving-tier treatment to feel like a
+real Floor 10 finale moment.
 
 **Mechanics already proven reusable (per tonight's ABILITY_DATABASE.md/code
 review):** shield/absorb mechanics (Lancer's Shield, Stacia's Will), pull
-mechanics (Lancer's Leash), reflect/counter damage (Lancer's Retribution),
-AC/defensive buffs (Iron Bastion) — these underlying systems already exist
-and work, even though most of the specific abilities above are new
+mechanics (Lancer's Leash), reflect/counter damage (Bastion's Retribution,
+renamed from "Lancer's Retribution"). These underlying systems already
+exist and work, even though most of the specific abilities above are new
 names/designs built on top of them.
 
 **Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined.**
@@ -245,9 +261,27 @@ combat and unleashes devastating area damage.
 BerserkerRageScript.cs), whirlwind/spin-style AoE has real precedent via
 other classes' AoE shapes (allAround, frontalCone).
 
-**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined.**
+**Floor Schedule (LOCKED):**
+| Floor | Evolving | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Rage, Broad Swipe, Vampiric Strike |
+| 2 | Cyclone (intro) | Berserker Charge |
+| 3 | Cyclone II, Seismic Leap (intro) | — |
+| 4 | Cyclone III, Seismic Leap II, Berserker Gate (intro) | — |
+| 5 | Cyclone IV, Seismic Leap III, Berserker Gate II | Intimidating Shout, Battle Cry |
+| 6 | Seismic Leap IV, Berserker Gate III, Massacre (intro) | — |
+| 7 | Berserker Gate IV, Massacre II, Titanic Fury (intro) | Carnage |
+| 8 | Massacre III, Titanic Fury II | Unbroken |
+| 9 | Massacre IV, Titanic Fury III | Thunderstrike |
+| 10 | Titanic Fury IV (finale) | Ground Fracture |
 
-### Slayer
+Note: Floor 10 delivers only 1 new ability here (vs. the 2-ability finale
+pattern Bastion/Slayer both got) — the extra unlock was front-loaded to
+Floor 5 instead (Intimidating Shout + Battle Cry together). Titanic Fury
+maxing at Floor 10 likely still carries the finale feeling on its own.
+
+**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
+floor schedule confirmed.**
 **Role:** Single Target DPS
 
 **Identity:** Execution specialist. Marks a target, builds Execution on a
@@ -259,19 +293,40 @@ single enemy, then finishes them with Scythe.
 3. Mark of the Bane
 4. Cruel Thrust
 5. Cold Blood
-6. Measured Slice
-7. Overkill
-8. Bloodlust *(working name — ⚠️ COLLIDES with Assassin's existing
-   resource name "Bloodlust," see Open Questions)*
-9. Death March
-10. Slayer's Rush
-11. Evade
-12. Whirlwind
+6. **Measured Slice** — a precise strike that ignores a portion (or all)
+   of the target's defense.
+7. **Overkill** *(moved to Passive — executive decision, fits better as
+   a proc-on-kill effect than an activated ability)* — excess damage from
+   a killing blow rolls into the nearest enemy.
+8. **Crimson Harvest** *(renamed from "Bloodlust" — resolves the
+   collision with Assassin's resource and Beast's passive)* — for 8
+   seconds, heal for X% of all damage you deal.
+9. Death March *(⚠️ described as already existing in Elysium — needs
+   Claude Code to confirm real mechanics rather than guess)*
+10. Slayer's Rush *(⚠️ needs real mechanics confirmed from the
+    codebase — described as already existing in Elysium)*
+11. Evade *(⚠️ described as already existing in Elysium — needs
+    confirmation)*
+12. Whirlwind — a hit that travels 3 tiles forward *(this one's
+    described — a forward-traveling strike, not a spin like Berserker's
+    kit)*
 
 **Passive Abilities (3):**
-1. Slayer's Oath
-2. Precision
-3. Merciless
+1. **Slayer's Oath** — the longer you focus one enemy, the stronger you
+   become against it.
+2. **Overkill** *(moved from Active — see note above)* — excess damage
+   from a killing blow rolls into the nearest enemy.
+3. **Merciless** — the lower an enemy's health, the more damage you deal
+   to it.
+
+**Precision** *(moved to Active from Passive — executive decision;
+unlocks Floor 3, same floor as Mark of the Bane's first appearance — an
+intentional pairing)* — a precise strike against your target. If they're
+affected by Mark of the Bane, this attack ignores X% of their defense
+AND refreshes Mark of the Bane's duration. Creates a real combo loop:
+apply Mark → hit with Precision (bonus damage + keeps Mark alive) →
+repeat — reinforces Slayer's "the longer you focus one enemy, the
+stronger you become" identity (echoes Slayer's Oath).
 
 **Evolving Abilities (5):**
 1. **Scythe** — the signature Slayer ability (ultimate finisher).
@@ -311,11 +366,19 @@ exactly 12):**
 4. Heavenly Strike
 5. Spear of Heaven *(ambush/air dive)*
 6. Godsfall
-7. Dreamslash
-8. Bifrost Step
-9. Ascending Light
+7. **Dreamslash** — three sweeping glaive strikes.
+8. **Bifrost Step** ⭐ *(evolving — see Evolving Abilities below)* —
+   evolves through BEHAVIOR: Tier I: only you dash. Tier II: allies can
+   use the bridge too. Tier III: bridge lasts longer. Tier IV: allies
+   gain a movement speed buff after crossing.
+9. **Ascending Light** — removes debuffs from nearby allies.
 10. Divine Intervention
-11. Rally of the Fallen
+11. **Stacia's Reprieve** *(renamed from "Rally of the Fallen" — the
+    original name implied a group effect, but this is single-target)* —
+    revives a single skulled ally (per Elysium's skull/revive mechanic —
+    a character drops to 0 HP, "skulls," and can be "redded"/revived).
+    Ties to Stacia's domain (grace, life, protection), distinct from
+    Bard's Red Requiem.
 
 **Passive Abilities (4 — confirmed intentional):**
 1. **Divine Fury** — assails and abilities generate Fury. The more Fury you
@@ -329,8 +392,9 @@ exactly 12):**
    is reached, holy lightning strikes nearby enemies before Judgment
    resets.
 
-**Evolving Abilities (5 — per the explicitly labeled "Final Evolving"
-set):**
+**Evolving Abilities (6 — deviates from the standard 5, confirmed
+intentional since Valkyrie already deviates from the template elsewhere
+[11 active / 4 passive]):**
 1. **Ragnarok** — the ultimate payoff of building Fury. Evolutions: bigger
    explosion, better Fury scaling, holy aftermath at max.
 2. **Heavenly Strike** — signature attack. Evolutions: Single → Triple →
@@ -341,13 +405,36 @@ set):**
    damage, holy shockwave, lingering consecrated ground.
 5. **Spear of Heaven** — ambush ability. Evolutions: Leap → Bigger impact →
    Holy explosion → Center stun.
+6. **Bifrost Step** — evolves through behavior, not just numbers: Tier I:
+   only you dash. Tier II: allies can use the bridge too. Tier III:
+   bridge lasts longer. Tier IV: allies gain a movement speed buff after
+   crossing.
 
 **Mechanics already proven reusable:** Fury resource system (built),
 Maelstrom/Valkyrie's Call/Glaive Leap already have working precedent in
 current code.
 
-**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined.
-11 active / 4 passive confirmed intentional.**
+**Floor Schedule (LOCKED, final — restores Ragnarok's Floor 1 intro /
+Floor 2 stall / Floor 3 first-evolution pattern, matching the universal
+rule that every class's first evolution lands on Floor 3. This shifts
+Ragnarok's max to Floor 5, landing alongside Bifrost Step's own max —
+a nice early/mid-game peak before the real Floor 10 finale):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | Ragnarok (intro) | Glaive Leap, Divine Fury |
+| 2 | Ragnarok (no change — stall), Bifrost Step (intro) | Chooser of the Slain |
+| 3 | Ragnarok II (first evolution), Bifrost Step II, Spear of Heaven (intro) | — |
+| 4 | Ragnarok III, Bifrost Step III, Spear of Heaven II, Heavenly Strike (intro) | — |
+| 5 | Ragnarok IV (max), Bifrost Step IV (max), Spear of Heaven III, Heavenly Strike II | Wings of Stacia |
+| 6 | Spear of Heaven IV (max), Heavenly Strike III | Divine Verdict |
+| 7 | Heavenly Strike IV (max), Divine Intervention (intro), Godsfall (intro) | — |
+| 8 | Divine Intervention II, Godsfall II | Ascending Light |
+| 9 | Divine Intervention III, Godsfall III | Maelstrom |
+| 10 | Divine Intervention IV (max), Godsfall IV (max) | Stacia's Reprieve, Dreamslash |
+
+**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
+floor schedule finalized. 11 active / 4 passive / 6 evolving all
+confirmed intentional deviations from the standard template.**
 
 ---
 
@@ -393,13 +480,27 @@ Chain Kills
 **Passive Abilities (3):**
 1. **Bloodlust** — kills generate Bloodlust. Upon reaching maximum
    Bloodlust, you automatically enter a killing frenzy. During Bloodlust,
-   successful Executes do not trigger their cooldown. *(⚠️ COLLIDES with
-   Slayer's "Bloodlust (working name)" active ability — see Open
-   Questions, still unresolved.)*
+   successful Executes do not trigger their cooldown. *(Collision with
+   Slayer resolved — Slayer's version was renamed to Crimson Harvest.
+   This remains the original, central use of the name.)*
 2. **Witness Elimination** — deal increased damage against isolated
    enemies.
 3. **Shadowmark** — every third damaging ability against the same target
    increases the damage you deal to them.
+
+**Floor Schedule (LOCKED):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Death's Strike, Phantom Blade, Witness Elimination |
+| 2 | Execute (intro) | Bloodlust |
+| 3 | Execute II, Death Mark (intro) | Ghost Step |
+| 4 | Execute III, Death Mark II, Shadow Clone (intro) | Shadowmark |
+| 5 | Execute IV (max), Death Mark III, Shadow Clone II | Killing Intent |
+| 6 | Death Mark IV (max), Shadow Clone III, Death's Conviction (intro) | — |
+| 7 | Shadow Clone IV (max), Death's Conviction II, Spectral Wraith (intro) | — |
+| 8 | Death's Conviction III, Spectral Wraith II | Vanishing Slash |
+| 9 | Death's Conviction IV (max), Spectral Wraith III | Eclipse |
+| 10 | Spectral Wraith IV (max, finale) | Shadow Reap |
 
 **Evolving Abilities (5):**
 1. **Spectral Wraith** — evolutions: 2 targets → 4 targets → 8 targets →
@@ -458,8 +559,15 @@ with a devastating payoff.
 9. **Curtain Call** — cloak your entire party in illusion magic, causing
    all allies to vanish from enemy sight and immediately drop aggro.
 10. **Switcheroo** — instantly swap positions with an ally or enemy.
-11. **Smoke Bomb** — fill the battlefield with thick smoke, causing
-    enemies to lose sight of their targets.
+11. **Deceiver's Cache** *(replaces "Smoke Bomb" — deemed too redundant
+    with Blackout, and too rogue-trap-flavored for Trickster's identity)*
+    — plant an illusory treasure chest (or similar bait) on the ground.
+    When an enemy approaches or opens it, it detonates: deals damage and
+    applies a random mental affliction. Ties directly into Chain Reaction
+    (can spread/trigger another affliction) and feeds Grand Finale
+    (which consumes afflictions for its payoff) — gives the kit a real
+    "plant traps, build afflictions, detonate with Grand Finale" loop
+    matching the class's own stated gameplay loop literally.
 12. **Grand Finale** — consume every mental affliction affecting nearby
     enemies, ending their effects and dealing devastating damage based on
     the number and variety of afflictions removed.
@@ -474,17 +582,46 @@ with a devastating payoff.
 3. **Psychological Warfare** — enemies suffering from mental afflictions
    take increased damage from all allies.
 
-**Evolving Abilities (5):**
-1. **Delirium** — evolutions: longer duration → larger radius → stronger
+**Floor Schedule (LOCKED — Curtain Call and Grand Finale moved to flat/
+non-evolving; they're already powerful at base value and don't need tier
+scaling, per design discussion. Deceiver's Cache and Crack the Whip take
+2 of the 5 evolving slots instead):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | Crack the Whip (intro) | Shadow Step, Vanishing Act |
+| 2 | Crack the Whip (stall) | Blackout |
+| 3 | Crack the Whip II (first evolution), Delirium (intro) | Smoke and Mirrors |
+| 4 | Crack the Whip III, Delirium II, Puppeteer (intro) | — |
+| 5 | Crack the Whip IV (max), Delirium III, Puppeteer II | Web Trap |
+| 6 | Delirium IV (max), Puppeteer III, Deceiver's Cache (intro) | Switcheroo |
+| 7 | Puppeteer IV (max), Deceiver's Cache II, Hall of Mirrors (intro) | Grand Finale |
+| 8 | Deceiver's Cache III, Hall of Mirrors II | Chain Reaction |
+| 9 | Deceiver's Cache IV (max), Hall of Mirrors III | Psychological Warfare |
+| 10 | Hall of Mirrors IV (max, finale) | Curtain Call |
+
+**Evolving Abilities (5, FINAL — supersedes the earlier draft which
+included Curtain Call and Grand Finale; both are now flat/non-evolving):**
+1. **Crack the Whip** — evolves toward a wider arc and longer stagger
+   duration (exact tier detail TBD).
+2. **Delirium** — evolutions: longer duration → larger radius → stronger
    confusion → entire groups descend into madness.
-2. **Puppeteer** — evolutions: longer control → stronger controlled
+3. **Puppeteer** — evolutions: longer control → stronger controlled
    targets → elite enemies → multiple controlled enemies.
-3. **Hall of Mirrors** — evolutions: more illusions → longer duration →
+4. **Deceiver's Cache** — evolutions: bigger blast radius, more
+   afflictions applied per detonation, possibly chain-triggering nearby
+   caches (exact tier detail TBD).
+5. **Hall of Mirrors** — evolutions: more illusions → longer duration →
    illusions attack → illusions mimic selected abilities.
-4. **Curtain Call** — evolutions: longer Hide → larger radius → movement
-   speed bonus → leaves illusionary decoys behind.
-5. **Grand Finale** — evolutions: higher damage scaling → larger radius →
-   more damage per affliction consumed → massive endgame payoff.
+
+**Grand Finale and Curtain Call — now flat/non-evolving, arrive already
+strong:** Grand Finale unlocks Floor 7 (usable for the back third of the
+game, not just a final-floor treat). Curtain Call unlocks Floor 10 as
+part of the finale alongside Hall of Mirrors maxing.
+- **Grand Finale** — consume every mental affliction affecting nearby
+  enemies, ending their effects and dealing devastating damage based on
+  the number and variety of afflictions removed.
+- **Curtain Call** — cloak your entire party in illusion magic, causing
+  all allies to vanish from enemy sight and immediately drop aggro.
 
 **Signature Afflictions:** Blind, Delirium (attack allies/random targets),
 Control (Puppeteer), Target Loss, Root, Hide/Aggro Manipulation.
@@ -541,6 +678,20 @@ defined, including gameplay loop and class fantasy.**
 5. Valkor's Volley
 *(Evolution specifics not detailed yet for this class — flag if you want
 to fill these in like the other classes' evolving sections.)*
+
+**Floor Schedule (LOCKED):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Arrow Shot, Arrowstep, Pinpoint Shot |
+| 2 | Focus (intro) | Eagle Eye |
+| 3 | Focus II (first evolution), Flechette (intro) | Windrunner |
+| 4 | Focus III, Flechette II, Warden's Net (intro) | — |
+| 5 | Focus IV (max), Flechette III, Warden's Net II | Phantom Quiver |
+| 6 | Flechette IV (max), Warden's Net III, Valkor's Volley (intro) | Spotter's Brand |
+| 7 | Warden's Net IV (max), Valkor's Volley II, Moonfall (intro) | — |
+| 8 | Valkor's Volley III, Moonfall II | Gravity Arrow |
+| 9 | Valkor's Volley IV (max), Moonfall III | Multishot |
+| 10 | Moonfall IV (max, finale) | Fulmination |
 
 **Mechanics already proven reusable:** bow_assail/arrowstep/fire_shot/
 deadcenter/trappers_net/rain_of_arrows/flechette/focus/precise_shot
@@ -943,12 +1094,16 @@ having enough healing and utility to feel like a true support.
 **Active Abilities (12 — cut from an original 13; Void Communion removed
 as the most redundant/least-defined ability, per discussion. Flat list,
 no pillar categorization — matches the format used by every other class):**
-1. Spirit Burst
-2. Unravel
-3. Stasis
-4. Regression
-5. Blooming Life
-6. Stacia's Shrine
+1. **Spirit Burst** *(reuses an existing built ability — exact mechanics
+   not summarized here yet, pull from codebase when implementing)*
+2. **Unravel** — strips magical enhancements from an enemy.
+3. **Stasis** *(reuses the existing built ability — freeze + invulnerable
+   AoE, per ABILITY_DATABASE.md)*
+4. **Regression** — reverses harmful spiritual effects on an ally
+   (dispel/cleanse for a single ally).
+5. **Blooming Life** — a heal-over-time (HoT) spell.
+6. **Stacia's Shrine** *(reuses the existing built ability — an evolving
+   healing zone, per ABILITY_DATABASE.md)*
 7. Stacia's Pulse
 8. **Spirit Rend** *(formerly "Fas")* — evolves through BEHAVIOR, not just
    numbers:
@@ -959,9 +1114,17 @@ no pillar categorization — matches the format used by every other class):**
    - Late: for 8–10 seconds, the target's soul is exposed, increasing
      magical damage taken AND amplifying magical damage-over-time
      effects. Now it's a true raid support spell.
-9. Soul Tether
-10. Communion Rite
-11. Ethereal Step
+9. **Soul Tether** — bind your soul to an ally. While linked: a
+   percentage of healing you receive also heals them, and a percentage
+   of healing they receive also heals you. Future evolutions could share
+   minor buffs or reduce damage taken.
+10. **Communion Rite** — revives a skulled ally ("redding"), per
+    Elysium's skull/revive mechanic — Mystic's version of a personal
+    revive, alongside Bard's Red Requiem and Valkyrie's Stacia's
+    Reprieve. Fits Mystic's "protect the individual" identity.
+11. **Ethereal Step** *(currently called "Blink" in existing built
+    content — likely the same as the already-built "Jaunt," a 3-tile
+    blink per ABILITY_DATABASE.md)* — short-range spirit teleport.
 12. **Stacia's Judgment** — call upon Stacia to strike enemies with divine
     spirit energy. Deliberately kept as PURE OFFENSE — Mystic already has
     3 dedicated healing tools (Blooming Life/Shrine/Pulse), so Judgment
@@ -977,9 +1140,12 @@ no pillar categorization — matches the format used by every other class):**
       than just another AoE nuke.
 
 **Passive Abilities (3):**
-1. Bloomkeeper
-2. Spiritual Attunement
-3. Spirit Overflow
+1. **Bloomkeeper** — each active Blooming Life increases your healing
+   effectiveness.
+2. **Spiritual Attunement** — after casting a healing spell, your next
+   non-healing spell is empowered.
+3. **Spirit Overflow** — any healing received while at full Health is
+   converted into Mana.
 
 **Evolving Abilities (5):**
 1. Blooming Life
@@ -987,10 +1153,24 @@ no pillar categorization — matches the format used by every other class):**
 3. Stacia's Shrine
 4. Communion Rite
 5. Stacia's Judgment
-*(Descriptions still needed: Spirit Burst, Unravel, Stasis, Regression,
-Blooming Life, Stacia's Shrine, Stacia's Pulse, Soul Tether, Communion
-Rite, Ethereal Step — only Spirit Rend and Stacia's Judgment are fully
-detailed so far.)*
+
+**Floor Schedule (LOCKED — core trio [Stacia's Shrine, Spirit Rend,
+Stacia's Judgment] spans the whole game, checking in every 3 floors, for
+a genuine "grows with you the whole way" identity, landing its max tier
+alone as a solo Floor 10 finale. Blooming Life covers the universal
+"first evolution on Floor 3" rule instead):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | Stacia's Shrine, Spirit Rend, Stacia's Judgment (all obtain) | — |
+| 2 | Blooming Life (intro) | Ethereal Step |
+| 3 | Blooming Life II (first evolution) | Spirit Burst |
+| 4 | Trio → II (all together), Blooming Life III | Regression |
+| 5 | Blooming Life IV (max) | Stasis |
+| 6 | Communion Rite (intro) | Spirit Overflow |
+| 7 | Trio → III (all together), Communion Rite II | Unravel |
+| 8 | Communion Rite III | Spiritual Attunement, Stacia's Pulse |
+| 9 | Communion Rite IV (max) | Bloomkeeper |
+| 10 | Trio → IV (max, solo finale) | Soul Tether |
 
 **Mechanics already proven reusable:** Stacia's Shrine, Stacia's Pulse,
 and Stacia's Judgment are direct name matches to abilities already built
@@ -1040,7 +1220,7 @@ Resonance did not survive to the final list):**
 | Stacia's Lullaby | Puts an enemy to sleep until damaged | Pramh |
 | Stacia's Blessing ⭐ | Evolving defensive blessing (Armor + Blessing + Veil) | Armachd + Naomh Aite + Beannaich |
 | Battle Hymn ⭐ | Evolving offensive party buff (Attack + Accuracy + Speed + Crit) | Fas Deireas + Beannaich |
-| Cradh ⭐ | Evolving curse, increasingly weakens enemies | Cradh |
+| Bard's Malediction ⭐ *(renamed from "Cradh")* | Evolving curse, increasingly weakens enemies | Cradh |
 | Salvation ⭐ | Evolving emergency healing miracle | Salvation |
 | Guardian's Anthem ⭐ | Evolves single-target immunity → full party immunity | Mor Dion Comhla |
 | **Valkor's Smite** *(new)* | Divine offensive strike — Bard's one call on the OTHER god, contrasting its otherwise all-Stacia kit | — |
@@ -1050,8 +1230,9 @@ Resonance did not survive to the final list):**
    +Damage Reduction → +CC Resistance.
 2. **Battle Hymn** — evolution track: Attack → +Accuracy → +Attack Speed
    → +Critical → +Mana Regeneration.
-3. **Cradh** — evolution track: Defense reduction → +Damage reduction →
-   +Accuracy reduction → +Critical vulnerability. Detailed tier version:
+3. **Bard's Malediction** *(renamed from "Cradh")* — evolution track:
+   Defense reduction → +Damage reduction → +Accuracy reduction →
+   +Critical vulnerability. Detailed tier version:
    - Early: reduce target's defense by 10%.
    - Mid: reduce defense by 20%, slightly lower damage dealt.
    - Late: reduce defense by 30%, lower damage dealt, small chance for
@@ -1082,9 +1263,29 @@ Stacia's Lullaby, Grand Finale are all direct name matches to abilities
 already built in the current codebase (per ABILITY_DATABASE.md) — largest
 existing overlap of any class.
 
+**Floor Schedule (LOCKED, revised — core trio [Stacia's Blessing, Battle
+Hymn, Bard's Malediction] now spans the whole game, checking in every 3
+floors, for a genuine "grows with you the whole way" identity, landing
+its max tier alone as a solo Floor 10 finale. Salvation covers the
+universal "first evolution on Floor 3" rule instead):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | Stacia's Blessing, Battle Hymn, Bard's Malediction (all obtain) | Valkor's Smite, Stacia's Vitae |
+| 2 | Salvation (intro) | Stacia's Chorus |
+| 3 | Salvation II (first evolution) | Stacia's Cleanse |
+| 4 | Trio → II (all together), Salvation III | Red Requiem |
+| 5 | Salvation IV (max) | — |
+| 6 | Guardian's Anthem (intro) | Stacia's Bubble |
+| 7 | Trio → III (all together), Guardian's Anthem II | Stacia's Lullaby |
+| 8 | Guardian's Anthem III | Crescendo |
+| 9 | Guardian's Anthem IV (max) | Encore |
+| 10 | Trio → IV (max, solo finale) | Stacia's Grace |
+
 **Status: ✅ DESIGN LOCKED (FINAL) — full 12-ability active list,
-3 passives, 5 evolving abilities, retail cross-reference, and identity
-comparison all defined.**
+3 passives, 5 evolving abilities, retail cross-reference, identity
+comparison, and floor schedule all defined. Bard's Malediction (formerly
+Cradh) renamed and locked.
+Malediction.**
 
 ---
 
@@ -1326,10 +1527,12 @@ now fully locked. This completes ALL 12 classes in the roster.**
    complete 12-active + 3-passive kits.
 6. Sorcerer — Arcane path enforcement + hybrid unlock logic not yet built.
 7. ~~Archer naming decision~~ RESOLVED — renamed to **Fletcher**.
-8. **Bloodlust naming collision** — now used by Assassin (core resource/
-   passive), Slayer (working-name active), AND Beast/Martial Artist
-   (passive lifesteal). Needs a dedicated resolution pass across all
-   three.
+8. ~~**Bloodlust naming collision**~~ RESOLVED — Assassin keeps
+   "Bloodlust" (original/central use). Slayer's version renamed to
+   "Crimson Harvest." Beast/Martial Artist's passive lifesteal still
+   uses "Bloodlust" too — worth a final check whether that third use
+   also needs differentiating, or if it's fine since it's a passive on a
+   different class entirely with no active-ability naming clash.
 9. Void Communion — cut from Mystic's final kit. What did it actually do?
    Never described anywhere in this document; if revived later, needs a
    real description written from scratch.
