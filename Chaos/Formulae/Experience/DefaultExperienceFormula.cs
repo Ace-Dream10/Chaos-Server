@@ -30,22 +30,21 @@ public class DefaultExperienceFormula : IExperienceFormula
     }
 
     /// <summary>
-    ///     Deduction grows 10% per member starting at group size 3 (0%, 0%, 20%, 30%, 40%, 50%... - matches the
-    ///     original hardcoded 1-6 table exactly), clamped to 100% instead of throwing once <see cref="Chaos.Services.Servers.Options.WorldOptions.MaxGroupSize" />
-    ///     allows groups larger than the old size-6 ceiling this was originally written for. Note: this formula
-    ///     hits a 100% deduction (zero group XP) at group size 11 and stays there for anything larger - that's a
-    ///     straight-line continuation of the existing 1-6 curve, not a deliberately tuned answer for what a
-    ///     12-13 person group should earn. Revisit if very large groups getting zero group-kill XP isn't the
-    ///     intended balance.
+    ///     No deduction for groups of 1-3. Starting at group size 4, deduction grows 5% per additional member (5%,
+    ///     10%, 15%, ...), clamped to 100%. Retuned for <see cref="Chaos.Services.Servers.Options.WorldOptions.MaxGroupSize" />
+    ///     going from the old retail default of 6 up to 13: at the new max group size this tops out at a 50%
+    ///     deduction (still half of solo-kill XP per person) rather than the old 10%/member curve's zero-XP result
+    ///     at size 11+. The clamp to 100% doesn't actually engage until group size 23, well past the current
+    ///     MaxGroupSize - it's a safety bound, not part of the tuned range.
     /// </summary>
     protected virtual decimal GetGroupSizeDeductions(ICollection<Aisling> group)
     {
         var count = group.Count;
 
-        if (count <= 2)
+        if (count <= 3)
             return 0;
 
-        return Math.Min(1m, 0.20m + (count - 3) * 0.10m);
+        return Math.Min(1m, (count - 3) * 0.05m);
     }
 
     // ReSharper disable once ParameterTypeCanBeEnumerable.Global

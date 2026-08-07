@@ -10,7 +10,8 @@ namespace Chaos.Tests;
 /// <summary>
 ///     Covers GetGroupSizeDeductions for group sizes beyond the old hardcoded 1-6 table, which used to throw
 ///     ArgumentOutOfRangeException for any group larger than 6 - a real crash risk once MaxGroupSize was raised
-///     past the old retail default.
+///     past the old retail default. Also covers the current curve: 0% deduction for group sizes 1-3, then +5%
+///     per member starting at size 4.
 /// </summary>
 public sealed class DefaultExperienceFormulaTests
 {
@@ -47,19 +48,22 @@ public sealed class DefaultExperienceFormulaTests
     }
 
     [Test]
-    public void Calculate_ShouldMatchOriginalHardcodedTable_ForSizes1Through6()
+    public void Calculate_ShouldApplyCurrentCurve_ForSizes1Through13()
     {
         var formula = new DefaultExperienceFormula();
 
-        // original hardcoded switch: 1=>0%, 2=>0%, 3=>20%, 4=>30%, 5=>40%, 6=>50% deduction
+        // current curve: 0% deduction for sizes 1-3, then +5% per member starting at size 4
         var expectedDeductionPct = new Dictionary<int, decimal>
         {
-            [1] = 0.0m,
-            [2] = 0.0m,
-            [3] = 0.20m,
-            [4] = 0.30m,
-            [5] = 0.40m,
-            [6] = 0.50m
+            [1] = 0.00m,
+            [2] = 0.00m,
+            [3] = 0.00m,
+            [4] = 0.05m,
+            [5] = 0.10m,
+            [6] = 0.15m,
+            [7] = 0.20m,
+            [10] = 0.35m,
+            [13] = 0.50m
         };
 
         foreach ((var size, var deductionPct) in expectedDeductionPct)
@@ -77,11 +81,11 @@ public sealed class DefaultExperienceFormulaTests
     }
 
     [Test]
-    public void Calculate_ShouldReturnZero_ForGroupSize11AndAbove()
+    public void Calculate_ShouldClampAtZero_ForGroupSize23AndAbove()
     {
         var formula = new DefaultExperienceFormula();
 
-        foreach (var size in new[] { 11, 13, 20 })
+        foreach (var size in new[] { 23, 30 })
         {
             var map = MockMapInstance.Create();
             var members = CreateGroupOfSize(size);
@@ -90,8 +94,8 @@ public sealed class DefaultExperienceFormulaTests
             var exp = formula.Calculate(monster, members);
 
             exp.Should()
-               .Be(0, $"group size {size} hits the clamped 100% deduction (a straight-line continuation of the " +
-                      "original 1-6 curve, not a deliberately tuned answer for large groups - see the class doc comment)");
+               .Be(0, $"group size {size} hits the clamped 100% deduction (the safety clamp, not part of the " +
+                      "tuned range - see the class doc comment)");
         }
     }
 }
