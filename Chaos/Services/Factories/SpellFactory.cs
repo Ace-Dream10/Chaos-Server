@@ -49,6 +49,7 @@ public sealed class SpellFactory(ISimpleCache simpleCache, IScriptProvider scrip
         {
             TemplateKey = "scriptProxy",
             Name = "Script Proxy",
+            IsPassive = false,
             LearningRequirements = null,
             LevelsUp = false,
             MaxLevel = 0,

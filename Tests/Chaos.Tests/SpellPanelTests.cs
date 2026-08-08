@@ -33,6 +33,7 @@ public sealed class SpellPanelTests
             MaxLevel = maxLevel,
             LevelsUp = levelsUp,
             CastLines = castLines,
+            IsPassive = false,
             LearningRequirements = null,
             Prompt = null,
             SpellType = SpellType.None,

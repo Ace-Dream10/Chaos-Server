@@ -24,7 +24,8 @@
         "titanic_fury",
         "ground_fracture",
         "seismic_leap",
-        "carnage"
+        "carnage",
+        "rage"
       ],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_blunt_1"],

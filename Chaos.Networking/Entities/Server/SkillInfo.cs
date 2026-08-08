@@ -9,6 +9,18 @@ namespace Chaos.Networking.Entities.Server;
 public sealed record SkillInfo
 {
     /// <summary>
+    ///     A brief description of the skill, shown as a second line in the action-bar hover tooltip. Empty string
+    ///     when the skill has no description set.
+    /// </summary>
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     Whether this skill is a display-only passive entry - its actual mechanic (if any) is delivered by an
+    ///     always-on script, independent of this flag. Purely informational for the client tooltip.
+    /// </summary>
+    public bool IsPassive { get; set; }
+
+    /// <summary>
     ///     The name of the skill
     /// </summary>
     public string Name { get; set; } = null!;

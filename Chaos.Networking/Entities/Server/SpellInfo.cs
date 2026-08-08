@@ -15,6 +15,18 @@ public sealed record SpellInfo
     public byte CastLines { get; set; }
 
     /// <summary>
+    ///     A brief description of the spell, shown as a second line in the action-bar hover tooltip. Empty string
+    ///     when the spell has no description set.
+    /// </summary>
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
+    ///     Whether this spell is a display-only passive entry - its actual mechanic (if any) is delivered by an
+    ///     always-on script, independent of this flag. Purely informational for the client tooltip.
+    /// </summary>
+    public bool IsPassive { get; set; }
+
+    /// <summary>
     ///     The name of the spell
     /// </summary>
     public string Name { get; set; } = null!;

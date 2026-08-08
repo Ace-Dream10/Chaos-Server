@@ -28,7 +28,9 @@ public sealed class SkillMapperProfile(ISimpleCache simpleCache, IScriptProvider
             Name = obj.Template.Name,
             PanelName = obj.PanelDisplayName,
             Slot = obj.Slot,
-            Sprite = obj.Template.PanelSprite
+            Sprite = obj.Template.PanelSprite,
+            Description = obj.Template.Description ?? string.Empty,
+            IsPassive = obj.Template.IsPassive
         };
 
     public Skill Map(SkillSchema obj)

@@ -479,6 +479,39 @@ public sealed class ComplexActionHelperTests
                            .Should()
                            .Be(ComplexActionHelper.LearnSkillResult.NoRoom);
     }
+
+    [Test]
+    public void LearnSkill_ShouldRouteToPage3_WhenSkillIsPassive()
+    {
+        var aisling = MockAisling.Create(setup: a => a.UserStatSheet.SetMaxWeight(100));
+        var skill = MockSkill.Create("TestPassive", templateSetup: t => t with { IsPassive = true });
+
+        ComplexActionHelper.LearnSkill(aisling, skill)
+                           .Should()
+                           .Be(ComplexActionHelper.LearnSkillResult.Success);
+
+        //Page3 (the H tab / World Abilities) is wire slots 73-88 for skills - true passives land there
+        //instead of the normal pages, so CooldownPercent keeps meaning exactly one thing (real, temporary
+        //unavailability) on the Skill/Spell panels.
+        skill.Slot
+             .Should()
+             .BeInRange((byte)73, (byte)88, "a passive skill should be routed to Page3, not the normal pages");
+    }
+
+    [Test]
+    public void LearnSkill_ShouldUseNormalPages_WhenSkillIsNotPassive()
+    {
+        var aisling = MockAisling.Create(setup: a => a.UserStatSheet.SetMaxWeight(100));
+        var skill = MockSkill.Create("TestActive", templateSetup: t => t with { IsPassive = false });
+
+        ComplexActionHelper.LearnSkill(aisling, skill)
+                           .Should()
+                           .Be(ComplexActionHelper.LearnSkillResult.Success);
+
+        skill.Slot
+             .Should()
+             .BeLessThan(73, "a normal (non-passive) skill should not be routed to Page3");
+    }
     #endregion
 
     #region LearnSpell
@@ -508,6 +541,36 @@ public sealed class ComplexActionHelperTests
         ComplexActionHelper.LearnSpell(aisling, spell)
                            .Should()
                            .Be(ComplexActionHelper.LearnSpellResult.NoRoom);
+    }
+
+    [Test]
+    public void LearnSpell_ShouldRouteToPage3_WhenSpellIsPassive()
+    {
+        var aisling = MockAisling.Create(setup: a => a.UserStatSheet.SetMaxWeight(100));
+        var spell = MockSpell.Create("TestPassive", templateSetup: t => t with { IsPassive = true });
+
+        ComplexActionHelper.LearnSpell(aisling, spell)
+                           .Should()
+                           .Be(ComplexActionHelper.LearnSpellResult.Success);
+
+        spell.Slot
+             .Should()
+             .BeGreaterThanOrEqualTo((byte)73, "a passive spell should be routed to Page3, not the normal pages");
+    }
+
+    [Test]
+    public void LearnSpell_ShouldUseNormalPages_WhenSpellIsNotPassive()
+    {
+        var aisling = MockAisling.Create(setup: a => a.UserStatSheet.SetMaxWeight(100));
+        var spell = MockSpell.Create("TestActive", templateSetup: t => t with { IsPassive = false });
+
+        ComplexActionHelper.LearnSpell(aisling, spell)
+                           .Should()
+                           .Be(ComplexActionHelper.LearnSpellResult.Success);
+
+        spell.Slot
+             .Should()
+             .BeLessThan(73, "a normal (non-passive) spell should not be routed to Page3");
     }
     #endregion
 

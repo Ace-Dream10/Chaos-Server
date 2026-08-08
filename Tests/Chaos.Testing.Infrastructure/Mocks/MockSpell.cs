@@ -23,6 +23,7 @@ public static class MockSpell
             MaxLevel = 100,
             LevelsUp = false,
             CastLines = castLines,
+            IsPassive = false,
             LearningRequirements = null,
             Prompt = null,
             SpellType = SpellType.None,

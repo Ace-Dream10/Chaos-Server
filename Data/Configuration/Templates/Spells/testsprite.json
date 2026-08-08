@@ -1,9 +1,9 @@
 {
-  "templateKey": "testsprite2",
+  "templateKey": "testsprite",
   "name": "Test Sprite",
   "level": 1,
   "maxLevel": 255,
-  "panelSprite": 3,
+  "panelSprite": 1,
   "cooldownMs": 1000,
   "castLines": 0,
   "spellType": "NoTarget",
@@ -25,7 +25,7 @@
       "baseDamage": 0,
       "filter": "selfOnly, aliveOnly",
       "animation": {
-        "targetAnimation": 157,
+        "targetAnimation": 346,
         "animationSpeed": 100
       },
       "sound": 10

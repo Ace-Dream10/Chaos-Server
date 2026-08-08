@@ -23,6 +23,8 @@ public sealed class AddSpellToPaneConverter : PacketConverterBase<AddSpellToPane
         var panelName = reader.ReadString8();
         var prompt = reader.ReadString8();
         var castLines = reader.ReadByte();
+        var description = reader.ReadString8();
+        var isPassive = reader.ReadBoolean();
 
         return new AddSpellToPaneArgs
         {
@@ -33,7 +35,9 @@ public sealed class AddSpellToPaneConverter : PacketConverterBase<AddSpellToPane
                 SpellType = (SpellType)spellType,
                 PanelName = panelName,
                 Prompt = prompt,
-                CastLines = castLines
+                CastLines = castLines,
+                Description = description,
+                IsPassive = isPassive
             }
         };
     }
@@ -47,5 +51,7 @@ public sealed class AddSpellToPaneConverter : PacketConverterBase<AddSpellToPane
         writer.WriteString8(args.Spell.PanelName);
         writer.WriteString8(args.Spell.Prompt);
         writer.WriteByte(args.Spell.CastLines);
+        writer.WriteString8(args.Spell.Description);
+        writer.WriteBoolean(args.Spell.IsPassive);
     }
 }

@@ -19,6 +19,8 @@ public sealed class AddSkillToPaneConverter : PacketConverterBase<AddSkillToPane
         var slot = reader.ReadByte();
         var sprite = reader.ReadUInt16();
         var panelName = reader.ReadString8();
+        var description = reader.ReadString8();
+        var isPassive = reader.ReadBoolean();
 
         return new AddSkillToPaneArgs
         {
@@ -26,7 +28,9 @@ public sealed class AddSkillToPaneConverter : PacketConverterBase<AddSkillToPane
             {
                 Slot = slot,
                 Sprite = sprite,
-                PanelName = panelName
+                PanelName = panelName,
+                Description = description,
+                IsPassive = isPassive
             }
         };
     }
@@ -37,5 +41,7 @@ public sealed class AddSkillToPaneConverter : PacketConverterBase<AddSkillToPane
         writer.WriteByte(args.Skill.Slot);
         writer.WriteUInt16(args.Skill.Sprite);
         writer.WriteString8(args.Skill.PanelName);
+        writer.WriteString8(args.Skill.Description);
+        writer.WriteBoolean(args.Skill.IsPassive);
     }
 }

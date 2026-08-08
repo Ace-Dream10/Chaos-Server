@@ -1,4 +1,5 @@
 #region
+using Chaos.DarkAges.Definitions;
 using Chaos.Extensions.Common;
 using Chaos.Models.Abstractions;
 using Chaos.Models.Panel;
@@ -257,7 +258,15 @@ public static class ComplexActionHelper
         if (source.SkillBook.AvailableSlots == 0)
             return LearnSkillResult.NoRoom;
 
-        if (source.SkillBook.TryAddToNextSlot(skill))
+        //true passives (display-only entries, no real cast) land on Page3/the H tab (World Abilities)
+        //instead of mixing into the normal skill panel - keeps CooldownPercent meaning exactly one thing
+        //(real, temporary unavailability) everywhere else, rather than overloading it as an "always
+        //active" indicator.
+        var added = skill.Template.IsPassive
+            ? source.SkillBook.TryAddToNextSlot(PageType.Page3, skill)
+            : source.SkillBook.TryAddToNextSlot(skill);
+
+        if (added)
             return LearnSkillResult.Success;
 
         return LearnSkillResult.NoRoom;
@@ -271,7 +280,13 @@ public static class ComplexActionHelper
         if (source.SpellBook.AvailableSlots == 0)
             return LearnSpellResult.NoRoom;
 
-        if (source.SpellBook.TryAddToNextSlot(spell))
+        //see LearnSkill's identical Page3 routing for true passives - same rationale applies if a
+        //passive is ever implemented as a spell instead of a skill.
+        var added = spell.Template.IsPassive
+            ? source.SpellBook.TryAddToNextSlot(PageType.Page3, spell)
+            : source.SpellBook.TryAddToNextSlot(spell);
+
+        if (added)
             return LearnSpellResult.Success;
 
         return LearnSpellResult.NoRoom;

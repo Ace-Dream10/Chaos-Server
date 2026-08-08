@@ -31,7 +31,9 @@ public sealed class SpellMapperProfile(ISimpleCache simpleCache, IScriptProvider
             Prompt = obj.Template.Prompt ?? string.Empty,
             Slot = obj.Slot,
             SpellType = obj.Template.SpellType,
-            Sprite = obj.Template.PanelSprite
+            Sprite = obj.Template.PanelSprite,
+            Description = obj.Template.Description ?? string.Empty,
+            IsPassive = obj.Template.IsPassive
         };
 
     public Spell Map(SpellSchema obj)
@@ -99,7 +101,8 @@ public sealed class SpellMapperProfile(ISimpleCache simpleCache, IScriptProvider
             LevelsUp = obj.LevelsUp,
             MaxLevel = obj.MaxLevel ?? 100,
             AdminOnly = obj.AdminOnly,
-            GroundTargeted = obj.GroundTargeted
+            GroundTargeted = obj.GroundTargeted,
+            IsPassive = obj.IsPassive
         };
 
     public SpellTemplateSchema Map(SpellTemplate obj) => throw new NotImplementedException();

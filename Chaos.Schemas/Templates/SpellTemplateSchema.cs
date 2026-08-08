@@ -34,6 +34,12 @@ public sealed record SpellTemplateSchema : PanelEntityTemplateSchema
     public bool GroundTargeted { get; set; }
 
     /// <summary>
+    ///     Defaults to false. Marks this spell as a display-only entry for a passive mechanic - mirrors
+    ///     SkillTemplateSchema.IsPassive. No spell-based passive exists yet; added here for wire-format parity.
+    /// </summary>
+    public bool IsPassive { get; set; }
+
+    /// <summary>
     ///     Default null
     ///     <br />
     ///     If set, these are the requirements for the spell to be learned
