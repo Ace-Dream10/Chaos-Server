@@ -248,6 +248,17 @@ ModelManifest.xml
 PATH.txt
 Data/Saved/
 Data/SavedBackups/
+
+# Manual/unmanaged local backup zips under Templates - not real tracked content, prevents a repeat of the
+# accidental commit-everything sweep that added Skills.zip/Spells.zip/Spells/Sorcerer.zip. Data/Configuration/
+# MapData/maps.zip is a real, intentionally-tracked asset and lives outside this path, so it's unaffected.
+Data/Configuration/Templates/*.zip
+Data/Configuration/Templates/**/*.zip
+
+# Scratch/reference files swept in by the same accidental commit - explicit exact paths rather than a
+# pattern, since legitimate tracked content also uses "test*" names (e.g. test_icon_9.json is real).
+Data/Configuration/Templates/Spells/testsprite.json
+Data/Configuration/Templates/Spells/Sorcerer/SorcererSpells.txt
 Data/Configuration/Access/**/password.txt
 Data/Configuration/Access/blacklist.txt
 Data/Configuration/Access/whitelist.txt

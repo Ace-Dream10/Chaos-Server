@@ -1,34 +1,24 @@
 {
-  "templateKey": "testsprite2",
-  "name": "Test Sprite",
-  "level": 1,
-  "maxLevel": 255,
-  "panelSprite": 3,
-  "cooldownMs": 1000,
-  "castLines": 0,
-  "spellType": "NoTarget",
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
+    "requiredGold": 0,
     "requiredStats": {
-      "str": 1,
+      "con": 1,
       "dex": 1,
       "int": 1,
-      "wis": 1,
-      "con": 1
+      "str": 1,
+      "wis": 1
     }
   },
-  "scriptKeys": ["damage"],
-  "scriptVars": {
-    "damage": {
-      "baseDamage": 0,
-      "filter": "selfOnly, aliveOnly",
-      "animation": {
-        "targetAnimation": 157,
-        "animationSpeed": 100
-      },
-      "sound": 10
-    }
-  }
+  "spellType": "NoTarget",
+  "castLines": 0,
+  "description": "Throwaway test spell for icon index 9.",
+  "level": 1,
+  "name": "Test Icon 9",
+  "panelSprite": 9,
+  "scriptKeys": [],
+  "scriptVars": {},
+  "templateKey": "test_icon_9"
 }
