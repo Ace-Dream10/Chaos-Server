@@ -11,8 +11,11 @@ namespace Chaos.Scripting.EffectScripts;
 
 /// <summary>
 ///     Reflects a flat percentage of incoming damage back at the attacker, plus a CON boost, for the duration.
-///     Uses the same periodic HP-snapshot scan as <see cref="LancersRetributionEffect" /> rather than a true
-///     pre-damage intercept, since effects have no hook into their own subject being attacked.
+///     Uses a periodic HP-snapshot scan rather than a true pre-damage intercept, since effects have no hook into
+///     their own subject being attacked - unlike Bastion's Retribution (a class-wide always-on passive, computed
+///     directly in <see cref="Chaos.Scripting.FunctionalScripts.ApplyDamage.ApplyAttackDamageScript" /> instead of
+///     as an effect), this is a timed buff grantable to any class, so it can't just live inline in the pipeline
+///     the same way.
 /// </summary>
 public sealed class MoltenArmorEffect : IntervalEffectBase
 {

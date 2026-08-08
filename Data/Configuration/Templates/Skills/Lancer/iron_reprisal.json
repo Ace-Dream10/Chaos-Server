@@ -1,13 +1,13 @@
 {
-  "templateKey": "iron_bastion",
-  "name": "Iron Bastion",
-  "description": "Harden your defenses, reducing incoming damage for 8 seconds.",
-  "panelSprite": 50,
+  "templateKey": "iron_reprisal",
+  "name": "Iron Reprisal",
+  "description": "Enter a defensive stance. The next attack against you is negated entirely and returned as a crushing blow.",
+  "panelSprite": 46,
   "class": "Bastion",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 20000,
+  "cooldownMs": 12000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
@@ -17,10 +17,10 @@
   "scriptKeys": ["applyEffect"],
   "scriptVars": {
     "applyEffect": {
-      "effectKey": "IronBastion",
+      "effectKey": "IronReprisal",
       "filter": "selfOnly, aliveOnly",
-      "bodyAnimation": "HandsUp2",
-      "animation": { "targetAnimation": 24, "animationSpeed": 100 },
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
       "sound": 10
     }
   }

@@ -16,7 +16,7 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Marches the caster forward one tile at a time, cutting down anything in the path. Unlike Lancer's Charge, a
+///     Marches the caster forward one tile at a time, cutting down anything in the path. Unlike Bastion's Charge, a
 ///     hostile creature never stops the march - only a wall or blocking reactor does.
 /// </summary>
 public class DeathMarchScript : ConfigurableSkillScriptBase

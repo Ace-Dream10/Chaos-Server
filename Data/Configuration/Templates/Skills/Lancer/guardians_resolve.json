@@ -1,0 +1,18 @@
+{
+  "templateKey": "guardians_resolve",
+  "name": "Guardian's Resolve",
+  "description": "(Passive) Gain defenses based on the number of enemies near you.",
+  "panelSprite": 50,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 2, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": []
+}

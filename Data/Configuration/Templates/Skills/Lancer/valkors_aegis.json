@@ -1,0 +1,35 @@
+{
+  "templateKey": "valkors_aegis",
+  "name": "Valkor's Aegis",
+  "description": "Hurl your shield in a line, striking and staggering every enemy in its path, then call it back to your hand - healing you for how many enemies it struck.",
+  "panelSprite": 46,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 35000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 9, "dex": 1, "int": 1, "wis": 1, "con": 12 }
+  },
+  "scriptKeys": ["valkorsAegis"],
+  "scriptVars": {
+    "valkorsAegis": {
+      "rangeTiles": 6,
+      "baseDamage": 45,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "staggerDurationMs": 1200,
+      "healPerEnemyStruck": 15,
+      "returnDelayMs": 600,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "JumpAttack",
+      "sound": 3,
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "outboundAnimation": { "targetAnimation": 157, "animationSpeed": 100 },
+      "returnAnimation": { "targetAnimation": 157, "animationSpeed": 100 }
+    }
+  }
+}

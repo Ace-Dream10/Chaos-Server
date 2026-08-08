@@ -1,0 +1,18 @@
+{
+  "templateKey": "hold_the_line",
+  "name": "Hold the Line",
+  "description": "(Passive) Enemies that attack your nearby allies generate increased threat toward you instead.",
+  "panelSprite": 50,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 2, "dex": 1, "int": 1, "wis": 1, "con": 7 }
+  },
+  "scriptKeys": []
+}

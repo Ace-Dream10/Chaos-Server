@@ -7,7 +7,6 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
-using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -15,10 +14,18 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class ShieldBashScript : ConfigurableSkillScriptBase
+/// <summary>
+///     Renamed/repurposed from "Shield Bash" (Floor 1, shield-focused starter trio). The locked design's own
+///     description is just "Knockback" - no further elaboration surfaced when re-checked, so this is a real
+///     positional knockback (push the target back a fixed distance, away from the caster) rather than the
+///     minimal "keep Shield Bash's root, just relabel it" swap. Push logic mirrors
+///     <see cref="Chaos.Scripting.SpellScripts.KnockbackAoeScript" />'s technique (directional offset away from
+///     the source + a walkability check before landing).
+/// </summary>
+public class ShieldThrustScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
-    public ShieldBashScript(Skill subject)
+    public ShieldThrustScript(Skill subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -50,9 +57,13 @@ public class ShieldBashScript : ConfigurableSkillScriptBase
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, creature, this, damage);
 
-        var rootEffect = new RootEffect();
-        rootEffect.SetDuration(TimeSpan.FromMilliseconds(RootDurationMs));
-        creature.Effects.Apply(source, rootEffect, this);
+        if (creature.IsAlive && (KnockbackTiles > 0))
+        {
+            var landingPoint = creature.DirectionalOffset(source.Direction, KnockbackTiles);
+
+            if (map.IsWalkable(landingPoint, creature, false))
+                creature.WarpTo(landingPoint);
+        }
 
         if (Animation != null)
             creature.Animate(Animation, source.Id);
@@ -105,9 +116,9 @@ public class ShieldBashScript : ConfigurableSkillScriptBase
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     How long, in milliseconds, the target is rooted for
+    ///     How many tiles the target is knocked back, away from the caster
     /// </summary>
-    public int RootDurationMs { get; init; } = 1500;
+    public int KnockbackTiles { get; init; } = 2;
 
     /// <summary>
     ///     Sound played on hit

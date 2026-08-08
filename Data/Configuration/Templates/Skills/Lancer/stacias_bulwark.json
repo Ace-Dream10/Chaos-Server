@@ -1,0 +1,25 @@
+{
+  "templateKey": "stacias_bulwark",
+  "name": "Stacia's Bulwark",
+  "description": "Become invulnerable for a short time. Gains duration, a self-heal on expiry, and a taunting pulse as it levels up.",
+  "panelSprite": 50,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 60000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 4, "dex": 1, "int": 1, "wis": 1, "con": 11 }
+  },
+  "scriptKeys": ["staciasBulwark"],
+  "scriptVars": {
+    "staciasBulwark": {
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HandsUp2",
+      "sound": 10
+    }
+  }
+}

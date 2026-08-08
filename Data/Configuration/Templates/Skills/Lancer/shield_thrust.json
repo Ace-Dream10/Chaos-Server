@@ -1,7 +1,7 @@
 {
-  "templateKey": "shield_bash",
-  "name": "Shield Bash",
-  "description": "Slam your shield into an enemy, dealing damage and briefly stunning them.",
+  "templateKey": "shield_thrust",
+  "name": "Shield Thrust",
+  "description": "Slam your shield into an enemy, dealing damage and knocking them back.",
   "panelSprite": 46,
   "class": "Bastion",
   "level": 1,
@@ -14,13 +14,13 @@
     "prerequisiteSpells": [],
     "requiredStats": { "str": 5, "dex": 1, "int": 1, "wis": 1, "con": 3 }
   },
-  "scriptKeys": ["shieldBash"],
+  "scriptKeys": ["shieldThrust"],
   "scriptVars": {
-    "shieldBash": {
+    "shieldThrust": {
       "baseDamage": 70,
       "damageStat": "str",
       "damageStatMultiplier": 3,
-      "rootDurationMs": 1500,
+      "knockbackTiles": 2,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "Punch",
       "animation": { "targetAnimation": 35, "animationSpeed": 100 },

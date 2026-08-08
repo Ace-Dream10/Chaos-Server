@@ -16,7 +16,7 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     A short rush, modeled on Lancer's Charge, that crashes through every hostile in its path (like Berserker
+///     A short rush, modeled on Bastion's Charge, that crashes through every hostile in its path (like Berserker
 ///     Charge) instead of stopping at the first one - each one hit takes damage, a brief root, and a stack of
 ///     Severance, fitting the Slayer's "rush in, start stacking" identity.
 /// </summary>

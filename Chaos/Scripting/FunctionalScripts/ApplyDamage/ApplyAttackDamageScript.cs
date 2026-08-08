@@ -23,6 +23,20 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     /// </summary>
     public const string ShrineShieldTag = "shrineShield";
 
+    /// <summary>
+    ///     Scaling factor for Bastion's Retribution's AC-based reflect - carried over unchanged from the retired
+    ///     "Lancer's Retribution" effect's own <c>AcScaling</c> constant.
+    /// </summary>
+    private const decimal BastionRetributionAcScaling = 0.005m;
+
+    /// <summary>
+    ///     Placeholder values for Hold the Line, not balance-tested: how far from a hit ally a Bastion still
+    ///     benefits, and how much bonus aggro each hit grants them on the attacking monster.
+    /// </summary>
+    private const int HoldTheLineRange = 6;
+
+    private const int HoldTheLineBonusAggro = 15;
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -62,6 +76,40 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         switch (target)
         {
             case Aisling aisling:
+                //Stacia's Bulwark (Bastion, renamed from "Perfect Stand") - true temporary invulnerability, checked
+                //before any other mitigation and short-circuiting the entire hit; see StaciasBulwarkEffect's doc
+                //comment for why this is a tag check rather than an AC trick.
+                if (aisling.Trackers.Tags.ContainsKey(StaciasBulwarkEffect.InvulnerableTag))
+                {
+                    aisling.Animate(
+                        new Animation
+                        {
+                            TargetAnimation = 157,
+                            AnimationSpeed = 100
+                        },
+                        aisling.Id);
+
+                    aisling.Script.OnAttacked(source, 0);
+
+                    break;
+                }
+
+                //Hold the Line (Bastion passive) - a true always-on passive, stateless like Bastion's Retribution
+                //above (no AislingScript needed - this is purely reactive to an event this pipeline already sees,
+                //not something that needs periodic ticking). Whenever a monster hits an ally, any nearby Bastion
+                //gets bonus threat toward that monster, per the design's "enemies attacking nearby allies
+                //generate increased threat toward you". Hooks directly into the existing per-monster AggroList
+                //system (see AggroTargetingScript) rather than inventing a separate threat mechanism. Placeholder
+                //range/amount, not balance-tested.
+                if (source is Monster attackingMonster)
+                    foreach (var nearbyBastion in aisling.MapInstance.GetEntitiesWithinRange<Aisling>(aisling, HoldTheLineRange))
+                    {
+                        if ((nearbyBastion.UserStatSheet.BaseClass != BaseClass.Bastion) || (nearbyBastion.Id == aisling.Id))
+                            continue;
+
+                        attackingMonster.AggroList.AddAggro(nearbyBastion, HoldTheLineBonusAggro);
+                    }
+
                 //Stacia's Veil - flat percentage damage reduction, applies before any other mitigation below
                 if (aisling.Effects.TryGetEffect("Stacia's Veil", out var veilEffect) && (veilEffect is VeilEffect veil))
                     damage = Convert.ToInt32(damage * (1 - (veil.DamageReductionPct / 100m)));
@@ -116,6 +164,30 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     source.Effects.Apply(aisling, rootEffect, script);
 
                     var counterDamage = CounterStrikeEffect.CalculateCounterDamage(aisling);
+
+                    if (counterDamage > 0)
+                        ApplyDamage(aisling, source, script, counterDamage);
+
+                    source.Animate(
+                        new Animation
+                        {
+                            TargetAnimation = 14,
+                            AnimationSpeed = 100
+                        },
+                        aisling.Id);
+                } else if (aisling.Trackers.Tags.ContainsKey(IronReprisalEffect.ReadyTag))
+                {
+                    //Iron Reprisal (Bastion, renamed from "Counter") - negate the damage entirely, root the
+                    //attacker, and counter for damage scaled off the defender's STR, one use only. Same shape as
+                    //Counter Strike above, cloned rather than shared so it has its own ready-tag and tooltip name.
+                    aisling.Trackers.Tags.TryRemove(IronReprisalEffect.ReadyTag, out _);
+                    aisling.Effects.Terminate("Iron Reprisal");
+
+                    var rootEffect = new RootEffect();
+                    rootEffect.SetDuration(TimeSpan.FromMilliseconds(2000));
+                    source.Effects.Apply(aisling, rootEffect, script);
+
+                    var counterDamage = IronReprisalEffect.CalculateCounterDamage(aisling);
 
                     if (counterDamage > 0)
                         ApplyDamage(aisling, source, script, counterDamage);
@@ -188,6 +260,44 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     {
                         aisling.StatSheet.AddMp(damage);
                         aisling.Client.SendAttributes(StatUpdateType.Vitality);
+                    }
+
+                    //Bastion's Retribution (renamed from "Lancer's Retribution") - a TRUE always-on passive, not a
+                    //learnable cooldown-gated skill (that was the original, incorrect build - same class of
+                    //mistake Unbroken had before its own correction). Unlike Rage/Unbroken, this needs no
+                    //AislingScript/tag/Update() at all: it's stateless, computed fresh on every hit directly here
+                    //rather than via the old effect's periodic HP-snapshot workaround (that workaround existed
+                    //because effects have no hook into their own subject being attacked - this pipeline IS that
+                    //hook, so there's nothing left to poll for). Reflects a portion of the damage just taken back
+                    //at the attacker, scaled by the Bastion's current AC. Placeholder scaling, not balance-tested.
+                    //Sign note (bug found and fixed during this conversion, not carried over from the old effect):
+                    //AC is inverted in this engine (lower/negative = stronger defense - see BerserkerGateScript's
+                    //doc comment), so the multiplier uses -EffectiveAc, not EffectiveAc directly - the original
+                    //"Lancer's Retribution" effect used the un-negated value, which meant a well-defended (negative
+                    //AC) Bastion would always compute a negative reflect and clamp to 0 via the Math.Max below,
+                    //silently never reflecting anything for exactly the characters its own flavor text ("the
+                    //stronger your defense, the harder the counter") was supposed to reward most.
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion) && aisling.IsAlive)
+                    {
+                        var attacker = aisling.Trackers.LastDamagedBy;
+
+                        if ((attacker != null) && attacker.IsAlive && (attacker.Id != aisling.Id))
+                        {
+                            var reflectDamage = Math.Max(0, Convert.ToInt32(damage * (-aisling.StatSheet.EffectiveAc * BastionRetributionAcScaling)));
+
+                            if (reflectDamage > 0)
+                            {
+                                ApplyDamage(aisling, attacker, script, reflectDamage);
+
+                                attacker.Animate(
+                                    new Animation
+                                    {
+                                        TargetAnimation = 24,
+                                        AnimationSpeed = 100
+                                    },
+                                    aisling.Id);
+                            }
+                        }
                     }
                 }
 

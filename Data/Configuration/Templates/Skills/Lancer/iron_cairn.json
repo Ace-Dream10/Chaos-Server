@@ -1,0 +1,29 @@
+{
+  "templateKey": "iron_cairn",
+  "name": "Iron Cairn",
+  "description": "Erupt the ground around you, damaging and rooting nearby enemies. Grows from a small eruption into a massive, lingering zone of battlefield control as it levels up.",
+  "panelSprite": 46,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 22000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 4, "dex": 1, "int": 1, "wis": 1, "con": 7 }
+  },
+  "scriptKeys": ["ironCairn"],
+  "scriptVars": {
+    "ironCairn": {
+      "baseDamage": 40,
+      "damageStat": "con",
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "animatePoints": true,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 35
+    }
+  }
+}

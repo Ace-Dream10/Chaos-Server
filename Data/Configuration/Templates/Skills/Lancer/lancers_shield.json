@@ -12,7 +12,7 @@
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 6 }
   },
   "scriptKeys": ["lancersShield"],
   "scriptVars": {

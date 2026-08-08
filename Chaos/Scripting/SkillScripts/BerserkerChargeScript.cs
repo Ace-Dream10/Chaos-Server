@@ -15,7 +15,7 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     A short rush, modeled on Lancer's Charge - stops at the first creature in its path (unpassable) rather than
+///     A short rush, modeled on Bastion's Charge - stops at the first creature in its path (unpassable) rather than
 ///     crashing through everything, dealing damage there. Rage flows through the existing
 ///     <see cref="Chaos.Scripting.AislingScripts.BerserkerRageScript" /> hook whenever a hit lands.
 /// </summary>

@@ -10,35 +10,33 @@
     "prerequisiteSpells": [],
     "requiredGold": 5000,
     "requiredStats": {
-      "con": 1,
-      "dex": 1,
+      "con": 6,
+      "dex": 2,
       "int": 1,
-      "str": 2,
+      "str": 6,
       "wis": 1
     }
   },
   "class": "Bastion",
   "cooldownMs": 10000,
-  "description": "Charge forward up to 5 tiles, attacking the first enemy in your path.",
+  "description": "Charge forward, attacking the first enemy in your path. Gains range, damage, and the ability to knock nearby enemies aside as it levels up.",
   "level": 1,
-  "name": "Lancer's Charge",
+  "maxLevel": 255,
+  "levelsUp": true,
+  "name": "Bastion's Charge",
   "panelSprite": 40,
-  "scriptKeys": ["lancersCharge"],
+  "scriptKeys": ["bastionsCharge"],
   "scriptVars": {
-    "lancersCharge": {
-      "rushDistance": 5,
+    "bastionsCharge": {
       "filter": "hostileOnly, aliveOnly, othersOnly",
-      "baseDamage": 5,
       "damageStat": "str",
-      "damageStatMultiplier": 1.5,
       "sound": 3,
       "bodyAnimation": "JumpAttack",
-      "stasisDurationMs": 5000,
       "animation": {
         "targetAnimation": 69,
         "animationSpeed": 100
       }
     }
   },
-  "templateKey": "lancers_charge"
+  "templateKey": "bastions_charge"
 }

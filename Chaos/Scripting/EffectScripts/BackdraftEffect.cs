@@ -15,8 +15,8 @@ namespace Chaos.Scripting.EffectScripts;
 /// <summary>
 ///     While active, whenever the caster takes damage, the attacker (and anything hostile near the attacker)
 ///     catches a fire explosion. Same periodic HP-snapshot-scan detection as
-///     <see cref="LancersRetributionEffect" />/<see cref="MoltenArmorEffect" />, but the payload is an AoE burst
-///     around the attacker instead of a reflect straight back at them.
+///     <see cref="MoltenArmorEffect" />, but the payload is an AoE burst around the attacker instead of a reflect
+///     straight back at them.
 /// </summary>
 public sealed class BackdraftEffect : IntervalEffectBase
 {

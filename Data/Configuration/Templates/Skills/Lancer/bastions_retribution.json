@@ -1,0 +1,18 @@
+{
+  "templateKey": "bastions_retribution",
+  "name": "Bastion's Retribution",
+  "description": "(Passive) Every strike against you is returned in kind. The stronger your defense, the harder the counter.",
+  "panelSprite": 50,
+  "class": "Bastion",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}
