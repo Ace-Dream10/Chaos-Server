@@ -1,0 +1,10 @@
+{
+  "templateKey": "sorcerer_choose_first_wind",
+  "text": "You have embraced Wind as the foundation of your path.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererChooseFirstElement"],
+  "scriptVars": {
+    "sorcererChooseFirstElement": { "element": "Wind" }
+  }
+}

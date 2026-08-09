@@ -1,0 +1,10 @@
+{
+  "templateKey": "sorcerer_choose_first_arcane",
+  "text": "You have embraced pure Arcane magic as the foundation of your path.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererChooseFirstElement"],
+  "scriptVars": {
+    "sorcererChooseFirstElement": { "element": "Arcane" }
+  }
+}

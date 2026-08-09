@@ -1,0 +1,10 @@
+{
+  "templateKey": "sorcerer_choose_first_water",
+  "text": "You have embraced Water as the foundation of your path.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererChooseFirstElement"],
+  "scriptVars": {
+    "sorcererChooseFirstElement": { "element": "Water" }
+  }
+}

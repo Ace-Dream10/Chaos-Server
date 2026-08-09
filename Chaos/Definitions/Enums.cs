@@ -50,3 +50,21 @@ public enum VisionType
     Blind,
     TrueBlind
 }
+
+/// <summary>
+///     One of the 5 elemental disciplines a Sorcerer can pick during progression (Floor 3's first pick, Floor 5's
+///     second pick). Server-internal only - deliberately separate from
+///     <see cref="Chaos.DarkAges.Definitions.Element" /> (the shared combat damage-element enum, which has no
+///     "Arcane" member and represents a different concept: a creature's current offensive/defensive damage type,
+///     not a Sorcerer's chosen specialization path). See <see cref="Chaos.Utilities.SorcererProgressionHelper" />
+///     for how a pair of these resolves to a final
+///     <see cref="Chaos.DarkAges.Definitions.AdvClass" /> specialization.
+/// </summary>
+public enum SorcererElement : byte
+{
+    Fire = 1,
+    Earth = 2,
+    Water = 3,
+    Wind = 4,
+    Arcane = 5
+}

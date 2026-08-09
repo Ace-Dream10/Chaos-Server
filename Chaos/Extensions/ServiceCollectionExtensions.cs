@@ -327,6 +327,7 @@ public static class ServiceCollectionExtensions
             services.AddTransient<IDialogFactory, DialogFactory>();
 
             services.AddSingleton<IEffectFactory, EffectFactory>();
+            services.AddSingleton<ISorcererModuleProvider, SorcererModuleProvider>();
 
             services.AddSimpleFactory<Guild>(typeof(string), typeof(string));
             services.AddSimpleFactory<IChaosLobbyClient, ChaosLobbyClient>(typeof(Socket));

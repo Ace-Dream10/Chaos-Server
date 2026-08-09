@@ -726,7 +726,15 @@ public enum AdvClass : byte
     #region Sorcerer elemental specialization (5 pure + 6 hybrid)
     Ignis = 1,
     Hydrosage = 2,
-    Tempest = 3,
+
+    /// <summary>
+    ///     Pure Wind specialization. Renamed from <c>Tempest</c> to resolve the naming collision with
+    ///     MartialArtist's Harpy specialization (also called Tempest) - confirmed resolved, per
+    ///     ELYSIUM_CLASS_DESIGN.md. Safe rename: no live save data had this value set (Sorcerer progression wasn't
+    ///     implemented yet), and enums serialize by name (JsonStringEnumConverter) so a live save with the old name
+    ///     would have needed a migration otherwise.
+    /// </summary>
+    Gale = 3,
     Earthshaper = 4,
     Arcanist = 5,
     Magma = 6,

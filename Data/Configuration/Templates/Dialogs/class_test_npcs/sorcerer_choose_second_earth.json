@@ -1,0 +1,10 @@
+{
+  "templateKey": "sorcerer_choose_second_earth",
+  "text": "Your path is set.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererChooseSecondElement"],
+  "scriptVars": {
+    "sorcererChooseSecondElement": { "element": "Earth" }
+  }
+}

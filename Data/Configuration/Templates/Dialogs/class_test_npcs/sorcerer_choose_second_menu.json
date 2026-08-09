@@ -1,0 +1,13 @@
+{
+  "templateKey": "sorcerer_choose_second_menu",
+  "text": "Choose your second element. Choosing the same element you started with keeps you on a pure path - choosing a different one forges a hybrid.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "sorcerer_choose_second_fire", "optionText": "Fire" },
+    { "dialogKey": "sorcerer_choose_second_earth", "optionText": "Earth" },
+    { "dialogKey": "sorcerer_choose_second_water", "optionText": "Water" },
+    { "dialogKey": "sorcerer_choose_second_wind", "optionText": "Wind" },
+    { "dialogKey": "sorcerer_choose_second_arcane", "optionText": "Arcane" },
+    { "dialogKey": "Close", "optionText": "Not yet" }
+  ]
+}

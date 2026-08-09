@@ -1,0 +1,13 @@
+{
+  "templateKey": "sorcerer_choose_first_menu",
+  "text": "Which element calls to you first?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "sorcerer_choose_first_fire", "optionText": "Fire" },
+    { "dialogKey": "sorcerer_choose_first_earth", "optionText": "Earth" },
+    { "dialogKey": "sorcerer_choose_first_water", "optionText": "Water" },
+    { "dialogKey": "sorcerer_choose_first_wind", "optionText": "Wind" },
+    { "dialogKey": "sorcerer_choose_first_arcane", "optionText": "Arcane" },
+    { "dialogKey": "Close", "optionText": "Not yet" }
+  ]
+}

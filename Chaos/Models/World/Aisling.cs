@@ -204,7 +204,8 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
             ScriptBase.GetScriptKey(typeof(ReapersKissScript)),
             ScriptBase.GetScriptKey(typeof(TricksterManaScript)),
             ScriptBase.GetScriptKey(typeof(ArcherResourceScript)),
-            ScriptBase.GetScriptKey(typeof(AscensionFloorTrackerScript))
+            ScriptBase.GetScriptKey(typeof(AscensionFloorTrackerScript)),
+            ScriptBase.GetScriptKey(typeof(SorcererProgressionScript))
         };
         Script = scriptProvider.CreateScript<IAislingScript, Aisling>(ScriptKeys, this);
     }

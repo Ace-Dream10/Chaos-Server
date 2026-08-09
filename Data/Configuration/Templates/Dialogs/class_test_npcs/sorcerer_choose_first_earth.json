@@ -1,0 +1,10 @@
+{
+  "templateKey": "sorcerer_choose_first_earth",
+  "text": "You have embraced Earth as the foundation of your path.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererChooseFirstElement"],
+  "scriptVars": {
+    "sorcererChooseFirstElement": { "element": "Earth" }
+  }
+}

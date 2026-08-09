@@ -1,0 +1,7 @@
+{
+  "templateKey": "sorcerer_element_status",
+  "text": "Checking your elemental path...",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["sorcererElementStatus"]
+}

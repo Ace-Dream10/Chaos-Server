@@ -4,6 +4,7 @@
   "type": "Menu",
   "options": [
     { "dialogKey": "sorcerer_test_npc_confirm", "optionText": "Become this class" },
-    { "dialogKey": "sorcerer_test_npc_info", "optionText": "About this class" }
+    { "dialogKey": "sorcerer_test_npc_info", "optionText": "About this class" },
+    { "dialogKey": "sorcerer_element_status", "optionText": "Choose your elemental path" }
   ]
 }
