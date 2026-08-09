@@ -37,6 +37,24 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
     private const int HoldTheLineBonusAggro = 15;
 
+    /// <summary>
+    ///     Slayer's Oath - bonus damage percent granted per Severance stack currently on the target. Placeholder,
+    ///     not balance-tested: +4% per stack, up to +20% at the 5-stack cap.
+    /// </summary>
+    private const decimal SlayersOathPctPerStack = 0.04m;
+
+    /// <summary>
+    ///     Merciless - the maximum bonus damage percent granted as the target's HP approaches 0. Placeholder, not
+    ///     balance-tested.
+    /// </summary>
+    private const decimal MercilessMaxBonusPct = 0.3m;
+
+    /// <summary>
+    ///     Overkill - how far from the killed monster the "nearest enemy" search looks for a target to roll excess
+    ///     damage into. Placeholder, not balance-tested.
+    /// </summary>
+    private const int OverkillRange = 5;
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -64,6 +82,35 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         //Boiling Blood - the tagged target takes 25% increased damage from every source
         if (target.Trackers.Tags.ContainsKey(BoilingBloodEffect.BoilingBloodTag))
             damage = Convert.ToInt32(damage * 1.25m);
+
+        //Mark of the Bane (Slayer) - the marked target takes increased damage from every source, per the tag's
+        //own stored percentage (evolves per tier, unlike Boiling Blood's fixed 25%)
+        if (target.Trackers.Tags.TryGetValue(MarkOfTheBaneEffect.BonusDamagePctTag, out var markPctStr) && int.TryParse(markPctStr, out var markPct))
+            damage = Convert.ToInt32(damage * (1 + (markPct / 100m)));
+
+        //Slayer's Oath (Slayer passive) - a true always-on passive, stateless like Bastion's Retribution: the
+        //longer you focus one enemy (the more Severance stacks it's carrying), the stronger your attacks against
+        //it become. Reuses Severance stacks as the "focus" proxy rather than inventing separate tracking.
+        if ((source is Aisling oathAisling)
+            && (oathAisling.UserStatSheet.BaseClass == BaseClass.Slayer)
+            && target.Trackers.Tags.TryGetValue(SeveranceEffect.StacksTag, out var oathStacksStr)
+            && int.TryParse(oathStacksStr, out var oathStacks)
+            && (oathStacks > 0))
+            damage = Convert.ToInt32(damage * (1 + (oathStacks * SlayersOathPctPerStack)));
+
+        //Merciless (Slayer passive) - a true always-on passive: the lower an enemy's health, the more damage you
+        //deal to it. Scales linearly from 0% bonus at full HP up to MercilessMaxBonusPct as HP approaches 0.
+        if ((source is Aisling mercilessAisling) && (mercilessAisling.UserStatSheet.BaseClass == BaseClass.Slayer))
+        {
+            var targetMaxHp = target.StatSheet.EffectiveMaximumHp;
+
+            if (targetMaxHp > 0)
+            {
+                var targetHpPct = target.StatSheet.CurrentHp / (decimal)targetMaxHp;
+                var mercilessBonusPct = MercilessMaxBonusPct * (1 - targetHpPct);
+                damage = Convert.ToInt32(damage * (1 + mercilessBonusPct));
+            }
+        }
 
         if (damage <= 0)
             return 0;
@@ -308,6 +355,10 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
                 break;
             case Monster monster:
+                //Overkill (Slayer passive) needs the pre-hit HP to compute excess damage below - captured here
+                //since SubtractHp clamps at 0 and the original value would otherwise be lost
+                var monsterHpBeforeHit = monster.StatSheet.CurrentHp;
+
                 monster.StatSheet.SubtractHp(damage);
                 monster.ShowHealth();
                 monster.Script.OnAttacked(source, damage);
@@ -339,6 +390,25 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     if (monster.Trackers.Tags.ContainsKey(BlackLotusEffect.BlackLotusTag))
                         BlackLotusEffect.TriggerChainExplosion(monster);
 
+                    //Overkill (Slayer passive) - a true always-on passive: excess damage from a killing blow rolls
+                    //into the nearest enemy. Has to fire here too, before OnDeath removes the monster from the map
+                    //and its position becomes unavailable for the nearby-enemy scan.
+                    if ((source is Aisling overkillAisling) && (overkillAisling.UserStatSheet.BaseClass == BaseClass.Slayer))
+                    {
+                        var excessDamage = damage - monsterHpBeforeHit;
+
+                        if (excessDamage > 0)
+                        {
+                            var nearestEnemy = monster.MapInstance
+                                                      .GetEntitiesWithinRange<Monster>(monster, OverkillRange)
+                                                      .Where(nearby => nearby.IsAlive && (nearby != monster))
+                                                      .ClosestOrDefault(monster);
+
+                            if (nearestEnemy != null)
+                                ApplyDamage(source, nearestEnemy, script, excessDamage);
+                        }
+                    }
+
                     monster.Script.OnDeath();
                     source.Trackers.LastKillTime = DateTime.UtcNow;
                     source.Trackers.LastKilledMonsterMaxHp = Convert.ToInt32(monster.StatSheet.EffectiveMaximumHp);
@@ -349,6 +419,30 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                 merchant.Script.OnAttacked(source, damage);
 
                 break;
+        }
+
+        //Slayer lifesteal (Cold Blood / Crimson Harvest) - heals the source for a percentage of the damage just
+        //dealt, regardless of target type. The two tags stack additively if both happen to be active at once.
+        if ((source is Aisling lifestealAisling) && lifestealAisling.IsAlive)
+        {
+            var lifestealPct = 0;
+
+            if (lifestealAisling.Trackers.Tags.TryGetValue(ColdBloodEffect.LifestealTag, out var coldBloodPctStr) && int.TryParse(coldBloodPctStr, out var coldBloodPct))
+                lifestealPct += coldBloodPct;
+
+            if (lifestealAisling.Trackers.Tags.TryGetValue(CrimsonHarvestEffect.LifestealTag, out var harvestPctStr) && int.TryParse(harvestPctStr, out var harvestPct))
+                lifestealPct += harvestPct;
+
+            if (lifestealPct > 0)
+            {
+                var healAmount = Convert.ToInt32(damage * (lifestealPct / 100m));
+
+                if (healAmount > 0)
+                {
+                    lifestealAisling.StatSheet.AddHp(healAmount);
+                    lifestealAisling.Client.SendAttributes(StatUpdateType.Vitality);
+                }
+            }
         }
 
         return damage;

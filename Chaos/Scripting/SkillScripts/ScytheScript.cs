@@ -13,6 +13,13 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
+/// <summary>
+///     Reap your accumulated Severance stacks for devastating damage - the signature Slayer finisher. One of
+///     Slayer's 5 evolving abilities - tier scales with the skill's own level, using the same level-bracket
+///     convention <see cref="BastionsChargeScript" /> established (1-2/3-4/5-6/7+ &#8594; tier I-IV). Per the
+///     locked design's evolution note ("bigger Execution burst, better scaling"), both the flat base damage and
+///     the per-stack multiplier scale per tier.
+/// </summary>
 public class ScytheScript : ConfigurableSkillScriptBase
 {
     private const string SeveranceTargetTag = "severanceTarget";
@@ -31,6 +38,7 @@ public class ScytheScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         var endPoint = source.DirectionalOffset(source.Direction, Range);
 
@@ -73,7 +81,7 @@ public class ScytheScript : ConfigurableSkillScriptBase
         if (stackCount == 0)
             context.SourceAisling?.SendOrangeBarMessage("No severance stacks on target.");
 
-        var damage = (BaseDamage ?? 0) + (stackCount * (StackMultiplier ?? 0));
+        var damage = tier.BaseDamage + (stackCount * tier.StackMultiplier);
 
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
@@ -96,16 +104,23 @@ public class ScytheScript : ConfigurableSkillScriptBase
             map.PlaySound(Sound.Value, Point.From(target));
     }
 
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested.
+    /// </summary>
+    private (int BaseDamage, int StackMultiplier) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 2 => (100, 50),
+            <= 4 => (130, 65),
+            <= 6 => (165, 80),
+            _    => (200, 100)
+        };
+
     #region ScriptVars
     /// <summary>
     ///     The animation played on the target on hit
     /// </summary>
     public Animation? Animation { get; init; }
-
-    /// <summary>
-    ///     The flat portion of the damage dealt, before the severance stack bonus
-    /// </summary>
-    public int? BaseDamage { get; init; }
 
     /// <summary>
     ///     The body animation played by the caster when the skill is used
@@ -126,10 +141,5 @@ public class ScytheScript : ConfigurableSkillScriptBase
     ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
-
-    /// <summary>
-    ///     The bonus damage added per severance stack on the target
-    /// </summary>
-    public int? StackMultiplier { get; init; }
     #endregion
 }

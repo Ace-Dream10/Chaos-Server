@@ -13,7 +13,13 @@ namespace Chaos.Scripting.EffectScripts;
 /// </summary>
 public sealed class SeveranceEffect : EffectBase
 {
-    private const string StacksTag = "severance_stacks";
+    /// <summary>
+    ///     Public so <see cref="Chaos.Scripting.FunctionalScripts.ApplyDamage.ApplyAttackDamageScript" /> can read the
+    ///     current stack count directly for Slayer's Oath's damage scaling, the same way it already reads other
+    ///     effects' tags (e.g. <see cref="BoilingBloodEffect.BoilingBloodTag" />).
+    /// </summary>
+    public const string StacksTag = "severance_stacks";
+
     private const string SeveredTag = "severed";
     private const int MaxStacks = 5;
 

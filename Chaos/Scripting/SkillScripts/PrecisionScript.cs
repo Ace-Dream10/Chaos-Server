@@ -6,7 +6,6 @@ using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
-using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -14,17 +13,18 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class SeveranceStrikeScript : ConfigurableSkillScriptBase
+/// <summary>
+///     A precise strike against your target. If they're affected by Mark of the Bane, this attack ignores a
+///     portion of their defense AND refreshes Mark of the Bane's duration - the intended combo loop: apply Mark
+///     of the Bane, hit with Precision (bonus damage + keeps the mark alive), repeat. Not one of Slayer's 5
+///     evolving abilities - flat numbers, per the locked design.
+/// </summary>
+public class PrecisionScript : ConfigurableSkillScriptBase
 {
-    private const string SeveranceTargetTag = "severanceTarget";
-    private const string SeveredTag = "severed";
-    private const string StacksTag = "severance_stacks";
-    private const int MpPerStack = 20;
-
     private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public SeveranceStrikeScript(Skill subject)
+    public PrecisionScript(Skill subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -35,31 +35,28 @@ public class SeveranceStrikeScript : ConfigurableSkillScriptBase
         var map = context.TargetMap;
 
         var targetPoint = source.DirectionalOffset(source.Direction, Range);
-
-        var target = map.GetEntitiesAtPoints<Creature>(targetPoint)
-                        .TopOrDefault();
+        var target = map.GetEntitiesAtPoints<Creature>(targetPoint).TopOrDefault();
 
         source.AnimateBody(BodyAnimation);
 
         if ((target == null) || !Filter.IsValidTarget(source, target))
             return;
 
-        var damage = (BaseDamage ?? 0) + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.STR) * (DamageStatMultiplier ?? 1));
+        var rawDamage = (BaseDamage ?? 0) + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.STR) * (DamageStatMultiplier ?? 1));
+
+        var isMarked = target.Effects.TryGetEffect("Mark of the Bane", out var markEffect);
+
+        var damage = isMarked
+            ? DefenseIgnoreHelper.ApplyIgnoreDefense(target, rawDamage, MarkedIgnoreDefensePct)
+            : rawDamage;
 
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
 
-        SeveranceTargetSync.SwitchTargetIfNeeded(context.SourceAisling, map, target, SeveranceTargetTag, StacksTag, SeveredTag);
-
-        target.Effects.Apply(
-            source,
-            new SeveranceEffect
-            {
-                StacksToApply = StacksToApply
-            },
-            this);
-
-        SeveranceTargetSync.SyncMpToStacks(context.SourceAisling, target, StacksTag, MpPerStack);
+        //Refreshes the mark's remaining time directly (not SetDuration - Remaining is time-left regardless of the
+        //mark's original tier-based total Duration, which is exactly the "keeps the mark alive" semantic wanted)
+        if (isMarked && (markEffect != null))
+            markEffect.Remaining = TimeSpan.FromMilliseconds(RefreshedMarkDurationMs);
 
         if (Animation != null)
             target.Animate(Animation, source.Id);
@@ -95,23 +92,29 @@ public class SeveranceStrikeScript : ConfigurableSkillScriptBase
     public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
-    ///     The filter used to determine whether the tile directly in front of the caster holds a valid target
+    ///     The filter used to determine whether the target tile holds a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     The range, in tiles, at which the target is checked - should stay 1 for a melee strike
+    ///     The percentage (0-1) of the target's defense this strike ignores when they're affected by Mark of the
+    ///     Bane
+    /// </summary>
+    public decimal MarkedIgnoreDefensePct { get; init; } = 0.3m;
+
+    /// <summary>
+    ///     The range, in tiles, at which the target is checked
     /// </summary>
     public int Range { get; init; } = 1;
+
+    /// <summary>
+    ///     The duration, in milliseconds, Mark of the Bane is refreshed to when Precision refreshes it
+    /// </summary>
+    public int RefreshedMarkDurationMs { get; init; } = 10000;
 
     /// <summary>
     ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
-
-    /// <summary>
-    ///     The number of Severance stacks this strike applies
-    /// </summary>
-    public int StacksToApply { get; init; } = 1;
     #endregion
 }

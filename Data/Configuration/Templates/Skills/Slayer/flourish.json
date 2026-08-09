@@ -1,7 +1,7 @@
 {
   "templateKey": "flourish",
   "name": "Flourish",
-  "description": "A rapid series of precise forward slashes - a deadly fencing combo.",
+  "description": "A rapid series of precise forward slashes - a deadly fencing combo. Each strike marks the target with Severance.",
   "panelSprite": 46,
   "class": "Slayer",
   "level": 1,
@@ -17,8 +17,6 @@
   "scriptKeys": ["flourish"],
   "scriptVars": {
     "flourish": {
-      "hitCount": 5,
-      "hitIntervalMs": 150,
       "baseDamage": 40,
       "damageStat": "str",
       "damageStatMultiplier": 2,

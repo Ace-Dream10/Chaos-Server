@@ -1,0 +1,32 @@
+{
+  "templateKey": "precision",
+  "name": "Precision",
+  "description": "A precise strike. If the target is affected by Mark of the Bane, this attack ignores a portion of their defense and refreshes the mark's duration.",
+  "panelSprite": 46,
+  "class": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 6000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [{ "templateKey": "mark_of_the_bane" }],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["precision"],
+  "scriptVars": {
+    "precision": {
+      "baseDamage": 50,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "markedIgnoreDefensePct": 0.3,
+      "refreshedMarkDurationMs": 10000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

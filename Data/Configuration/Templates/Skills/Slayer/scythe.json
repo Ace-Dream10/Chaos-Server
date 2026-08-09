@@ -17,8 +17,6 @@
   "scriptKeys": ["scythe"],
   "scriptVars": {
     "scythe": {
-      "baseDamage": 100,
-      "stackMultiplier": 50,
       "range": 2,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "None",

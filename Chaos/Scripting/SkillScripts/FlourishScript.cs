@@ -7,6 +7,7 @@ using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -18,6 +19,15 @@ namespace Chaos.Scripting.SkillScripts;
 ///     A rapid series of forward strikes on the tile directly in front of the caster. Unlike Cyclone, facing never
 ///     changes and the caster isn't locked in place - it's a fast fencing combo, not a channel.
 /// </summary>
+/// <remarks>
+///     One of Slayer's 5 evolving abilities - tier scales with the skill's own level, using the same level-bracket
+///     convention <see cref="BastionsChargeScript" /> established (1-2/3-4/5-6/7+ &#8594; tier I-IV). Per the
+///     locked design's evolution note ("more slashes each evolution, faster execution, better Execution
+///     generation"): hit count and speed scale per tier, and - fixing a real gap found during Slayer's verification
+///     pass, not carried over from before - each hit now actually applies a Severance stack (it previously dealt
+///     pure damage with no stack generation at all, which didn't match "better Execution generation"). Stacks
+///     applied per hit also scale with tier.
+/// </remarks>
 public class FlourishScript : ConfigurableSkillScriptBase
 {
     private readonly List<PendingHit> PendingHits = [];
@@ -32,17 +42,30 @@ public class FlourishScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         source.AnimateBody(BodyAnimation);
 
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, source);
 
-        ExecuteHit(source, map);
+        ExecuteHit(source, map, tier.StacksPerHit);
 
-        for (var i = 1; i < HitCount; i++)
-            PendingHits.Add(new PendingHit(source, map, TimeSpan.FromMilliseconds(HitIntervalMs * i)));
+        for (var i = 1; i < tier.HitCount; i++)
+            PendingHits.Add(new PendingHit(source, map, tier.StacksPerHit, TimeSpan.FromMilliseconds(tier.HitIntervalMs * i)));
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested.
+    /// </summary>
+    private (int HitCount, int HitIntervalMs, int StacksPerHit) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 2 => (5, 150, 1),
+            <= 4 => (6, 135, 1),
+            <= 6 => (7, 120, 2),
+            _    => (8, 100, 2)
+        };
 
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
@@ -59,11 +82,11 @@ public class FlourishScript : ConfigurableSkillScriptBase
             PendingHits.RemoveAt(0);
 
             if (pending.Source.IsAlive)
-                ExecuteHit(pending.Source, pending.Map);
+                ExecuteHit(pending.Source, pending.Map, pending.StacksPerHit);
         }
     }
 
-    private void ExecuteHit(Creature source, MapInstance map)
+    private void ExecuteHit(Creature source, MapInstance map, int stacksPerHit)
     {
         var targetPoint = source.DirectionalOffset(source.Direction);
         var target = map.GetEntitiesAtPoints<Creature>(targetPoint).TopOrDefault();
@@ -77,15 +100,19 @@ public class FlourishScript : ConfigurableSkillScriptBase
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
 
+        //Better Execution generation per tier - each Flourish hit now applies a Severance stack, scaling with tier
+        target.Effects.Apply(source, new SeveranceEffect { StacksToApply = stacksPerHit }, this);
+
         if (Animation != null)
             target.Animate(Animation, source.Id);
     }
 
-    private sealed class PendingHit(Creature source, MapInstance map, TimeSpan remaining)
+    private sealed class PendingHit(Creature source, MapInstance map, int stacksPerHit, TimeSpan remaining)
     {
         public MapInstance Map { get; } = map;
         public TimeSpan Remaining { get; set; } = remaining;
         public Creature Source { get; } = source;
+        public int StacksPerHit { get; } = stacksPerHit;
     }
 
     #region ScriptVars
@@ -120,16 +147,6 @@ public class FlourishScript : ConfigurableSkillScriptBase
     ///     The filter used to determine whether the tile directly in front of the caster holds a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
-
-    /// <summary>
-    ///     How many hits land total, including the immediate first one
-    /// </summary>
-    public int HitCount { get; init; } = 5;
-
-    /// <summary>
-    ///     The number of milliseconds between each hit
-    /// </summary>
-    public int HitIntervalMs { get; init; } = 150;
 
     /// <summary>
     ///     Sound played once, on cast

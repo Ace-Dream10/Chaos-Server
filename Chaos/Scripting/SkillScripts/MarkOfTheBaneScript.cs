@@ -14,17 +14,22 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class DeepCutScript : ConfigurableSkillScriptBase
+/// <summary>
+///     A precise strike that marks the target with Mark of the Bane - the "marks a target" step of Slayer's
+///     identity loop. See <see cref="MarkOfTheBaneEffect" /> for the mark's mechanical effect.
+/// </summary>
+/// <remarks>
+///     One of Slayer's 5 evolving abilities - tier scales with the skill's own level, using the same
+///     level-bracket convention <see cref="BastionsChargeScript" /> established. Per the locked design's
+///     evolution note ("higher damage cap, longer duration, stronger mark effects"), the mark's bonus damage
+///     percent and duration both scale per tier.
+/// </remarks>
+public class MarkOfTheBaneScript : ConfigurableSkillScriptBase
 {
-    private const string SeveranceTargetTag = "severanceTarget";
-    private const string SeveredTag = "severed";
-    private const string StacksTag = "severance_stacks";
-    private const int MpPerStack = 20;
-
     private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public DeepCutScript(Skill subject)
+    public MarkOfTheBaneScript(Skill subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -33,11 +38,10 @@ public class DeepCutScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         var targetPoint = source.DirectionalOffset(source.Direction, Range);
-
-        var target = map.GetEntitiesAtPoints<Creature>(targetPoint)
-                        .TopOrDefault();
+        var target = map.GetEntitiesAtPoints<Creature>(targetPoint).TopOrDefault();
 
         source.AnimateBody(BodyAnimation);
 
@@ -49,17 +53,9 @@ public class DeepCutScript : ConfigurableSkillScriptBase
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
 
-        SeveranceTargetSync.SwitchTargetIfNeeded(context.SourceAisling, map, target, SeveranceTargetTag, StacksTag, SeveredTag);
-
-        target.Effects.Apply(
-            source,
-            new SeveranceEffect
-            {
-                StacksToApply = StacksToApply
-            },
-            this);
-
-        SeveranceTargetSync.SyncMpToStacks(context.SourceAisling, target, StacksTag, MpPerStack);
+        var markEffect = new MarkOfTheBaneEffect { BonusDamagePct = tier.BonusDamagePct };
+        markEffect.SetDuration(TimeSpan.FromMilliseconds(tier.DurationMs));
+        target.Effects.Apply(source, markEffect, this);
 
         if (Animation != null)
             target.Animate(Animation, source.Id);
@@ -67,6 +63,18 @@ public class DeepCutScript : ConfigurableSkillScriptBase
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, targetPoint);
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested.
+    /// </summary>
+    private (int BonusDamagePct, int DurationMs) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 2 => (15, 10000),
+            <= 4 => (20, 12000),
+            <= 6 => (25, 14000),
+            _    => (30, 16000)
+        };
 
     #region ScriptVars
     /// <summary>
@@ -95,12 +103,12 @@ public class DeepCutScript : ConfigurableSkillScriptBase
     public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
-    ///     The filter used to determine whether the tile directly in front of the caster holds a valid target
+    ///     The filter used to determine whether the target tile holds a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     The range, in tiles, at which the target is checked - should stay 1 for a melee strike
+    ///     The range, in tiles, at which the target is checked
     /// </summary>
     public int Range { get; init; } = 1;
 
@@ -108,10 +116,5 @@ public class DeepCutScript : ConfigurableSkillScriptBase
     ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
-
-    /// <summary>
-    ///     The number of Severance stacks this strike applies
-    /// </summary>
-    public int StacksToApply { get; init; } = 2;
     #endregion
 }

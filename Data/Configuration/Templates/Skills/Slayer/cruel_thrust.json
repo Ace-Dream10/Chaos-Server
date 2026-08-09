@@ -1,26 +1,26 @@
 {
-  "templateKey": "deep_cut",
-  "name": "Deep Cut",
-  "description": "A vicious slash that applies two Severance marks at once.",
+  "templateKey": "cruel_thrust",
+  "name": "Cruel Thrust",
+  "description": "A cruel thrust that opens a bleeding wound and partially ignores armor, marking the target with Severance.",
   "panelSprite": 46,
   "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 8000,
+  "cooldownMs": 9000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 6, "dex": 3, "int": 1, "wis": 1, "con": 1 }
+    "requiredStats": { "str": 6, "dex": 4, "int": 1, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["deepCut"],
+  "scriptKeys": ["cruelThrust"],
   "scriptVars": {
-    "deepCut": {
-      "baseDamage": 70,
+    "cruelThrust": {
+      "baseDamage": 55,
       "damageStat": "str",
-      "damageStatMultiplier": 3,
-      "stacksToApply": 2,
+      "damageStatMultiplier": 2,
+      "bleedDurationMs": 5000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "range": 1,
       "bodyAnimation": "None",

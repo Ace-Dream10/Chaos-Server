@@ -1,27 +1,28 @@
 {
-  "templateKey": "ricochet",
-  "name": "Ricochet",
-  "description": "A slashing strike that bounces between nearby enemies with decreasing force.",
+  "templateKey": "measured_slice",
+  "name": "Measured Slice",
+  "description": "A precise strike that ignores a portion of the target's defense.",
   "panelSprite": 46,
   "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 8000,
+  "cooldownMs": 7000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+    "requiredStats": { "str": 5, "dex": 4, "int": 1, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["ricochet"],
+  "scriptKeys": ["measuredSlice"],
   "scriptVars": {
-    "ricochet": {
-      "baseDamage": 80,
+    "measuredSlice": {
+      "baseDamage": 60,
       "damageStat": "str",
-      "damageStatMultiplier": 3,
-      "jumpRange": 3,
+      "damageStatMultiplier": 2.5,
+      "ignoreDefensePct": 0.5,
       "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 10, "animationSpeed": 100 },
       "sound": 98

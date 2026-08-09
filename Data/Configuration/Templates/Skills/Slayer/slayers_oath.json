@@ -1,0 +1,18 @@
+{
+  "templateKey": "slayers_oath",
+  "name": "Slayer's Oath",
+  "description": "(Passive) The longer you focus one enemy, the stronger you become against it - your attacks deal increased damage to targets carrying Severance stacks, scaling with stack count.",
+  "panelSprite": 46,
+  "class": "Slayer",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

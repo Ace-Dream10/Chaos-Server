@@ -1,22 +1,24 @@
 {
-  "templateKey": "cold_blood",
-  "name": "Cold Blood",
-  "description": "Enter a cold calculated state - your Severance potential is maximized and you gain lifesteal for the duration.",
+  "templateKey": "crimson_harvest",
+  "name": "Crimson Harvest",
+  "description": "For 8 seconds, heal for a percentage of all damage you deal. (Renamed from Bloodlust.)",
   "panelSprite": 46,
   "class": "Slayer",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 45000,
+  "cooldownMs": 30000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
     "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 1, "con": 3 }
   },
-  "scriptKeys": ["coldBlood"],
+  "scriptKeys": ["crimsonHarvest"],
   "scriptVars": {
-    "coldBlood": {
+    "crimsonHarvest": {
+      "durationMs": 8000,
+      "lifestealPct": 20,
       "bodyAnimation": "None",
       "sound": 10
     }

@@ -1,0 +1,30 @@
+{
+  "templateKey": "mark_of_the_bane",
+  "name": "Mark of the Bane",
+  "description": "A precise strike that marks the target - while marked, they take increased damage from all sources.",
+  "panelSprite": 46,
+  "class": "Slayer",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 4, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["markOfTheBane"],
+  "scriptVars": {
+    "markOfTheBane": {
+      "baseDamage": 55,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 1,
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 56, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

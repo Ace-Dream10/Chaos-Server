@@ -8,11 +8,16 @@ using Chaos.Models.World.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Shared helper for the Slayer Severance skills (<see cref="SeveranceStrikeScript" />, <see cref="DeepCutScript" />).
-///     The caster's MP bar doubles as a visual indicator of stacks on their current Severance target: 0 stacks = 0
-///     MP, 5 stacks (max) = 100 MP. Switching targets clears the old target's stacks and resets MP, since stacks are
-///     meant to be built on a single target at a time.
+///     Shared helper for Slayer skills that apply Severance stacks to a single target (currently
+///     <see cref="CruelThrustScript" />). The caster's MP bar doubles as a visual indicator of stacks on their
+///     current Severance target: 0 stacks = 0 MP, 5 stacks (max) = 100 MP. Switching targets clears the old
+///     target's stacks and resets MP, since stacks are meant to be built on a single target at a time.
 /// </summary>
+/// <remarks>
+///     Standalone - no dependency on the retired Severance Strike/Deep Cut scripts this originally served. Those
+///     were removed as pre-redesign orphans; this helper survived because the mechanic it supports (Severance
+///     stacking) is still very much part of the locked kit.
+/// </remarks>
 internal static class SeveranceTargetSync
 {
     /// <summary>
