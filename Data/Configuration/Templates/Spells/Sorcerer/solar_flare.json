@@ -1,35 +1,23 @@
 {
   "templateKey": "solar_flare",
   "name": "Solar Flare",
-  "description": "Unleash a blinding, searing flare that scorches and blinds every enemy nearby.",
+  "description": "Empower yourself with solar fire, temporarily increasing Fire damage and Burn application.",
   "panelSprite": 39,
   "class": "Sorcerer",
   "spellType": "NoTarget",
-  "cooldownMs": 60000,
+  "cooldownMs": 45000,
   "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "scriptKeys": ["damage", "applyEffect"],
+  "scriptKeys": ["solarFlare"],
   "scriptVars": {
-    "damage": {
-      "baseDamage": 200,
-      "damageStat": "int",
-      "damageStatMultiplier": 5,
-      "element": "Fire",
-      "shape": "allAround",
-      "range": 3,
-      "filter": "hostileOnly, aliveOnly, othersOnly",
+    "solarFlare": {
+      "fireDamageBonusPct": 25,
+      "bonusKindlingChance": 0.2,
+      "durationMs": 12000,
       "bodyAnimation": "WizardCast",
-      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
       "sound": 167
-    },
-    "applyEffect": {
-      "effectKey": "Blackout",
-      "effectDurationOverride": "00:00:03.000",
-      "shape": "allAround",
-      "range": 3,
-      "filter": "hostileOnly, aliveOnly, othersOnly"
     }
   }
 }

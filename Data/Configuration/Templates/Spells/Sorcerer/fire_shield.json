@@ -1,0 +1,24 @@
+{
+  "templateKey": "fire_shield",
+  "name": "Fire Shield",
+  "description": "Surround yourself with a protective flame barrier. Absorbs damage, then erupts - damaging and Burning nearby enemies - when broken or when it expires.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 25000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["fireShield"],
+  "scriptVars": {
+    "fireShield": {
+      "shieldAmount": 150,
+      "eruptDamage": 60,
+      "eruptBurnStacks": 2,
+      "durationMs": 15000,
+      "bodyAnimation": "WizardCast",
+      "sound": 167
+    }
+  }
+}

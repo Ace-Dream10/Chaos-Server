@@ -721,9 +721,13 @@ via different spell histories (different Tier II/III blocks along the
 way), so two players can reach the same final specialization through
 different journeys.
 
-**Structural rule (every final Sorcerer build):** 12 active spells, 3
+**Structural rule (every final Sorcerer build):** 11 active spells, 3
 passives, 5 evolving spells, 4 progression tiers (3 active + 1 passive at
-Tiers I–III, 3 signature actives at Tier IV with no passive).
+Tiers I–III, 3 signature actives at Tier IV with no passive). *(Revised
+from 12 active/15 total - Shadow Bolt was removed from Shared Tier I
+entirely, locked decision, see below. Every path is 14 total abilities
+until a deferred future project designs 11 new Tier IV abilities [one
+per path] to restore the count to 15 - not happening now, just tracked.)*
 
 **Confirmed cross-class insight:** the Tier I–IV floor-tied evolving
 schedule described below isn't Sorcerer-specific — it's the general
@@ -772,11 +776,13 @@ done.
 ---
 
 **Shared Tier I — Arcane Fundamentals (every Sorcerer):**
+*(⚠️ LOCKED revision: Shadow Bolt removed entirely — it introduced an unexplained "dark energy"
+theme with no connection to the rest of the 11-path elemental system. Shared Tier I is now 3
+items, not 4.)*
 | Type | Ability | Evolves | Description |
 |---|---|:---:|---|
 | Active | Arcane Bolt | No | Fire a basic projectile of pure Arcane energy. |
 | Active | Arcane Gate | Arcanist only | Teleport to a selected location. Arcanist is the only specialization that continues evolving this Tier I spell. |
-| Active | Shadow Bolt | No | Launch a basic bolt of dark energy — every Sorcerer's early non-elemental attack. |
 | Passive | Arcane Precision | — | The first spell cast against an enemy deals increased damage. |
 
 ---

@@ -17,8 +17,9 @@ namespace Chaos.Services.Factories.Abstractions;
 public interface ISorcererModuleProvider
 {
     /// <summary>
-    ///     The Shared Tier I spells every Sorcerer receives (Arcane Bolt, Arcane Gate, Shadow Bolt + Arcane
-    ///     Precision passive), regardless of eventual specialization.
+    ///     The Shared Tier I spells every Sorcerer receives (Arcane Bolt, Arcane Gate + Arcane Precision passive -
+    ///     3 items, not 4; Shadow Bolt was removed from the locked design entirely as an unexplained "dark energy"
+    ///     theme with no connection to the rest of the 11-path system), regardless of eventual specialization.
     /// </summary>
     IReadOnlyList<string> GetTierISpellKeys();
 

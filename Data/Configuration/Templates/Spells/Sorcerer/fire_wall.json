@@ -1,0 +1,29 @@
+{
+  "templateKey": "fire_wall",
+  "name": "Fire Wall",
+  "description": "Create a wall of flame on the ground. Enemies crossing it take Fire damage and may be Burned.",
+  "panelSprite": 39,
+  "class": "Sorcerer",
+  "spellType": "NoTarget",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["hazardField"],
+  "scriptVars": {
+    "hazardField": {
+      "footprint": "grid3x3",
+      "hazardTemplateKey": "elemental_hazard",
+      "baseDamage": 20,
+      "damageStat": "int",
+      "damageStatMultiplier": 1,
+      "pulseIntervalMs": 500,
+      "durationMs": 8000,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "WizardCast",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 167
+    }
+  }
+}

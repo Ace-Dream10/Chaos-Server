@@ -1,0 +1,18 @@
+{
+  "templateKey": "arcane_precision",
+  "name": "Arcane Precision",
+  "description": "(Passive) The first spell you cast against an enemy deals increased damage.",
+  "panelSprite": 41,
+  "class": "Sorcerer",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

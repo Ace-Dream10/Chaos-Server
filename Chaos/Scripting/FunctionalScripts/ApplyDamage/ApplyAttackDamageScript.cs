@@ -11,6 +11,7 @@ using Chaos.Scripting.Abstractions;
 using Chaos.Scripting.AislingScripts;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
 namespace Chaos.Scripting.FunctionalScripts.ApplyDamage;
@@ -54,6 +55,24 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     ///     damage into. Placeholder, not balance-tested.
     /// </summary>
     private const int OverkillRange = 5;
+
+    /// <summary>
+    ///     Arcane Precision (Sorcerer Shared Tier I passive) - the damage multiplier applied on the first spell a
+    ///     given Sorcerer casts against a given target. Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal ArcanePrecisionMultiplier = 1.25m;
+
+    /// <summary>
+    ///     Kindling (Sorcerer, Fire Tier II passive) - the chance a Fire spell hit applies a Burn stack. Placeholder,
+    ///     not balance-tested.
+    /// </summary>
+    private const double KindlingProcChance = 0.3;
+
+    /// <summary>
+    ///     Scorch (Sorcerer, Fire Tier III passive) - the damage multiplier against Burned enemies. Placeholder,
+    ///     not balance-tested.
+    /// </summary>
+    private const decimal ScorchMultiplier = 1.2m;
 
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
@@ -110,6 +129,58 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                 var mercilessBonusPct = MercilessMaxBonusPct * (1 - targetHpPct);
                 damage = Convert.ToInt32(damage * (1 + mercilessBonusPct));
             }
+        }
+
+        //Arcane Precision (Sorcerer Shared Tier I passive) - a true always-on passive: the first spell cast
+        //against a given enemy deals increased damage. Tracked per (attacker, target) pair via a tag on the
+        //target - the bonus is specific to a given enemy for a given Sorcerer, not a global "first cast ever"
+        //flag, so a different Sorcerer (or the same one against a different target) still gets their own bonus.
+        //Only applies to spell damage ("the first SPELL cast"), not skills/assail.
+        if ((source is Aisling arcanePrecisionAisling)
+            && (arcanePrecisionAisling.UserStatSheet.BaseClass == BaseClass.Sorcerer)
+            && (script is ISpellScript))
+        {
+            var arcanePrecisionTag = $"arcane_precision_hit_{source.Id}";
+
+            if (!target.Trackers.Tags.ContainsKey(arcanePrecisionTag))
+            {
+                damage = Convert.ToInt32(damage * ArcanePrecisionMultiplier);
+                target.Trackers.Tags[arcanePrecisionTag] = bool.TrueString;
+            }
+        }
+
+        //Scorch (Sorcerer, Fire Tier III passive) - deal increased damage to enemies affected by Burn. Gated on
+        //having actually learned Scorch (not just BaseClass == Sorcerer), since different Sorcerers have
+        //different Tier II/III passives depending on their element picks - see Kindling below for the same gate.
+        if ((source is Aisling scorchAisling)
+            && (scorchAisling.UserStatSheet.BaseClass == BaseClass.Sorcerer)
+            && scorchAisling.SpellBook.ContainsByTemplateKey("scorch")
+            && target.Trackers.Tags.ContainsKey(BurnEffect.StacksTag))
+            damage = Convert.ToInt32(damage * ScorchMultiplier);
+
+        //Solar Flare (Sorcerer, Fire Tier II active buff) - bonus Fire-element damage while active
+        if ((source.Trackers.LastAttackElement == Element.Fire)
+            && source.Trackers.Tags.TryGetValue(SolarFlareEffect.FireDamageBonusPctTag, out var solarFlarePctStr)
+            && int.TryParse(solarFlarePctStr, out var solarFlarePct))
+            damage = Convert.ToInt32(damage * (1 + (solarFlarePct / 100m)));
+
+        //Kindling (Sorcerer, Fire Tier II passive) - Fire spells have a chance to apply Burn. Same "has actually
+        //learned this passive" gate as Scorch above. Checked after Scorch reads Burn's presence, so this
+        //particular hit's own proc doesn't retroactively grant itself Scorch's bonus. Solar Flare's own bonus
+        //chance (if active) adds directly onto Kindling's base roll rather than being a second independent proc.
+        if ((source is Aisling kindlingAisling)
+            && (kindlingAisling.UserStatSheet.BaseClass == BaseClass.Sorcerer)
+            && kindlingAisling.SpellBook.ContainsByTemplateKey("kindling")
+            && (source.Trackers.LastAttackElement == Element.Fire))
+        {
+            var procChance = KindlingProcChance;
+
+            if (source.Trackers.Tags.TryGetValue(SolarFlareEffect.BonusKindlingChanceTag, out var bonusChanceStr)
+                && double.TryParse(bonusChanceStr, System.Globalization.CultureInfo.InvariantCulture, out var bonusChance))
+                procChance += bonusChance;
+
+            if (Random.Shared.NextDouble() < procChance)
+                target.Effects.Apply(source, new BurnEffect(), script);
         }
 
         if (damage <= 0)
@@ -187,6 +258,21 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         aisling.Effects.Terminate("Stacia's Bubble");
                     else
                         aisling.Trackers.Counters.Set(StaciasBubbleEffect.BubbleShieldCounter, bubbleShield);
+                }
+
+                //Fire Shield (Sorcerer, Ignis Tier III) - same absorb shape as Stacia's Bubble above, but breaking
+                //it (not just its natural expiry) also erupts - see FireShieldEffect.OnTerminated for the eruption
+                //itself, which fires either way since Terminate() is called on break here.
+                if (aisling.Trackers.Counters.TryGetValue(FireShieldEffect.ShieldCounter, out var fireShield) && (fireShield > 0))
+                {
+                    var absorbed = Math.Min(fireShield, damage);
+                    damage -= absorbed;
+                    fireShield -= absorbed;
+
+                    if (fireShield <= 0)
+                        aisling.Effects.Terminate("Fire Shield");
+                    else
+                        aisling.Trackers.Counters.Set(FireShieldEffect.ShieldCounter, fireShield);
                 }
 
                 if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
