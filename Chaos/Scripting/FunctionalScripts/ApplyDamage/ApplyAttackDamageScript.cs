@@ -74,6 +74,38 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     /// </summary>
     private const decimal ScorchMultiplier = 1.2m;
 
+    /// <summary>
+    ///     Divine Verdict (Valkyrie passive) - Judgment builds 1:1 with damage taken; at this threshold, holy
+    ///     lightning strikes nearby enemies and Judgment resets. Placeholder, not balance-tested.
+    /// </summary>
+    private const int DivineVerdictThreshold = 300;
+
+    private const int DivineVerdictRange = 3;
+    private const int DivineVerdictBurstDamage = 50;
+    private const string DivineVerdictCounterKey = "divineVerdictJudgment";
+
+    /// <summary>
+    ///     Wings of Stacia (Valkyrie passive) - the HP percentage (0-1) that triggers the shield, and its cooldown
+    ///     in seconds (tracked via Trackers.Counters as a ready-at Unix timestamp, not a DateTime tag - simpler to
+    ///     compare with the existing int-based Counters API than parsing a stored DateTime string every hit).
+    ///     Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal WingsOfStaciaHpThreshold = 0.25m;
+
+    private const int WingsOfStaciaCooldownSeconds = 45;
+    private const string WingsOfStaciaCooldownCounterKey = "wingsOfStaciaReadyAt";
+
+    /// <summary>
+    ///     Chooser of the Slain (Valkyrie passive) - the heal percentage (of max HP) and cooldown (seconds, same
+    ///     ready-at-timestamp pattern as Wings of Stacia) on landing the killing blow against a target marked by
+    ///     Heavenly Strike (see <see cref="Chaos.Scripting.EffectScripts.MarkedForValhallaEffect" />). Placeholder,
+    ///     not balance-tested.
+    /// </summary>
+    private const decimal ChooserOfTheSlainHealPct = 0.15m;
+
+    private const int ChooserOfTheSlainCooldownSeconds = 20;
+    private const string ChooserOfTheSlainCooldownCounterKey = "chooserOfTheSlainReadyAt";
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -275,6 +307,34 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         aisling.Trackers.Counters.Set(FireShieldEffect.ShieldCounter, fireShield);
                 }
 
+                //Divine Intervention (Valkyrie) - same absorb shape as Stacia's Bubble/Fire Shield above, no
+                //eruption - pure protection.
+                if (aisling.Trackers.Counters.TryGetValue(DivineInterventionShieldEffect.ShieldCounter, out var divineShield) && (divineShield > 0))
+                {
+                    var absorbed = Math.Min(divineShield, damage);
+                    damage -= absorbed;
+                    divineShield -= absorbed;
+
+                    if (divineShield <= 0)
+                        aisling.Effects.Terminate("Divine Intervention");
+                    else
+                        aisling.Trackers.Counters.Set(DivineInterventionShieldEffect.ShieldCounter, divineShield);
+                }
+
+                //Wings of Stacia (Valkyrie) - same absorb shape as the other shields above; the low-HP trigger
+                //itself is further down, after HP is actually subtracted (needs to see the post-hit HP).
+                if (aisling.Trackers.Counters.TryGetValue(WingsOfStaciaShieldEffect.ShieldCounter, out var wingsShield) && (wingsShield > 0))
+                {
+                    var absorbed = Math.Min(wingsShield, damage);
+                    damage -= absorbed;
+                    wingsShield -= absorbed;
+
+                    if (wingsShield <= 0)
+                        aisling.Effects.Terminate("Wings of Stacia");
+                    else
+                        aisling.Trackers.Counters.Set(WingsOfStaciaShieldEffect.ShieldCounter, wingsShield);
+                }
+
                 if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
                     && aisling.Effects.TryGetEffect("Lancer's Shield", out var shieldEffect)
                     && (shieldEffect is LancerShieldEffect lancerShield))
@@ -432,6 +492,56 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                             }
                         }
                     }
+
+                    //Divine Verdict (Valkyrie passive) - a true always-on passive: taking damage builds Judgment
+                    //(persisted via Trackers.Counters, same simple stack-counter shape as Severance/Burn stacks
+                    //elsewhere), and holy lightning strikes nearby enemies once the threshold is reached.
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Valkyrie) && aisling.IsAlive)
+                    {
+                        var judgment = aisling.Trackers.Counters.AddOrIncrement(DivineVerdictCounterKey, damage);
+
+                        if (judgment >= DivineVerdictThreshold)
+                        {
+                            aisling.Trackers.Counters.Set(DivineVerdictCounterKey, 0);
+
+                            var verdictMap = aisling.MapInstance;
+                            var verdictPoint = Point.From(aisling);
+
+                            foreach (var nearby in verdictMap.GetEntitiesWithinRange<Monster>(verdictPoint, DivineVerdictRange))
+                            {
+                                if (!nearby.IsAlive)
+                                    continue;
+
+                                ApplyDamage(aisling, nearby, script, DivineVerdictBurstDamage);
+
+                                nearby.Animate(
+                                    new Animation
+                                    {
+                                        TargetAnimation = 138,
+                                        AnimationSpeed = 100
+                                    },
+                                    aisling.Id);
+                            }
+                        }
+                    }
+
+                    //Wings of Stacia (Valkyrie passive) - a true always-on passive: falling below a health
+                    //threshold grants a divine shield, on a cooldown tracked the same ready-at-timestamp way as
+                    //Chooser of the Slain below.
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Valkyrie) && aisling.IsAlive
+                                                                                 && !aisling.Trackers.Counters.ContainsKey(WingsOfStaciaShieldEffect.ShieldCounter))
+                    {
+                        var maxHp = aisling.StatSheet.EffectiveMaximumHp;
+                        var hpPct = maxHp <= 0 ? 1m : aisling.StatSheet.CurrentHp / (decimal)maxHp;
+                        var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                        var readyAtSeconds = aisling.Trackers.Counters.TryGetValue(WingsOfStaciaCooldownCounterKey, out var wingsReady) ? wingsReady : 0;
+
+                        if ((hpPct <= WingsOfStaciaHpThreshold) && (nowSeconds >= readyAtSeconds))
+                        {
+                            aisling.Effects.Apply(aisling, new WingsOfStaciaShieldEffect(), script);
+                            aisling.Trackers.Counters.Set(WingsOfStaciaCooldownCounterKey, nowSeconds + WingsOfStaciaCooldownSeconds);
+                        }
+                    }
                 }
 
                 aisling.Script.OnAttacked(source, damage);
@@ -492,6 +602,30 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
                             if (nearestEnemy != null)
                                 ApplyDamage(source, nearestEnemy, script, excessDamage);
+                        }
+                    }
+
+                    //Chooser of the Slain (Valkyrie passive) - a true always-on passive: defeating a MARKED enemy
+                    //restores health and empowers you, on a cooldown. The ambiguity flagged when this was first
+                    //built (nothing in Valkyrie's kit applied a mark) is now resolved - Heavenly Strike applies
+                    //MarkedForValhallaEffect on hit, so this checks for that tag at the moment of death rather
+                    //than triggering on any killing blow.
+                    if ((source is Aisling chooserAisling)
+                        && (chooserAisling.UserStatSheet.BaseClass == BaseClass.Valkyrie)
+                        && monster.Trackers.Tags.ContainsKey(MarkedForValhallaEffect.MarkedTag))
+                    {
+                        var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                        var readyAtSeconds = chooserAisling.Trackers.Counters.TryGetValue(ChooserOfTheSlainCooldownCounterKey, out var chooserReady)
+                            ? chooserReady
+                            : 0;
+
+                        if (nowSeconds >= readyAtSeconds)
+                        {
+                            var healAmount = Convert.ToInt32(chooserAisling.StatSheet.EffectiveMaximumHp * ChooserOfTheSlainHealPct);
+                            chooserAisling.StatSheet.AddHp(healAmount);
+                            chooserAisling.Client.SendAttributes(StatUpdateType.Vitality);
+                            chooserAisling.Effects.Apply(chooserAisling, new ChooserOfTheSlainEffect(), script);
+                            chooserAisling.Trackers.Counters.Set(ChooserOfTheSlainCooldownCounterKey, nowSeconds + ChooserOfTheSlainCooldownSeconds);
                         }
                     }
 

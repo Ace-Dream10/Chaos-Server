@@ -1,0 +1,18 @@
+{
+  "templateKey": "wings_of_stacia",
+  "name": "Wings of Stacia",
+  "description": "(Passive) Falling below a health threshold grants a divine shield. (Cooldown)",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

@@ -1,0 +1,28 @@
+{
+  "templateKey": "stacias_reprieve",
+  "name": "Stacia's Reprieve",
+  "description": "Revives a single skulled ally.",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 120000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 6, "con": 3 }
+  },
+  "scriptKeys": ["staciasReprieve"],
+  "scriptVars": {
+    "staciasReprieve": {
+      "reviveHpPct": 25,
+      "filter": "friendlyOnly, deadOnly",
+      "range": 6,
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 167, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

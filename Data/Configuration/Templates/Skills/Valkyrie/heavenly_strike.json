@@ -1,25 +1,23 @@
 {
-  "templateKey": "heavens_recoil",
-  "name": "Heaven's Recoil",
-  "description": "A powerful slash that sends nearby enemies flying back.",
+  "templateKey": "heavenly_strike",
+  "name": "Heavenly Strike",
+  "description": "Valkyrie's signature attack - evolves from a single strike into a triple hit, a cone, and finally a pillar of holy light. Marks the target for Valhalla.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 10000,
+  "cooldownMs": 6000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 6, "dex": 3, "int": 1, "wis": 1, "con": 3 }
+    "requiredStats": { "str": 5, "dex": 3, "int": 1, "wis": 1, "con": 3 }
   },
-  "scriptKeys": ["heavensRecoil"],
+  "scriptKeys": ["heavenlyStrike"],
   "scriptVars": {
-    "heavensRecoil": {
-      "baseDamage": 60,
+    "heavenlyStrike": {
       "damageStat": "str",
-      "damageStatMultiplier": 2,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "HeavySwipe",
       "animation": { "targetAnimation": 100, "animationSpeed": 100 },

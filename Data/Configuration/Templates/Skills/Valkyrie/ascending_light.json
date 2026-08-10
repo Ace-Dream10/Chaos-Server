@@ -1,0 +1,26 @@
+{
+  "templateKey": "ascending_light",
+  "name": "Ascending Light",
+  "description": "Removes debuffs from nearby allies.",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 5, "con": 3 }
+  },
+  "scriptKeys": ["ascendingLight"],
+  "scriptVars": {
+    "ascendingLight": {
+      "range": 3,
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

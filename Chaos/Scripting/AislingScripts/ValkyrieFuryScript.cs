@@ -1,5 +1,6 @@
 #region
 using Chaos.DarkAges.Definitions;
+using Chaos.Models.Data;
 using Chaos.Models.World;
 using Chaos.Scripting.AislingScripts.Abstractions;
 #endregion
@@ -14,14 +15,25 @@ namespace Chaos.Scripting.AislingScripts;
 ///     fury - it's the fury dump, not a builder, and since using it counts as a skill use like any other, it would
 ///     otherwise immediately regenerate a chunk of the fury it just spent.
 /// </summary>
+/// <remarks>
+///     Also implements the second half of Divine Fury (the passive this script's resource half is named after):
+///     "the more Fury you possess, the stronger your Holy abilities become." Scope decision, flagged rather than
+///     guessed silently: the locked design doesn't specify which of Valkyrie's 11 actives count as "Holy" (none
+///     are named/flavored as elemental Holy attacks the way Sorcerer abilities carry an explicit element), so this
+///     applies the bonus to ALL skill damage while Fury is held, matching how Berserker's Rage (the closest
+///     existing precedent - <see cref="BerserkerRageScript.SyncDamageBonus" />) scales ALL skill damage from its
+///     own resource without an element restriction either.
+/// </remarks>
 public class ValkyrieFuryScript : AislingScriptBase
 {
     private const int FuryPerSkillUse = 10;
     private const int IdleDrainAmount = 5;
     private const int HardCap = 100;
+    private const decimal FuryDamageBonusPerMp = 0.4m;
     private static readonly TimeSpan IdleDrainInterval = TimeSpan.FromSeconds(2);
 
     private DateTime? LastObservedSkillUse;
+    private int LastAppliedDamageBonus;
     private TimeSpan SinceLastSkillUse = TimeSpan.Zero;
 
     /// <inheritdoc />
@@ -32,7 +44,12 @@ public class ValkyrieFuryScript : AislingScriptBase
     public override void Update(TimeSpan delta)
     {
         if (Subject.UserStatSheet.BaseClass != BaseClass.Valkyrie)
+        {
+            if (LastAppliedDamageBonus != 0)
+                RemoveDamageBonus();
+
             return;
+        }
 
         var lastSkillUse = Subject.Trackers.LastSkillUse;
 
@@ -51,18 +68,45 @@ public class ValkyrieFuryScript : AislingScriptBase
                 Subject.StatSheet.SetMp(Math.Min(Subject.StatSheet.CurrentMp + FuryPerSkillUse, HardCap));
                 Subject.Client.SendAttributes(StatUpdateType.Vitality);
             }
+        } else
+        {
+            SinceLastSkillUse += delta;
 
-            return;
+            if (SinceLastSkillUse >= IdleDrainInterval)
+            {
+                SinceLastSkillUse = TimeSpan.Zero;
+
+                Subject.StatSheet.SubtractMp(IdleDrainAmount);
+                Subject.Client.SendAttributes(StatUpdateType.Vitality);
+            }
         }
 
-        SinceLastSkillUse += delta;
+        SyncDamageBonus();
+    }
 
-        if (SinceLastSkillUse < IdleDrainInterval)
+    /// <summary>
+    ///     Keeps the flat skill damage bonus in sync with current Fury, mirroring
+    ///     <see cref="BerserkerRageScript.SyncDamageBonus" />'s exact shape
+    /// </summary>
+    private void SyncDamageBonus()
+    {
+        var desiredBonus = Convert.ToInt32(Subject.StatSheet.CurrentMp * FuryDamageBonusPerMp);
+
+        if (desiredBonus == LastAppliedDamageBonus)
             return;
 
-        SinceLastSkillUse = TimeSpan.Zero;
+        if (LastAppliedDamageBonus != 0)
+            Subject.StatSheet.SubtractBonus(new Attributes { FlatSkillDamage = LastAppliedDamageBonus });
 
-        Subject.StatSheet.SubtractMp(IdleDrainAmount);
-        Subject.Client.SendAttributes(StatUpdateType.Vitality);
+        if (desiredBonus != 0)
+            Subject.StatSheet.AddBonus(new Attributes { FlatSkillDamage = desiredBonus });
+
+        LastAppliedDamageBonus = desiredBonus;
+    }
+
+    private void RemoveDamageBonus()
+    {
+        Subject.StatSheet.SubtractBonus(new Attributes { FlatSkillDamage = LastAppliedDamageBonus });
+        LastAppliedDamageBonus = 0;
     }
 }

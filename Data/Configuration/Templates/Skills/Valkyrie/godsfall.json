@@ -1,26 +1,24 @@
 {
-  "templateKey": "ragnarok",
-  "name": "Ragnarok",
-  "description": "Release all stored fury in a devastating burst of destruction.",
+  "templateKey": "godsfall",
+  "name": "Godsfall",
+  "description": "The ultimate holy AoE, centered on you - evolves into a wider blast with a shockwave, and finally lingering consecrated ground.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 15000,
+  "cooldownMs": 45000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 1, "con": 5 }
+    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 3, "con": 5 }
   },
-  "scriptKeys": ["ragnarok"],
+  "scriptKeys": ["godsfall"],
   "scriptVars": {
-    "ragnarok": {
-      "minimumMp": 50,
+    "godsfall": {
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "HandsUp2",
-      "casterAnimation": { "targetAnimation": 200, "animationSpeed": 100 },
       "animation": { "targetAnimation": 138, "animationSpeed": 100 },
       "sound": 35
     }

@@ -1,0 +1,31 @@
+{
+  "templateKey": "dreamslash",
+  "name": "Dreamslash",
+  "description": "Three sweeping glaive strikes.",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["dreamslash"],
+  "scriptVars": {
+    "dreamslash": {
+      "hitCount": 3,
+      "hitIntervalMs": 150,
+      "baseDamage": 45,
+      "damageStat": "str",
+      "damageStatMultiplier": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Swipe",
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

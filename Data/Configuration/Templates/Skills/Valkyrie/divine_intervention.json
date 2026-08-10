@@ -1,0 +1,25 @@
+{
+  "templateKey": "divine_intervention",
+  "name": "Divine Intervention",
+  "description": "Grants a protective shield - evolves from self-only to a targeted ally, then nearby allies, then your whole party.",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 30000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 6, "con": 5 }
+  },
+  "scriptKeys": ["divineIntervention"],
+  "scriptVars": {
+    "divineIntervention": {
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 70, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

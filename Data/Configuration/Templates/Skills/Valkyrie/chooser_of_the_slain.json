@@ -1,0 +1,18 @@
+{
+  "templateKey": "chooser_of_the_slain",
+  "name": "Chooser of the Slain",
+  "description": "(Passive) Defeating an enemy marked for Valhalla restores health and empowers you. (Cooldown)",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

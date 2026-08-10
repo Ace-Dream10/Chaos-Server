@@ -1,0 +1,27 @@
+{
+  "templateKey": "spear_of_heaven",
+  "name": "Spear of Heaven",
+  "description": "Dive forward and slam down on the landing point - evolves from a simple impact into a holy explosion that stuns at its center.",
+  "panelSprite": 46,
+  "class": "Valkyrie",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 14000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 6, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["spearOfHeaven"],
+  "scriptVars": {
+    "spearOfHeaven": {
+      "leapDistance": 4,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "JumpAttack",
+      "animation": { "targetAnimation": 50, "animationSpeed": 100 },
+      "sound": 35
+    }
+  }
+}
