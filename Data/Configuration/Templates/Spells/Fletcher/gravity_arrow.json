@@ -1,0 +1,25 @@
+{
+  "templateKey": "gravity_arrow",
+  "name": "Gravity Arrow",
+  "description": "Pull nearby enemies toward the impact point.",
+  "panelSprite": 25,
+  "class": "Fletcher",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["gravityArrow"],
+  "scriptVars": {
+    "gravityArrow": {
+      "baseDamage": 30,
+      "range": 3,
+      "manaCost": 25,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HeavyBowShot",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

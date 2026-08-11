@@ -8,11 +8,16 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.SkillScripts.Abstractions;
 #endregion
 
 namespace Chaos.Scripting.SkillScripts;
 
+/// <summary>
+///     Windrunner (Fletcher passive) hook lives here: if the caster has learned it, using Arrowstep applies
+///     <see cref="WindrunnerEffect" /> - see that effect's doc comment for the full mechanic.
+/// </summary>
 public class ArrowstepScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
@@ -74,6 +79,9 @@ public class ArrowstepScript : ConfigurableSkillScriptBase
 
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, lastWalkablePoint);
+
+        if ((source is Aisling windrunnerAisling) && windrunnerAisling.SkillBook.TryGetObjectByTemplateKey("windrunner", out _))
+            windrunnerAisling.Effects.Apply(windrunnerAisling, new WindrunnerEffect(), this);
     }
 
     private static bool HasBowEquipped(Aisling aisling)

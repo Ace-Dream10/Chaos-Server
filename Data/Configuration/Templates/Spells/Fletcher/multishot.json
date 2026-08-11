@@ -1,0 +1,29 @@
+{
+  "templateKey": "multishot",
+  "name": "Multishot",
+  "description": "Fire a rapid succession of arrows into a single target, each dealing reduced damage.",
+  "panelSprite": 25,
+  "class": "Fletcher",
+  "spellType": "Targeted",
+  "cooldownMs": 14000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["multishot"],
+  "scriptVars": {
+    "multishot": {
+      "baseDamage": 40,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "manaCost": 30,
+      "hitCount": 6,
+      "perHitFalloffPct": 0.12,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 10,
+      "bodyAnimation": "BowShot",
+      "animation": { "targetAnimation": 1, "sourceAnimation": 7, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

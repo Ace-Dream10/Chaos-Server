@@ -1,25 +1,27 @@
 {
-  "templateKey": "precise_shot",
-  "name": "Precise Shot",
-  "description": "A carefully aimed shot dealing heavy damage.",
+  "templateKey": "pinpoint_shot",
+  "name": "Pinpoint Shot",
+  "description": "Heavy single-target damage that briefly stuns the target.",
   "panelSprite": 25,
-  "class": "Archer",
+  "class": "Fletcher",
   "spellType": "Targeted",
   "cooldownMs": 3000,
   "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "scriptKeys": ["preciseShot"],
+  "scriptKeys": ["pinpointShot"],
   "scriptVars": {
-    "preciseShot": {
+    "pinpointShot": {
       "baseDamage": 80,
       "damageStat": "dex",
       "damageStatMultiplier": 4,
       "manaCost": 15,
       "filter": "hostileOnly, aliveOnly, othersOnly",
+      "shape": "circle",
       "singleTarget": true,
       "range": 10,
+      "stunDurationMs": 1500,
       "bodyAnimation": "HeavyBowShot",
       "animation": { "targetAnimation": 1, "sourceAnimation": 7, "animationSpeed": 100 },
       "sound": 98

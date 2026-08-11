@@ -11,7 +11,7 @@ namespace Chaos.Scripting.DialogScripts;
 ///     GM testing tool: grants a full fl1-fl{FloorCount} run of a class's helm and/or armor set (gendered,
 ///     "fl{floor}_{helm|armor}_{ClassKey}_{Gender}"), plus any floored weapon prefixes ("{prefix}_{floor}", e.g.
 ///     "lancer_wep" or the WeaponMaster-subclass prefixes like "wm_blunt") and any one-off non-floored extras (e.g.
-///     Archer's "rook_bow"). Silently skips any templateKey that doesn't exist or any grant that fails because the
+///     Fletcher's "rook_bow"). Silently skips any templateKey that doesn't exist or any grant that fails because the
 ///     inventory is full, and reports how many items actually landed.
 /// </summary>
 public class GrantGearSetScript : ConfigurableDialogScriptBase
@@ -88,7 +88,7 @@ public class GrantGearSetScript : ConfigurableDialogScriptBase
     public string ClassKey { get; init; } = string.Empty;
 
     /// <summary>
-    ///     Non-floored one-off items to grant a single copy of (e.g. Archer's "rook_bow")
+    ///     Non-floored one-off items to grant a single copy of (e.g. Fletcher's "rook_bow")
     /// </summary>
     public ICollection<string> ExtraItemKeys { get; init; } = [];
 

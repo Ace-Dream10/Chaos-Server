@@ -13,12 +13,19 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
-public class DeadcenterScript : ConfigurableSpellScriptBase
+/// <summary>
+///     A direct build - nothing existing matched "fire a rapid succession of arrows into a single target, each
+///     dealing reduced damage". Same "loop the strike N times" shape Assassin's Eclipse used, but with each hit's
+///     damage reduced by <see cref="PerHitFalloffPct" /> relative to the previous one, per the locked description's
+///     "each dealing reduced damage" (Eclipse's hits, by contrast, are uniform). Flat, non-evolving - not one of
+///     Fletcher's 5 evolving abilities.
+/// </summary>
+public class MultishotScript : ConfigurableSpellScriptBase
 {
-    private readonly List<PendingShot> PendingShots = [];
+    private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public DeadcenterScript(Spell subject)
+    public MultishotScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -61,56 +68,29 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
 
         context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
 
-        //cast effect traveling from caster to target
-        target.Animate(
-            new Animation
-            {
-                SourceAnimation = 200,
-                TargetAnimation = 374,
-                AnimationSpeed = 100
-            },
-            source.Id);
-
         source.AnimateBody(BodyAnimation);
 
-        //lock-on indicator, played immediately on cast
-        if (Animation != null)
-            target.Animate(Animation, source.Id);
+        var firstHitDamage = CalculateDamage(source);
+        var multiplier = 1m;
+
+        for (var i = 0; i < HitCount; i++)
+        {
+            if (!target.IsAlive)
+                break;
+
+            var thisHitDamage = Convert.ToInt32(firstHitDamage * multiplier);
+
+            if (thisHitDamage > 0)
+                ApplyDamageScript.ApplyDamage(source, target, this, thisHitDamage);
+
+            if (Animation != null)
+                target.Animate(Animation, source.Id);
+
+            multiplier -= PerHitFalloffPct;
+        }
 
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, context.TargetPoint);
-
-        PendingShots.Add(
-            new PendingShot(
-                source,
-                target,
-                TimeSpan.FromMilliseconds(DelayMs)));
-    }
-
-    /// <inheritdoc />
-    public override void Update(TimeSpan delta)
-    {
-        if (PendingShots.Count == 0)
-            return;
-
-        for (var i = PendingShots.Count - 1; i >= 0; i--)
-        {
-            var pending = PendingShots[i];
-            pending.Remaining -= delta;
-
-            if (pending.Remaining > TimeSpan.Zero)
-                continue;
-
-            PendingShots.RemoveAt(i);
-
-            if (!pending.Source.IsAlive || !pending.Target.IsAlive)
-                continue;
-
-            var damage = CalculateDamage(pending.Source);
-
-            if (damage > 0)
-                ApplyDamageScript.ApplyDamage(pending.Source, pending.Target, this, damage, Element);
-        }
     }
 
     private int CalculateDamage(Creature source)
@@ -127,20 +107,11 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
         return damage;
     }
 
-    private sealed class PendingShot(Creature source, Creature target, TimeSpan remaining)
-    {
-        public Creature Source { get; } = source;
-        public Creature Target { get; } = target;
-        public TimeSpan Remaining { get; set; } = remaining;
-    }
-
     #region ScriptVars
     /// <summary>
-    ///     The lock-on animation played on the target immediately on cast
+    ///     The animation played on each hit
     /// </summary>
     public Animation? Animation { get; init; }
-
-    public IApplyDamageScript ApplyDamageScript { get; init; }
 
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.BaseDamage" />
     public int? BaseDamage { get; init; }
@@ -157,17 +128,14 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
     public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
-    ///     How long, in milliseconds, between cast and the shot actually landing
-    /// </summary>
-    public int DelayMs { get; init; } = 2500;
-
-    /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.Element" />
-    public Element? Element { get; init; }
-
-    /// <summary>
     ///     The filter used to determine whether the selected target is valid
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The number of individual arrows fired
+    /// </summary>
+    public int HitCount { get; init; } = 6;
 
     /// <summary>
     ///     The MP cost to use this spell
@@ -175,12 +143,17 @@ public class DeadcenterScript : ConfigurableSpellScriptBase
     public int ManaCost { get; init; }
 
     /// <summary>
-    ///     The maximum distance, in tiles, a target can be selected from
+    ///     How much each successive hit's damage falls off relative to the first hit (0.1 = -10% per hit)
     /// </summary>
-    public int Range { get; init; }
+    public decimal PerHitFalloffPct { get; init; } = 0.12m;
 
     /// <summary>
-    ///     Sound played on cast
+    ///     The maximum distance, in tiles, a target can be selected from
+    /// </summary>
+    public int Range { get; init; } = 10;
+
+    /// <summary>
+    ///     Sound played once, on cast
     /// </summary>
     public byte? Sound { get; init; }
     #endregion

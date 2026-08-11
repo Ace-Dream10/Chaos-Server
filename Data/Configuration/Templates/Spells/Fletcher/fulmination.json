@@ -1,0 +1,27 @@
+{
+  "templateKey": "fulmination",
+  "name": "Fulmination",
+  "description": "Fire a legendary lightning arrow that pierces everything in a straight line.",
+  "panelSprite": 25,
+  "class": "Fletcher",
+  "spellType": "Targeted",
+  "cooldownMs": 25000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["fulmination"],
+  "scriptVars": {
+    "fulmination": {
+      "baseDamage": 150,
+      "damageStat": "dex",
+      "damageStatMultiplier": 5,
+      "manaCost": 40,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "HeavyBowShot",
+      "animation": { "targetAnimation": 322, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

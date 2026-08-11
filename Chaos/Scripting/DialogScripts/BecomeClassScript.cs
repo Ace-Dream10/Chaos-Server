@@ -198,7 +198,7 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
     public BaseClass? BaseClass { get; init; }
 
     /// <summary>
-    ///     The templateKeys of weapons/other non-armor gear to grant (may include more than one, e.g. Archer's bow)
+    ///     The templateKeys of weapons/other non-armor gear to grant (may include more than one, e.g. Fletcher's bow)
     /// </summary>
     public ICollection<string> GearTemplateKeys { get; init; } = [];
 

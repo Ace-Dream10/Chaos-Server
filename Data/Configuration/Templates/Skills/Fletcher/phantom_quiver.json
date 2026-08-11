@@ -1,0 +1,18 @@
+{
+  "templateKey": "phantom_quiver",
+  "name": "Phantom Quiver",
+  "description": "(Passive) Every fourth ranged attack conjures a spectral arrow that strikes the same target, dealing additional damage.",
+  "panelSprite": 46,
+  "class": "Fletcher",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

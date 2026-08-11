@@ -5,6 +5,8 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
+using Chaos.Models.World;
+using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
@@ -13,10 +15,17 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
-public class CaptureSpellScript : ConfigurableSpellScriptBase
+/// <summary>
+///     Renamed from Trapper's Net - kept its exact root+slow-on-hit mechanic. One of Fletcher's 5 evolving
+///     abilities (evolution specifics weren't detailed in the locked design beyond "evolves into a small AoE
+///     snare" - filled in here, flagged as such rather than left unbuilt). Tiers mapped to Fletcher's own floor arc
+///     (Floor4 intro, Floor5, Floor6, Floor7 max) via the same "Level ≈ 2×Floor" ratio used throughout tonight -
+///     see <see cref="GetTierValues" />. All placeholder values, not balance-tested.
+/// </summary>
+public class WardensNetScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public CaptureSpellScript(Spell subject)
+    public WardensNetScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -49,6 +58,7 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
         var source = context.Source;
         var target = context.TargetCreature!;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
@@ -61,15 +71,14 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        var slowEffect = new SlowEffect
-        {
-            SlowAmount = SlowAmount
-        };
-        slowEffect.SetDuration(TimeSpan.FromMilliseconds(EffectDurationMs));
-        target.Effects.Apply(source, slowEffect, this);
+        var snared = tier.AoeRadius <= 0
+            ? new List<Creature> { target }
+            : map.GetEntitiesWithinRange<Creature>(context.TargetPoint, tier.AoeRadius)
+                 .Where(creature => Filter.IsValidTarget(source, creature))
+                 .ToList();
 
-        if (BaseDamage is > 0)
-            ApplyDamageScript.ApplyDamage(source, target, this, BaseDamage.Value);
+        foreach (var creature in snared)
+            Snare(source, creature, tier.DurationMs);
 
         if (HitAnimation != null)
             target.Animate(HitAnimation, source.Id);
@@ -81,11 +90,39 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
             map.PlaySound(Sound.Value, context.TargetPoint);
     }
 
+    private void Snare(Creature source, Creature target, int durationMs)
+    {
+        var rootEffect = new RootEffect();
+        rootEffect.SetDuration(TimeSpan.FromMilliseconds(durationMs));
+        target.Effects.Apply(source, rootEffect, this);
+
+        var slowEffect = new SlowEffect { SlowAmount = SlowAmount };
+        slowEffect.SetDuration(TimeSpan.FromMilliseconds(durationMs));
+        target.Effects.Apply(source, slowEffect, this);
+
+        if (BaseDamage is > 0)
+            ApplyDamageScript.ApplyDamage(source, target, this, BaseDamage.Value);
+    }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor4(Level&lt;=8)=I(intro,single,3s),
+    ///     Floor5(&lt;=10)=II(single,5s,"longer"), Floor6(&lt;=12)=III(AoE radius 1,5s), Floor7+(&gt;12)=IV(max,
+    ///     AoE radius 2,6s,"small AoE snare").
+    /// </summary>
+    private (int DurationMs, int AoeRadius) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 8  => (3000, 0),
+            <= 10 => (5000, 0),
+            <= 12 => (5000, 1),
+            _     => (6000, 2)
+        };
+
     #region ScriptVars
     public IApplyDamageScript ApplyDamageScript { get; init; }
 
     /// <summary>
-    ///     Flat damage dealt on hit, for immediate feedback alongside the slow
+    ///     Flat damage dealt on hit, for immediate feedback alongside the root/slow
     /// </summary>
     public int? BaseDamage { get; init; }
 
@@ -95,12 +132,7 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
     public BodyAnimation BodyAnimation { get; init; }
 
     /// <summary>
-    ///     How long, in milliseconds, the target is slowed for
-    /// </summary>
-    public int EffectDurationMs { get; init; } = 4000;
-
-    /// <summary>
-    ///     The filter used to determine whether the selected target is valid
+    ///     The filter used to determine which creatures are valid targets
     /// </summary>
     public TargetFilter Filter { get; init; }
 
@@ -125,12 +157,7 @@ public class CaptureSpellScript : ConfigurableSpellScriptBase
     public int Range { get; init; }
 
     /// <summary>
-    ///     Whether this spell only ever affects a single target
-    /// </summary>
-    public bool SingleTarget { get; init; }
-
-    /// <summary>
-    ///     The amount added to the target's MovementSpeedPct while slowed - passed through to SlowEffect on apply
+    ///     The amount added to a snared creature's MovementSpeedPct - passed through to SlowEffect on apply
     /// </summary>
     public int SlowAmount { get; init; } = 250;
 

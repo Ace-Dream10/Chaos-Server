@@ -30,7 +30,7 @@ public class SetClassScript : DialogScriptBase
             "class_selector_set_valkyrie"      => BaseClass.Valkyrie,
             "class_selector_set_assassin"      => BaseClass.Assassin,
             "class_selector_set_trickster"     => BaseClass.Trickster,
-            "class_selector_set_archer"        => BaseClass.Archer,
+            "class_selector_set_fletcher"      => BaseClass.Fletcher,
             "class_selector_set_sorcerer"      => BaseClass.Sorcerer,
             "class_selector_set_mystic"        => BaseClass.Mystic,
             "class_selector_set_bard"          => BaseClass.Bard,

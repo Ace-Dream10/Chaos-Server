@@ -52,7 +52,7 @@
     "blackList": [],
     "direction": "Down",
     "extraScriptKeys": [],
-    "merchantTemplateKey": "archer_test_npc",
+    "merchantTemplateKey": "fletcher_test_npc",
     "spawnPoint": "(240, 85)"
   },
   {

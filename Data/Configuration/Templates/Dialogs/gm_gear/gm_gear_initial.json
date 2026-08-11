@@ -3,7 +3,7 @@
   "text": "Which class do you want to grant gear for?",
   "type": "Menu",
   "options": [
-    { "dialogKey": "gm_gear_archer_menu", "optionText": "Archer" },
+    { "dialogKey": "gm_gear_fletcher_menu", "optionText": "Fletcher" },
     { "dialogKey": "gm_gear_assassin_menu", "optionText": "Assassin" },
     { "dialogKey": "gm_gear_bard_menu", "optionText": "Bard" },
     { "dialogKey": "gm_gear_berserker_menu", "optionText": "Berserker" },

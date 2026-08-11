@@ -16,12 +16,19 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
-public class RainOfArrowsScript : ConfigurableSpellScriptBase
+/// <summary>
+///     Renamed from Rain of Arrows - kept its exact sustained-volley-on-an-area mechanic (a direct match for the
+///     locked design's "unleashing a divine rain of arrows upon a target area"). One of Fletcher's 5 evolving
+///     abilities. Tiers per Fletcher's own floor arc (Floor6 intro, Floor7, Floor8, Floor9 max) via the same
+///     "Level ≈ 2×Floor" ratio used throughout tonight - see <see cref="GetTierValues" />. All placeholder values,
+///     not balance-tested.
+/// </summary>
+public class ValkorsVolleyScript : ConfigurableSpellScriptBase
 {
     private readonly List<PendingVolley> PendingVolleys = [];
 
     /// <inheritdoc />
-    public RainOfArrowsScript(Spell subject)
+    public ValkorsVolleyScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -29,6 +36,7 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
     public override void OnUse(SpellContext context)
     {
         var source = context.Source;
+        var tier = GetTierValues();
 
         if ((source is Aisling aisling) && !HasBowEquipped(aisling))
         {
@@ -57,14 +65,15 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
             map.PlaySound(Sound.Value, targetPoint);
 
         //volley 1 fires immediately, the rest are queued at VolleyDelayMs intervals
-        FireVolley(source, map, targetPoint);
+        FireVolley(source, map, targetPoint, tier.Range);
 
-        for (var i = 1; i < VolleyCount; i++)
+        for (var i = 1; i < tier.VolleyCount; i++)
             PendingVolleys.Add(
                 new PendingVolley(
                     source,
                     map,
                     targetPoint,
+                    tier.Range,
                     TimeSpan.FromMilliseconds(VolleyDelayMs * i)));
     }
 
@@ -87,13 +96,13 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
             if (!pending.Source.IsAlive)
                 continue;
 
-            FireVolley(pending.Source, pending.Map, pending.TargetPoint);
+            FireVolley(pending.Source, pending.Map, pending.TargetPoint, pending.Range);
         }
     }
 
-    private void FireVolley(Creature source, MapInstance map, Point targetPoint)
+    private void FireVolley(Creature source, MapInstance map, Point targetPoint, int range)
     {
-        var targets = map.GetEntitiesWithinRange<Creature>(targetPoint, Range)
+        var targets = map.GetEntitiesWithinRange<Creature>(targetPoint, range)
                          .Where(creature => Filter.IsValidTarget(source, creature));
 
         foreach (var creature in targets)
@@ -129,9 +138,23 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
         return damage;
     }
 
-    private sealed class PendingVolley(Creature source, MapInstance map, Point targetPoint, TimeSpan remaining)
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor6(Level&lt;=12)=I(intro,3 volleys,range2),
+    ///     Floor7(&lt;=14)=II(5,2), Floor8(&lt;=16)=III(5,3), Floor9+(&gt;16)=IV(max,7,3).
+    /// </summary>
+    private (int VolleyCount, int Range) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 12 => (3, 2),
+            <= 14 => (5, 2),
+            <= 16 => (5, 3),
+            _     => (7, 3)
+        };
+
+    private sealed class PendingVolley(Creature source, MapInstance map, Point targetPoint, int range, TimeSpan remaining)
     {
         public MapInstance Map { get; } = map;
+        public int Range { get; } = range;
         public TimeSpan Remaining { get; set; } = remaining;
         public Creature Source { get; } = source;
         public Point TargetPoint { get; } = targetPoint;
@@ -170,19 +193,9 @@ public class RainOfArrowsScript : ConfigurableSpellScriptBase
     public int ManaCost { get; init; }
 
     /// <summary>
-    ///     The radius around the target point affected by each volley
-    /// </summary>
-    public int Range { get; init; } = 2;
-
-    /// <summary>
     ///     Sound played once, on cast
     /// </summary>
     public byte? Sound { get; init; }
-
-    /// <summary>
-    ///     How many volleys land total, including the immediate first one
-    /// </summary>
-    public int VolleyCount { get; init; } = 5;
 
     /// <summary>
     ///     The number of milliseconds between each volley

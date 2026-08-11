@@ -1,8 +1,8 @@
 {
-  "templateKey": "archer_test_npc_info",
-  "text": "A precision ranged fighter who manages focus to fire powerful shots.\n\nPrimary: DEX | Secondary: WIS\n\nMP mechanic: MP regenerates passively from DEX+WIS+gear - all bow skills and spells cost MP. Run out of focus and your shots fail.\n\nSkills:\nBow Assail - basic bow attack\nArrowstep - 2-tile dash\n\nSpells:\nArrow Shot - basic ranged auto-attack\nFire Shot - fire damage\nDeadcenter - massive precision shot, 3 cast lines, lock-on visual\nTrapper's Net - slow with net animation\nRain of Arrows - 5-volley area bombardment\nFlechette - chain bounce 3 targets\nPrecise Shot - heavy single target\nFocus - self buff, accuracy + damage",
+  "templateKey": "fletcher_test_npc_info",
+  "text": "A precision ranged fighter who manages focus to fire powerful shots.\n\nPrimary: DEX | Secondary: WIS\n\nMP mechanic: MP regenerates passively from DEX+WIS+gear - all bow skills and spells cost MP. Run out of focus and your shots fail.\n\nSkills:\nArrow Shot (Assail) - basic bow attack\nArrowstep - short dash\nFocus - self buff, accuracy + damage (evolving)\n\nSpells:\nPinpoint Shot - heavy single target, briefly stuns\nFlechette - piercing arrow that bounces to nearby enemies (evolving)\nWarden's Net - root/slow, evolves into a small AoE snare (evolving)\nGravity Arrow - pulls nearby enemies toward the impact point\nSpotter's Brand - marks an enemy, boosts crit chance against them\nMoonfall - delayed celestial strike on multiple enemies (evolving)\nValkor's Volley - sustained rain of arrows on an area (evolving)\nFulmination - lightning arrow that pierces a whole line\nMultishot - rapid multi-hit on a single target\n\nPassives:\nEagle Eye - more damage the farther the shot traveled\nPhantom Quiver - every 4th shot conjures a bonus spectral arrow\nWindrunner - Arrowstep empowers your next shot",
   "type": "Menu",
   "options": [
-    { "dialogKey": "archer_test_npc_initial", "optionText": "Back" }
+    { "dialogKey": "fletcher_test_npc_initial", "optionText": "Back" }
   ]
 }

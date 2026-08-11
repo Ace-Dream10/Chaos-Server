@@ -701,7 +701,11 @@ public enum BaseClass : byte
     Valkyrie = 4,
     Assassin = 5,
     Trickster = 6,
-    Archer = 7,
+
+    /// <summary>
+    ///     Master Marksman path. Was <c>Archer</c> - literal rename, same class (same pattern as Bastion/Lancer).
+    /// </summary>
+    Fletcher = 7,
     Sorcerer = 8,
     Mystic = 9,
     Bard = 10,

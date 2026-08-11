@@ -25,8 +25,8 @@
       "optionText": "Trickster — Mob control and mobility"
     },
     {
-      "dialogKey": "class_selector_set_archer",
-      "optionText": "Archer — Precision at range"
+      "dialogKey": "class_selector_set_fletcher",
+      "optionText": "Fletcher — Precision at range"
     },
     {
       "dialogKey": "class_selector_set_sorcerer",

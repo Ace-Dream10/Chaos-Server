@@ -1,6 +1,7 @@
 #region
 using Chaos.DarkAges.Definitions;
 using Chaos.Extensions;
+using Chaos.Extensions.Geometry;
 using Chaos.Formulae;
 using Chaos.Formulae.Abstractions;
 using Chaos.Geometry;
@@ -134,6 +135,32 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     ///     balance-tested.
     /// </summary>
     private const decimal PsychologicalWarfareMultiplier = 1.25m;
+
+    /// <summary>
+    ///     Eagle Eye (Fletcher passive) - bonus flat damage per tile of (Manhattan) distance between attacker and
+    ///     target. Placeholder, not balance-tested.
+    /// </summary>
+    private const int EagleEyeDamagePerTile = 3;
+
+    /// <summary>
+    ///     Phantom Quiver (Fletcher passive) - every this-many'th ranged hit on the same target conjures a
+    ///     spectral arrow for bonus damage. Placeholder, not balance-tested.
+    /// </summary>
+    private const int PhantomQuiverHitsRequired = 4;
+
+    private const int PhantomQuiverBonusDamage = 50;
+
+    /// <summary>
+    ///     Windrunner (Fletcher passive) - the damage multiplier applied to the caster's next ranged attack after
+    ///     using Arrowstep. Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal WindrunnerDamageMultiplier = 1.5m;
+
+    /// <summary>
+    ///     Spotter's Brand / Windrunner (Fletcher) - the damage multiplier applied on a successful crit roll from
+    ///     either source. Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal CritMultiplier = 2m;
 
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
@@ -308,6 +335,54 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                 target.Effects.Apply(source, new ShadowmarkEffect { OwnerId = source.Id }, script);
             }
         }
+
+        //Eagle Eye (Fletcher passive) - a true always-on passive: the farther the shot traveled, the more damage
+        //it deals. "Traveled" is approximated as the Manhattan distance between attacker and target at the moment
+        //of impact - there's no real projectile-travel simulation in this codebase to hook into instead.
+        if ((source is Aisling eagleEyeAisling) && (eagleEyeAisling.UserStatSheet.BaseClass == BaseClass.Fletcher))
+        {
+            var travelDistance = source.ManhattanDistanceFrom(target);
+            damage += travelDistance * EagleEyeDamagePerTile;
+        }
+
+        //Phantom Quiver (Fletcher passive) - a true always-on passive: every 4th ranged attack against the same
+        //target conjures a spectral arrow for bonus damage. Same per-(attacker, target) hit-counter shape as
+        //Shadowmark, but adds its bonus to the SAME hit rather than marking the target for a later one.
+        if ((source is Aisling phantomQuiverAisling) && (phantomQuiverAisling.UserStatSheet.BaseClass == BaseClass.Fletcher))
+        {
+            var phantomQuiverCounterKey = $"phantomQuiverHits_{source.Id}";
+            var hits = target.Trackers.Counters.AddOrIncrement(phantomQuiverCounterKey);
+
+            if (hits >= PhantomQuiverHitsRequired)
+            {
+                target.Trackers.Counters.Set(phantomQuiverCounterKey, 0);
+                damage += PhantomQuiverBonusDamage;
+            }
+        }
+
+        //Windrunner (Fletcher passive) - the caster's next ranged attack after using Arrowstep deals bonus damage,
+        //then the effect breaks (same "consumed on next hit, then terminate" shape Assassin's Ghost Step used)
+        if ((source is Aisling windrunnerAisling) && windrunnerAisling.Trackers.Tags.ContainsKey(WindrunnerEffect.ReadyTag))
+        {
+            damage = Convert.ToInt32(damage * WindrunnerDamageMultiplier);
+            windrunnerAisling.Trackers.Tags.TryRemove(WindrunnerEffect.ReadyTag, out _);
+            windrunnerAisling.Effects.Terminate("Windrunner");
+        }
+
+        //Spotter's Brand / Windrunner crit rolls (Fletcher) - a scoped, local critical-hit check built specifically
+        //for these two abilities, since no CritChance stat or crit-roll pipeline exists anywhere else in this
+        //codebase (flagged rather than building an engine-wide crit system tonight). Spotter's Brand's bonus is on
+        //the TARGET (benefits any attacker); Windrunner's is on the ATTACKER (benefits only that Fletcher). Both can
+        //stack on the same hit.
+        if (target.Trackers.Tags.TryGetValue(SpottersBrandEffect.CritChanceBonusTag, out var spottersBrandPctStr)
+            && int.TryParse(spottersBrandPctStr, out var spottersBrandPct)
+            && (Random.Shared.NextDouble() < (spottersBrandPct / 100d)))
+            damage = Convert.ToInt32(damage * CritMultiplier);
+
+        if (source.Trackers.Tags.TryGetValue(WindrunnerEffect.CritChanceBonusTag, out var windrunnerCritPctStr)
+            && int.TryParse(windrunnerCritPctStr, out var windrunnerCritPct)
+            && (Random.Shared.NextDouble() < (windrunnerCritPct / 100d)))
+            damage = Convert.ToInt32(damage * CritMultiplier);
 
         if (damage <= 0)
             return 0;

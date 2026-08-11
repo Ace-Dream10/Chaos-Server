@@ -15,6 +15,12 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
+/// <summary>
+///     One of Fletcher's 5 evolving abilities (evolution specifics weren't detailed in the locked design - filled
+///     in here as "more bounces, farther jumps", flagged as such rather than left unbuilt). Tiers mapped to
+///     Fletcher's own floor arc (Floor3 intro, Floor4, Floor5, Floor6 max) via the same "Level ≈ 2×Floor" ratio
+///     used throughout tonight - see <see cref="GetTierValues" />. All placeholder values, not balance-tested.
+/// </summary>
 public class FlechetteScript : ConfigurableSpellScriptBase
 {
     private readonly List<PendingBounce> PendingBounces = [];
@@ -28,6 +34,7 @@ public class FlechetteScript : ConfigurableSpellScriptBase
     public override void OnUse(SpellContext context)
     {
         var source = context.Source;
+        var tier = GetTierValues();
 
         if ((source is Aisling aisling) && !HasBowEquipped(aisling))
         {
@@ -68,6 +75,8 @@ public class FlechetteScript : ConfigurableSpellScriptBase
                 hitTargets,
                 initialDamage,
                 1,
+                tier.MaxBounces,
+                tier.JumpRange,
                 TimeSpan.FromMilliseconds(JumpDelayMs)));
 
         if (Sound.HasValue)
@@ -93,7 +102,7 @@ public class FlechetteScript : ConfigurableSpellScriptBase
             if (!pending.Source.IsAlive)
                 continue;
 
-            var nextTarget = FindNextBounceTarget(pending.Source, pending.FromTarget, pending.HitTargets);
+            var nextTarget = FindNextBounceTarget(pending.Source, pending.FromTarget, pending.HitTargets, pending.JumpRange);
 
             if (nextTarget == null)
                 continue;
@@ -103,8 +112,8 @@ public class FlechetteScript : ConfigurableSpellScriptBase
             var multiplier = pending.BounceNumber == 1 ? 0.6m : 0.4m;
             Damage(pending.Source, nextTarget, Convert.ToInt32(pending.InitialDamage * multiplier));
 
-            //queue the second bounce after the first lands
-            if (pending.BounceNumber < 2)
+            //queue the next bounce after this one lands, up to this cast's tier-determined MaxBounces
+            if (pending.BounceNumber < pending.MaxBounces)
                 PendingBounces.Add(
                     new PendingBounce(
                         pending.Source,
@@ -112,9 +121,25 @@ public class FlechetteScript : ConfigurableSpellScriptBase
                         pending.HitTargets,
                         pending.InitialDamage,
                         pending.BounceNumber + 1,
+                        pending.MaxBounces,
+                        pending.JumpRange,
                         TimeSpan.FromMilliseconds(JumpDelayMs)));
         }
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor3(Level&lt;=6)=I(intro,2 bounces),
+    ///     Floor4(&lt;=8)=II(3), Floor5(&lt;=10)=III(3,longer jump range), Floor6+(&gt;10)=IV(max,4,longer jump
+    ///     range).
+    /// </summary>
+    private (int MaxBounces, int JumpRange) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 6  => (2, JumpRange),
+            <= 8  => (3, JumpRange),
+            <= 10 => (3, JumpRange + 2),
+            _     => (4, JumpRange + 2)
+        };
 
     private static bool HasBowEquipped(Aisling aisling)
     {
@@ -141,9 +166,9 @@ public class FlechetteScript : ConfigurableSpellScriptBase
     ///     Finds the closest alive valid creature to <paramref name="fromTarget" /> that hasn't already been hit by this
     ///     cast
     /// </summary>
-    private Creature? FindNextBounceTarget(Creature source, Creature fromTarget, ICollection<Creature> alreadyHit)
+    private Creature? FindNextBounceTarget(Creature source, Creature fromTarget, ICollection<Creature> alreadyHit, int jumpRange)
         => source.MapInstance
-                 .GetEntitiesWithinRange<Creature>(fromTarget, JumpRange)
+                 .GetEntitiesWithinRange<Creature>(fromTarget, jumpRange)
                  .Where(creature => !alreadyHit.Contains(creature) && Filter.IsValidTarget(source, creature))
                  .ClosestOrDefault(fromTarget);
 
@@ -164,12 +189,16 @@ public class FlechetteScript : ConfigurableSpellScriptBase
         List<Creature> hitTargets,
         int initialDamage,
         int bounceNumber,
+        int maxBounces,
+        int jumpRange,
         TimeSpan remaining)
     {
         public int BounceNumber { get; } = bounceNumber;
         public Creature FromTarget { get; } = fromTarget;
         public List<Creature> HitTargets { get; } = hitTargets;
         public int InitialDamage { get; } = initialDamage;
+        public int JumpRange { get; } = jumpRange;
+        public int MaxBounces { get; } = maxBounces;
         public TimeSpan Remaining { get; set; } = remaining;
         public Creature Source { get; } = source;
     }

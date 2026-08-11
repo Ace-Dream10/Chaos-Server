@@ -5,11 +5,14 @@ using Chaos.Scripting.EffectScripts.Abstractions;
 
 namespace Chaos.Scripting.EffectScripts;
 
+/// <summary>
+///     One of Fletcher's 5 evolving abilities. <see cref="DmgBonus" />/<see cref="HitBonus" /> are tier-scaled and
+///     set by <see cref="Chaos.Scripting.SkillScripts.FletcherFocusScript" /> before applying, the same
+///     "properties set by the skill script, not scriptVars" convention <see cref="BloodlustEffect" /> established.
+///     Placeholder magnitudes, not balance-tested.
+/// </summary>
 public sealed class FocusEffect : EffectBase
 {
-    private const int DmgBonus = 25;
-    private const int HitBonus = 25;
-
     private static readonly Animation ApplyAnimation = new()
     {
         TargetAnimation = 14,
@@ -18,6 +21,16 @@ public sealed class FocusEffect : EffectBase
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(8000);
+
+    /// <summary>
+    ///     The bonus applied to Dmg while active
+    /// </summary>
+    public int DmgBonus { get; init; } = 25;
+
+    /// <summary>
+    ///     The bonus applied to Hit while active
+    /// </summary>
+    public int HitBonus { get; init; } = 25;
 
     /// <inheritdoc />
     public override byte Icon => 54;

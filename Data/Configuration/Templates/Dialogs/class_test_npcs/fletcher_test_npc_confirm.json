@@ -1,19 +1,29 @@
 {
-  "templateKey": "archer_test_npc_confirm",
+  "templateKey": "fletcher_test_npc_confirm",
   "text": "It is done.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
   "scriptVars": {
     "becomeClass": {
-      "className": "Archer",
-      "baseClass": "Archer",
+      "className": "Fletcher",
+      "baseClass": "Fletcher",
       "advClass": null,
-      "skillTemplateKeys": ["bow_assail", "arrowstep", "focus"],
-      "spellTemplateKeys": ["arrow_shot", "fire_shot", "deadcenter", "trappers_net", "rain_of_arrows", "flechette", "precise_shot"],
-      "gearTemplateKeys": ["archer_wep_1", "rook_bow"],
-      "armorTemplateKeyMale": "fl1_armor_archer_m",
-      "armorTemplateKeyFemale": "fl1_armor_archer_f"
+      "skillTemplateKeys": ["bow_assail", "arrowstep", "focus", "eagle_eye", "phantom_quiver", "windrunner"],
+      "spellTemplateKeys": [
+        "pinpoint_shot",
+        "flechette",
+        "wardens_net",
+        "gravity_arrow",
+        "spotters_brand",
+        "moonfall",
+        "valkors_volley",
+        "fulmination",
+        "multishot"
+      ],
+      "gearTemplateKeys": ["fletcher_wep_1", "rook_bow"],
+      "armorTemplateKeyMale": "fl1_armor_fletcher_m",
+      "armorTemplateKeyFemale": "fl1_armor_fletcher_f"
     }
   }
 }

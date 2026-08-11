@@ -1,9 +1,9 @@
 {
   "templateKey": "focus",
   "name": "Focus",
-  "description": "Take aim, greatly increasing accuracy and damage of your next shot.",
+  "description": "Take aim, greatly increasing accuracy and damage of your next shots. Evolves toward a stronger, longer-lasting bonus.",
   "panelSprite": 25,
-  "class": "Archer",
+  "class": "Fletcher",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
@@ -14,12 +14,10 @@
     "prerequisiteSpells": [],
     "requiredStats": { "str": 1, "dex": 6, "int": 1, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["archerFocus"],
+  "scriptKeys": ["fletcherFocus"],
   "scriptVars": {
-    "archerFocus": {
-      "effectKey": "Focus",
+    "fletcherFocus": {
       "manaCost": 10,
-      "filter": "selfOnly, aliveOnly",
       "bodyAnimation": "HandsUp2",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },
       "sound": 10

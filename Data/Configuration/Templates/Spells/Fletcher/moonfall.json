@@ -1,0 +1,28 @@
+{
+  "templateKey": "moonfall",
+  "name": "Moonfall",
+  "description": "Fire an arrow skyward that returns as celestial arrows striking multiple enemies. Evolves toward more targets and a wider area.",
+  "panelSprite": 25,
+  "class": "Fletcher",
+  "spellType": "Targeted",
+  "cooldownMs": 18000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["moonfall"],
+  "scriptVars": {
+    "moonfall": {
+      "baseDamage": 50,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "manaCost": 35,
+      "delayMs": 1500,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "LongBowShot",
+      "animation": { "targetAnimation": 272, "animationSpeed": 100 },
+      "overlayAnimation": { "targetAnimation": 167, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

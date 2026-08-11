@@ -1,0 +1,24 @@
+{
+  "templateKey": "spotters_brand",
+  "name": "Spotter's Brand",
+  "description": "Marks an enemy, increasing the critical strike chance they receive from you and your allies.",
+  "panelSprite": 25,
+  "class": "Fletcher",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["spottersBrand"],
+  "scriptVars": {
+    "spottersBrand": {
+      "range": 8,
+      "manaCost": 15,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 56, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}
