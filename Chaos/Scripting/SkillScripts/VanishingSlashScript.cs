@@ -6,6 +6,7 @@ using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts.HideEffects;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -14,15 +15,23 @@ using Microsoft.Extensions.Logging;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class CoupDeGraceScript : ConfigurableSkillScriptBase
+/// <summary>
+///     Renamed from Coup de Grâce - kept its exact vault-behind-and-strike mechanic (a direct match for the locked
+///     design's "dash through your target with a swift slash"), plus its distinctive "turned" double-strike combo
+///     (strike twice if the target is already turned away, once if not - but they'll be turned for next time,
+///     which doubles as the "reposition for your next assassination" the locked design calls for). Adds the one
+///     piece the original didn't have: the caster is dropped into Hide immediately after the strike ("before
+///     instantly returning to Hide"), via the same <see cref="HideEffect" /> the base game's own Hide skill uses.
+/// </summary>
+public class VanishingSlashScript : ConfigurableSkillScriptBase
 {
     private const string TurnedTag = "turned";
 
     private readonly IApplyDamageScript ApplyDamageScript;
-    private readonly ILogger<CoupDeGraceScript> Logger;
+    private readonly ILogger<VanishingSlashScript> Logger;
 
     /// <inheritdoc />
-    public CoupDeGraceScript(Skill subject, ILogger<CoupDeGraceScript> logger)
+    public VanishingSlashScript(Skill subject, ILogger<VanishingSlashScript> logger)
         : base(subject)
     {
         ApplyDamageScript = ApplyAttackDamageScript.Create();
@@ -88,7 +97,7 @@ public class CoupDeGraceScript : ConfigurableSkillScriptBase
         var facingAwayFromCasterNow = target.Direction == directionTargetNeedsToFaceCaster.Reverse();
 
         Logger.LogInformation(
-            "Coup de Grace: target={Target} targetId={TargetId} sourceDirection={SourceDirection} targetDirection={TargetDirection} facingAwayFromCasterNow={FacingAwayNow} turnedTag={TurnedTag} sourcePoint={SourcePoint} targetPoint={TargetPoint}",
+            "Vanishing Slash: target={Target} targetId={TargetId} sourceDirection={SourceDirection} targetDirection={TargetDirection} facingAwayFromCasterNow={FacingAwayNow} turnedTag={TurnedTag} sourcePoint={SourcePoint} targetPoint={TargetPoint}",
             target.Name,
             target.Id,
             source.Direction,
@@ -103,7 +112,7 @@ public class CoupDeGraceScript : ConfigurableSkillScriptBase
         if (!map.IsWalkable(destinationPoint, source, false))
         {
             Logger.LogInformation(
-                "Coup de Grace: vault BLOCKED, destinationPoint={DestinationPoint} - aborting before tag update",
+                "Vanishing Slash: vault BLOCKED, destinationPoint={DestinationPoint} - aborting before tag update",
                 destinationPoint);
 
             return;
@@ -138,6 +147,9 @@ public class CoupDeGraceScript : ConfigurableSkillScriptBase
 
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, Point.From(target));
+
+        //instantly return to Hide after the strike, repositioning the caster for their next assassination
+        source.Effects.Apply(source, new HideEffect(), this);
     }
 
     private int CalculateDamage(Creature source, decimal multiplier)

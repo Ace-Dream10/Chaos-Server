@@ -106,6 +106,28 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     private const int ChooserOfTheSlainCooldownSeconds = 20;
     private const string ChooserOfTheSlainCooldownCounterKey = "chooserOfTheSlainReadyAt";
 
+    /// <summary>
+    ///     Witness Elimination (Assassin passive) - the damage multiplier applied against a target with no other
+    ///     hostile monster within range (i.e. "isolated"). Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal WitnessEliminationMultiplier = 1.3m;
+
+    private const int WitnessEliminationIsolationRange = 4;
+
+    /// <summary>
+    ///     Shadowmark (Assassin passive) - every this-many'th damaging ability an Assassin lands on the same target
+    ///     applies <see cref="ShadowmarkEffect" /> to it. Per-(attacker, target) hit counter, not a global one, so
+    ///     two different Assassins fighting the same target each build toward their own mark independently.
+    ///     Placeholder, not balance-tested.
+    /// </summary>
+    private const int ShadowmarkHitsRequired = 3;
+
+    /// <summary>
+    ///     Ghost Step (Assassin) - the damage multiplier applied to the next landed hit after using Ghost Step.
+    ///     Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal GhostStepOpeningStrikeMultiplier = 1.75m;
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -138,6 +160,12 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         //own stored percentage (evolves per tier, unlike Boiling Blood's fixed 25%)
         if (target.Trackers.Tags.TryGetValue(MarkOfTheBaneEffect.BonusDamagePctTag, out var markPctStr) && int.TryParse(markPctStr, out var markPct))
             damage = Convert.ToInt32(damage * (1 + (markPct / 100m)));
+
+        //Shadowmark (Assassin passive) - unlike Mark of the Bane, this bonus is owner-specific (stored under a
+        //per-attacker tag), so it only benefits the Assassin who actually built up the mark
+        if (target.Trackers.Tags.TryGetValue(ShadowmarkEffect.OwnerIdTagPrefix + source.Id, out var shadowmarkPctStr)
+            && int.TryParse(shadowmarkPctStr, out var shadowmarkPct))
+            damage = Convert.ToInt32(damage * (1 + (shadowmarkPct / 100m)));
 
         //Slayer's Oath (Slayer passive) - a true always-on passive, stateless like Bastion's Retribution: the
         //longer you focus one enemy (the more Severance stacks it's carrying), the stronger your attacks against
@@ -213,6 +241,55 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
             if (Random.Shared.NextDouble() < procChance)
                 target.Effects.Apply(source, new BurnEffect(), script);
+        }
+
+        //Ghost Step (Assassin) - the caster's next landed hit after using Ghost Step deals bonus damage, then the
+        //effect breaks (same "consumed on next hit, then terminate" shape Venom Blade used to use)
+        if ((source is Aisling ghostStepAisling) && ghostStepAisling.Trackers.Tags.ContainsKey(GhostStepEffect.ReadyTag))
+        {
+            damage = Convert.ToInt32(damage * GhostStepOpeningStrikeMultiplier);
+            ghostStepAisling.Trackers.Tags.TryRemove(GhostStepEffect.ReadyTag, out _);
+            ghostStepAisling.Effects.Terminate("Ghost Step");
+        }
+
+        //Killing Intent (Assassin) - the caster's next damaging ability deals bonus damage, then the effect breaks
+        if ((source is Aisling killingIntentAisling)
+            && killingIntentAisling.Trackers.Tags.TryGetValue(KillingIntentEffect.ReadyTag, out var killingIntentPctStr)
+            && int.TryParse(killingIntentPctStr, out var killingIntentPct))
+        {
+            damage = Convert.ToInt32(damage * (1 + (killingIntentPct / 100m)));
+            killingIntentAisling.Trackers.Tags.TryRemove(KillingIntentEffect.ReadyTag, out _);
+            killingIntentAisling.Effects.Terminate("Killing Intent");
+        }
+
+        //Witness Elimination (Assassin passive) - a true always-on passive: bonus damage against an isolated
+        //target (no other hostile monster within range). Only meaningful against monsters - Aislings don't have
+        //an "isolated" concept here.
+        if ((source is Aisling witnessAisling)
+            && (witnessAisling.UserStatSheet.BaseClass == BaseClass.Assassin)
+            && (target is Monster witnessTarget))
+        {
+            var nearbyHostiles = witnessTarget.MapInstance
+                                               .GetEntitiesWithinRange<Monster>(witnessTarget, WitnessEliminationIsolationRange)
+                                               .Count(nearby => !nearby.Equals(witnessTarget) && nearby.IsAlive);
+
+            if (nearbyHostiles == 0)
+                damage = Convert.ToInt32(damage * WitnessEliminationMultiplier);
+        }
+
+        //Shadowmark (Assassin passive) - a true always-on passive: every Nth damaging ability an Assassin lands on
+        //the same target applies ShadowmarkEffect to it, increasing further damage from that same Assassin. Per-
+        //(attacker, target) hit counter (target-side tag, keyed by attacker id), reset once the mark is (re)applied.
+        if ((source is Aisling shadowmarkAisling) && (shadowmarkAisling.UserStatSheet.BaseClass == BaseClass.Assassin))
+        {
+            var shadowmarkCounterKey = $"shadowmarkHits_{source.Id}";
+            var hits = target.Trackers.Counters.AddOrIncrement(shadowmarkCounterKey);
+
+            if (hits >= ShadowmarkHitsRequired)
+            {
+                target.Trackers.Counters.Set(shadowmarkCounterKey, 0);
+                target.Effects.Apply(source, new ShadowmarkEffect { OwnerId = source.Id }, script);
+            }
         }
 
         if (damage <= 0)
@@ -333,6 +410,19 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         aisling.Effects.Terminate("Wings of Stacia");
                     else
                         aisling.Trackers.Counters.Set(WingsOfStaciaShieldEffect.ShieldCounter, wingsShield);
+                }
+
+                //Death's Conviction Tier IV (Assassin) - same absorb shape as the other shields above.
+                if (aisling.Trackers.Counters.TryGetValue(DeathsConvictionShieldEffect.ShieldCounter, out var convictionShield) && (convictionShield > 0))
+                {
+                    var absorbed = Math.Min(convictionShield, damage);
+                    damage -= absorbed;
+                    convictionShield -= absorbed;
+
+                    if (convictionShield <= 0)
+                        aisling.Effects.Terminate("Death's Conviction");
+                    else
+                        aisling.Trackers.Counters.Set(DeathsConvictionShieldEffect.ShieldCounter, convictionShield);
                 }
 
                 if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion)
@@ -563,28 +653,13 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                 if (monster.Trackers.Tags.ContainsKey(LullabyEffect.AsleepTag))
                     monster.Effects.Terminate("Lullaby");
 
-                //Venom Blade - if the attacking Assassin has a venom blade ready, this hit poisons + bleeds the
-                //target and consumes the buff, one use only
-                if ((source is Aisling venomAisling) && venomAisling.Trackers.Tags.ContainsKey(VenomBladeEffect.ReadyTag))
-                {
-                    venomAisling.Trackers.Tags.TryRemove(VenomBladeEffect.ReadyTag, out _);
-                    venomAisling.Effects.Terminate("Venom Blade");
-
-                    var poisonEffect = new PoisonBombEffect();
-                    poisonEffect.SetDuration(TimeSpan.FromMilliseconds(6000));
-                    monster.Effects.Apply(source, poisonEffect);
-
-                    var venomBleedEffect = new BleedEffect { BleedDamage = 15 };
-                    venomBleedEffect.SetDuration(TimeSpan.FromMilliseconds(3000));
-                    monster.Effects.Apply(source, venomBleedEffect);
-                }
-
                 if (!monster.IsAlive)
                 {
-                    //Black Lotus - if the dying monster is chain-tagged, the explosion has to fire here, before
-                    //OnDeath removes it from the map
-                    if (monster.Trackers.Tags.ContainsKey(BlackLotusEffect.BlackLotusTag))
-                        BlackLotusEffect.TriggerChainExplosion(monster);
+                    //Death Mark (Assassin) - if the dying monster is Death-Marked, the heal has to fire here,
+                    //before OnDeath removes it from the map. Reworked from the original delayed-detonation
+                    //implementation to match the locked design - see DeathMarkEffect's doc comment.
+                    if (monster.Trackers.Tags.ContainsKey(DeathMarkEffect.MarkTag))
+                        DeathMarkEffect.TriggerDeathMarkHeal(monster);
 
                     //Overkill (Slayer passive) - a true always-on passive: excess damage from a killing blow rolls
                     //into the nearest enemy. Has to fire here too, before OnDeath removes the monster from the map

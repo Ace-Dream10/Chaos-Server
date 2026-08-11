@@ -5,6 +5,7 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
+using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
@@ -13,10 +14,19 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class VoidwalkerScript : ConfigurableSkillScriptBase
+/// <summary>
+///     Renamed from Voidwalker (kept its exact teleport-behind-and-strike mechanic - a direct match for the locked
+///     design's "instantly appear behind your target and deliver a devastating opening strike"). Adds the locked
+///     design's other stated condition: bonus damage when used from Hide (<see cref="VisibilityType.Hidden" />, the
+///     same visibility flag <see cref="Chaos.Scripting.EffectScripts.HideEffects.HideEffect" /> sets) or to
+///     initiate combat (the target has no aggro on the caster yet, checked via <see cref="AggroList.GetAggro" /> -
+///     0 means the caster isn't already on its aggro list, i.e. this strike is what starts the fight).
+///     <see cref="OpeningStrikeMultiplier" /> is a placeholder, not balance-tested.
+/// </summary>
+public class DeathsStrikeScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
-    public VoidwalkerScript(Skill subject)
+    public DeathsStrikeScript(Skill subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -56,6 +66,12 @@ public class VoidwalkerScript : ConfigurableSkillScriptBase
 
             return;
         }
+
+        //was this strike thrown from Hide, or does it initiate combat? checked BEFORE the caster becomes visible/
+        //aggroed below, since either of those would otherwise self-invalidate the very condition being checked
+        var fromHide = source.Visibility is VisibilityType.Hidden;
+        var initiatesCombat = (target is Monster targetMonster) && (targetMonster.AggroList.GetAggro(source) == 0);
+        var isOpeningStrike = fromHide || initiatesCombat;
 
         //smoke/shadow puff at the departure tile, sent first so it has the best chance of rendering
         //before the client's view snaps to the destination point on WarpTo
@@ -100,6 +116,9 @@ public class VoidwalkerScript : ConfigurableSkillScriptBase
         source.AnimateBody(ArrivalBodyAnimation);
 
         var damage = CalculateDamage(source);
+
+        if (isOpeningStrike)
+            damage = Convert.ToInt32(damage * OpeningStrikeMultiplier);
 
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
@@ -166,6 +185,12 @@ public class VoidwalkerScript : ConfigurableSkillScriptBase
     ///     The filter used to determine whether the first creature encountered in the scan is a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The multiplier applied to damage when the strike is thrown from Hide or initiates combat - placeholder,
+    ///     not balance-tested
+    /// </summary>
+    public decimal OpeningStrikeMultiplier { get; init; } = 2m;
 
     /// <summary>
     ///     The maximum number of tiles scanned in front of the caster for a target

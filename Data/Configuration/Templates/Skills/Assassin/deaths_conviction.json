@@ -1,23 +1,23 @@
 {
-  "templateKey": "death_mark",
-  "name": "Death Mark",
-  "description": "Mark an enemy. If they die before the mark expires, nearby allies are healed.",
+  "templateKey": "deaths_conviction",
+  "name": "Death's Conviction",
+  "description": "Sacrifice a large portion of your health to deal devastating percentage damage.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 20000,
+  "cooldownMs": 25000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 5 }
   },
-  "scriptKeys": ["deathMark"],
+  "scriptKeys": ["deathsConviction"],
   "scriptVars": {
-    "deathMark": {
-      "range": 6,
+    "deathsConviction": {
+      "range": 1,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 374, "animationSpeed": 100 },

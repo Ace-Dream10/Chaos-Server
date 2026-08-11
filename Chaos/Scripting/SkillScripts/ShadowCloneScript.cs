@@ -16,8 +16,21 @@ namespace Chaos.Scripting.SkillScripts;
 ///     attacks nearby hostile monsters on its own via <see cref="Chaos.Scripting.MonsterScripts.ShadowCloneAggroScript" />
 ///     + the standard attacking/facing monster scripts.
 /// </summary>
+/// <remarks>
+///     One of Assassin's 5 evolving abilities. Tiers per the locked design ("one clone -&gt; stronger clone -&gt;
+///     two clones -&gt; clones inherit a portion of your abilities") mapped to Assassin's own floor arc (Floor4
+///     intro, Floor5, Floor6, Floor7 max) via the same "Level ≈ 2×Floor" ratio used throughout tonight - see
+///     <see cref="GetTierValues" />. "Stronger" is a flat HP/damage bonus applied to the clone's StatSheet after
+///     spawning (the clone's own base stats come from its monster template, which this script doesn't control).
+///     Tier IV's "inherit a portion of your abilities" is simplified to the same strength bonus as Tier II/III plus
+///     a second clone and longer duration - actually granting clones a subset of the caster's own skills is out of
+///     scope for tonight's pass and is flagged here rather than silently skipped. All placeholder values, not
+///     balance-tested.
+/// </remarks>
 public class ShadowCloneScript : ConfigurableSkillScriptBase
 {
+    private const int StrongerCloneBonusDamage = 15;
+    private const int StrongerCloneBonusHp = 100;
     private readonly IMonsterFactory MonsterFactory;
 
     /// <inheritdoc />
@@ -30,26 +43,52 @@ public class ShadowCloneScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
-        if (!TryFindSpawnPoint(context, out var spawnPoint))
-            return;
+        for (var i = 0; i < tier.CloneCount; i++)
+        {
+            if (!TryFindSpawnPoint(context, out var spawnPoint))
+                continue;
 
-        var clone = MonsterFactory.Create(CloneTemplateKey, map, spawnPoint);
-        map.AddEntity(clone, spawnPoint);
+            var clone = MonsterFactory.Create(CloneTemplateKey, map, spawnPoint);
+            map.AddEntity(clone, spawnPoint);
 
-        if (clone.Script.As<DecoyExpirationScript>() is { } expirationScript)
-            expirationScript.DurationMs = DurationMs;
+            if (clone.Script.As<DecoyExpirationScript>() is { } expirationScript)
+                expirationScript.DurationMs = tier.DurationMs;
 
-        //force every nearby monster to switch aggro to the clone
-        foreach (var monster in map.GetEntitiesWithinRange<Monster>(context.SourcePoint, AggroRange))
-            monster.AggroList.AddAggro(clone, 99999);
+            if (tier.IsStronger)
+                clone.StatSheet.AddBonus(
+                    new Attributes
+                    {
+                        MaximumHp = StrongerCloneBonusHp,
+                        FlatSkillDamage = StrongerCloneBonusDamage
+                    });
+
+            //force every nearby monster to switch aggro to the clone
+            foreach (var monster in map.GetEntitiesWithinRange<Monster>(context.SourcePoint, AggroRange))
+                monster.AggroList.AddAggro(clone, 99999);
+        }
 
         if (Animation != null)
             source.Animate(Animation, source.Id);
 
         if (Sound.HasValue)
-            map.PlaySound(Sound.Value, spawnPoint);
+            map.PlaySound(Sound.Value, Point.From(source));
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor4(Level&lt;=8)=I(intro,1 clone), Floor5(&lt;=10)=II
+    ///     (1 stronger clone), Floor6(&lt;=12)=III(2 stronger clones), Floor7+(&gt;12)=IV(max, 2 stronger clones +
+    ///     longer duration; see remarks above re: the "inherit abilities" simplification).
+    /// </summary>
+    private (int CloneCount, bool IsStronger, int DurationMs) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 8  => (1, false, DurationMs),
+            <= 10 => (1, true, DurationMs),
+            <= 12 => (2, true, DurationMs),
+            _     => (2, true, DurationMs + 3000)
+        };
 
     /// <summary>
     ///     Finds the closest walkable point to the source, spiraling outward, so a spawn point is always found

@@ -1,30 +1,32 @@
 {
-  "templateKey": "coup_de_grace",
-  "name": "Coup de Grâce",
-  "description": "Vault behind your target. Strike twice if they are turned, once if not - but they will be turned for next time.",
+  "templateKey": "deaths_strike",
+  "name": "Death's Strike",
+  "description": "Instantly appear behind your target and deliver a devastating opening strike. Deals bonus damage when used from Hide or to initiate combat.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 8000,
+  "cooldownMs": 10000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
     "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["coupDeGrace"],
+  "scriptKeys": ["deathsStrike"],
   "scriptVars": {
-    "coupDeGrace": {
+    "deathsStrike": {
       "range": 6,
       "baseDamage": 80,
       "damageStat": "dex",
       "damageStatMultiplier": 3,
-      "doubleStrikeMultiplier": 2,
+      "openingStrikeMultiplier": 2,
       "filter": "hostileOnly, aliveOnly, othersOnly",
-      "bodyAnimation": "None",
-      "castAnimation": { "targetAnimation": 76, "animationSpeed": 100 },
+      "bodyAnimation": "HandsUp2",
+      "arrivalBodyAnimation": "Stab",
+      "castEffect": { "targetAnimation": 133, "animationSpeed": 100 },
+      "casterAnimation": 76,
       "animation": { "targetAnimation": 100, "animationSpeed": 100 },
       "sound": 98
     }

@@ -14,6 +14,12 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
+/// <summary>
+///     One of Assassin's 5 evolving abilities. Threshold tiers per the locked design ("15% -&gt; 20% -&gt; 25% -&gt;
+///     30% HP threshold") mapped to Assassin's own floor arc (Floor2 intro, Floor3, Floor4, Floor5 max) via the
+///     same "Level ≈ 2×Floor" ratio used throughout tonight - see <see cref="GetTierValues" />. Placeholder
+///     brackets, not balance-tested.
+/// </summary>
 public class ExecuteScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
@@ -26,6 +32,7 @@ public class ExecuteScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var executeThresholdPct = GetTierValues();
 
         source.AnimateBody(BodyAnimation);
 
@@ -37,7 +44,7 @@ public class ExecuteScript : ConfigurableSkillScriptBase
         if ((creature == null) || !Filter.IsValidTarget(source, creature))
             return;
 
-        var damage = creature.StatSheet.HealthPercent <= ExecuteThresholdPct
+        var damage = creature.StatSheet.HealthPercent <= executeThresholdPct
             ? creature.StatSheet.CurrentHp * 3
             : CalculateDamage(source);
 
@@ -69,6 +76,19 @@ public class ExecuteScript : ConfigurableSkillScriptBase
         return damage;
     }
 
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor2(Level&lt;=4)=I(intro,15%), Floor3(&lt;=6)=II(20%),
+    ///     Floor4(&lt;=8)=III(25%), Floor5+(&gt;8)=IV(max,30%).
+    /// </summary>
+    private decimal GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 4 => 15m,
+            <= 6 => 20m,
+            <= 8 => 25m,
+            _    => 30m
+        };
+
     #region ScriptVars
     /// <summary>
     ///     The animation played on the target on hit
@@ -90,11 +110,6 @@ public class ExecuteScript : ConfigurableSkillScriptBase
 
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.DamageStatMultiplier" />
     public decimal? DamageStatMultiplier { get; init; }
-
-    /// <summary>
-    ///     If the target's HP is at or below this percentage, the hit deals lethal damage instead of normal damage
-    /// </summary>
-    public decimal ExecuteThresholdPct { get; init; } = 20;
 
     /// <summary>
     ///     The filter used to determine whether the creature directly in front is a valid target

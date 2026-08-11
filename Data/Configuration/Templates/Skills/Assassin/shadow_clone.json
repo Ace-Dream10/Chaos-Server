@@ -1,7 +1,7 @@
 {
   "templateKey": "shadow_clone",
   "name": "Shadow Clone",
-  "description": "Summon a shadow copy that draws enemy attention and attacks nearby foes.",
+  "description": "Summon a shadow copy that draws enemy attention and attacks nearby foes. Evolves into a stronger clone, then two clones.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,

@@ -1,19 +1,19 @@
 {
-  "templateKey": "reapers_kiss",
-  "name": "Reaper's Kiss",
-  "description": "Each kill restores a portion of your health. Death feeds life.",
+  "templateKey": "killing_intent",
+  "name": "Killing Intent",
+  "description": "Focus entirely on your prey, greatly empowering your next damaging ability.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 0,
+  "cooldownMs": 15000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
     "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["reapersKissSkill"],
+  "scriptKeys": ["killingIntent"],
   "scriptVars": {}
 }

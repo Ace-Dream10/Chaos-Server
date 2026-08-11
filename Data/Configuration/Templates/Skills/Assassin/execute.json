@@ -1,7 +1,7 @@
 {
   "templateKey": "execute",
   "name": "Execute",
-  "description": "Strike a weakened enemy with lethal force. Below 20% HP, the blow is fatal.",
+  "description": "Instantly kill non-boss enemies below a health threshold. Threshold grows from 15% to 30% as this ability evolves.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,
@@ -20,7 +20,6 @@
       "baseDamage": 120,
       "damageStat": "dex",
       "damageStatMultiplier": 4,
-      "executeThresholdPct": 20,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "Stab",
       "animation": { "targetAnimation": 100, "animationSpeed": 100 },

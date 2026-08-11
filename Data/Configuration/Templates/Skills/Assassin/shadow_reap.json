@@ -1,7 +1,7 @@
 {
-  "templateKey": "death_blossom",
-  "name": "Death Blossom",
-  "description": "Unleash a devastating whirlwind striking all nearby enemies.",
+  "templateKey": "shadow_reap",
+  "name": "Shadow Reap",
+  "description": "Slice all enemies surrounding you with a sweeping shadow attack.",
   "panelSprite": 50,
   "class": "Assassin",
   "level": 1,

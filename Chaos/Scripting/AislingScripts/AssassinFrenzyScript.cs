@@ -3,24 +3,35 @@ using Chaos.DarkAges.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.World;
 using Chaos.Scripting.AislingScripts.Abstractions;
+using Chaos.Scripting.EffectScripts;
 #endregion
 
 namespace Chaos.Scripting.AislingScripts;
 
 /// <summary>
 ///     For Assassins, builds kill energy (stored as MP) from landing killing blows on monsters. No passive decay -
-///     it's banked until spent on Bloodlust. Hard-capped at <see cref="HardCap" /> regardless of the character's
-///     real max mp (set directly via SetMp, bypassing the normal AddMp/EffectiveMaximumMp clamp entirely), so a bad
-///     max-mp stat from gear or anything else can never let this exceed the cap. No visual while just banking kill
-///     energy - the aura only pulses once Bloodlust is actually active, so it doesn't sit on the player constantly
-///     any time they have leftover energy banked. Also neutralizes the game's normal passive HP/MP regeneration
-///     (<see cref="Chaos.Formulae.Regen.DefaultRegenFormula" />, which ticks MP for every creature that isn't at
-///     full HP) for the MP stat specifically, since Assassins repurpose MP as kill energy and it should only ever
-///     change from kills or spending it on Bloodlust - otherwise Bloodlust could activate off of ordinary regen
-///     alone, without any kills.
+///     it's banked until it auto-triggers Bloodlust. Hard-capped at <see cref="HardCap" /> regardless of the
+///     character's real max mp (set directly via SetMp, bypassing the normal AddMp/EffectiveMaximumMp clamp
+///     entirely), so a bad max-mp stat from gear or anything else can never let this exceed the cap. No visual
+///     while just banking kill energy - the aura only pulses once Bloodlust is actually active, so it doesn't sit
+///     on the player constantly any time they have leftover energy banked. Also neutralizes the game's normal
+///     passive HP/MP regeneration (<see cref="Chaos.Formulae.Regen.DefaultRegenFormula" />, which ticks MP for
+///     every creature that isn't at full HP) for the MP stat specifically, since Assassins repurpose MP as kill
+///     energy and it should only ever change from kills or being auto-spent on Bloodlust - otherwise Bloodlust
+///     could activate off of ordinary regen alone, without any kills.
 /// </summary>
+/// <remarks>
+///     Bloodlust itself was reworked this session from a manually-cast active (spend banked energy, duration
+///     proportional to the amount spent) into a true always-on passive, per the locked design's actual wording -
+///     "kills generate Bloodlust... upon reaching maximum Bloodlust, you automatically enter a killing frenzy."
+///     The underlying kill-energy resource system below (banking, hard cap, the Execute-cooldown-bypass hook) is
+///     exactly the "already built, reusable" mechanic the class design doc calls out - only the trigger changed:
+///     it now fires itself the instant the bank hits <see cref="HardCap" />, instead of waiting for a manual
+///     Bloodlust cast. <see cref="AutoTriggerDurationMs" /> is a placeholder, not balance-tested.
+/// </remarks>
 public class AssassinFrenzyScript : AislingScriptBase
 {
+    private const int AutoTriggerDurationMs = 6000;
     private const int EnergyPerKill = 20;
     private const int HardCap = 100;
     private static readonly TimeSpan AuraPulseInterval = TimeSpan.FromMilliseconds(1000);
@@ -88,6 +99,16 @@ public class AssassinFrenzyScript : AislingScriptBase
 
         if (killedSinceLastTick)
             Subject.StatSheet.SetMp(Math.Min(Subject.StatSheet.CurrentMp + EnergyPerKill, HardCap));
+
+        //Bloodlust is a true always-on passive - it triggers itself the instant banked kill energy hits the hard
+        //cap, consuming all of it, rather than waiting for a manual cast
+        if ((Subject.StatSheet.CurrentMp >= HardCap) && !Subject.Effects.Contains("Bloodlust") && Subject.SkillBook.TryGetObjectByTemplateKey("bloodlust", out _))
+        {
+            var frenzyEffect = new BloodlustEffect();
+            frenzyEffect.SetDuration(TimeSpan.FromMilliseconds(AutoTriggerDurationMs));
+            Subject.Effects.Apply(Subject, frenzyEffect, this);
+            Subject.StatSheet.SetMp(0);
+        }
 
         var finalMp = Subject.StatSheet.CurrentMp;
 

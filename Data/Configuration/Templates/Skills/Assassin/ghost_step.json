@@ -1,0 +1,19 @@
+{
+  "templateKey": "ghost_step",
+  "name": "Ghost Step",
+  "description": "Drop all threat, enter Hide, and vanish from enemy sight. Your next attack from Hide deals bonus damage.",
+  "panelSprite": 46,
+  "class": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 20000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["ghostStep"],
+  "scriptVars": {}
+}

@@ -1,0 +1,31 @@
+{
+  "templateKey": "spectral_wraith",
+  "name": "Spectral Wraith",
+  "description": "Become a living shadow, striking multiple enemies before materializing at the final target. Evolves from 2 targets up to the entire screen.",
+  "panelSprite": 46,
+  "class": "Assassin",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 22000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 8, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["spectralWraith"],
+  "scriptVars": {
+    "spectralWraith": {
+      "baseDamage": 60,
+      "damageStat": "dex",
+      "damageStatMultiplier": 2,
+      "range": 5,
+      "screenRange": 12,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}
