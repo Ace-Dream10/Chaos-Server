@@ -21,5 +21,9 @@ public sealed class RootEffect : EffectBase
     public override void OnApplied() => Subject.Trackers.Tags[RootTag] = bool.TrueString;
 
     /// <inheritdoc />
-    public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(RootTag, out _);
+    public override void OnTerminated()
+    {
+        Subject.Trackers.Tags.TryRemove(RootTag, out _);
+        TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
+    }
 }

@@ -1,0 +1,18 @@
+{
+  "templateKey": "smoke_and_mirrors",
+  "name": "Smoke and Mirrors",
+  "description": "(Passive) Whenever you use a mobility or deception ability, leave behind an illusion that briefly distracts nearby enemies.",
+  "panelSprite": 46,
+  "class": "Trickster",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

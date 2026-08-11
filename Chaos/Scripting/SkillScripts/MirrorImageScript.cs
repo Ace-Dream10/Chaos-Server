@@ -11,9 +11,27 @@ using Chaos.Services.Factories.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
+/// <summary>
+///     Renamed in-place to Hall of Mirrors - display name/description only. The templateKey stays
+///     <c>mirror_image</c> rather than getting a fresh key like every other rename tonight: a real saved character
+///     (<c>Data/Saved/Aislings/hate/skills.json</c>) already has this skill learned, and changing the key would
+///     silently orphan that reference with no migration path tonight. Flagged as a deliberate deviation from this
+///     session's usual clean-rename convention.
+/// </summary>
+/// <remarks>
+///     One of Trickster's 5 evolving abilities. Tiers per the locked design ("more illusions -&gt; longer duration
+///     -&gt; illusions attack -&gt; illusions mimic selected abilities") mapped to Trickster's own floor arc (Floor6
+///     intro, Floor7, Floor8, Floor9 max) via the same "Level ≈ 2×Floor" ratio used throughout tonight - see
+///     <see cref="GetTierValues" />. "Illusions attack" at Tier III+ is implemented by spawning Assassin's
+///     `shadow_clone` monster template (which actually fights back via ShadowCloneAggroScript) instead of the
+///     purely-decoy `mirror_image_decoy` template used at Tier I/II. Tier IV's "illusions mimic selected abilities"
+///     is simplified to the same strength as spawning more shadow_clones, same "flagged simplification, not
+///     silently dropped" treatment as Assassin's Shadow Clone Tier IV. All placeholder values, not balance-tested.
+/// </remarks>
 public class MirrorImageScript : ConfigurableSkillScriptBase
 {
-    private const string DecoyTemplateKey = "mirror_image_decoy";
+    private const string AttackingDecoyTemplateKey = "shadow_clone";
+    private const string PassiveDecoyTemplateKey = "mirror_image_decoy";
 
     private readonly IMonsterFactory MonsterFactory;
 
@@ -27,27 +45,47 @@ public class MirrorImageScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
-        if (!TryFindSpawnPoint(context, out var spawnPoint))
-            return;
+        for (var i = 0; i < tier.IllusionCount; i++)
+        {
+            if (!TryFindSpawnPoint(context, out var spawnPoint))
+                continue;
 
-        var decoy = MonsterFactory.Create(DecoyTemplateKey, map, spawnPoint);
-        map.AddEntity(decoy, spawnPoint);
+            var decoyTemplateKey = tier.IllusionsAttack ? AttackingDecoyTemplateKey : PassiveDecoyTemplateKey;
+            var decoy = MonsterFactory.Create(decoyTemplateKey, map, spawnPoint);
+            map.AddEntity(decoy, spawnPoint);
 
-        //override the decoy's default expiration duration with the one configured on this skill
-        if (decoy.Script.As<DecoyExpirationScript>() is { } expirationScript)
-            expirationScript.DurationMs = DurationMs;
+            //override the decoy's default expiration duration with this tier's - only the passive decoy template
+            //has DecoyExpirationScript; the attacking shadow_clone template expires on its own schedule
+            if (decoy.Script.As<DecoyExpirationScript>() is { } expirationScript)
+                expirationScript.DurationMs = tier.DurationMs;
 
-        //force every nearby monster to switch aggro to the decoy
-        foreach (var monster in map.GetEntitiesWithinRange<Monster>(context.SourcePoint, AggroRange))
-            monster.AggroList.AddAggro(decoy, 99999);
+            //force every nearby monster to switch aggro to the decoy
+            foreach (var monster in map.GetEntitiesWithinRange<Monster>(context.SourcePoint, AggroRange))
+                monster.AggroList.AddAggro(decoy, 99999);
+        }
 
         if (Animation != null)
             source.Animate(Animation, source.Id);
 
         if (Sound.HasValue)
-            map.PlaySound(Sound.Value, spawnPoint);
+            map.PlaySound(Sound.Value, Point.From(source));
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor6(Level&lt;=12)=I(intro,1 illusion,2.5s,passive),
+    ///     Floor7(&lt;=14)=II(1,5s,"longer duration"), Floor8(&lt;=16)=III(1,5s,attacking,"illusions attack"),
+    ///     Floor9+(&gt;16)=IV(max,2,7s,attacking,"mimic abilities" - see remarks above).
+    /// </summary>
+    private (int IllusionCount, int DurationMs, bool IllusionsAttack) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 12 => (1, 2500, false),
+            <= 14 => (1, 5000, false),
+            <= 16 => (1, 5000, true),
+            _     => (2, 7000, true)
+        };
 
     /// <summary>
     ///     Finds the closest walkable point to the source, spiraling outward, so a spawn point is always found
@@ -88,11 +126,6 @@ public class MirrorImageScript : ConfigurableSkillScriptBase
     ///     The animation played on the caster when the skill is used
     /// </summary>
     public Animation? Animation { get; init; }
-
-    /// <summary>
-    ///     The number of milliseconds the decoy will exist before disappearing
-    /// </summary>
-    public int DurationMs { get; init; } = 2500;
 
     /// <summary>
     ///     The sound played at the spawn point when the decoy is summoned

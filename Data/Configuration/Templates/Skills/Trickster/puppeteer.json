@@ -1,7 +1,7 @@
 {
   "templateKey": "puppeteer",
   "name": "Puppeteer",
-  "description": "Take control of an enemy's mind, turning them against their allies for 8 seconds.",
+  "description": "Take complete control of an enemy, forcing them to fight for your side. Evolves toward longer control and eventually multiple controlled enemies at once.",
   "panelSprite": 46,
   "class": "Trickster",
   "level": 1,
@@ -17,7 +17,6 @@
   "scriptKeys": ["puppeteer"],
   "scriptVars": {
     "puppeteer": {
-      "durationMs": 8000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "range": 4,
       "bodyAnimation": "None",

@@ -128,6 +128,13 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     /// </summary>
     private const decimal GhostStepOpeningStrikeMultiplier = 1.75m;
 
+    /// <summary>
+    ///     Psychological Warfare (Trickster passive) - the damage multiplier against a target carrying any of
+    ///     Trickster's 4 mental afflictions, applied by a Trickster who has learned this passive. Placeholder, not
+    ///     balance-tested.
+    /// </summary>
+    private const decimal PsychologicalWarfareMultiplier = 1.25m;
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -166,6 +173,16 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         if (target.Trackers.Tags.TryGetValue(ShadowmarkEffect.OwnerIdTagPrefix + source.Id, out var shadowmarkPctStr)
             && int.TryParse(shadowmarkPctStr, out var shadowmarkPct))
             damage = Convert.ToInt32(damage * (1 + (shadowmarkPct / 100m)));
+
+        //Psychological Warfare (Trickster passive) - per the locked design's wording ("take increased damage from
+        //all allies"), the bonus isn't scoped to the Trickster's own hits - any attacker benefits as long as SOME
+        //active affliction on the target was applied by a Trickster who has actually learned this passive (same
+        //"has learned this passive" gate Scorch/Kindling use above)
+        if (TricksterAfflictions.Factories.Keys.Any(
+                afflictionName => target.Effects.TryGetEffect(afflictionName, out var afflictionEffect)
+                                   && (afflictionEffect!.Source is Aisling { UserStatSheet.BaseClass: BaseClass.Trickster } warfareAisling)
+                                   && warfareAisling.SkillBook.TryGetObjectByTemplateKey("psychological_warfare", out _)))
+            damage = Convert.ToInt32(damage * PsychologicalWarfareMultiplier);
 
         //Slayer's Oath (Slayer passive) - a true always-on passive, stateless like Bastion's Retribution: the
         //longer you focus one enemy (the more Severance stacks it's carrying), the stronger your attacks against

@@ -1,0 +1,18 @@
+{
+  "templateKey": "psychological_warfare",
+  "name": "Psychological Warfare",
+  "description": "(Passive) Enemies suffering from mental afflictions take increased damage from all allies.",
+  "panelSprite": 46,
+  "class": "Trickster",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

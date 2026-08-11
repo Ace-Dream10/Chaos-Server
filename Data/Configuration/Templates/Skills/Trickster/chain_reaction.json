@@ -1,0 +1,18 @@
+{
+  "templateKey": "chain_reaction",
+  "name": "Chain Reaction",
+  "description": "(Passive) Mental afflictions have a chance to spread to nearby enemies or trigger another random mental affliction when they expire.",
+  "panelSprite": 46,
+  "class": "Trickster",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

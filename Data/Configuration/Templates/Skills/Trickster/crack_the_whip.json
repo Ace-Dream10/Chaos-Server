@@ -1,0 +1,26 @@
+{
+  "templateKey": "crack_the_whip",
+  "name": "Crack the Whip",
+  "description": "Crack your enchanted whip in a wide arc, damaging enemies in front of you and briefly staggering them. Evolves toward a wider arc and longer stagger.",
+  "panelSprite": 46,
+  "class": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 6, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["crackTheWhip"],
+  "scriptVars": {
+    "crackTheWhip": {
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Stab",
+      "animation": { "targetAnimation": 100, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

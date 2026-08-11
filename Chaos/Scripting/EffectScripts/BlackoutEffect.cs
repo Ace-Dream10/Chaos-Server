@@ -38,5 +38,9 @@ public sealed class BlackoutEffect : EffectBase
     }
 
     /// <inheritdoc />
-    public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(BlackoutTag, out _);
+    public override void OnTerminated()
+    {
+        Subject.Trackers.Tags.TryRemove(BlackoutTag, out _);
+        TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
+    }
 }

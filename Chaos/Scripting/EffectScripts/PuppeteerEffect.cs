@@ -45,6 +45,7 @@ public sealed class PuppeteerEffect : EffectBase
     {
         Subject.Trackers.Tags.TryRemove(PuppeteeredTag, out _);
         ResetTargeting();
+        TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
     }
 
     private void ResetTargeting()

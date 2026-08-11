@@ -14,9 +14,19 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Scans the direct line in front of the caster for the first hostile monster within range and turns them
-///     against their allies for a short time via <see cref="PuppeteerEffect" />.
+///     Scans the direct line in front of the caster for hostile monsters within range and turns them against
+///     their allies for a while via <see cref="PuppeteerEffect" />.
 /// </summary>
+/// <remarks>
+///     One of Trickster's 5 evolving abilities. Tiers per the locked design ("longer control -&gt; stronger
+///     controlled targets -&gt; elite enemies -&gt; multiple controlled enemies") mapped to Trickster's own floor
+///     arc (Floor4 intro, Floor5, Floor6, Floor7 max) via the same "Level ≈ 2×Floor" ratio used throughout tonight
+///     - see <see cref="GetTierValues" />. "Stronger controlled targets"/"elite enemies" at Tier III aren't gated
+///     on anything new here - MonsterTemplate has no boss/elite classification in this codebase yet (the same gap
+///     Execute's own "non-boss enemies" wording runs into), so Puppeteer already works on any monster regardless
+///     of tier; only duration and target count actually change tier-to-tier. Flagging the gap rather than building
+///     a new classification system tonight. All placeholder values, not balance-tested.
+/// </remarks>
 public class PuppeteerScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
@@ -28,13 +38,15 @@ public class PuppeteerScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         var endPoint = source.DirectionalOffset(source.Direction, Range);
 
         var points = source.GetDirectPath(endPoint)
-                           .Skip(1);
+                           .Skip(1)
+                           .ToList();
 
-        Monster? target = null;
+        var targets = new List<Monster>();
 
         foreach (var point in points)
         {
@@ -44,16 +56,16 @@ public class PuppeteerScript : ConfigurableSkillScriptBase
             var entity = map.GetEntitiesAtPoints<Monster>(point)
                             .TopOrDefault();
 
-            if (entity != null)
+            if ((entity != null) && Filter.IsValidTarget(source, entity))
             {
-                if (Filter.IsValidTarget(source, entity))
-                    target = entity;
+                targets.Add(entity);
 
-                break;
+                if (targets.Count >= tier.MaxTargets)
+                    break;
             }
         }
 
-        if (target == null)
+        if (targets.Count == 0)
         {
             context.SourceAisling?.SendOrangeBarMessage("No target in range.");
 
@@ -62,16 +74,33 @@ public class PuppeteerScript : ConfigurableSkillScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        var puppeteerEffect = new PuppeteerEffect();
-        puppeteerEffect.SetDuration(TimeSpan.FromMilliseconds(DurationMs));
-        target.Effects.Apply(source, puppeteerEffect, this);
+        foreach (var target in targets)
+        {
+            var puppeteerEffect = new PuppeteerEffect();
+            puppeteerEffect.SetDuration(TimeSpan.FromMilliseconds(tier.DurationMs));
+            target.Effects.Apply(source, puppeteerEffect, this);
 
-        if (Animation != null)
-            target.Animate(Animation, source.Id);
+            if (Animation != null)
+                target.Animate(Animation, source.Id);
 
-        if (Sound.HasValue)
-            map.PlaySound(Sound.Value, Point.From(target));
+            if (Sound.HasValue)
+                map.PlaySound(Sound.Value, Point.From(target));
+        }
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor4(Level&lt;=8)=I(intro,8s,1 target),
+    ///     Floor5(&lt;=10)=II(12s,1,"longer control"), Floor6(&lt;=12)=III(12s,1,"elite enemies" - see remarks),
+    ///     Floor7+(&gt;12)=IV(max,12s,2 targets,"multiple controlled enemies").
+    /// </summary>
+    private (int DurationMs, int MaxTargets) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 8  => (8000, 1),
+            <= 10 => (12000, 1),
+            <= 12 => (12000, 1),
+            _     => (12000, 2)
+        };
 
     #region ScriptVars
     /// <summary>
@@ -83,11 +112,6 @@ public class PuppeteerScript : ConfigurableSkillScriptBase
     ///     The body animation played by the caster
     /// </summary>
     public BodyAnimation BodyAnimation { get; init; }
-
-    /// <summary>
-    ///     How long, in milliseconds, the target is puppeteered for
-    /// </summary>
-    public int DurationMs { get; init; } = 8000;
 
     /// <summary>
     ///     The filter used to determine whether the first creature encountered in the scan is a valid target

@@ -1,0 +1,13 @@
+{
+  "templateKey": "deceivers_cache",
+  "scriptKeys": ["deceiversCacheReactor"],
+  "scriptVars": {
+    "deceiversCacheReactor": {
+      "baseDamage": 60,
+      "trapDurationMs": 30000,
+      "chainTriggerRange": 4,
+      "animation": { "targetAnimation": 374, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

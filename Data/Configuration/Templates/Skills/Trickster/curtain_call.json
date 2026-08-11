@@ -1,0 +1,25 @@
+{
+  "templateKey": "curtain_call",
+  "name": "Curtain Call",
+  "description": "Cloak your entire party in illusion magic, causing all allies to vanish from enemy sight and immediately drop aggro.",
+  "panelSprite": 46,
+  "class": "Trickster",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 30000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 3, "int": 5, "wis": 3, "con": 1 }
+  },
+  "scriptKeys": ["curtainCall"],
+  "scriptVars": {
+    "curtainCall": {
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

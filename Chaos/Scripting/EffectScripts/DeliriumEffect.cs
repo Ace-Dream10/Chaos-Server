@@ -37,5 +37,9 @@ public sealed class DeliriumEffect : EffectBase
     }
 
     /// <inheritdoc />
-    public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(DeliriumTag, out _);
+    public override void OnTerminated()
+    {
+        Subject.Trackers.Tags.TryRemove(DeliriumTag, out _);
+        TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
+    }
 }
