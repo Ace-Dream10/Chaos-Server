@@ -1,0 +1,31 @@
+{
+  "templateKey": "bow_assail",
+  "name": "Arrow Shot",
+  "description": "Loose an arrow at a distant target.",
+  "panelSprite": 74,
+  "isAssail": true,
+  "class": "Fletcher",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["bowShot"],
+  "scriptVars": {
+    "bowShot": {
+      "baseDamage": 60,
+      "damageStat": "dex",
+      "damageStatMultiplier": 3,
+      "range": 8,
+      "manaCost": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "BowShot",
+      "animation": { "targetAnimation": 202, "animationSpeed": 50 },
+      "sound": 98
+    }
+  }
+}

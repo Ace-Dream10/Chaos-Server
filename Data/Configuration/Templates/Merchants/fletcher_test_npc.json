@@ -1,0 +1,7 @@
+{
+  "templateKey": "fletcher_test_npc",
+  "name": "Fletcher Trainer",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "fletcher_test_npc_initial" } }
+}

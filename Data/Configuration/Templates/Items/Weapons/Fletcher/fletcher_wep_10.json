@@ -1,0 +1,21 @@
+{
+  "templateKey": "fletcher_wep_10",
+  "name": "Fletcher Weapon 10",
+  "description": "A weapon used for Fletcher visual testing.",
+  "category": "1h wep",
+  "panelSprite": 2373,
+  "displaySprite": 175,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Weapon",
+  "gender": "Unisex",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}

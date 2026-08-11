@@ -1,0 +1,10 @@
+{
+  "templateKey": "gm_gear_fletcher_helm_m",
+  "text": "Here you go.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["grantGearSet"],
+  "scriptVars": {
+    "grantGearSet": { "classKey": "fletcher", "gender": "m", "grantHelm": true }
+  }
+}

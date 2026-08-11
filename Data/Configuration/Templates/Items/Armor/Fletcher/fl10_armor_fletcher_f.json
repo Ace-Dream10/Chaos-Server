@@ -1,0 +1,21 @@
+{
+  "templateKey": "fl10_armor_fletcher_f",
+  "name": "FL10 Fletcher Armor",
+  "description": "Placeholder armor for visual testing.",
+  "category": "f armor",
+  "panelSprite": 13838,
+  "displaySprite": 386,
+  "color": "Default",
+  "weight": 1,
+  "maxStacks": 1,
+  "maxDurability": 1000,
+  "buyCost": 0,
+  "sellValue": 0,
+  "isModifiable": true,
+  "equipmentType": "Armor",
+  "gender": "Female",
+  "level": 1,
+  "modifiers": { "str": 1 },
+  "scriptKeys": ["Equipment"],
+  "scriptVars": { "equipment": {} }
+}
