@@ -1,7 +1,7 @@
 {
-  "templateKey": "blink_mystic",
-  "name": "Blink",
-  "description": "Instantly teleport a short distance forward.",
+  "templateKey": "ethereal_step",
+  "name": "Ethereal Step",
+  "description": "A short-range spirit teleport - instantly step a short distance forward.",
   "panelSprite": 25,
   "class": "Mystic",
   "spellType": "NoTarget",

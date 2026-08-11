@@ -5,32 +5,41 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
-using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
 namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
-///     Removes every known negative effect from a friendly target. There's no "IsDebuff" flag on effects, so this
-///     just matches against a fixed set of known debuff names and terminates any that are found.
+///     A direct build - no existing "strip buffs from an enemy" precedent in the codebase. Mirrors
+///     <see cref="StaciasCleanseScript" />'s own approach (there's no "IsBuff" flag on effects, so this matches
+///     against a fixed set of known beneficial effect names), just aimed at a hostile target instead of a friendly
+///     one, and terminating BUFFS instead of debuffs. The name list is intentionally scoped to this session's own
+///     built evolving/notable buffs rather than attempting to enumerate every buff in the game - a scoping
+///     decision, flagged rather than silently guessed, same as every other curated-list mechanic built tonight.
 /// </summary>
-public class StaciasCleanseScript : ConfigurableSpellScriptBase
+public class UnravelScript : ConfigurableSpellScriptBase
 {
-    private static readonly HashSet<string> DebuffNames = new(StringComparer.OrdinalIgnoreCase)
+    /// <summary>
+    ///     The set of known beneficial effect names Unravel can strip from a target. Scoped to this session's own
+    ///     built evolving/notable buffs rather than an exhaustive list of every buff in the game.
+    /// </summary>
+    private static readonly HashSet<string> BuffNames = new(StringComparer.OrdinalIgnoreCase)
     {
-        "Poison",
-        "Poison Bomb",
-        "Slow",
-        "Root",
-        "Stasis",
-        "Blackout",
-        "Delirium",
-        "Lullaby"
+        "Stacia's Blessing",
+        "Battle Hymn",
+        "Guardian's Anthem",
+        "Stacia's Grace",
+        "Crescendo",
+        "Blooming Life",
+        "Spirit Rend",
+        "Regeneration",
+        "Bloodlust",
+        "Solar Flare"
     };
 
     /// <inheritdoc />
-    public StaciasCleanseScript(Spell subject)
+    public UnravelScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
@@ -63,10 +72,19 @@ public class StaciasCleanseScript : ConfigurableSpellScriptBase
         var target = context.TargetCreature!;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         foreach (var effect in target.Effects.ToArray())
-            if (DebuffNames.Contains(effect.Name))
+            if (BuffNames.Contains(effect.Name))
                 target.Effects.Terminate(effect.Name);
 
         if (Animation != null)
@@ -78,7 +96,7 @@ public class StaciasCleanseScript : ConfigurableSpellScriptBase
 
     #region ScriptVars
     /// <summary>
-    ///     The animation played on the cleansed target
+    ///     The animation played on the unraveled target
     /// </summary>
     public Animation? Animation { get; init; }
 
@@ -93,9 +111,14 @@ public class StaciasCleanseScript : ConfigurableSpellScriptBase
     public TargetFilter Filter { get; init; }
 
     /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
+
+    /// <summary>
     ///     The maximum distance, in tiles, a target can be selected from
     /// </summary>
-    public int Range { get; init; } = 8;
+    public int Range { get; init; }
 
     /// <summary>
     ///     Sound played on cast

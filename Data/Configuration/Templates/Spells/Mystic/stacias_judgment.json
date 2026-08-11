@@ -1,7 +1,7 @@
 {
   "templateKey": "stacias_judgment",
   "name": "Stacia's Judgment",
-  "description": "Summon a divine shrine that strikes down all nearby enemies for 7 seconds.",
+  "description": "Summon a divine shrine that strikes down all nearby enemies - evolves into a larger, harder-hitting, longer-lingering shrine that ultimately strikes twice.",
   "panelSprite": 12,
   "class": "Mystic",
   "spellType": "Targeted",

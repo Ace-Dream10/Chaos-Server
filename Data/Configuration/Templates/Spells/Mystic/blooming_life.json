@@ -1,0 +1,24 @@
+{
+  "templateKey": "blooming_life",
+  "name": "Blooming Life",
+  "description": "An evolving heal-over-time - grows from a single-target bloom into a stronger, splashing regeneration that spreads to nearby allies.",
+  "panelSprite": 46,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["bloomingLife"],
+  "scriptVars": {
+    "bloomingLife": {
+      "manaCost": 15,
+      "range": 8,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 108, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

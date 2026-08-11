@@ -1,0 +1,27 @@
+{
+  "templateKey": "spirit_burst",
+  "name": "Spirit Burst",
+  "description": "Unleashes a burst of spirit energy at a single enemy.",
+  "panelSprite": 15,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 2000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["spiritBurst"],
+  "scriptVars": {
+    "spiritBurst": {
+      "manaCost": 10,
+      "baseDamage": 50,
+      "damageStat": "wis",
+      "damageStatMultiplier": 2.5,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 40, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

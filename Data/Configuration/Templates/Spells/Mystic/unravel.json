@@ -1,0 +1,24 @@
+{
+  "templateKey": "unravel",
+  "name": "Unravel",
+  "description": "Strips magical enhancements from an enemy.",
+  "panelSprite": 5,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["unravel"],
+  "scriptVars": {
+    "unravel": {
+      "manaCost": 10,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 5, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

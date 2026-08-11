@@ -9,8 +9,21 @@
       "className": "Mystic",
       "baseClass": "Mystic",
       "advClass": null,
-      "skillTemplateKeys": ["assail"],
-      "spellTemplateKeys": ["quick_mend", "stasis", "stacias_shrine", "stacias_pulse", "stacias_judgment", "void_storm", "jaunt"],
+      "skillTemplateKeys": ["assail", "bloomkeeper", "spiritual_attunement", "spirit_overflow"],
+      "spellTemplateKeys": [
+        "spirit_burst",
+        "unravel",
+        "stasis",
+        "regression",
+        "blooming_life",
+        "stacias_shrine",
+        "stacias_pulse",
+        "spirit_rend",
+        "soul_tether",
+        "communion_rite",
+        "ethereal_step",
+        "stacias_judgment"
+      ],
       "gearTemplateKeys": ["mystic_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_mystic_m",
       "armorTemplateKeyFemale": "fl1_armor_mystic_f"

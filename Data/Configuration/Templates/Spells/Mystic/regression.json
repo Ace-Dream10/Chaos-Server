@@ -1,0 +1,23 @@
+{
+  "templateKey": "regression",
+  "name": "Regression",
+  "description": "Reverses harmful spiritual effects on an ally - a dispel/cleanse for a single ally.",
+  "panelSprite": 5,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 8000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["regression"],
+  "scriptVars": {
+    "regression": {
+      "range": 8,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "PriestCast",
+      "animation": { "targetAnimation": 5, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

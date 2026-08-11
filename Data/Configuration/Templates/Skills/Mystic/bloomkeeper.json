@@ -1,0 +1,18 @@
+{
+  "templateKey": "bloomkeeper",
+  "name": "Bloomkeeper",
+  "description": "(Passive) Each active Blooming Life increases your healing effectiveness.",
+  "panelSprite": 46,
+  "class": "Mystic",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

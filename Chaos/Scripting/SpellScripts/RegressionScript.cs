@@ -5,17 +5,18 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
-using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
 namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
-///     Removes every known negative effect from a friendly target. There's no "IsDebuff" flag on effects, so this
-///     just matches against a fixed set of known debuff names and terminates any that are found.
+///     Mirrors <see cref="StaciasCleanseScript" /> (Bard's own ally-facing dispel) - identical mechanic, kept as a
+///     separate Mystic-owned file rather than a shared one, matching this engine's existing convention of each
+///     class script being self-contained. Regression is Mystic's version of "reverses harmful spiritual effects on
+///     an ally (dispel/cleanse for a single ally)."
 /// </summary>
-public class StaciasCleanseScript : ConfigurableSpellScriptBase
+public class RegressionScript : ConfigurableSpellScriptBase
 {
     private static readonly HashSet<string> DebuffNames = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -26,11 +27,12 @@ public class StaciasCleanseScript : ConfigurableSpellScriptBase
         "Stasis",
         "Blackout",
         "Delirium",
-        "Lullaby"
+        "Lullaby",
+        "Spirit Rend"
     };
 
     /// <inheritdoc />
-    public StaciasCleanseScript(Spell subject)
+    public RegressionScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />

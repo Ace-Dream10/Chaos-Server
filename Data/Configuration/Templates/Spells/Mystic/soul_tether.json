@@ -1,0 +1,23 @@
+{
+  "templateKey": "soul_tether",
+  "name": "Soul Tether",
+  "description": "Bind your soul to an ally - while linked, a portion of healing either of you receives also heals the other.",
+  "panelSprite": 56,
+  "class": "Mystic",
+  "spellType": "Targeted",
+  "cooldownMs": 5000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["soulTether"],
+  "scriptVars": {
+    "soulTether": {
+      "range": 8,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "PriestCast",
+      "animation": { "targetAnimation": 56, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

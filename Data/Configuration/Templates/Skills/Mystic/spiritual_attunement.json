@@ -1,0 +1,18 @@
+{
+  "templateKey": "spiritual_attunement",
+  "name": "Spiritual Attunement",
+  "description": "(Passive) After casting a healing spell, your next non-healing spell is empowered.",
+  "panelSprite": 46,
+  "class": "Mystic",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}
