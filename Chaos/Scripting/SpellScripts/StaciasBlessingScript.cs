@@ -11,6 +11,17 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
+/// <summary>
+///     One of Bard's 5 evolving abilities, and a consolidation of 3 previously-separate spells (Stacia's Armor,
+///     the original flat Stacia's Blessing, Stacia's Veil) into one - see
+///     <see cref="Chaos.Scripting.EffectScripts.StaciasBlessingEffect" />'s doc comment for why. Tiers per the
+///     locked design's evolution track ("Defense -&gt; +HP -&gt; +Stats -&gt; +Damage Reduction -&gt; +CC
+///     Resistance") mapped onto the floor schedule's 4 actual checkpoints (obtain, Floor4, Floor7, Floor10 max/
+///     solo finale) - 5 named additions across 4 tiers, so the last two (Damage Reduction + CC Resistance) land
+///     together at the max tier, same squeeze <see cref="Chaos.Scripting.SpellScripts.BattleHymnScript" /> uses.
+///     Applied to every friendly Aisling on the map (same target-scan pattern the 3 source spells all shared).
+///     All placeholder values, not balance-tested.
+/// </summary>
 public class StaciasBlessingScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
@@ -22,6 +33,7 @@ public class StaciasBlessingScript : ConfigurableSpellScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
+        var tier = GetTierValues();
 
         source.AnimateBody(BodyAnimation);
 
@@ -32,13 +44,16 @@ public class StaciasBlessingScript : ConfigurableSpellScriptBase
 
             var blessingEffect = new StaciasBlessingEffect
             {
-                StrBonus = StrBonus,
-                DexBonus = DexBonus,
-                IntBonus = IntBonus,
-                WisBonus = WisBonus,
-                ConBonus = ConBonus,
-                HpBonus = HpBonus,
-                MpBonus = MpBonus
+                AcBonus = tier.AcBonus,
+                HpBonus = tier.HpBonus,
+                MpBonus = tier.MpBonus,
+                StrBonus = tier.StatBonus,
+                DexBonus = tier.StatBonus,
+                IntBonus = tier.StatBonus,
+                WisBonus = tier.StatBonus,
+                ConBonus = tier.StatBonus,
+                DamageReductionPct = tier.DamageReductionPct,
+                CcResistPct = tier.CcResistPct
             };
             aisling.Effects.Apply(source, blessingEffect, this);
         }
@@ -49,6 +64,20 @@ public class StaciasBlessingScript : ConfigurableSpellScriptBase
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, context.SourcePoint);
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor1(Level&lt;=2)=I(obtain,Defense only),
+    ///     Floor4(&lt;=8)=II(+HP), Floor7(&lt;=14)=III(+Stats), Floor10+(&gt;14)=IV(max/solo finale,+Damage
+    ///     Reduction+CC Resistance).
+    /// </summary>
+    private (int AcBonus, int HpBonus, int MpBonus, int StatBonus, int DamageReductionPct, int CcResistPct) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 2  => (-10, 0, 0, 0, 0, 0),
+            <= 8  => (-15, 300, 0, 0, 0, 0),
+            <= 14 => (-15, 300, 200, 5, 0, 0),
+            _     => (-20, 500, 300, 5, 15, 25)
+        };
 
     #region ScriptVars
     /// <summary>
@@ -61,24 +90,14 @@ public class StaciasBlessingScript : ConfigurableSpellScriptBase
     /// </summary>
     public BodyAnimation BodyAnimation { get; init; }
 
-    public int ConBonus { get; init; } = 5;
-    public int DexBonus { get; init; } = 5;
-
     /// <summary>
     ///     The filter used to determine which Aislings on the map are valid buff targets
     /// </summary>
     public TargetFilter Filter { get; init; }
 
-    public int HpBonus { get; init; } = 500;
-    public int IntBonus { get; init; } = 5;
-    public int MpBonus { get; init; } = 300;
-
     /// <summary>
     ///     Sound played at the caster's position on cast
     /// </summary>
     public byte? Sound { get; init; }
-
-    public int StrBonus { get; init; } = 5;
-    public int WisBonus { get; init; } = 5;
     #endregion
 }

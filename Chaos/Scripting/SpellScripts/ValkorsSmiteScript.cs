@@ -5,7 +5,6 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
-using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SpellScripts.Abstractions;
@@ -14,15 +13,17 @@ using Chaos.Scripting.SpellScripts.Abstractions;
 namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
-///     Deals BaseDamage + (CurrentMp x CrescendoMultiplier) to a single hostile target. Does not consume MP -
-///     rewards keeping mana topped up rather than spending it.
+///     A direct build - "Bard's one call on the OTHER god, contrasting its otherwise all-Stacia kit" per the locked
+///     design. Flat, non-evolving, unlocked Floor 1 alongside Stacia's Vitae. Simple single-target divine strike -
+///     the point isn't mechanical novelty, it's the lore beat of a Stacia-devoted support class reaching for
+///     Valkor's more martial power exactly once.
 /// </summary>
-public class VoidCrescendoScript : ConfigurableSpellScriptBase
+public class ValkorsSmiteScript : ConfigurableSpellScriptBase
 {
     private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public VoidCrescendoScript(Spell subject)
+    public ValkorsSmiteScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
@@ -56,12 +57,21 @@ public class VoidCrescendoScript : ConfigurableSpellScriptBase
         var target = context.TargetCreature!;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough focus.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
-        var damage = BaseDamage + Convert.ToInt32(source.StatSheet.CurrentMp * CrescendoMultiplier);
+        var damage = (BaseDamage ?? 0) + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.WIS) * (DamageStatMultiplier ?? 1));
 
         if (damage > 0)
-            ApplyDamageScript.ApplyDamage(source, target, this, damage);
+            ApplyDamageScript.ApplyDamage(source, target, this, damage, Element.Holy);
 
         if (Animation != null)
             target.Animate(Animation, source.Id);
@@ -77,9 +87,9 @@ public class VoidCrescendoScript : ConfigurableSpellScriptBase
     public Animation? Animation { get; init; }
 
     /// <summary>
-    ///     The flat portion of the damage dealt, before the mana-scaling bonus
+    ///     The flat portion of the damage dealt
     /// </summary>
-    public int BaseDamage { get; init; } = 50;
+    public int? BaseDamage { get; init; }
 
     /// <summary>
     ///     The body animation played by the caster
@@ -87,9 +97,14 @@ public class VoidCrescendoScript : ConfigurableSpellScriptBase
     public BodyAnimation BodyAnimation { get; init; }
 
     /// <summary>
-    ///     The multiplier applied to the caster's current MP when calculating bonus damage
+    ///     The stat used to scale bonus damage
     /// </summary>
-    public decimal CrescendoMultiplier { get; init; } = 2;
+    public Stat? DamageStat { get; init; }
+
+    /// <summary>
+    ///     The multiplier applied to <see cref="DamageStat" /> when calculating bonus damage
+    /// </summary>
+    public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
     ///     The filter used to determine whether the selected target is valid
@@ -97,12 +112,17 @@ public class VoidCrescendoScript : ConfigurableSpellScriptBase
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     The maximum distance, in tiles, a target can be selected from
+    ///     The MP cost to use this spell
     /// </summary>
-    public int Range { get; init; } = 8;
+    public int ManaCost { get; init; }
 
     /// <summary>
-    ///     Sound played on cast
+    ///     The maximum distance, in tiles, a target can be selected from
+    /// </summary>
+    public int Range { get; init; }
+
+    /// <summary>
+    ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
     #endregion

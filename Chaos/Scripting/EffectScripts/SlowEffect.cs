@@ -1,6 +1,7 @@
 #region
 using Chaos.Models.Data;
 using Chaos.Models.World;
+using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts.Abstractions;
 #endregion
 
@@ -24,6 +25,10 @@ public sealed class SlowEffect : EffectBase
 
     /// <inheritdoc />
     public override string Name => "Slow";
+
+    /// <inheritdoc />
+    public override bool ShouldApply(Creature source, Creature target)
+        => base.ShouldApply(source, target) && !BardMechanics.TryResistCc(target);
 
     /// <summary>
     ///     The amount added to the subject's MovementSpeedPct while slowed. Verified against Monster.Update's

@@ -9,8 +9,21 @@
       "className": "Bard",
       "baseClass": "Bard",
       "advClass": null,
-      "skillTemplateKeys": ["assail"],
-      "spellTemplateKeys": ["stacias_vitae", "red_requiem", "stacias_blessing", "stacias_lullaby", "stacias_hymn", "stacias_march", "stacias_chorus", "stacias_cleanse", "void_crescendo", "stacias_veil", "stacias_armor", "stacias_bubble", "grand_finale"],
+      "skillTemplateKeys": ["assail", "crescendo", "encore", "stacias_grace"],
+      "spellTemplateKeys": [
+        "stacias_vitae",
+        "stacias_chorus",
+        "stacias_cleanse",
+        "stacias_bubble",
+        "red_requiem",
+        "stacias_lullaby",
+        "stacias_blessing",
+        "battle_hymn",
+        "bards_malediction",
+        "salvation",
+        "guardians_anthem",
+        "valkors_smite"
+      ],
       "gearTemplateKeys": ["bard_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_bard_m",
       "armorTemplateKeyFemale": "fl1_armor_bard_f"

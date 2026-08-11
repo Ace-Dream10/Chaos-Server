@@ -162,6 +162,16 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     /// </summary>
     private const decimal CritMultiplier = 2m;
 
+    /// <summary>
+    ///     Stacia's Grace (Bard passive) - the HP percentage (0-1) that triggers brief invulnerability, and its
+    ///     cooldown in seconds (same ready-at-timestamp pattern as Wings of Stacia). Placeholder, not
+    ///     balance-tested.
+    /// </summary>
+    private const decimal StaciasGraceHpThreshold = 0.2m;
+
+    private const int StaciasGraceCooldownSeconds = 90;
+    private const string StaciasGraceCooldownCounterKey = "staciasGraceReadyAt";
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -384,6 +394,27 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
             && (Random.Shared.NextDouble() < (windrunnerCritPct / 100d)))
             damage = Convert.ToInt32(damage * CritMultiplier);
 
+        //Battle Hymn Tier IV (Bard) - same scoped crit-roll shape as Fletcher's Spotter's Brand/Windrunner above,
+        //but a persistent party-wide buff rather than a one-shot consumed tag
+        if (source.Trackers.Tags.TryGetValue(BattleHymnEffect.CritChanceBonusTag, out var battleHymnCritPctStr)
+            && int.TryParse(battleHymnCritPctStr, out var battleHymnCritPct)
+            && (Random.Shared.NextDouble() < (battleHymnCritPct / 100d)))
+            damage = Convert.ToInt32(damage * CritMultiplier);
+
+        //Bard's Malediction Tier III+ crit vulnerability - same scoped crit-roll shape as above, but the tag lives
+        //on the TARGET (any attacker benefits), same convention as Spotter's Brand
+        if (target.Trackers.Tags.TryGetValue(BardsMaledictionEffect.CritVulnerabilityTag, out var maledictionCritPctStr)
+            && int.TryParse(maledictionCritPctStr, out var maledictionCritPct)
+            && (Random.Shared.NextDouble() < (maledictionCritPct / 100d)))
+            damage = Convert.ToInt32(damage * CritMultiplier);
+
+        //Bard's Malediction Tier II+ "lower damage dealt" - unlike every other tag-based multiplier tonight, this
+        //reads from the SOURCE (attacker) side: the malediction debuff sits on the cursed creature, and it reduces
+        //THEIR OWN outgoing damage when they attack someone else, not the damage they receive
+        if (source.Trackers.Tags.TryGetValue(BardsMaledictionEffect.DamageDealtReductionTag, out var maledictionDmgPctStr)
+            && int.TryParse(maledictionDmgPctStr, out var maledictionDmgPct))
+            damage = Convert.ToInt32(damage * (1 - (maledictionDmgPct / 100m)));
+
         if (damage <= 0)
             return 0;
 
@@ -429,9 +460,13 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         attackingMonster.AggroList.AddAggro(nearbyBastion, HoldTheLineBonusAggro);
                     }
 
-                //Stacia's Veil - flat percentage damage reduction, applies before any other mitigation below
-                if (aisling.Effects.TryGetEffect("Stacia's Veil", out var veilEffect) && (veilEffect is VeilEffect veil))
-                    damage = Convert.ToInt32(damage * (1 - (veil.DamageReductionPct / 100m)));
+                //Stacia's Blessing (Bard, Tier IV) - flat percentage damage reduction, applies before any other
+                //mitigation below. Was Stacia's Veil's own dedicated effect before tonight's Armor+Blessing+Veil
+                //consolidation - see StaciasBlessingEffect's doc comment.
+                if (aisling.Effects.TryGetEffect("Stacia's Blessing", out var blessingDrEffect)
+                    && (blessingDrEffect is StaciasBlessingEffect blessingDr)
+                    && (blessingDr.DamageReductionPct > 0))
+                    damage = Convert.ToInt32(damage * (1 - (blessingDr.DamageReductionPct / 100m)));
 
                 //Stacia's Shrine (tier 3+) damage shield - absorbs up to ShrineShieldHp of the remaining damage
                 if (aisling.Trackers.Tags.TryGetValue(ShrineShieldTag, out var shieldHpStr) && int.TryParse(shieldHpStr, out var shieldHp)
@@ -722,6 +757,24 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         {
                             aisling.Effects.Apply(aisling, new WingsOfStaciaShieldEffect(), script);
                             aisling.Trackers.Counters.Set(WingsOfStaciaCooldownCounterKey, nowSeconds + WingsOfStaciaCooldownSeconds);
+                        }
+                    }
+
+                    //Stacia's Grace (Bard passive) - a true always-on passive, same cooldown-gated low-HP trigger
+                    //shape as Wings of Stacia above, but grants brief invulnerability instead of a shield
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Bard) && aisling.IsAlive
+                                                                             && aisling.SkillBook.TryGetObjectByTemplateKey("stacias_grace", out _)
+                                                                             && !aisling.Trackers.Tags.ContainsKey(StaciasBulwarkEffect.InvulnerableTag))
+                    {
+                        var maxHp = aisling.StatSheet.EffectiveMaximumHp;
+                        var hpPct = maxHp <= 0 ? 1m : aisling.StatSheet.CurrentHp / (decimal)maxHp;
+                        var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+                        var readyAtSeconds = aisling.Trackers.Counters.TryGetValue(StaciasGraceCooldownCounterKey, out var graceReady) ? graceReady : 0;
+
+                        if ((hpPct <= StaciasGraceHpThreshold) && (nowSeconds >= readyAtSeconds))
+                        {
+                            aisling.Effects.Apply(aisling, new StaciasGraceEffect(), script);
+                            aisling.Trackers.Counters.Set(StaciasGraceCooldownCounterKey, nowSeconds + StaciasGraceCooldownSeconds);
                         }
                     }
                 }

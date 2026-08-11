@@ -1,7 +1,7 @@
 {
-  "templateKey": "stacias_veil",
-  "name": "Stacia's Veil",
-  "description": "Wrap all allies in Stacia's divine veil, reducing damage taken by 20% for 30 seconds.",
+  "templateKey": "battle_hymn",
+  "name": "Battle Hymn",
+  "description": "A rousing hymn that empowers all allies. Evolves from raw attack into accuracy, attack speed, critical strike chance, and mana regeneration.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "NoTarget",
@@ -10,11 +10,9 @@
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "scriptKeys": ["staciasVeil"],
+  "scriptKeys": ["battleHymn"],
   "scriptVars": {
-    "staciasVeil": {
-      "damageReductionPct": 20,
-      "durationMs": 30000,
+    "battleHymn": {
       "filter": "friendlyOnly, aliveOnly, aislingsOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },

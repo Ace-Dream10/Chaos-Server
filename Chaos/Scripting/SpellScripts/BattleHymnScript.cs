@@ -1,0 +1,97 @@
+#region
+using Chaos.DarkAges.Definitions;
+using Chaos.Definitions;
+using Chaos.Extensions;
+using Chaos.Models.Data;
+using Chaos.Models.Panel;
+using Chaos.Models.World;
+using Chaos.Scripting.EffectScripts;
+using Chaos.Scripting.SpellScripts.Abstractions;
+#endregion
+
+namespace Chaos.Scripting.SpellScripts;
+
+/// <summary>
+///     Renamed from Stacia's Hymn, and a consolidation of 2 previously-separate spells (Stacia's Hymn, Stacia's
+///     March) into one - see <see cref="Chaos.Scripting.EffectScripts.BattleHymnEffect" />'s doc comment. One of
+///     Bard's 5 evolving abilities. Tiers per the locked design's evolution track ("Attack -&gt; +Accuracy -&gt;
+///     +Attack Speed -&gt; +Critical -&gt; +Mana Regeneration") mapped onto the floor schedule's 4 checkpoints
+///     (obtain, Floor4, Floor7, Floor10 max/solo finale) - same 5-additions-over-4-tiers squeeze
+///     <see cref="StaciasBlessingScript" /> uses, landing the last two together at max tier. All placeholder
+///     values, not balance-tested.
+/// </summary>
+public class BattleHymnScript : ConfigurableSpellScriptBase
+{
+    /// <inheritdoc />
+    public BattleHymnScript(Spell subject)
+        : base(subject) { }
+
+    /// <inheritdoc />
+    public override void OnUse(SpellContext context)
+    {
+        var source = context.Source;
+        var map = context.TargetMap;
+        var tier = GetTierValues();
+
+        source.AnimateBody(BodyAnimation);
+
+        foreach (var aisling in map.GetEntities<Aisling>())
+        {
+            if (!Filter.IsValidTarget(source, aisling))
+                continue;
+
+            var hymnEffect = new BattleHymnEffect
+            {
+                FlatDamageBonus = tier.FlatDamageBonus,
+                FlatSpellBonus = tier.FlatDamageBonus,
+                HitBonus = tier.HitBonus,
+                AtkSpeedBonus = tier.AtkSpeedBonus,
+                CritChanceBonusPct = tier.CritChanceBonusPct,
+                MpRegenPerTick = tier.MpRegenPerTick
+            };
+            aisling.Effects.Apply(source, hymnEffect, this);
+        }
+
+        if (Animation != null)
+            map.ShowAnimation(Animation.GetPointAnimation(context.SourcePoint, source.Id));
+
+        if (Sound.HasValue)
+            map.PlaySound(Sound.Value, context.SourcePoint);
+    }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Floor1(Level&lt;=2)=I(obtain,Attack only),
+    ///     Floor4(&lt;=8)=II(+Accuracy), Floor7(&lt;=14)=III(+Attack Speed), Floor10+(&gt;14)=IV(max/solo finale,
+    ///     +Critical+Mana Regen).
+    /// </summary>
+    private (int FlatDamageBonus, int HitBonus, int AtkSpeedBonus, int CritChanceBonusPct, int MpRegenPerTick) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 2  => (10, 0, 0, 0, 0),
+            <= 8  => (15, 15, 0, 0, 0),
+            <= 14 => (15, 15, 20, 0, 0),
+            _     => (20, 20, 25, 15, 10)
+        };
+
+    #region ScriptVars
+    /// <summary>
+    ///     The animation played at the caster's position
+    /// </summary>
+    public Animation? Animation { get; init; }
+
+    /// <summary>
+    ///     The body animation played by the caster
+    /// </summary>
+    public BodyAnimation BodyAnimation { get; init; }
+
+    /// <summary>
+    ///     The filter used to determine which Aislings on the map are valid buff targets
+    /// </summary>
+    public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     Sound played at the caster's position on cast
+    /// </summary>
+    public byte? Sound { get; init; }
+    #endregion
+}

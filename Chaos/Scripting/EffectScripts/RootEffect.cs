@@ -1,4 +1,5 @@
 #region
+using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts.Abstractions;
 #endregion
 
@@ -16,6 +17,10 @@ public sealed class RootEffect : EffectBase
 
     /// <inheritdoc />
     public override string Name => "Root";
+
+    /// <inheritdoc />
+    public override bool ShouldApply(Creature source, Creature target)
+        => base.ShouldApply(source, target) && !BardMechanics.TryResistCc(target);
 
     /// <inheritdoc />
     public override void OnApplied() => Subject.Trackers.Tags[RootTag] = bool.TrueString;

@@ -1,0 +1,24 @@
+{
+  "templateKey": "salvation",
+  "name": "Salvation",
+  "description": "An evolving emergency healing miracle - a large heal that grows stronger, gains splash healing, and eventually surges further for critically wounded allies.",
+  "panelSprite": 15,
+  "class": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 20000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["salvation"],
+  "scriptVars": {
+    "salvation": {
+      "manaCost": 30,
+      "range": 8,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "templateKey": "guardians_anthem",
+  "name": "Guardian's Anthem",
+  "description": "Bard's iconic raid-saving cooldown - grants brief 100% damage immunity. Evolves from a single ally into the entire party.",
+  "panelSprite": 15,
+  "class": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 90000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["guardiansAnthem"],
+  "scriptVars": {
+    "guardiansAnthem": {
+      "manaCost": 40,
+      "range": 8,
+      "filter": "friendlyOnly, aliveOnly",
+      "bodyAnimation": "HandsUp2",
+      "animation": { "targetAnimation": 157, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

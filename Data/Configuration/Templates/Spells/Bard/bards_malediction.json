@@ -1,0 +1,24 @@
+{
+  "templateKey": "bards_malediction",
+  "name": "Bard's Malediction",
+  "description": "An evolving curse that increasingly weakens an enemy - reducing their defense, then their damage dealt, then leaving them vulnerable to critical strikes.",
+  "panelSprite": 15,
+  "class": "Bard",
+  "spellType": "Targeted",
+  "cooldownMs": 15000,
+  "castLines": 0,
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "scriptKeys": ["bardsMalediction"],
+  "scriptVars": {
+    "bardsMalediction": {
+      "manaCost": 20,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 56, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

@@ -10,6 +10,14 @@ namespace Chaos.Scripting.FunctionalScripts.ApplyHealing;
 
 public class ApplyHealScript : ScriptBase, IApplyHealScript
 {
+    /// <summary>
+    ///     Encore (Bard passive) - the chance a beneficial heal repeats at reduced effectiveness, and the
+    ///     multiplier applied to the repeat. Placeholder, not balance-tested.
+    /// </summary>
+    private const double EncoreProcChance = 0.25;
+
+    private const decimal EncoreRepeatMultiplier = 0.4m;
+
     /// <inheritdoc />
     public IHealFormula HealFormula { get; set; } = HealFormulae.Default;
 
@@ -21,6 +29,14 @@ public class ApplyHealScript : ScriptBase, IApplyHealScript
         Creature target,
         IScript script,
         int healing)
+        => ApplyHeal(source, target, script, healing, allowEncore: true);
+
+    private void ApplyHeal(
+        Creature source,
+        Creature target,
+        IScript script,
+        int healing,
+        bool allowEncore)
     {
         healing = HealFormula.Calculate(
             source,
@@ -51,6 +67,15 @@ public class ApplyHealScript : ScriptBase, IApplyHealScript
 
                 break;
         }
+
+        //Encore (Bard passive) - a true always-on passive: this heal has a chance to repeat at reduced
+        //effectiveness. allowEncore:false on the repeat call itself, so a proc can't chain into more procs.
+        if (allowEncore
+            && (source is Aisling encoreAisling)
+            && (encoreAisling.UserStatSheet.BaseClass == BaseClass.Bard)
+            && encoreAisling.SkillBook.TryGetObjectByTemplateKey("encore", out _)
+            && (Random.Shared.NextDouble() < EncoreProcChance))
+            ApplyHeal(source, target, script, Convert.ToInt32(healing * EncoreRepeatMultiplier), allowEncore: false);
     }
 
     /// <inheritdoc />
