@@ -809,6 +809,11 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     aisling.Client.SendAttributes(StatUpdateType.Vitality);
                     aisling.ShowHealth();
 
+                    //Stacia's Lullaby - taking any damage wakes the Aisling immediately, same as the Monster case
+                    //below
+                    if (aisling.Trackers.Tags.ContainsKey(LullabyEffect.AsleepTag))
+                        aisling.Effects.Terminate("Lullaby");
+
                     //Lancers passively charge shield MP from monster hits while the shield isn't already up
                     if ((aisling.UserStatSheet.BaseClass == BaseClass.Bastion) && (source is Monster))
                     {
