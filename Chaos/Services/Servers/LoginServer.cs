@@ -150,6 +150,10 @@ public sealed class LoginServer : ServerBase<IChaosLoginClient>, ILoginServer<IC
                     return;
                 }
 
+                // TEMPORARY ALPHA SETTING: Options.StartingMapInstanceId/StartingPoint (appsettings.json/
+                // appsettings.prod.json -> LoginOptions.StartingMapInstanceId/StartingPointStr) currently
+                // point new characters at the alpha test map (map20004 / lod20004), not the real starting
+                // flow. Revert to the real Haven/Floor 1 starting map+point once that flow is ready.
                 var mapInstanceCache = CacheProvider.GetCache<MapInstance>();
                 var startingMap = mapInstanceCache.Get(Options.StartingMapInstanceId);
 

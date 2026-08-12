@@ -1,0 +1,7 @@
+{
+  "templateKey": "alpha_class_preview_npc",
+  "name": "Class Preview",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "alpha_preview_initial" } }
+}

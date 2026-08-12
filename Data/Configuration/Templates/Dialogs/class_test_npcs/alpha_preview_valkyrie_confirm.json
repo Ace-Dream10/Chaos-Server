@@ -1,0 +1,19 @@
+{
+  "templateKey": "alpha_preview_valkyrie_confirm",
+  "text": "It is done. Valkyrie Floor 1 kit granted: Ragnarok (Tier I), Glaive Leap, Divine Fury.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Valkyrie",
+      "baseClass": "Valkyrie",
+      "advClass": null,
+      "skillTemplateKeys": ["assail", "ragnarok", "glaive_leap", "divine_fury"],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_polearm_1"],
+      "armorTemplateKeyMale": "fl1_armor_valkyrie_m",
+      "armorTemplateKeyFemale": "fl1_armor_valkyrie_f"
+    }
+  }
+}

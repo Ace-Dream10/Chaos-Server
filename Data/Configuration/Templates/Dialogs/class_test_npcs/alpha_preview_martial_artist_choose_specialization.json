@@ -1,0 +1,10 @@
+{
+  "templateKey": "alpha_preview_martial_artist_choose_specialization",
+  "text": "Which specialization would you like to preview? (All 3 share an identical Floor 1 kit - the specialization split doesn't happen until Floor 2.)",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "alpha_preview_beast_confirm", "optionText": "Beast (werewolf, Fighter/DPS)" },
+    { "dialogKey": "alpha_preview_ironscale_confirm", "optionText": "Ironscale (lizardman, Tank)" },
+    { "dialogKey": "alpha_preview_tempest_confirm", "optionText": "Tempest (harpy, Ranged DPS)" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "templateKey": "alpha_preview_assassin_confirm",
+  "text": "It is done. Assassin Floor 1 kit granted: Death's Strike, Phantom Blade, Witness Elimination.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Assassin",
+      "baseClass": "Assassin",
+      "advClass": null,
+      "skillTemplateKeys": ["assail", "deaths_strike", "phantom_blade", "witness_elimination"],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["assassin_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_assassin_m",
+      "armorTemplateKeyFemale": "fl1_armor_assassin_f"
+    }
+  }
+}

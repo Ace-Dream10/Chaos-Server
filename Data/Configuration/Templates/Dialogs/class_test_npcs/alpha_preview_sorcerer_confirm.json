@@ -1,0 +1,19 @@
+{
+  "templateKey": "alpha_preview_sorcerer_confirm",
+  "text": "It is done. Sorcerer Floor 1 kit granted: Arcane Bolt, Arcane Precision, Arcane Gate.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Sorcerer",
+      "baseClass": "Sorcerer",
+      "advClass": null,
+      "skillTemplateKeys": ["assail"],
+      "spellTemplateKeys": ["arcane_bolt", "arcane_precision", "arcane_gate"],
+      "gearTemplateKeys": ["sorcerer_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_sorcerer_m",
+      "armorTemplateKeyFemale": "fl1_armor_sorcerer_f"
+    }
+  }
+}

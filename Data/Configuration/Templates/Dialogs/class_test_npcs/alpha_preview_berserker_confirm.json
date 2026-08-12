@@ -1,0 +1,19 @@
+{
+  "templateKey": "alpha_preview_berserker_confirm",
+  "text": "It is done. Berserker Floor 1 kit granted: Rage, Broad Swipe, Vampiric Strike.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Berserker",
+      "baseClass": "Berserker",
+      "advClass": null,
+      "skillTemplateKeys": ["assail", "rage", "broad_swipe", "vampiric_strike"],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_blunt_1"],
+      "armorTemplateKeyMale": "fl1_armor_berserker_m",
+      "armorTemplateKeyFemale": "fl1_armor_berserker_f"
+    }
+  }
+}

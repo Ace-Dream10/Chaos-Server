@@ -1,0 +1,19 @@
+{
+  "templateKey": "alpha_preview_slayer_confirm",
+  "text": "It is done. Slayer Floor 1 kit granted: Scythe (Tier I), Evade, Skewer.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Slayer",
+      "baseClass": "Slayer",
+      "advClass": null,
+      "skillTemplateKeys": ["assail", "scythe", "evade", "whirlwind"],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["wm_twohanded_1"],
+      "armorTemplateKeyMale": "fl1_armor_slayer_m",
+      "armorTemplateKeyFemale": "fl1_armor_slayer_f"
+    }
+  }
+}

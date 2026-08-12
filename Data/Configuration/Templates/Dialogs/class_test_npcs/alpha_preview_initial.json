@@ -1,0 +1,18 @@
+{
+  "templateKey": "alpha_preview_initial",
+  "text": "Pick a class to preview its Floor 1 kit. This wipes your current skills, spells, equipped items, and inventory and grants ONLY that class's real Floor 1 abilities - not the full kit. Fully repeatable - pick again anytime to swap.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "alpha_preview_bastion_confirm", "optionText": "Bastion" },
+    { "dialogKey": "alpha_preview_berserker_confirm", "optionText": "Berserker" },
+    { "dialogKey": "alpha_preview_slayer_confirm", "optionText": "Slayer" },
+    { "dialogKey": "alpha_preview_valkyrie_confirm", "optionText": "Valkyrie" },
+    { "dialogKey": "alpha_preview_assassin_confirm", "optionText": "Assassin" },
+    { "dialogKey": "alpha_preview_trickster_confirm", "optionText": "Trickster" },
+    { "dialogKey": "alpha_preview_fletcher_confirm", "optionText": "Fletcher" },
+    { "dialogKey": "alpha_preview_bard_confirm", "optionText": "Bard" },
+    { "dialogKey": "alpha_preview_mystic_confirm", "optionText": "Mystic" },
+    { "dialogKey": "alpha_preview_sorcerer_confirm", "optionText": "Sorcerer" },
+    { "dialogKey": "alpha_preview_martial_artist_choose_specialization", "optionText": "Martial Artist" }
+  ]
+}
