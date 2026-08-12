@@ -1,0 +1,25 @@
+{
+  "templateKey": "perfect_form",
+  "name": "Perfect Form",
+  "description": "Greatly increase Attack Speed - evolves into a stronger, longer-lasting buff.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["perfectForm"],
+  "scriptVars": {
+    "perfectForm": {
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

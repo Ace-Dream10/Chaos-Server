@@ -8,14 +8,16 @@ using Chaos.Time.Abstractions;
 namespace Chaos.Scripting.EffectScripts;
 
 /// <summary>
-///     A Martial Artist self-buff. Boosts STR/DEX/attack speed/flat skill damage, and doubles Chi generation for the
-///     duration (checked directly in <see cref="Chaos.Scripting.AislingScripts.MartialArtistChiScript" /> via
-///     <see cref="TigerStanceTag" />). Periodically re-plays its aura animation since animations don't persist
+///     A Martial Artist self-buff, tied to Valkor's war domain (renamed from the working name "Tiger Stance" - the
+///     Floor 1 Battle Focus slot's naming was confirmed and locked as Valkor's Fervor this session, not left open).
+///     Boosts STR/DEX/attack speed/flat skill damage, and doubles Chi generation for the duration (checked directly
+///     in <see cref="Chaos.Scripting.AislingScripts.MartialArtistChiScript" /> via
+///     <see cref="ValkorsFervorTag" />). Periodically re-plays its aura animation since animations don't persist
 ///     visually on their own.
 /// </summary>
-public sealed class TigerStanceEffect : IntervalEffectBase
+public sealed class ValkorsFervorEffect : IntervalEffectBase
 {
-    public const string TigerStanceTag = "tiger_stance";
+    public const string ValkorsFervorTag = "valkors_fervor";
     private const int AtkSpeedBonus = 20;
     private const int DexBonus = 10;
     private const int FlatSkillDamageBonus = 20;
@@ -43,7 +45,7 @@ public sealed class TigerStanceEffect : IntervalEffectBase
     public override byte Icon => 74;
 
     /// <inheritdoc />
-    public override string Name => "Tiger Stance";
+    public override string Name => "Valkor's Fervor";
 
     /// <inheritdoc />
     public override void OnApplied()
@@ -57,7 +59,7 @@ public sealed class TigerStanceEffect : IntervalEffectBase
                 FlatSkillDamage = FlatSkillDamageBonus
             });
 
-        Subject.Trackers.Tags[TigerStanceTag] = bool.TrueString;
+        Subject.Trackers.Tags[ValkorsFervorTag] = bool.TrueString;
         Subject.Animate(RoarAnimation, Source.Id);
     }
 
@@ -73,7 +75,7 @@ public sealed class TigerStanceEffect : IntervalEffectBase
                 FlatSkillDamage = FlatSkillDamageBonus
             });
 
-        Subject.Trackers.Tags.TryRemove(TigerStanceTag, out _);
+        Subject.Trackers.Tags.TryRemove(ValkorsFervorTag, out _);
     }
 
     /// <inheritdoc />

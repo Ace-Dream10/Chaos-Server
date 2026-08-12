@@ -37,7 +37,7 @@ public class MartialArtistChiScript : AislingScriptBase
         LastObservedDamageTime = lastDamageTime;
 
         //Tiger Stance doubles Chi generation while active
-        var chiGain = Subject.Trackers.Tags.ContainsKey(TigerStanceEffect.TigerStanceTag) ? ChiPerHit * 2 : ChiPerHit;
+        var chiGain = Subject.Trackers.Tags.ContainsKey(ValkorsFervorEffect.ValkorsFervorTag) ? ChiPerHit * 2 : ChiPerHit;
 
         Subject.StatSheet.AddMp(chiGain);
         Subject.Client.SendAttributes(StatUpdateType.Vitality);

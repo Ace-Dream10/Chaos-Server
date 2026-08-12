@@ -1,7 +1,7 @@
 {
-  "templateKey": "tiger_stance",
-  "name": "Tiger Stance",
-  "description": "Enter the Tiger Stance - dramatically boosting your power and doubling Chi generation.",
+  "templateKey": "valkors_fervor",
+  "name": "Valkor's Fervor",
+  "description": "Enter Valkor's Fervor - dramatically boosting your power and doubling Chi generation.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,
@@ -17,7 +17,7 @@
   "scriptKeys": ["applyEffect"],
   "scriptVars": {
     "applyEffect": {
-      "effectKey": "TigerStance",
+      "effectKey": "ValkorsFervor",
       "filter": "selfOnly, aliveOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },

@@ -1,0 +1,9 @@
+{
+  "templateKey": "spirit_guide_tempest_info",
+  "text": "The Tempest path channels the spirit of the harpy - an agile aerial fighter using wind, feathers, and chi projectiles. (Specialization kit not yet built - coming in a future update.)",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "spirit_guide_tempest_confirm", "optionText": "Choose the Tempest path" },
+    { "dialogKey": "spirit_guide_initial", "optionText": "Back" }
+  ]
+}

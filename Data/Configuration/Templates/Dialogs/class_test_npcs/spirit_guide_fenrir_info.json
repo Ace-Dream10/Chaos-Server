@@ -1,9 +1,0 @@
-{
-  "templateKey": "spirit_guide_fenrir_info",
-  "text": "The Fenrir Form channels the spirit of the great wolf. Raw power and devastating melee attacks define this path. Your strikes will shake the earth, but your spells will be weak. Primary bonus: STR +20, Flat Damage +25.",
-  "type": "Menu",
-  "options": [
-    { "dialogKey": "spirit_guide_fenrir_confirm", "optionText": "Choose Fenrir Form" },
-    { "dialogKey": "spirit_guide_initial", "optionText": "Back" }
-  ]
-}

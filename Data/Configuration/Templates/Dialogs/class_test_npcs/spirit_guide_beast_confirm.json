@@ -1,0 +1,10 @@
+{
+  "templateKey": "spirit_guide_beast_confirm",
+  "text": "The wolf spirit binds to your soul. From this moment, you walk the path of the Beast. There is no return.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["chooseSpecialization"],
+  "scriptVars": {
+    "chooseSpecialization": { "specialization": "Fighter", "displayName": "the Beast" }
+  }
+}

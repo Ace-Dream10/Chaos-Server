@@ -1,29 +1,27 @@
 {
-  "templateKey": "alpha_strike",
-  "name": "Alpha Strike",
-  "description": "Strike multiple enemies in a blink, ending behind the final target - evolves into more targets and faster strikes.",
+  "templateKey": "howling_sequence",
+  "name": "Howling Sequence",
+  "description": "A rapid multi-hit claw combo - evolves into more, harder-hitting strikes.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 15000,
+  "cooldownMs": 9000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
     "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 3 }
   },
-  "scriptKeys": ["alphaStrike"],
+  "scriptKeys": ["howlingSequence"],
   "scriptVars": {
-    "alphaStrike": {
-      "baseDamage": 80,
+    "howlingSequence": {
       "damageStat": "str",
-      "damageStatMultiplier": 3,
-      "range": 5,
+      "damageStatMultiplier": 1.5,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "None",
-      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "animation": { "targetAnimation": 10, "animationSpeed": 100 },
       "sound": 98
     }
   }

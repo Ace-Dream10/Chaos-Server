@@ -1,7 +1,7 @@
 {
-  "templateKey": "beast_form",
-  "name": "Beast Form",
-  "description": "Channel your inner Chi to transform into your chosen beast. Drains 1 Chi per second.",
+  "templateKey": "martial_form",
+  "name": "Martial Form",
+  "description": "Channel your inner Chi to transform into your chosen martial form - evolves at Floors 2/4/6/8/10, capping at Final Form. Drains Chi over time.",
   "panelSprite": 50,
   "class": "MartialArtist",
   "level": 1,
@@ -13,11 +13,10 @@
     "prerequisiteSpells": [],
     "requiredStats": { "str": 5, "dex": 1, "int": 1, "wis": 1, "con": 5 }
   },
-  "scriptKeys": ["beastForm"],
+  "scriptKeys": ["martialForm"],
   "scriptVars": {
-    "beastForm": {
+    "martialForm": {
       "minimumMp": 20,
-      "filter": "selfOnly, aliveOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },
       "sound": 10

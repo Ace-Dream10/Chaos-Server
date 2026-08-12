@@ -1,7 +1,7 @@
 {
-  "templateKey": "roundhouse",
-  "name": "Roundhouse",
-  "description": "A powerful spinning kick that strikes all enemies around you.",
+  "templateKey": "traverse_punch",
+  "name": "Traverse Punch",
+  "description": "Dash behind the target and strike.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,
@@ -12,16 +12,15 @@
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 3, "dex": 5, "int": 1, "wis": 1, "con": 3 }
+    "requiredStats": { "str": 5, "dex": 5, "int": 1, "wis": 1, "con": 3 }
   },
-  "scriptKeys": ["damage"],
+  "scriptKeys": ["traversePunch"],
   "scriptVars": {
-    "damage": {
-      "baseDamage": 60,
-      "damageStat": "dex",
-      "damageStatMultiplier": 2,
-      "shape": "allAround",
-      "range": 1,
+    "traversePunch": {
+      "baseDamage": 70,
+      "damageStat": "str",
+      "damageStatMultiplier": 2.5,
+      "range": 6,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 10, "animationSpeed": 100 },

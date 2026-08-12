@@ -757,17 +757,6 @@ public enum AdvClass : byte
 }
 
 /// <summary>
-///     A byte representing the beast spirit form chosen by a Martial Artist. Set permanently via the Spirit Guide.
-/// </summary>
-public enum BeastFormType
-{
-    None = 0,
-    Fenrir = 1,
-    Celestial = 2,
-    Basilisk = 3
-}
-
-/// <summary>
 ///     A byte representing the slot of a piece of equipment. Used in many places.
 /// </summary>
 public enum EquipmentSlot : byte

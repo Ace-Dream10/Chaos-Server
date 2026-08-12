@@ -1,0 +1,10 @@
+{
+  "templateKey": "spirit_guide_tempest_confirm",
+  "text": "The harpy spirit binds to your soul. From this moment, you walk the path of Tempest. There is no return.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["chooseSpecialization"],
+  "scriptVars": {
+    "chooseSpecialization": { "specialization": "RangedChi", "displayName": "Tempest" }
+  }
+}

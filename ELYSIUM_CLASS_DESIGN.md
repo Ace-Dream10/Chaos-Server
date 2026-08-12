@@ -213,7 +213,23 @@ renamed from "Lancer's Retribution"). These underlying systems already
 exist and work, even though most of the specific abilities above are new
 names/designs built on top of them.
 
-**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined.**
+**Floor Schedule (LOCKED — reconstructed from the actual worked-out
+conversation, which existed but was never saved as a table until now):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Shield Thrust, Iron Reprisal, Lancer's Shield |
+| 2 | Bastion's Charge (intro) | Iron Will |
+| 3 | Bastion's Charge II, Lancer's Leash (intro) | Pivot Strike |
+| 4 | Bastion's Charge III, Lancer's Leash II, Iron Cairn (intro) | — |
+| 5 | Bastion's Charge IV (max), Lancer's Leash III, Iron Cairn II | — |
+| 6 | Lancer's Leash IV (max), Iron Cairn III, Challenging Shout (intro) | Bastion's Retribution |
+| 7 | Iron Cairn IV (max), Challenging Shout II, Stacia's Bulwark (intro) | Stacia's Cleansing Light |
+| 8 | Challenging Shout III, Stacia's Bulwark II | Guardian's Resolve |
+| 9 | Challenging Shout IV (max), Stacia's Bulwark III | — |
+| 10 | Stacia's Bulwark IV (max, finale) | Hold the Line, Valkor's Aegis |
+
+**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
+floor schedule now properly saved as a table.**
 
 ### Berserker
 **Role:** AoE DPS
@@ -240,7 +256,9 @@ combat and unleashes devastating area damage.
 
 **Passive Abilities (3):**
 1. Rage *(core mechanic)*
-2. Carnage
+2. **Carnage** — the lower your Health, the more damage you deal. Pairs
+   naturally with Unbroken (which keeps you alive at low HP) — rewards
+   staying in the danger zone rather than playing safe.
 3. Unbroken
 
 **Evolving Abilities (5):**
@@ -309,9 +327,10 @@ single enemy, then finishes them with Scythe.
     codebase — described as already existing in Elysium)*
 11. Evade *(⚠️ described as already existing in Elysium — needs
     confirmation)*
-12. Whirlwind — a hit that travels 3 tiles forward *(this one's
-    described — a forward-traveling strike, not a spin like Berserker's
-    kit)*
+12. Skewer — a hit that travels 3 tiles forward *(renamed from
+    "Whirlwind" — the old name implied a spin/AoE, which didn't match
+    this linear strike and risked confusion with Berserker's Cyclone,
+    which IS a spin)*
 
 **Passive Abilities (3):**
 1. **Slayer's Oath** — the longer you focus one enemy, the stronger you
@@ -349,8 +368,24 @@ stack-and-consume resource pattern (existing SlayerScythe-adjacent code),
 single-target execute-below-threshold logic (Assassin's Execute already
 does this).
 
-**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined.
-Naming collision flagged (Bloodlust), not resolved yet.**
+**Floor Schedule (LOCKED — reconstructed from the actual worked-out
+conversation, which existed but was never saved as a table until now):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | Scythe (intro) | Evade, Skewer |
+| 2 | Scythe (no change — stall) | Slayer's Rush |
+| 3 | Scythe II (first evolution), Mark of the Bane (intro) | Precision |
+| 4 | Scythe III, Mark of the Bane II, Cruel Thrust (intro) | — |
+| 5 | Scythe IV (max), Mark of the Bane III, Cruel Thrust II | — |
+| 6 | Mark of the Bane IV (max), Cruel Thrust III, Cold Blood (intro) | Crimson Harvest |
+| 7 | Cruel Thrust IV (max), Cold Blood II, Flourish (intro) | Merciless |
+| 8 | Cold Blood III, Flourish II | Death March |
+| 9 | Cold Blood IV (max), Flourish III | Slayer's Oath |
+| 10 | Flourish IV (max, finale) | Overkill, Measured Slice |
+
+**Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
+floor schedule now properly saved as a table. Bloodlust naming collision
+RESOLVED (renamed to Crimson Harvest) — status note updated.**
 
 ### Valkyrie
 **Role:** Hybrid DPS / Support
@@ -721,13 +756,9 @@ via different spell histories (different Tier II/III blocks along the
 way), so two players can reach the same final specialization through
 different journeys.
 
-**Structural rule (every final Sorcerer build):** 11 active spells, 3
+**Structural rule (every final Sorcerer build):** 12 active spells, 3
 passives, 5 evolving spells, 4 progression tiers (3 active + 1 passive at
-Tiers I–III, 3 signature actives at Tier IV with no passive). *(Revised
-from 12 active/15 total - Shadow Bolt was removed from Shared Tier I
-entirely, locked decision, see below. Every path is 14 total abilities
-until a deferred future project designs 11 new Tier IV abilities [one
-per path] to restore the count to 15 - not happening now, just tracked.)*
+Tiers I–III, 3 signature actives at Tier IV with no passive).
 
 **Confirmed cross-class insight:** the Tier I–IV floor-tied evolving
 schedule described below isn't Sorcerer-specific — it's the general
@@ -775,15 +806,27 @@ done.
 
 ---
 
-**Shared Tier I — Arcane Fundamentals (every Sorcerer):**
-*(⚠️ LOCKED revision: Shadow Bolt removed entirely — it introduced an unexplained "dark energy"
-theme with no connection to the rest of the 11-path elemental system. Shared Tier I is now 3
-items, not 4.)*
+**Shared Tier I — Arcane Fundamentals (every Sorcerer, LOCKED — now 3
+items, not 4):**
 | Type | Ability | Evolves | Description |
 |---|---|:---:|---|
 | Active | Arcane Bolt | No | Fire a basic projectile of pure Arcane energy. |
 | Active | Arcane Gate | Arcanist only | Teleport to a selected location. Arcanist is the only specialization that continues evolving this Tier I spell. |
 | Passive | Arcane Precision | — | The first spell cast against an enemy deals increased damage. |
+
+**⚠️ Shadow Bolt REMOVED (LOCKED decision):** it introduced a "dark
+energy" flavor with no connection to anything else in the 11-path
+system — Arcane Bolt/Gate/Precision all read as "raw, unspecialized
+magical potential," Shadow Bolt didn't fit that theme. Removing it
+drops each path's total from 15 to 14 (11 active + 3 passive) for now.
+
+**FUTURE PROJECT (deferred, not started):** restore the 15-ability count
+by designing ONE new Tier IV ability per path (11 new named abilities
+total, since Tier IV is unique per-path, not shared) — this is real
+design work, intentionally not done tonight. Until this happens, every
+path in the game has 14 total abilities instead of 15. This affects
+Ignis specifically first, since it's the only path with real committed
+content — Shadow Bolt needs to be removed from what's already built.
 
 ---
 
@@ -849,12 +892,12 @@ Identity: Terrain creation, crowd control, resilience, tectonic force.
 Tier IV — Earthshaper:
 | Type | Ability | Evolves | Description |
 |---|---|:---:|---|
-| Active | Sinkhole | Yes | Collapse the ground at a selected point, pulling enemies toward the center before swallowing/damaging them. |
+| Active | Chasm | Yes | Collapse the ground at a selected point, pulling enemies toward the center before swallowing/damaging them. |
 | Active | Tectonic Judgment | Yes | Cause stone pillars to erupt in sequence across a targeted area. Powerful, not an instant screen-clear. |
 | Active | Worldbreaker | No | Tear open the battlefield with a colossal earth-shattering attack. |
 
 Earthshaper evolving spells: Earth Spike, Earthen Grip, Earthquake,
-Sinkhole, Tectonic Judgment.
+Chasm, Tectonic Judgment.
 
 ---
 
@@ -908,18 +951,17 @@ Tier III — Wind Mastery:
 | Active | Storm Shield | No | Surround yourself with swirling winds that absorb damage, releasing a burst when the shield expires. |
 | Passive | Critical Current | — | Wind spells are allowed to critically strike. |
 
-**🌬 Tempest — Pure Wind** *(⚠️ naming note: shares "Tempest" with the
-Martial Artist Harpy specialization — different systems, worth knowing
-both exist)*
+**🌬 Gale — Pure Wind** *(renamed from "Tempest" to resolve a naming
+collision with the Martial Artist "Tempest" specialization)*
 Identity: Speed, execution, lightning, large-scale storm mastery.
-Tier IV — Tempest:
+Tier IV — Gale:
 | Type | Ability | Evolves | Description |
 |---|---|:---:|---|
 | Active | Hurricane | Yes | Summon a massive hurricane that continuously pulls enemies toward its center. |
 | Active | Stormcall | Yes | Mark a large targeted area where repeated lightning strikes fall from above. |
 | Active | Tornado | No | Create a colossal moving tornado that travels across the battlefield and carries enemies along its path. |
 
-Tempest evolving spells: Wind Slash, Eye of the Storm, Lightning Bolt,
+Gale evolving spells: Wind Slash, Eye of the Storm, Lightning Bolt,
 Hurricane, Stormcall.
 
 ---
@@ -1028,9 +1070,9 @@ differentiated.
 | Specialization | Elements | Tier IV |
 |---|---|---|
 | Ignis | Fire + Fire | Meteor, Ember Field, Phoenix Rise |
-| Earthshaper | Earth + Earth | Sinkhole, Tectonic Judgment, Worldbreaker |
+| Earthshaper | Earth + Earth | Chasm, Tectonic Judgment, Worldbreaker |
 | Hydrosage | Water + Water | Tsunami, Mermaid's Call, Deluge |
-| Tempest | Wind + Wind | Hurricane, Stormcall, Tornado |
+| Gale | Wind + Wind | Hurricane, Stormcall, Tornado |
 | Arcanist | Arcane + Arcane | Arcane Corruption, Spell Reset, Stacia's Aegis |
 
 **Hybrid Specialization Summary:**
@@ -1045,7 +1087,75 @@ differentiated.
 
 ---
 
-**Implementation Notes (potential custom server work):** Burn status,
+**Universal Floor Schedule (LOCKED — applies to all 11 paths):**
+Floor 1: shared kit (Arcane Bolt, Arcane Precision, +Arcane
+Gate as a flat for non-Arcanist paths) → Floor 2: evolving #1 intro →
+Floor 3: #1→II, #2 intro → Floor 4: #1→III, #2→II → Floor 5: #1→IV (max),
+#2→III, #3 intro (second spec confirmed) → Floor 6: #2→IV (max), #3→II →
+Floor 7: #3→III, #4+#5 intro (master form confirmed) → Floor 8: #3→IV
+(max), #4→II, #5→II → Floor 9: #4→III, #5→III → Floor 10: #4→IV, #5→IV
+(max, solo finale — no flat abilities compete for attention here).
+Non-evolving flat spells from each tier distribute across Floors 3/4/5/6
+(×2)/9, following the same shape worked out for Ignis.
+
+**Arcanist — structurally unique:** Arcane Gate itself is evolving #1
+(the only path where this happens), introduced Floor 1 (not Floor 2, like
+every other path), stalls Floor 2, first evolution Floor 3 — same stall
+pattern as Ragnarok/Scythe elsewhere in the roster. Remaining 4 evolving
+slots (Mor Pian na Dion, Null Zone, Arcane Corruption, Spell Reset)
+follow the standard formula shifted one floor later to accommodate.
+
+**Per-path evolving spell assignments (LOCKED):**
+
+*Pure paths:*
+- **Ignis:** Firebolt, Fire Wall, Flame Lance, Meteor, Ember Field
+  *(fully worked floor-by-floor example — see below)*
+- **Earthshaper:** Earth Spike, Earthen Grip, Earthquake, Chasm,
+  Tectonic Judgment
+- **Hydrosage:** Hydro Burst, Bubble Block, Whirlpool, Tsunami,
+  Mermaid's Call
+- **Gale (Wind):** Wind Slash, Eye of the Storm, Lightning Bolt,
+  Hurricane, Stormcall
+- **Arcanist:** Arcane Gate, Mor Pian na Dion, Null Zone, Arcane
+  Corruption, Spell Reset
+
+*Hybrid paths — ORDER-DEPENDENT (corrected): whichever element is picked
+FIRST contributes Tier II (2 evolving spells), whichever is picked
+SECOND contributes Tier III (only 1 evolving spell) — this is the direct
+mechanical consequence of the already-locked Hybrid Construction Rule,
+not something to flatten into one canonical kit. Tier IV (2 evolving
+spells) is the hybrid's own dedicated content and stays the same
+regardless of pick order. Both real variants documented below:*
+
+| Hybrid | Order A → Evolving #1–3 | Order B → Evolving #1–3 | Evolving #4–5 (Tier IV, same either way) |
+|---|---|---|---|
+| **Magma** (Fire+Earth) | Fire first: Firebolt, Fire Wall, Earthquake | Earth first: Earth Spike, Earthen Grip, Flame Lance | Volcanic Eruption, Magma Prison |
+| **Cinder** (Fire+Water) | Fire first: Firebolt, Fire Wall, Whirlpool | Water first: Hydro Burst, Bubble Block, Flame Lance | Scalding Mist, Geyser |
+| **Inferno** (Fire+Wind) | Fire first: Firebolt, Fire Wall, Lightning Bolt | Wind first: Wind Slash, Eye of the Storm, Flame Lance | Firestorm, Conflagration |
+| **Torrent** (Earth+Water) | Earth first: Earth Spike, Earthen Grip, Whirlpool | Water first: Hydro Burst, Bubble Block, Earthquake | Sinkhole, Mudslide |
+| **Sirocco** (Earth+Wind) | Earth first: Earth Spike, Earthen Grip, Lightning Bolt | Wind first: Wind Slash, Eye of the Storm, Earthquake | Sandstorm, Dust Devil |
+| **Blizzard** (Water+Wind) | Water first: Hydro Burst, Bubble Block, Lightning Bolt | Wind first: Wind Slash, Eye of the Storm, Whirlpool | Glacial Barrier, Frost Nova |
+
+**Naming collision RESOLVED:** Earthshaper's own Tier IV ability was
+renamed from "Sinkhole" to "Chasm" — Torrent keeps "Sinkhole" as its own
+Tier IV ability, no longer shared.
+
+**Ignis — fully worked example (same shape applies to every path above,
+just substitute each path's own named spells into the same floor slots):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Arcane Bolt, Arcane Precision, Arcane Gate |
+| 2 | Firebolt (intro) | — |
+| 3 | Firebolt II, Fire Wall (intro) | Kindling |
+| 4 | Firebolt III, Fire Wall II | Solar Flare |
+| 5 | Firebolt IV (max), Fire Wall III, Flame Lance (intro — second spec) | Fire Shield |
+| 6 | Fire Wall IV (max), Flame Lance II | Scorch, Combustion |
+| 7 | Flame Lance III, Meteor (intro), Ember Field (intro) — master form: Ignis | — |
+| 8 | Flame Lance IV (max), Meteor II, Ember Field II | — |
+| 9 | Meteor III, Ember Field III | Phoenix Rise |
+| 10 | Meteor IV (max), Ember Field IV (max, solo finale) | — |
+
+--- Burn status,
 Shattered status, destructible Earthworks, projectile deflection/
 weakening from Wind Wall, enemy pulling (Whirlpool/Sinkhole/Hurricane/
 Singularity), persistent ground fields, delayed ground-targeted impacts,
@@ -1316,7 +1426,7 @@ Floor 2 specialization) — LOCKED:**
 |---|---|---|
 | Tiger Strike *(working name)* | Skill | A fast melee punch, primary attack. |
 | Roundhouse Kick *(working name)* | Skill | A powerful kick that damages enemies in front of you. |
-| Battle Focus *(working name — ⚠️ naming still open, see below)* | Skill | Enter a focused stance, increasing your damage for a short duration. |
+| Valkor's Fervor | Skill | Enter a focused stance, increasing your damage for a short duration. |
 
 **Floor 2 (2 abilities):**
 | Ability | Type | Description |
@@ -1324,22 +1434,25 @@ Floor 2 specialization) — LOCKED:**
 | Meditate *(Evolving — see full tiers below)* | Spell | Restore Chi/Mana over time and prepare for battle. |
 | Beast Form I *(working name)* | Spell | Transform into your martial form, gaining new bonuses. Evolves at Floors 4, 6, 8, and 10 — NOT the standard 5-tier evolving pattern, floor-gated instead. |
 
-**Meditate + Beast Form — combined evolving progression (SUPERSEDES the
-earlier separate 5-tier tables for each):**
+**Meditate + Form — combined evolving progression (SUPERSEDES all earlier
+versions — this new timing, confirmed via Beast's floor schedule, is now
+the universal shared schedule for ALL THREE specializations):**
 | Floor | Meditate | Form |
 |---|---|---|
-| 2 | I | I |
-| 4 | II | II |
-| 6 | III | III |
-| 8 | IV | III (Mastered Meditate) |
-| 10 | IV | IV (Final Form) |
+| 2 | I (intro) | I (intro) |
+| 4 | (no change) | II |
+| 5 | II (first evolution) | (no change) |
+| 7 | III | III |
+| 9 | IV (max) | (no change) |
+| 10 | (no change) | IV (max, "Final Form") |
 
-*(Note: Meditate caps at Level IV — no Level V. Beast Form caps at Form
-IV ("Final Form") — no Form V. Form III repeats across Floors 6 and 8. The
-"(Mastered Meditate)" label on Floor 8's Form cell is preserved exactly as
-given — slightly ambiguous phrasing since it references Meditate inside
-the Form column, but kept as-is per explicit confirmation this table
-supersedes the earlier version.)*
+*(Meditate and Form are now DESYNCED, not moving in perfect lockstep as
+earlier versions had them. Beast Form advances faster early [II at Floor
+4] while Meditate catches up later [doesn't reach II until Floor 5], then
+both land together at III on Floor 7 before finishing on separate floors
+— Meditate maxes Floor 9, Form maxes Floor 10 as part of the class's
+overall finale. This applies to Beast Form, Ironscale Form, and Tempest
+Form identically — only the name changes per specialization.)*
 
 **Confirmed visual design — per-tier form colors:** each Form evolution
 tier (I through IV/V per specialization) has a DIFFERENT color, not one
@@ -1350,13 +1463,12 @@ work already proven viable this session (the mana-orb runtime palette-
 remap technique) — likely the same kind of approach applies here once the
 actual color sequence is designed.
 
-**Confirmed gameplay loop (from the self-buff design):** Battle Focus →
+**Confirmed gameplay loop (from the self-buff design):** Valkor's Fervor →
 Punch → Kick → Punch. Simple, satisfying, teaches the fantasy immediately.
 
-**⚠️ Open naming decision:** the Floor 1 damage-buff stance should be a
-themed martial arts stance rather than a generic buff name. Candidates
-proposed: Battle Focus, Fighting Spirit, Inner Strength, Combat Trance.
-Not decided yet.
+**Naming decision RESOLVED:** the Floor 1 damage-buff stance is
+**Valkor's Fervor**, tying it to the war god — fits Martial Artist's
+combat-focused identity across all three specializations.
 
 **Specializations (LOCKED — names/forms/roles/fantasy confirmed, full
 7-active + 3-passive kits not designed yet):**
@@ -1396,7 +1508,7 @@ Beast Form is meant to be shared/evolving independent of spec choice).
 specializations below belong to the single Martial Artist class.)*
 
 **Universal (shared foundation, 5 abilities — see Shared Foundation
-above for full detail):** Tiger Strike, Roundhouse Kick, Battle Focus,
+above for full detail):** Tiger Strike, Roundhouse Kick, Valkor's Fervor,
 Meditate (Evolving), Beast Form (Evolving).
 
 **Specialization Actives (7):**
@@ -1414,11 +1526,11 @@ Meditate (Evolving), Beast Form (Evolving).
 1. **Bone Memory** — consecutive attacks gradually increase your damage.
 2. **Survival Instinct** — taking damage temporarily increases your
    damage resistance.
-3. **Bloodlust** — basic attacks restore a small amount of Health.
-   *(⚠️ THIRD use of this name across the class set — already Assassin's
-   core resource/passive AND Slayer's working-name active. Growing
-   collision pattern, not urgent but needs a dedicated resolution pass
-   across all three at some point.)*
+3. **Feral Hunger** — basic attacks restore a small amount of Health.
+   *(Renamed from the working name "Bloodlust" to resolve the 3-way name
+   collision across the class set — see Open Questions item 8 for the
+   full resolution: Assassin keeps "Bloodlust," Slayer's version is now
+   "Crimson Harvest.")*
 
 **Evolving Abilities (5, combining shared + specialization):**
 1. Meditate *(shared, floor-gated — see full tiers above)*
@@ -1429,12 +1541,30 @@ Meditate (Evolving), Beast Form (Evolving).
 *(Evolution tier specifics for Alpha Strike/Howling Sequence/Perfect Form
 not yet written — only marked as evolving, not detailed.)*
 
+**Floor Schedule (LOCKED):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Tiger Strike, Roundhouse Kick, Valkor's Fervor |
+| 2 | Beast Form (intro), Meditate (intro) | — |
+| 3 | — | Predator's Pounce |
+| 4 | Beast Form II | Survival Instinct |
+| 5 | Meditate II (first evolution), Perfect Form (intro + II together) | Traverse Punch |
+| 6 | Perfect Form III, Howling Sequence (intro) | — |
+| 7 | Beast Form III, Meditate III, Perfect Form IV (max), Howling Sequence II, Alpha Strike (intro) | Bone Memory |
+| 8 | Howling Sequence III, Alpha Strike II | Break |
+| 9 | Meditate IV (max), Howling Sequence IV (max), Alpha Strike III | Feral Hunger |
+| 10 | Beast Form IV (max, "Final Form"), Alpha Strike IV (max) | Blood Sacrifice |
+
+*(Note: "Blood Sacrifice" appears in the original schedule sketch at
+Floor 10 despite being a non-evolving active — kept as given, arriving
+alongside the finale.)*
+
 #### 🦎 Ironscale (Lizardman) — Tank Specialization — LOCKED *(renamed from
 Titan)*
 *(Specialization of Martial Artist — NOT a separate class.)*
 
 **Universal (shared foundation, 5 abilities — see Shared Foundation
-above):** Tiger Strike, Roundhouse Kick, Battle Focus, Meditate
+above):** Tiger Strike, Roundhouse Kick, Valkor's Fervor, Meditate
 (Evolving), Ironscale Form (Evolving) *(class-specific name for the shared
 "Beast Form" mechanic, per specialization theming.)*
 
@@ -1471,11 +1601,26 @@ original table):**
 *(Counter Strike, Perfect Counter, Taunt, and Anchor Hold are reliable/
 non-evolving utility abilities in this final version.)*
 
+**Floor Schedule (LOCKED — perfectly matches the universal shared
+Meditate/Form timing established via Beast's schedule):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Tiger Strike, Roundhouse Kick, Valkor's Fervor |
+| 2 | Ironscale Form (intro), Meditate (intro) | Taunt |
+| 3 | — | Bedrock |
+| 4 | Ironscale Form II | — |
+| 5 | Meditate II (first evolution), Pressure Point (intro + II together) | Anchor Hold |
+| 6 | Pressure Point III, Iron Body (intro) | — |
+| 7 | Ironscale Form III, Meditate III, Pressure Point IV (max), Iron Body II, Shockwave (intro) | Living Fortress |
+| 8 | Iron Body III, Shockwave II | Elemental Defense |
+| 9 | Meditate IV (max), Iron Body IV (max), Shockwave III | Counter Strike |
+| 10 | Ironscale Form IV (max, "Final Form"), Shockwave IV (max) | Perfect Counter |
+
 #### 🦅 Tempest (Harpy) — Ranged DPS Specialization — LOCKED
 *(Specialization of Martial Artist — NOT a separate class.)*
 
 **Universal (shared foundation, 5 abilities — see Shared Foundation
-above):** Tiger Strike, Roundhouse Kick, Battle Focus, Meditate
+above):** Tiger Strike, Roundhouse Kick, Valkor's Fervor, Meditate
 (Evolving), Tempest Form (Evolving) *(class-specific name for the shared
 transformation mechanic).*
 
@@ -1507,6 +1652,26 @@ transformation mechanic).*
 | Void Palm | Evolves from a simple ranged palm strike into an iconic chi technique. |
 | Tempest Focus | Self-buff that increasingly enhances your combat flow. |
 
+**Floor Schedule (LOCKED — matches the universal shared Meditate/Form
+timing exactly, same as Beast and Ironscale):**
+| Floor | Evolving activity | Flat unlocks |
+|:---:|:---:|:---:|
+| 1 | — | Tiger Strike, Roundhouse Kick, Valkor's Fervor |
+| 2 | Tempest Form (intro), Meditate (intro) | Flickering Step |
+| 3 | — | Star Cross |
+| 4 | Tempest Form II | — |
+| 5 | Meditate II (first evolution), Void Palm (intro + II together) | Perfect Rhythm |
+| 6 | Void Palm III, Tempest Focus (intro) | — |
+| 7 | Tempest Form III, Meditate III, Void Palm IV (max), Tempest Focus II, Hail of Feathers (intro) | One with the Wind |
+| 8 | Tempest Focus III, Hail of Feathers II | Feather Prison |
+| 9 | Meditate IV (max), Tempest Focus IV (max), Hail of Feathers III | Flowing Chi |
+| 10 | Tempest Form IV (max, "Final Form"), Hail of Feathers IV (max) | Chi Bullet |
+
+**🎉 MARTIAL ARTIST FULLY SCHEDULED — all 3 specializations (Beast/
+Ironscale/Tempest) now have complete floor schedules, using the same
+proven universal Meditate/Form timing across all three. This completes
+floor scheduling for ALL 12 classes in the roster.**
+
 **Status: ✅ DESIGN LOCKED — full 12-active + 3-passive kit defined,
 evolving list finalized with reasoning for each.**
 
@@ -1535,20 +1700,23 @@ now fully locked. This completes ALL 12 classes in the roster.**
    complete 12-active + 3-passive kits.
 6. Sorcerer — Arcane path enforcement + hybrid unlock logic not yet built.
 7. ~~Archer naming decision~~ RESOLVED — renamed to **Fletcher**.
-8. ~~**Bloodlust naming collision**~~ RESOLVED — Assassin keeps
-   "Bloodlust" (original/central use). Slayer's version renamed to
-   "Crimson Harvest." Beast/Martial Artist's passive lifesteal still
-   uses "Bloodlust" too — worth a final check whether that third use
-   also needs differentiating, or if it's fine since it's a passive on a
-   different class entirely with no active-ability naming clash.
+8. ~~**Bloodlust naming collision**~~ FULLY RESOLVED — Assassin keeps
+   "Bloodlust" (original/central use, the only one remaining). Slayer's
+   version renamed to "Crimson Harvest." Beast's passive lifesteal
+   renamed to "Feral Hunger."
 9. Void Communion — cut from Mystic's final kit. What did it actually do?
    Never described anywhere in this document; if revived later, needs a
    real description written from scratch.
 10. Beast Form legacy system — does the OLD built Beast Form (3 variants:
     Fenrir/Celestial/Basilisk) get fully superseded by the new Beast/
     Titan/Tempest specializations, or coexist somehow? Not resolved.
-11. Martial Artist's Floor 1 stance ability naming (Battle Focus/Fighting
-    Spirit/Inner Strength/Combat Trance) — not decided yet.
+11. ~~Martial Artist's Floor 1 stance ability naming~~ RESOLVED —
+    **Valkor's Fervor**.
+12. ~~"Tempest" naming collision (Sorcerer's Wind path vs. Martial
+    Artist specialization)~~ RESOLVED — Sorcerer's path renamed to
+    **Gale**.
+13. ~~"Sinkhole" naming collision (Earthshaper vs. Torrent)~~ RESOLVED —
+    Earthshaper's renamed to **Chasm**.
 
 ---
 

@@ -18,9 +18,14 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Blinks between up to <see cref="MaxTargets" /> randomly-chosen hostile monsters within range, striking each
-///     one on arrival, then blinks back to the original position and facing once done. Same delayed-callback
-///     pattern as Cyclone.
+///     One of Beast's 7 specialization actives, and one of its 3 evolving abilities - "strike multiple enemies,
+///     ending behind the final target" per the locked design. Blinks between up to a tier-scaled number of
+///     randomly-chosen hostile monsters within range, striking each one on arrival, then lands BEHIND the final
+///     target (the tile on the opposite side of the target's own facing, falling back to any adjacent walkable
+///     tile) rather than returning to the caster's starting position - a mechanical fix versus the ability's
+///     original build, which incorrectly warped back to the origin point instead. Same delayed-callback pattern as
+///     Cyclone. Evolving tiers scale the target count and speed up the interval between blinks - see
+///     <see cref="GetTierValues" />.
 /// </summary>
 public class AlphaStrikeScript : ConfigurableSkillScriptBase
 {
@@ -36,16 +41,19 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
     {
         var source = context.Source;
         var map = context.TargetMap;
-        var originalPoint = Point.From(source);
-        var originalDirection = source.Direction;
+        var tier = GetTierValues();
 
+        //GetEntitiesWithinRange can yield the same entity more than once (its shape resolution isn't guaranteed
+        //deduplicated) - Distinct() here so a single monster near multiple resolved points can't consume more
+        //than one of Alpha Strike's target slots
         var candidates = map.GetEntitiesWithinRange<Monster>(source, Range)
                            .Where(monster => Filter.IsValidTarget(source, monster))
+                           .Distinct()
                            .ToArray();
 
         Random.Shared.Shuffle(candidates);
 
-        var selected = candidates.Take(MaxTargets)
+        var selected = candidates.Take(tier.MaxTargets)
                                  .ToArray();
 
         if (selected.Length == 0)
@@ -57,23 +65,16 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        ExecuteBlink(source, map, selected[0]);
+        ExecuteBlink(source, map, selected[0], landBehind: selected.Length == 1);
 
         for (var i = 1; i < selected.Length; i++)
-            PendingBlinks.Add(new PendingBlink(source, map, selected[i], originalPoint, originalDirection, false, TimeSpan.FromMilliseconds(BlinkIntervalMs * i)));
-
-        PendingBlinks.Add(
-            new PendingBlink(
-                source,
-                map,
-                null,
-                originalPoint,
-                originalDirection,
-                true,
-                TimeSpan.FromMilliseconds(BlinkIntervalMs * selected.Length)));
+        {
+            var isFinal = i == (selected.Length - 1);
+            PendingBlinks.Add(new PendingBlink(source, map, selected[i], isFinal, TimeSpan.FromMilliseconds(tier.BlinkIntervalMs * i)));
+        }
 
         if (Sound.HasValue)
-            map.PlaySound(Sound.Value, originalPoint);
+            map.PlaySound(Sound.Value, Point.From(source));
     }
 
     /// <inheritdoc />
@@ -90,22 +91,17 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
             var pending = PendingBlinks[0];
             PendingBlinks.RemoveAt(0);
 
-            if (!pending.Source.IsAlive)
+            if (!pending.Source.IsAlive || !pending.Target.IsAlive)
                 continue;
 
-            if (pending.IsReturnStep)
-            {
-                pending.Source.WarpTo(pending.OriginalPoint);
-                pending.Source.Turn(pending.OriginalDirection, forced: true);
-            } else if ((pending.Target != null) && pending.Target.IsAlive)
-                ExecuteBlink(pending.Source, pending.Map, pending.Target);
+            ExecuteBlink(pending.Source, pending.Map, pending.Target, pending.LandBehind);
         }
     }
 
-    private void ExecuteBlink(Creature source, MapInstance map, Monster target)
+    private void ExecuteBlink(Creature source, MapInstance map, Monster target, bool landBehind)
     {
         var targetPoint = Point.From(target);
-        var landingPoint = FindAdjacentWalkablePoint(map, source, targetPoint);
+        var landingPoint = landBehind ? MartialArtistMechanics.FindLandingBehindTarget(map, source, target) : FindAdjacentWalkablePoint(map, source, targetPoint);
 
         source.WarpTo(landingPoint);
         source.Turn(landingPoint.DirectionalRelationTo(targetPoint), forced: true);
@@ -119,6 +115,22 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
         if (Animation != null)
             target.Animate(Animation, source.Id);
     }
+
+    /// <summary>
+    ///     Placeholder tier values - not balance-tested. Per the locked Floor Schedule, Alpha Strike doesn't intro
+    ///     until Floor 7 - the LAST of Beast's 3 evolving specialization actives to unlock, landing its max tier
+    ///     right alongside Martial Form's own Floor 10 finale: Floor7(Level&lt;=14)=I(obtain,3 targets),
+    ///     Floor8(&lt;=16)=II(4 targets,faster), Floor9(&lt;=18)=III(5 targets,faster still),
+    ///     Floor10+(&gt;18)=IV(max,6 targets,fastest).
+    /// </summary>
+    private (int MaxTargets, int BlinkIntervalMs) GetTierValues() =>
+        Subject.Level switch
+        {
+            <= 14 => (3, 250),
+            <= 16 => (4, 200),
+            <= 18 => (5, 175),
+            _     => (6, 150)
+        };
 
     private static Point FindAdjacentWalkablePoint(MapInstance map, Creature source, Point targetPoint)
     {
@@ -136,19 +148,15 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
     private sealed class PendingBlink(
         Creature source,
         MapInstance map,
-        Monster? target,
-        Point originalPoint,
-        Direction originalDirection,
-        bool isReturnStep,
+        Monster target,
+        bool landBehind,
         TimeSpan remaining)
     {
-        public bool IsReturnStep { get; } = isReturnStep;
+        public bool LandBehind { get; } = landBehind;
         public MapInstance Map { get; } = map;
-        public Direction OriginalDirection { get; } = originalDirection;
-        public Point OriginalPoint { get; } = originalPoint;
         public TimeSpan Remaining { get; set; } = remaining;
         public Creature Source { get; } = source;
-        public Monster? Target { get; } = target;
+        public Monster Target { get; } = target;
     }
 
     #region ScriptVars
@@ -163,11 +171,6 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
     ///     The flat portion of the damage dealt per hit
     /// </summary>
     public int? BaseDamage { get; init; }
-
-    /// <summary>
-    ///     The number of milliseconds between each blink-strike
-    /// </summary>
-    public int BlinkIntervalMs { get; init; } = 200;
 
     /// <summary>
     ///     The body animation played by the caster when the skill is used
@@ -188,11 +191,6 @@ public class AlphaStrikeScript : ConfigurableSkillScriptBase
     ///     The filter used to determine which nearby monsters are valid targets
     /// </summary>
     public TargetFilter Filter { get; init; }
-
-    /// <summary>
-    ///     The maximum number of targets struck per cast
-    /// </summary>
-    public int MaxTargets { get; init; } = 3;
 
     /// <summary>
     ///     The radius around the caster within which targets are chosen

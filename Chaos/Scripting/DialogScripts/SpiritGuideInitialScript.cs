@@ -9,10 +9,13 @@ namespace Chaos.Scripting.DialogScripts;
 
 /// <summary>
 ///     Adds the "I have already chosen" close option to the Spirit Guide's initial dialog, but only once the player
-///     has already permanently bound a <see cref="BeastFormType" />. Extends the plain <see cref="DialogScriptBase" />
-///     rather than <see cref="ConfigurableDialogScriptBase" /> since it has no scriptVars - the configurable base's
+///     has already chosen their Floor-2 specialization. Extends the plain <see cref="DialogScriptBase" /> rather
+///     than <see cref="ConfigurableDialogScriptBase" /> since it has no scriptVars - the configurable base's
 ///     constructor requires a scriptVars entry to exist and throws otherwise, which was breaking this dialog for
-///     every player, not just Martial Artists.
+///     every player, not just Martial Artists. Reworked from the old BeastFormType-flavor-choice version (Fenrir/
+///     Celestial/Basilisk) to key off <see cref="Chaos.DarkAges.Definitions.AdvClass" /> instead
+///     (Fighter/Tank/RangedChi = Beast/Ironscale/Tempest) - see ELYSIUM_CLASS_DESIGN.md's Martial Artist section
+///     for why the old flavor system was retired in favor of this.
 /// </summary>
 public class SpiritGuideInitialScript : DialogScriptBase
 {
@@ -23,7 +26,7 @@ public class SpiritGuideInitialScript : DialogScriptBase
     /// <inheritdoc />
     public override void OnDisplaying(Aisling source)
     {
-        if (source.Trackers.Enums.TryGetValue<BeastFormType>(out var form) && (form != BeastFormType.None))
+        if (source.UserStatSheet.AdvClass != AdvClass.None)
             Subject.AddOption("I have already chosen", "close");
     }
 }

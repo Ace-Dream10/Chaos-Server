@@ -1,0 +1,9 @@
+{
+  "templateKey": "spirit_guide_beast_info",
+  "text": "The Beast path channels the spirit of the great wolf. Feral, relentless, brutal melee combat - raw power and devastating close-quarters attacks define this path.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "spirit_guide_beast_confirm", "optionText": "Choose the Beast path" },
+    { "dialogKey": "spirit_guide_initial", "optionText": "Back" }
+  ]
+}

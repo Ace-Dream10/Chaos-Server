@@ -1,7 +1,7 @@
 {
   "templateKey": "meditate",
   "name": "Meditate",
-  "description": "Center your mind, restoring MP and empowering your next strikes.",
+  "description": "Center your mind, restoring Chi over time and empowering your next strikes - evolves at Floors 2/4/6/8, capping at Tier IV.",
   "panelSprite": 50,
   "class": "MartialArtist",
   "level": 1,
@@ -13,11 +13,9 @@
     "prerequisiteSpells": [],
     "requiredStats": { "str": 1, "dex": 1, "int": 3, "wis": 5, "con": 1 }
   },
-  "scriptKeys": ["applyEffect"],
+  "scriptKeys": ["meditate"],
   "scriptVars": {
-    "applyEffect": {
-      "effectKey": "Meditate",
-      "filter": "selfOnly, aliveOnly",
+    "meditate": {
       "bodyAnimation": "HandsUp2",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },
       "sound": 10

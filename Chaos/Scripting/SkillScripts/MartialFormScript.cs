@@ -1,6 +1,5 @@
 #region
 using Chaos.DarkAges.Definitions;
-using Chaos.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
@@ -10,10 +9,15 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 
 namespace Chaos.Scripting.SkillScripts;
 
-public class BeastFormScript : ConfigurableSkillScriptBase
+/// <summary>
+///     Direct replacement for the old BeastFormScript (now retired) - transforms the caster into their chosen
+///     specialization's martial form. See <see cref="Chaos.Scripting.EffectScripts.MartialFormEffect" />'s doc
+///     comment for the floor-gated tier schedule and the Beast/Ironscale/Tempest split.
+/// </summary>
+public class MartialFormScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
-    public BeastFormScript(Skill subject)
+    public MartialFormScript(Skill subject)
         : base(subject) { }
 
     /// <inheritdoc />
@@ -25,9 +29,9 @@ public class BeastFormScript : ConfigurableSkillScriptBase
         if (source is not Aisling aisling || (aisling.UserStatSheet.BaseClass != BaseClass.MartialArtist))
             return;
 
-        if (!aisling.Trackers.Enums.TryGetValue<BeastFormType>(out var form) || (form == BeastFormType.None))
+        if (aisling.UserStatSheet.AdvClass == AdvClass.None)
         {
-            aisling.SendOrangeBarMessage("You have not chosen your beast form. Seek the Spirit Guide.");
+            aisling.SendOrangeBarMessage("You have not chosen your path. Seek the Spirit Guide.");
 
             return;
         }
@@ -39,7 +43,7 @@ public class BeastFormScript : ConfigurableSkillScriptBase
             return;
         }
 
-        if (source.Effects.Contains("Beast Form"))
+        if (source.Effects.Contains("Martial Form"))
         {
             aisling.SendOrangeBarMessage("You are already transformed.");
 
@@ -48,8 +52,8 @@ public class BeastFormScript : ConfigurableSkillScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        var beastFormEffect = new BeastFormEffect();
-        source.Effects.Apply(source, beastFormEffect, this);
+        var formEffect = new MartialFormEffect { Tier = GetTier(aisling) };
+        source.Effects.Apply(source, formEffect, this);
 
         if (Animation != null)
             source.Animate(Animation, source.Id);
@@ -57,6 +61,21 @@ public class BeastFormScript : ConfigurableSkillScriptBase
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, context.SourcePoint);
     }
+
+    /// <summary>
+    ///     Placeholder floor-gating stand-in (character Level, per this session's established convention) until
+    ///     floor progression is tracked. Per the locked Floor Schedule, Meditate and Form are DESYNCED (not
+    ///     lockstep): Floor2(Level&lt;=4)=I, Floor4(&lt;=8)=II, Floor7(&lt;=14)=III, Floor10+(&gt;14)=IV (Final
+    ///     Form, caps here).
+    /// </summary>
+    private static int GetTier(Aisling aisling) =>
+        aisling.StatSheet.Level switch
+        {
+            <= 4  => 1,
+            <= 8  => 2,
+            <= 14 => 3,
+            _     => 4
+        };
 
     #region ScriptVars
     /// <summary>
@@ -68,11 +87,6 @@ public class BeastFormScript : ConfigurableSkillScriptBase
     ///     The body animation played by the caster when the skill is used
     /// </summary>
     public BodyAnimation BodyAnimation { get; init; }
-
-    /// <summary>
-    ///     The filter used to determine valid targets (should stay selfOnly)
-    /// </summary>
-    public TargetFilter Filter { get; init; }
 
     /// <summary>
     ///     The minimum Chi (MP) required to transform

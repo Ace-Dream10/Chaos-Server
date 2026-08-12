@@ -1,7 +1,7 @@
 {
-  "templateKey": "one_inch_punch",
-  "name": "One Inch Punch",
-  "description": "Channel all your Chi into a single devastating punch that sends enemies flying.",
+  "templateKey": "predators_pounce",
+  "name": "Predator's Pounce",
+  "description": "A heavy strike that stuns the target. (Also known as Wolf Fang.)",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,
@@ -14,9 +14,9 @@
     "prerequisiteSpells": [],
     "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 1, "con": 5 }
   },
-  "scriptKeys": ["oneInchPunch"],
+  "scriptKeys": ["predatorsPounce"],
   "scriptVars": {
-    "oneInchPunch": {
+    "predatorsPounce": {
       "baseDamage": 150,
       "damageStat": "str",
       "damageStatMultiplier": 5,

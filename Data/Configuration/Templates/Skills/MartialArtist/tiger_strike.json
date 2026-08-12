@@ -1,0 +1,31 @@
+{
+  "templateKey": "tiger_strike",
+  "name": "Tiger Strike",
+  "description": "A fast melee punch - the Martial Artist's primary attack.",
+  "panelSprite": 74,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 1000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["damage"],
+  "scriptVars": {
+    "damage": {
+      "baseDamage": 30,
+      "damageStat": "str",
+      "damageStatMultiplier": 1.5,
+      "shape": "front",
+      "range": 1,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Assail",
+      "animation": { "targetAnimation": 1, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

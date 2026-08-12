@@ -103,11 +103,6 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
         foreach (var templateKey in SpellTemplateKeys)
             TryGrantSpell(source, templateKey);
 
-        //f2. Beast Form skills (Fenrir Claw, Celestial Bolt, Basilisk Bite) stay in the SkillBook at all times but
-        //are hidden from the action bar until the matching Beast Form is actually active - learning a skill
-        //normally reveals it immediately, so undo that here for any that were just granted
-        BeastFormSkillHelper.HideAllFormSkills(source);
-
         //g. give floor 1 weapon + armor (accessories are handled by the separate Equipment Vendor NPC)
         var armorTemplateKey = source.Gender == Gender.Male ? ArmorTemplateKeyMale : ArmorTemplateKeyFemale;
 

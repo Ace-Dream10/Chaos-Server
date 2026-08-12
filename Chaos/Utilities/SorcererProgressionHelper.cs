@@ -19,11 +19,13 @@ namespace Chaos.Utilities;
 ///     named int state on a player" per FLOOR_TRACKER_DESIGN.md's own precedent (the Ascension Chamber's
 ///     "currentFloor"/"highestFloorCleared" counters), confirmed
 ///     <c>IS PERSISTENT / SERIALIZED TO FILE</c> on <see cref="Chaos.Collections.Trackers.Counters" />'s own doc
-///     comment. Deliberately not <see cref="Chaos.Collections.Trackers.Enums" /> (the pattern
-///     <see cref="Chaos.Scripting.DialogScripts.ChooseBeastFormScript" /> uses for MartialArtist's single Beast
-///     Form choice) - <c>EnumCollection</c> stores exactly one value per enum TYPE, and this needs two
-///     independently-tracked values of the same <see cref="SorcererElement" /> type, which would otherwise require
-///     two duplicate marker enum types just to fit that shape.
+///     comment. Deliberately not <see cref="Chaos.Collections.Trackers.Enums" /> (the pattern the old, now-retired
+///     ChooseBeastFormScript used for MartialArtist's beast-flavor choice, before it was superseded by
+///     <see cref="Chaos.Scripting.DialogScripts.ChooseSpecializationScript" />'s direct
+///     <see cref="Chaos.Models.Data.UserStatSheet.AdvClass" /> write) - <c>EnumCollection</c> stores exactly one
+///     value per enum TYPE, and this needs two independently-tracked values of the same
+///     <see cref="SorcererElement" /> type, which would otherwise require two duplicate marker enum types just to
+///     fit that shape.
 ///     <para>
 ///         The FINAL derived specialization is not stored separately at all - it's written directly to the
 ///         already-real, already-persisted <see cref="Chaos.Models.Data.UserStatSheet.AdvClass" /> (via

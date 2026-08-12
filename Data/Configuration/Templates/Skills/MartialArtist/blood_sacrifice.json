@@ -1,0 +1,29 @@
+{
+  "templateKey": "blood_sacrifice",
+  "name": "Blood Sacrifice",
+  "description": "Sacrifice Health to deal massive damage based on the Health sacrificed. (Also known as Kelberoth Strike.)",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 8, "dex": 3, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["bloodSacrifice"],
+  "scriptVars": {
+    "bloodSacrifice": {
+      "hpSacrificePct": 25,
+      "damagePerHpSacrificedPct": 150,
+      "range": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}

@@ -14,8 +14,8 @@ namespace Chaos.Scripting.DialogScripts;
 ///     Records a Sorcerer's FIRST elemental pick (unlocks at
 ///     <see cref="SorcererProgressionHelper.FirstChoiceLevel" />) and immediately grants that element's Tier II
 ///     module. One instance of this script is attached per element option in the choice menu (5 total, one per
-///     <see cref="SorcererElement" /> value) - mirrors <see cref="ChooseBeastFormScript" />'s shape (a permanent,
-///     one-time choice recorded directly by the confirming dialog), not the old, now-deleted
+///     <see cref="SorcererElement" /> value) - mirrors <see cref="Chaos.Scripting.DialogScripts.ChooseSpecializationScript" />'s
+///     shape (a permanent, one-time choice recorded directly by the confirming dialog), not the old, now-deleted
 ///     SorcererSpecializeScript test scaffolding's one-shot full-kit dump.
 /// </summary>
 public class SorcererChooseFirstElementScript : ConfigurableDialogScriptBase

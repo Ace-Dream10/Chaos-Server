@@ -172,6 +172,34 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
     private const int StaciasGraceCooldownSeconds = 90;
     private const string StaciasGraceCooldownCounterKey = "staciasGraceReadyAt";
 
+    /// <summary>
+    ///     Bone Memory (Beast passive) - the percentage bonus damage per consecutive-hit stack, the cap on stacks,
+    ///     and how long since the last hit before the streak resets. Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal BoneMemoryPctPerStack = 0.03m;
+
+    private const int BoneMemoryMaxStacks = 10;
+    private const int BoneMemoryResetWindowSeconds = 4;
+    private const string BoneMemoryStacksCounterKey = "boneMemoryStacks";
+    private const string BoneMemoryLastHitSecondsCounterKey = "boneMemoryLastHitSeconds";
+
+    /// <summary>
+    ///     Feral Hunger (Beast passive, renamed from the working name "Bloodlust" specifically to resolve the
+    ///     3-way Bloodlust name collision flagged in the locked design - Assassin's core resource/passive and
+    ///     Slayer's own working-name active keep the name, Beast's own passive doesn't) - the percentage of damage
+    ///     dealt restored as Health on basic attacks. Folded into the existing Slayer lifesteal block below rather
+    ///     than a separate pass, since it's the same mechanic. Placeholder, not balance-tested.
+    /// </summary>
+    private const int FeralHungerLifestealPct = 5;
+
+    /// <summary>
+    ///     Survival Instinct (Beast passive) - the percentage damage reduction granted, and how long it lasts after
+    ///     taking a hit. Placeholder, not balance-tested.
+    /// </summary>
+    private const int SurvivalInstinctDamageReductionPct = 15;
+
+    private const int SurvivalInstinctDurationMs = 4000;
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -210,6 +238,37 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         if (target.Trackers.Tags.TryGetValue(ShadowmarkEffect.OwnerIdTagPrefix + source.Id, out var shadowmarkPctStr)
             && int.TryParse(shadowmarkPctStr, out var shadowmarkPct))
             damage = Convert.ToInt32(damage * (1 + (shadowmarkPct / 100m)));
+
+        //Break (Beast active) - the tagged target takes increased damage from every source, same shape as Boiling
+        //Blood/Mark of the Bane above
+        if (target.Trackers.Tags.TryGetValue(BreakEffect.BonusDamageTakenPctTag, out var breakPctStr) && int.TryParse(breakPctStr, out var breakPct))
+            damage = Convert.ToInt32(damage * (1 + (breakPct / 100m)));
+
+        //Bone Memory (Beast passive) - a true always-on passive: consecutive attacks gradually increase damage.
+        //Stacks build via BoneMemoryStacksCounterKey on the attacker (incremented right below, after this read),
+        //reset if too long has passed since the last hit. Timestamp tracked as a whole-second Unix timestamp in
+        //Trackers.Counters (same ready-at-timestamp convention Stacia's Grace/Wings of Stacia use above) rather
+        //than a formatted DateTime string - an earlier version of this used DateTime.TryParse on an "O"-formatted
+        //string, which silently converts to local time on parse and produced a multi-hour false gap against
+        //DateTime.UtcNow, permanently stalling stacks at 1. Discovered and fixed via a failing test.
+        if ((source is Aisling boneMemoryAisling)
+            && (boneMemoryAisling.UserStatSheet.BaseClass == BaseClass.MartialArtist)
+            && boneMemoryAisling.SkillBook.TryGetObjectByTemplateKey("bone_memory", out _))
+        {
+            var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+
+            if (boneMemoryAisling.Trackers.Counters.TryGetValue(BoneMemoryLastHitSecondsCounterKey, out var lastHitSeconds)
+                && ((nowSeconds - lastHitSeconds) > BoneMemoryResetWindowSeconds))
+                boneMemoryAisling.Trackers.Counters.Set(BoneMemoryStacksCounterKey, 0);
+
+            var stacks = boneMemoryAisling.Trackers.Counters.TryGetValue(BoneMemoryStacksCounterKey, out var currentStacks) ? currentStacks : 0;
+
+            if (stacks > 0)
+                damage = Convert.ToInt32(damage * (1 + (stacks * BoneMemoryPctPerStack)));
+
+            boneMemoryAisling.Trackers.Counters.Set(BoneMemoryStacksCounterKey, Math.Min(stacks + 1, BoneMemoryMaxStacks));
+            boneMemoryAisling.Trackers.Counters.Set(BoneMemoryLastHitSecondsCounterKey, nowSeconds);
+        }
 
         //Psychological Warfare (Trickster passive) - per the locked design's wording ("take increased damage from
         //all allies"), the bonus isn't scoped to the Trickster's own hits - any attacker benefits as long as SOME
@@ -467,6 +526,13 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     && (blessingDrEffect is StaciasBlessingEffect blessingDr)
                     && (blessingDr.DamageReductionPct > 0))
                     damage = Convert.ToInt32(damage * (1 - (blessingDr.DamageReductionPct / 100m)));
+
+                //Survival Instinct (Beast passive) - a true always-on passive: taking damage temporarily increases
+                //damage resistance. This reads the reduction granted by the LAST hit (tag set further below, after
+                //this hit lands), same "read-then-refresh" shape as every other tag-based mitigation here.
+                if (aisling.Trackers.Tags.TryGetValue(SurvivalInstinctEffect.DamageReductionPctTag, out var survivalPctStr)
+                    && int.TryParse(survivalPctStr, out var survivalPct))
+                    damage = Convert.ToInt32(damage * (1 - (survivalPct / 100m)));
 
                 //Stacia's Shrine (tier 3+) damage shield - absorbs up to ShrineShieldHp of the remaining damage
                 if (aisling.Trackers.Tags.TryGetValue(ShrineShieldTag, out var shieldHpStr) && int.TryParse(shieldHpStr, out var shieldHp)
@@ -777,6 +843,19 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                             aisling.Trackers.Counters.Set(StaciasGraceCooldownCounterKey, nowSeconds + StaciasGraceCooldownSeconds);
                         }
                     }
+
+                    //Survival Instinct (Beast passive) - a true always-on passive: grants/refreshes the damage
+                    //reduction buff on every hit taken, read back by the DR check earlier in this method on the
+                    //NEXT hit (this hit itself already landed unreduced, or reduced by whatever was already
+                    //active from a prior hit)
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.MartialArtist) && aisling.IsAlive
+                                                                                       && aisling.SkillBook.TryGetObjectByTemplateKey("survival_instinct", out _))
+                    {
+                        var survivalEffect = new SurvivalInstinctEffect { DamageReductionPct = SurvivalInstinctDamageReductionPct };
+                        survivalEffect.SetDuration(TimeSpan.FromMilliseconds(SurvivalInstinctDurationMs));
+                        aisling.Effects.Terminate("Survival Instinct");
+                        aisling.Effects.Apply(aisling, survivalEffect, script);
+                    }
                 }
 
                 aisling.Script.OnAttacked(source, damage);
@@ -872,6 +951,14 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
             if (lifestealAisling.Trackers.Tags.TryGetValue(CrimsonHarvestEffect.LifestealTag, out var harvestPctStr) && int.TryParse(harvestPctStr, out var harvestPct))
                 lifestealPct += harvestPct;
+
+            //Feral Hunger (Beast passive) - a true always-on passive: basic attacks restore a small amount of
+            //Health. Renamed from the working name "Bloodlust" specifically to resolve the 3-way cross-class name
+            //collision the locked design flagged (Assassin's core resource/passive, Slayer's own working-name
+            //active, and this) - the collision is resolved by this rename, not deferred.
+            if ((lifestealAisling.UserStatSheet.BaseClass == BaseClass.MartialArtist)
+                && lifestealAisling.SkillBook.TryGetObjectByTemplateKey("feral_hunger", out _))
+                lifestealPct += FeralHungerLifestealPct;
 
             if (lifestealPct > 0)
             {
