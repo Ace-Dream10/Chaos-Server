@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_assassin_confirm",
-  "text": "It is done. Assassin Floor 1 kit granted: Death's Strike, Phantom Blade, Witness Elimination.",
+  "text": "It is done. Assassin Floor 1-3 kit granted: Death's Strike, Phantom Blade, Witness Elimination, Bloodlust, Execute, Death Mark, Ghost Step.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Assassin",
       "baseClass": "Assassin",
       "advClass": null,
-      "skillTemplateKeys": ["assail", "deaths_strike", "phantom_blade", "witness_elimination"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "deaths_strike", "phantom_blade", "witness_elimination", "bloodlust", "execute", "death_mark", "ghost_step"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["assassin_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_assassin_m",

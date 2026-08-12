@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_bastion_confirm",
-  "text": "It is done. Bastion Floor 1 kit granted: Shield Thrust, Iron Reprisal, Lancer's Shield.",
+  "text": "It is done. Bastion Floor 1-3 kit granted: Shield Thrust, Iron Reprisal, Lancer's Shield, Iron Will, Pivot Strike, Bastion's Charge, Lancer's Leash.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Bastion",
       "baseClass": "Bastion",
       "advClass": null,
-      "skillTemplateKeys": ["assail", "shield_thrust", "iron_reprisal", "lancers_shield"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "shield_thrust", "iron_reprisal", "lancers_shield", "iron_will", "pivot_strike", "bastions_charge", "lancers_leash"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["lancer_wep_1", "lancer_shield_1"],
       "armorTemplateKeyMale": "fl1_armor_lancer_m",

@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_sorcerer_confirm",
-  "text": "It is done. Sorcerer Floor 1 kit granted: Arcane Bolt, Arcane Precision, Arcane Gate.",
+  "text": "It is done. Sorcerer Floor 1-3 kit granted (Ignis/Fire path - the only path with real committed content): Arcane Bolt, Arcane Precision, Arcane Gate, Firebolt, Fire Wall, Kindling.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,8 +9,9 @@
       "className": "Sorcerer",
       "baseClass": "Sorcerer",
       "advClass": null,
+      "level": 6,
       "skillTemplateKeys": ["assail"],
-      "spellTemplateKeys": ["arcane_bolt", "arcane_precision", "arcane_gate"],
+      "spellTemplateKeys": ["arcane_bolt", "arcane_precision", "arcane_gate", "firebolt", "fire_wall", "kindling"],
       "gearTemplateKeys": ["sorcerer_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_sorcerer_m",
       "armorTemplateKeyFemale": "fl1_armor_sorcerer_f"

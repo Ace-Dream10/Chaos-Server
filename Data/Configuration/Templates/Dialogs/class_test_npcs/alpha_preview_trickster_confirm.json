@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_trickster_confirm",
-  "text": "It is done. Trickster Floor 1 kit granted: Crack the Whip (Tier I), Shadow Step, Vanishing Act.",
+  "text": "It is done. Trickster Floor 1-3 kit granted: Crack the Whip, Shadow Step, Vanishing Act, Blackout, Delirium, Smoke and Mirrors.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Trickster",
       "baseClass": "Trickster",
       "advClass": null,
-      "skillTemplateKeys": ["assail", "crack_the_whip", "vanishing_act"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "crack_the_whip", "vanishing_act", "blackout", "delirium", "smoke_and_mirrors"],
       "spellTemplateKeys": ["shadow_step"],
       "gearTemplateKeys": ["trickster_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_trickster_m",

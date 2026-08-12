@@ -1,7 +1,7 @@
 {
   "templateKey": "meditate",
   "name": "Meditate",
-  "description": "Center your mind, restoring Chi over time and empowering your next strikes - evolves at Floors 2/4/6/8, capping at Tier IV.",
+  "description": "Center your mind, restoring Chi over time and empowering your next strikes - evolves toward stronger Chi restoration and empowerment over time.",
   "panelSprite": 50,
   "class": "MartialArtist",
   "level": 1,

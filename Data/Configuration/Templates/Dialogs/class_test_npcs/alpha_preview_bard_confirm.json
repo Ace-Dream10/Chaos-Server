@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_bard_confirm",
-  "text": "It is done. Bard Floor 1 kit granted: Stacia's Blessing, Battle Hymn, Bard's Malediction (all Tier I), Valkor's Smite, Stacia's Vitae.",
+  "text": "It is done. Bard Floor 1-3 kit granted: Stacia's Blessing, Battle Hymn, Bard's Malediction, Valkor's Smite, Stacia's Vitae, Stacia's Chorus, Salvation, Stacia's Cleanse.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,8 +9,9 @@
       "className": "Bard",
       "baseClass": "Bard",
       "advClass": null,
+      "level": 6,
       "skillTemplateKeys": ["assail"],
-      "spellTemplateKeys": ["stacias_blessing", "battle_hymn", "bards_malediction", "valkors_smite", "stacias_vitae"],
+      "spellTemplateKeys": ["stacias_blessing", "battle_hymn", "bards_malediction", "valkors_smite", "stacias_vitae", "stacias_chorus", "salvation", "stacias_cleanse"],
       "gearTemplateKeys": ["bard_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_bard_m",
       "armorTemplateKeyFemale": "fl1_armor_bard_f"

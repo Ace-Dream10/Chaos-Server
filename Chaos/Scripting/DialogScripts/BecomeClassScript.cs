@@ -15,7 +15,9 @@ namespace Chaos.Scripting.DialogScripts;
 ///     equipment, and inventory, then grants the full skill/spell kit and floor-1 gear for that class. Meant for
 ///     class-testing NPCs, not real gameplay - it bypasses normal learning requirements entirely. Any gear
 ///     templateKey that doesn't exist yet is skipped silently rather than throwing, since several classes still have
-///     placeholder weapon templates pending.
+///     placeholder weapon templates pending. Optionally sets the Aisling's level too (see <see cref="Level" />),
+///     used by the alpha Class Preview NPC to make evolving abilities resolve to a real tier instead of always
+///     defaulting to Tier I.
 /// </summary>
 public class BecomeClassScript : ConfigurableDialogScriptBase
 {
@@ -43,6 +45,13 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
             source.UserStatSheet.SetBaseClass(BaseClass.Value);
 
         source.UserStatSheet.SetAdvClass(AdvClass ?? Chaos.DarkAges.Definitions.AdvClass.None);
+
+        //a2. optionally set level - needed for evolving abilities to resolve to the right tier, since tier
+        //resolution is driven by Subject.Level (the "Level ~= 2x Floor" stand-in convention used throughout
+        //tonight's class work, not real floor-tracking). Left null by every existing class-test NPC (they don't
+        //set this), so this is purely additive - existing callers are unaffected.
+        if (Level.HasValue)
+            source.StatSheet.SetLevel(Level.Value);
 
         //b. clear all skills
         foreach (var skill in source.SkillBook.ToArray())
@@ -196,6 +205,12 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
     ///     The templateKeys of weapons/other non-armor gear to grant (may include more than one, e.g. Fletcher's bow)
     /// </summary>
     public ICollection<string> GearTemplateKeys { get; init; } = [];
+
+    /// <summary>
+    ///     Optional - if set, the Aisling's level is set to this value. Left null (no change) unless the caller
+    ///     needs evolving abilities to resolve to a specific tier (see the "Level ~= 2x Floor" convention).
+    /// </summary>
+    public int? Level { get; init; }
 
     /// <summary>
     ///     The templateKeys of skills to grant

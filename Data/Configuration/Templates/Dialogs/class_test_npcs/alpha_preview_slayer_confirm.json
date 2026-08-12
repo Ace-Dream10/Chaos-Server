@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_slayer_confirm",
-  "text": "It is done. Slayer Floor 1 kit granted: Scythe (Tier I), Evade, Skewer.",
+  "text": "It is done. Slayer Floor 1-3 kit granted: Scythe, Evade, Skewer, Slayer's Rush, Mark of the Bane, Precision.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Slayer",
       "baseClass": "Slayer",
       "advClass": null,
-      "skillTemplateKeys": ["assail", "scythe", "evade", "whirlwind"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "scythe", "evade", "whirlwind", "slayers_rush", "mark_of_the_bane", "precision"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_twohanded_1"],
       "armorTemplateKeyMale": "fl1_armor_slayer_m",

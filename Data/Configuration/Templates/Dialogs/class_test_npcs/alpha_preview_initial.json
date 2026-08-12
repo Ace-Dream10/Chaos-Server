@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_initial",
-  "text": "Pick a class to preview its Floor 1 kit. This wipes your current skills, spells, equipped items, and inventory and grants ONLY that class's real Floor 1 abilities - not the full kit. Fully repeatable - pick again anytime to swap.",
+  "text": "Pick a class to preview its early kit (through Floor 3). This wipes your current skills, spells, equipped items, and inventory and grants ONLY that class's real Floor 1-3 abilities - not the full kit. Fully repeatable - pick again anytime to swap.",
   "type": "Menu",
   "options": [
     { "dialogKey": "alpha_preview_bastion_confirm", "optionText": "Bastion" },

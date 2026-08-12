@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_ironscale_confirm",
-  "text": "It is done. Martial Artist (Ironscale) Floor 1 kit granted: Tiger Strike, Roundhouse Kick, Valkor's Fervor.",
+  "text": "It is done. Martial Artist (Ironscale) Floor 1-3 kit granted: Tiger Strike, Roundhouse Kick, Valkor's Fervor, Martial Form, Meditate, Taunt, Bedrock.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Martial Artist (Ironscale)",
       "baseClass": "MartialArtist",
       "advClass": "Tank",
-      "skillTemplateKeys": ["assail", "tiger_strike", "roundhouse_kick", "valkors_fervor"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "tiger_strike", "roundhouse_kick", "valkors_fervor", "martial_form", "meditate", "taunt", "bedrock"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["martial_artist_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_martial_artist_m",

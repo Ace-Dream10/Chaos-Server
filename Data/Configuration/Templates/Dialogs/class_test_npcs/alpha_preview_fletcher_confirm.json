@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_fletcher_confirm",
-  "text": "It is done. Fletcher Floor 1 kit granted: Arrow Shot, Arrowstep, Pinpoint Shot.",
+  "text": "It is done. Fletcher Floor 1-3 kit granted: Arrow Shot, Arrowstep, Pinpoint Shot, Eagle Eye, Focus, Flechette, Windrunner.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,8 +9,9 @@
       "className": "Fletcher",
       "baseClass": "Fletcher",
       "advClass": null,
-      "skillTemplateKeys": ["bow_assail", "arrowstep"],
-      "spellTemplateKeys": ["pinpoint_shot"],
+      "level": 6,
+      "skillTemplateKeys": ["bow_assail", "arrowstep", "eagle_eye", "focus", "windrunner"],
+      "spellTemplateKeys": ["pinpoint_shot", "flechette"],
       "gearTemplateKeys": ["fletcher_wep_1", "rook_bow"],
       "armorTemplateKeyMale": "fl1_armor_fletcher_m",
       "armorTemplateKeyFemale": "fl1_armor_fletcher_f"

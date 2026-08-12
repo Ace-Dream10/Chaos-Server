@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_mystic_confirm",
-  "text": "It is done. Mystic Floor 1 kit granted: Stacia's Shrine, Spirit Rend, Stacia's Judgment (all Tier I).",
+  "text": "It is done. Mystic Floor 1-3 kit granted: Stacia's Shrine, Spirit Rend, Stacia's Judgment, Ethereal Step, Blooming Life, Spirit Burst.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,8 +9,9 @@
       "className": "Mystic",
       "baseClass": "Mystic",
       "advClass": null,
+      "level": 6,
       "skillTemplateKeys": ["assail"],
-      "spellTemplateKeys": ["stacias_shrine", "spirit_rend", "stacias_judgment"],
+      "spellTemplateKeys": ["stacias_shrine", "spirit_rend", "stacias_judgment", "ethereal_step", "blooming_life", "spirit_burst"],
       "gearTemplateKeys": ["mystic_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_mystic_m",
       "armorTemplateKeyFemale": "fl1_armor_mystic_f"

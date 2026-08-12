@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_tempest_confirm",
-  "text": "It is done. Martial Artist (Tempest) Floor 1 kit granted: Tiger Strike, Roundhouse Kick, Valkor's Fervor.",
+  "text": "It is done. Martial Artist (Tempest) Floor 1-3 kit granted: Tiger Strike, Roundhouse Kick, Valkor's Fervor, Martial Form, Meditate, Flickering Step, Star Cross.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -9,7 +9,8 @@
       "className": "Martial Artist (Tempest)",
       "baseClass": "MartialArtist",
       "advClass": "RangedChi",
-      "skillTemplateKeys": ["assail", "tiger_strike", "roundhouse_kick", "valkors_fervor"],
+      "level": 6,
+      "skillTemplateKeys": ["assail", "tiger_strike", "roundhouse_kick", "valkors_fervor", "martial_form", "meditate", "flickering_step", "star_cross"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["martial_artist_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_martial_artist_m",
