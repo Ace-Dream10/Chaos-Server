@@ -1,0 +1,27 @@
+{
+  "templateKey": "pressure_point",
+  "name": "Pressure Point",
+  "description": "Expose an enemy's weak point, increasing all damage they take - evolves into a full raid-support debuff that spreads to nearby enemies.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 3, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["pressurePoint"],
+  "scriptVars": {
+    "pressurePoint": {
+      "range": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 42, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

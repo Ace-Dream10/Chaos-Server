@@ -1,0 +1,28 @@
+{
+  "templateKey": "anchor_hold",
+  "name": "Anchor Hold",
+  "description": "Root or pin an enemy in place, preventing movement.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["anchorHold"],
+  "scriptVars": {
+    "anchorHold": {
+      "durationMs": 3000,
+      "range": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 43, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

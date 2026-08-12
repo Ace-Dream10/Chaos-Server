@@ -1,0 +1,36 @@
+{
+  "templateKey": "martial_artist_ironscale_test_npc_confirm",
+  "text": "It is done.",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Martial Artist (Ironscale)",
+      "baseClass": "MartialArtist",
+      "advClass": "Tank",
+      "skillTemplateKeys": [
+        "assail",
+        "tiger_strike",
+        "roundhouse_kick",
+        "valkors_fervor",
+        "meditate",
+        "martial_form",
+        "iron_body",
+        "pressure_point",
+        "shockwave",
+        "counter_strike",
+        "perfect_counter",
+        "taunt",
+        "anchor_hold",
+        "elemental_defense",
+        "bedrock",
+        "living_fortress"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["martial_artist_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_martial_artist_m",
+      "armorTemplateKeyFemale": "fl1_armor_martial_artist_f"
+    }
+  }
+}

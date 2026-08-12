@@ -1,0 +1,28 @@
+{
+  "templateKey": "taunt",
+  "name": "Taunt",
+  "description": "Force nearby enemies to attack you.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 8000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 3 }
+  },
+  "scriptKeys": ["taunt"],
+  "scriptVars": {
+    "taunt": {
+      "aggroAmount": 2000,
+      "radius": 5,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 14, "animationSpeed": 100 },
+      "sound": 10
+    }
+  }
+}

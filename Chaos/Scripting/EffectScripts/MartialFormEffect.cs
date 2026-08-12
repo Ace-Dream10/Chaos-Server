@@ -18,8 +18,8 @@ namespace Chaos.Scripting.EffectScripts;
 ///     flow (now keyed on AdvClass instead), not a separate transformation-only pick. Unlike the old effect, this
 ///     one no longer toggles skill-pane visibility - the new specialization actives are permanently available once
 ///     learned, not form-gated. Drains MP once per second at the same <c>5 + (MaximumMp x 0.005)</c> formula as the
-///     old effect. Beast's (Fighter) tier stats/sprites are fully designed; Ironscale (Tank) and Tempest
-///     (RangedChi) are placeholder stubs (0 bonus, sprite 0) until their own checkpoints.
+///     old effect. Beast's (Fighter) and Ironscale's (Tank) tier stats/sprites are fully designed; Tempest
+///     (RangedChi) remains a placeholder stub (0 bonus, sprite 0) until its own checkpoint.
 /// </summary>
 public sealed class MartialFormEffect : IntervalEffectBase
 {
@@ -59,7 +59,11 @@ public sealed class MartialFormEffect : IntervalEffectBase
             (AdvClass.Fighter, 2) => (ushort)426,
             (AdvClass.Fighter, 3) => (ushort)427,
             (AdvClass.Fighter, 4) => (ushort)427, //placeholder - no dedicated Tier IV "Final Form" werewolf sprite exists yet
-            _                     => (ushort)0    //Ironscale/Tempest not yet designed
+            (AdvClass.Tank, 1)    => (ushort)428,
+            (AdvClass.Tank, 2)    => (ushort)429,
+            (AdvClass.Tank, 3)    => (ushort)430,
+            (AdvClass.Tank, 4)    => (ushort)430, //placeholder - no dedicated Tier IV "Final Form" lizardman sprite exists yet
+            _                     => (ushort)0    //Tempest not yet designed
         };
 
         AppliedBonus = (specialization, Tier) switch
@@ -68,7 +72,11 @@ public sealed class MartialFormEffect : IntervalEffectBase
             (AdvClass.Fighter, 2) => new Attributes { Str = 15, FlatSkillDamage = 20 },
             (AdvClass.Fighter, 3) => new Attributes { Str = 20, Dex = 5, FlatSkillDamage = 30 },
             (AdvClass.Fighter, 4) => new Attributes { Str = 30, Dex = 10, FlatSkillDamage = 45, AtkSpeedPct = 10 },
-            _                     => new Attributes() //Ironscale/Tempest not yet designed
+            (AdvClass.Tank, 1)    => new Attributes { Con = 10, Ac = -5 },
+            (AdvClass.Tank, 2)    => new Attributes { Con = 15, Ac = -10 },
+            (AdvClass.Tank, 3)    => new Attributes { Con = 20, Str = 5, Ac = -15 },
+            (AdvClass.Tank, 4)    => new Attributes { Con = 30, Str = 10, Ac = -25, MaximumHp = 500 },
+            _                     => new Attributes() //Tempest not yet designed
         };
 
         if (AislingSubject is not null)

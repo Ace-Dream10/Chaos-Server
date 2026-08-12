@@ -1,0 +1,10 @@
+{
+  "templateKey": "martial_artist_choose_specialization",
+  "text": "Which specialization would you like to test?",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "martial_artist_beast_test_npc_confirm", "optionText": "Beast (werewolf, Fighter/DPS)" },
+    { "dialogKey": "martial_artist_ironscale_test_npc_confirm", "optionText": "Ironscale (lizardman, Tank)" },
+    { "dialogKey": "martial_artist_tempest_test_npc_confirm", "optionText": "Tempest (harpy, Ranged DPS)" }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "templateKey": "iron_body",
+  "name": "Iron Body",
+  "description": "Become immobile, generating massive threat while reflecting incoming damage - evolves into an even longer, harder-hitting reflect.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 25000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["ironBody"],
+  "scriptVars": {
+    "ironBody": {
+      "aggroRadius": 4,
+      "bodyAnimation": "None",
+      "sound": 10
+    }
+  }
+}

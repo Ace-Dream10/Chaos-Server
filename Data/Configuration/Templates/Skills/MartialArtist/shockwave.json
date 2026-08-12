@@ -1,0 +1,29 @@
+{
+  "templateKey": "shockwave",
+  "name": "Shockwave",
+  "description": "Emit a damaging shockwave around you, generating threat and controlling nearby enemies - evolves into the Ironscale's signature battlefield control ability.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 14000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 1, "int": 1, "wis": 1, "con": 8 }
+  },
+  "scriptKeys": ["shockwave"],
+  "scriptVars": {
+    "shockwave": {
+      "baseDamage": 50,
+      "damageStat": "con",
+      "damageStatMultiplier": 2,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 40, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

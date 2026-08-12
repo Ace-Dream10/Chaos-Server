@@ -200,6 +200,26 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
 
     private const int SurvivalInstinctDurationMs = 4000;
 
+    /// <summary>
+    ///     Elemental Defense (Ironscale passive) - the percentage damage reduction granted against a repeat hit of
+    ///     the same element, and the tag key storing which element last struck the defender. Placeholder, not
+    ///     balance-tested.
+    /// </summary>
+    private const int ElementalDefenseReductionPct = 20;
+
+    private const string ElementalDefenseLastElementTag = "elementalDefenseLastElement";
+
+    /// <summary>
+    ///     Living Fortress (Ironscale passive) - the percentage damage reduction per Fortitude stack, the cap on
+    ///     stacks, and how long since the last hit before the streak resets. Placeholder, not balance-tested.
+    /// </summary>
+    private const decimal LivingFortressPctPerStack = 0.02m;
+
+    private const int LivingFortressMaxStacks = 10;
+    private const int LivingFortressResetWindowSeconds = 4;
+    private const string LivingFortressStacksCounterKey = "livingFortressStacks";
+    private const string LivingFortressLastHitSecondsCounterKey = "livingFortressLastHitSeconds";
+
     public IDamageFormula DamageFormula { get; set; } = DamageFormulae.Default;
     public static string Key { get; } = GetScriptKey(typeof(ApplyAttackDamageScript));
 
@@ -243,6 +263,12 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         //Blood/Mark of the Bane above
         if (target.Trackers.Tags.TryGetValue(BreakEffect.BonusDamageTakenPctTag, out var breakPctStr) && int.TryParse(breakPctStr, out var breakPct))
             damage = Convert.ToInt32(damage * (1 + (breakPct / 100m)));
+
+        //Pressure Point (Ironscale active) - same shape as Break above, evolves into a full raid-support debuff by
+        //spreading to nearby enemies at max tier (handled in PressurePointScript, not here)
+        if (target.Trackers.Tags.TryGetValue(PressurePointEffect.BonusDamageTakenPctTag, out var pressurePointPctStr)
+            && int.TryParse(pressurePointPctStr, out var pressurePointPct))
+            damage = Convert.ToInt32(damage * (1 + (pressurePointPct / 100m)));
 
         //Bone Memory (Beast passive) - a true always-on passive: consecutive attacks gradually increase damage.
         //Stacks build via BoneMemoryStacksCounterKey on the attacker (incremented right below, after this read),
@@ -534,6 +560,38 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                     && int.TryParse(survivalPctStr, out var survivalPct))
                     damage = Convert.ToInt32(damage * (1 - (survivalPct / 100m)));
 
+                //Elemental Defense (Ironscale passive) - a true always-on passive: "adapt to the last element that
+                //struck you, temporarily increasing resistance to it." Reads the element tag recorded by the
+                //PREVIOUS hit (before this hit's own element overwrites it below) - if this hit shares that
+                //element, it's reduced. source.Trackers.LastAttackElement is the same "what element is this hit"
+                //signal Sorcerer's own Fire-specific passives already use.
+                if ((aisling.UserStatSheet.BaseClass == BaseClass.MartialArtist)
+                    && aisling.SkillBook.TryGetObjectByTemplateKey("elemental_defense", out _))
+                {
+                    var thisHitElement = source.Trackers.LastAttackElement;
+
+                    if ((thisHitElement != Element.None)
+                        && aisling.Trackers.Tags.TryGetValue(ElementalDefenseLastElementTag, out var lastElementStr)
+                        && (lastElementStr == thisHitElement.ToString()))
+                        damage = Convert.ToInt32(damage * (1 - (ElementalDefenseReductionPct / 100m)));
+
+                    if (thisHitElement != Element.None)
+                        aisling.Trackers.Tags[ElementalDefenseLastElementTag] = thisHitElement.ToString();
+                }
+
+                //Living Fortress (Ironscale passive, working name) - a true always-on passive: "taking damage
+                //grants Fortitude, empowering your defensive abilities." Realized as a stacking damage-reduction
+                //buff that builds with each hit taken (read here, incremented further below after this hit
+                //lands) - same consecutive-hit-streak shape as Bone Memory, just defensive instead of offensive.
+                if (aisling.Trackers.Counters.TryGetValue(LivingFortressStacksCounterKey, out var fortitudeStacks) && (fortitudeStacks > 0))
+                    damage = Convert.ToInt32(damage * (1 - (fortitudeStacks * LivingFortressPctPerStack)));
+
+                //Bedrock (Ironscale passive) - a true always-on passive: gain increasing damage reduction the
+                //longer you remain stationary. Granted/refreshed by BedrockScript, an AislingScript watching
+                //Trackers.LastWalk - read here the same tag-based way as every other percentage modifier.
+                if (aisling.Trackers.Tags.TryGetValue(BedrockEffect.DamageReductionPctTag, out var bedrockPctStr) && int.TryParse(bedrockPctStr, out var bedrockPct))
+                    damage = Convert.ToInt32(damage * (1 - (bedrockPct / 100m)));
+
                 //Stacia's Shrine (tier 3+) damage shield - absorbs up to ShrineShieldHp of the remaining damage
                 if (aisling.Trackers.Tags.TryGetValue(ShrineShieldTag, out var shieldHpStr) && int.TryParse(shieldHpStr, out var shieldHp)
                                                                                             && (shieldHp > 0))
@@ -675,6 +733,26 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                             AnimationSpeed = 100
                         },
                         aisling.Id);
+                } else if (aisling.Trackers.Tags.ContainsKey(PerfectCounterEffect.ReadyTag))
+                {
+                    //Perfect Counter (Ironscale) - negate the damage entirely (this branch skips the SubtractHp
+                    //call in the chain's final else below, same as Counter Strike/Iron Reprisal above) and reflect
+                    //the FULL incoming amount back at the attacker, one use only. Distinct from Counter Strike/Iron
+                    //Reprisal, which substitute a fixed STR/DEX-scaled counter-strike instead of mirroring the
+                    //actual hit.
+                    aisling.Trackers.Tags.TryRemove(PerfectCounterEffect.ReadyTag, out _);
+                    aisling.Effects.Terminate("Perfect Counter");
+
+                    if (damage > 0)
+                        ApplyDamage(aisling, source, script, damage);
+
+                    source.Animate(
+                        new Animation
+                        {
+                            TargetAnimation = 14,
+                            AnimationSpeed = 100
+                        },
+                        aisling.Id);
                 } else if ((damage >= aisling.StatSheet.CurrentHp) && aisling.Trackers.Tags.ContainsKey(PhoenixRiseEffect.ReadyTag))
                 {
                     //Phoenix Rise - this hit would be lethal and the buff is ready: survive at 30% HP instead,
@@ -776,6 +854,23 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         }
                     }
 
+                    //Iron Body (Ironscale active) - a true always-on passive-shaped hook while the buff tag is
+                    //present: reflects a flat percentage of the damage just taken back at the attacker, same
+                    //shape as Bastion's Retribution just above but with a flat tag-driven percentage instead of an
+                    //AC-scaled one, since Iron Body's own tier already controls the percentage directly.
+                    if (aisling.Trackers.Tags.TryGetValue(IronBodyEffect.ReflectPctTag, out var ironBodyPctStr)
+                        && int.TryParse(ironBodyPctStr, out var ironBodyPct)
+                        && (ironBodyPct > 0)
+                        && aisling.IsAlive
+                        && (source.Id != aisling.Id)
+                        && source.IsAlive)
+                    {
+                        var ironBodyReflect = Convert.ToInt32(damage * (ironBodyPct / 100m));
+
+                        if (ironBodyReflect > 0)
+                            ApplyDamage(aisling, source, script, ironBodyReflect);
+                    }
+
                     //Divine Verdict (Valkyrie passive) - a true always-on passive: taking damage builds Judgment
                     //(persisted via Trackers.Counters, same simple stack-counter shape as Severance/Burn stacks
                     //elsewhere), and holy lightning strikes nearby enemies once the threshold is reached.
@@ -855,6 +950,24 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         survivalEffect.SetDuration(TimeSpan.FromMilliseconds(SurvivalInstinctDurationMs));
                         aisling.Effects.Terminate("Survival Instinct");
                         aisling.Effects.Apply(aisling, survivalEffect, script);
+                    }
+
+                    //Living Fortress (Ironscale passive, working name) - a true always-on passive: builds a
+                    //Fortitude stack on every hit taken (read back by the DR check earlier in this method on the
+                    //NEXT hit), reset if too long has passed since the last hit - same shape as Bone Memory,
+                    //defensive instead of offensive.
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.MartialArtist) && aisling.IsAlive
+                                                                                       && aisling.SkillBook.TryGetObjectByTemplateKey("living_fortress", out _))
+                    {
+                        var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
+
+                        if (aisling.Trackers.Counters.TryGetValue(LivingFortressLastHitSecondsCounterKey, out var lastHitSeconds)
+                            && ((nowSeconds - lastHitSeconds) > LivingFortressResetWindowSeconds))
+                            aisling.Trackers.Counters.Set(LivingFortressStacksCounterKey, 0);
+
+                        var currentStacks = aisling.Trackers.Counters.TryGetValue(LivingFortressStacksCounterKey, out var stacks) ? stacks : 0;
+                        aisling.Trackers.Counters.Set(LivingFortressStacksCounterKey, Math.Min(currentStacks + 1, LivingFortressMaxStacks));
+                        aisling.Trackers.Counters.Set(LivingFortressLastHitSecondsCounterKey, nowSeconds);
                     }
                 }
 

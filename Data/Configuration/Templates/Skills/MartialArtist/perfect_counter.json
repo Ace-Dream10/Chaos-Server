@@ -1,0 +1,24 @@
+{
+  "templateKey": "perfect_counter",
+  "name": "Perfect Counter",
+  "description": "Reflect the next incoming attack back to its attacker.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 15000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 3, "dex": 3, "int": 1, "wis": 1, "con": 5 }
+  },
+  "scriptKeys": ["perfectCounter"],
+  "scriptVars": {
+    "perfectCounter": {
+      "bodyAnimation": "None",
+      "sound": 10
+    }
+  }
+}

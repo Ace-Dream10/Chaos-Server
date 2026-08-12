@@ -1,6 +1,6 @@
 {
   "templateKey": "spirit_guide_ironscale_info",
-  "text": "The Ironscale path channels the spirit of the lizardman - an unbreakable guardian with counters and crowd control. (Specialization kit not yet built - coming in a future update.)",
+  "text": "The Ironscale path channels the spirit of the lizardman - an unbreakable guardian with counters and crowd control.",
   "type": "Menu",
   "options": [
     { "dialogKey": "spirit_guide_ironscale_confirm", "optionText": "Choose the Ironscale path" },
