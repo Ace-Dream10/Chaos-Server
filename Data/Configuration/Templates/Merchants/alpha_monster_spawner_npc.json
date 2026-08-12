@@ -1,0 +1,7 @@
+{
+  "templateKey": "alpha_monster_spawner_npc",
+  "name": "Test Target Spawner",
+  "sprite": 37,
+  "scriptKeys": ["showdialog", "defaultBehaviors"],
+  "scriptVars": { "showdialog": { "dialogKey": "alpha_spawner_initial" } }
+}

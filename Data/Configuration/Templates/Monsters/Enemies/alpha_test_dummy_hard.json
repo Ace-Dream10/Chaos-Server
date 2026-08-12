@@ -1,0 +1,23 @@
+{
+  "templateKey": "alpha_test_dummy_hard",
+  "name": "Alpha Test Dummy (Hard)",
+  "sprite": 637,
+  "type": "Normal",
+  "aggroRange": 6,
+  "assailIntervalMs": 1500,
+  "moveIntervalMs": 500,
+  "skillIntervalMs": 99999,
+  "spellIntervalMs": 99999,
+  "wanderIntervalMs": 3000,
+  "expReward": 150,
+  "scriptKeys": ["Default"],
+  "skillTemplateKeys": ["assail"],
+  "spellTemplateKeys": [],
+  "statSheet": {
+    "level": 10,
+    "ac": -50,
+    "maximumHp": 500,
+    "maximumMp": 0,
+    "str": 20, "dex": 1, "int": 1, "wis": 1, "con": 1
+  }
+}

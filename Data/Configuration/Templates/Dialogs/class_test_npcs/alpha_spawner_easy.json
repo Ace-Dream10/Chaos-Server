@@ -1,0 +1,14 @@
+{
+  "templateKey": "alpha_spawner_easy",
+  "text": "skip",
+  "type": "Normal",
+  "options": [],
+  "scriptKeys": ["SpawnAlphaTestMonster"],
+  "scriptVars": {
+    "SpawnAlphaTestMonster": {
+      "monsterTemplateKey": "alpha_test_dummy_easy",
+      "displayName": "Easy",
+      "cooldownSeconds": 90
+    }
+  }
+}

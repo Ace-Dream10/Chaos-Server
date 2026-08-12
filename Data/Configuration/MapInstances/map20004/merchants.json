@@ -5,5 +5,12 @@
     "extraScriptKeys": [],
     "merchantTemplateKey": "alpha_class_preview_npc",
     "spawnPoint": "(20, 44)"
+  },
+  {
+    "blackList": [],
+    "direction": "Down",
+    "extraScriptKeys": [],
+    "merchantTemplateKey": "alpha_monster_spawner_npc",
+    "spawnPoint": "(30, 44)"
   }
 ]

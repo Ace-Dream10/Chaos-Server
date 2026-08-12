@@ -1,0 +1,10 @@
+{
+  "templateKey": "alpha_spawner_initial",
+  "text": "Pick a difficulty to spawn a test target within the training area to the south. Shared 90-second cooldown between spawns, regardless of difficulty.",
+  "type": "Menu",
+  "options": [
+    { "dialogKey": "alpha_spawner_easy", "optionText": "Easy (50 HP, 0 AC)" },
+    { "dialogKey": "alpha_spawner_mid", "optionText": "Mid (200 HP, moderate AC)" },
+    { "dialogKey": "alpha_spawner_hard", "optionText": "Hard (500 HP, high AC)" }
+  ]
+}
