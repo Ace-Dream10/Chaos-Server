@@ -17,9 +17,11 @@ namespace Chaos.Scripting.EffectScripts;
 ///     retired) - this version is driven by the specialization the player already chose via the SAME Spirit Guide
 ///     flow (now keyed on AdvClass instead), not a separate transformation-only pick. Unlike the old effect, this
 ///     one no longer toggles skill-pane visibility - the new specialization actives are permanently available once
-///     learned, not form-gated. Drains MP once per second at the same <c>5 + (MaximumMp x 0.005)</c> formula as the
-///     old effect. Beast's (Fighter) and Ironscale's (Tank) tier stats/sprites are fully designed; Tempest
-///     (RangedChi) remains a placeholder stub (0 bonus, sprite 0) until its own checkpoint.
+///     learned, not form-gated. Drains MP once per second at the same base <c>5 + (MaximumMp x 0.005)</c> formula
+///     as the old effect, scaled by <see cref="DrainMultiplier" /> - only Tempest's own evolution note calls out
+///     "lower Mana drain" per tier, so that's the only specialization where this isn't 1.0. All three
+///     specializations (Beast/Fighter, Ironscale/Tank, Tempest/RangedChi) now have their tier stats/sprites fully
+///     designed, completing this effect's per-specialization branches.
 /// </summary>
 public sealed class MartialFormEffect : IntervalEffectBase
 {
@@ -45,6 +47,12 @@ public sealed class MartialFormEffect : IntervalEffectBase
     /// </summary>
     public int Tier { get; set; } = 1;
 
+    /// <summary>
+    ///     Multiplier applied to the base MP drain formula - only Tempest's Form lowers this per-tier (per its own
+    ///     evolution note); stays 1.0 for every other specialization
+    /// </summary>
+    private decimal DrainMultiplier { get; set; } = 1.0m;
+
     public override byte Icon => 59;
     public override string Name => "Martial Form";
 
@@ -63,7 +71,11 @@ public sealed class MartialFormEffect : IntervalEffectBase
             (AdvClass.Tank, 2)    => (ushort)429,
             (AdvClass.Tank, 3)    => (ushort)430,
             (AdvClass.Tank, 4)    => (ushort)430, //placeholder - no dedicated Tier IV "Final Form" lizardman sprite exists yet
-            _                     => (ushort)0    //Tempest not yet designed
+            (AdvClass.RangedChi, 1) => (ushort)431,
+            (AdvClass.RangedChi, 2) => (ushort)432,
+            (AdvClass.RangedChi, 3) => (ushort)433,
+            (AdvClass.RangedChi, 4) => (ushort)433, //placeholder - no dedicated Tier IV "Final Form" harpy sprite exists yet
+            _                       => (ushort)0
         };
 
         AppliedBonus = (specialization, Tier) switch
@@ -76,7 +88,23 @@ public sealed class MartialFormEffect : IntervalEffectBase
             (AdvClass.Tank, 2)    => new Attributes { Con = 15, Ac = -10 },
             (AdvClass.Tank, 3)    => new Attributes { Con = 20, Str = 5, Ac = -15 },
             (AdvClass.Tank, 4)    => new Attributes { Con = 30, Str = 10, Ac = -25, MaximumHp = 500 },
-            _                     => new Attributes() //Tempest not yet designed
+            (AdvClass.RangedChi, 1) => new Attributes { Dex = 10, Wis = 5, FlatSpellDamage = 10 },
+            (AdvClass.RangedChi, 2) => new Attributes { Dex = 15, Wis = 10, FlatSpellDamage = 20 },
+            (AdvClass.RangedChi, 3) => new Attributes { Dex = 20, Wis = 15, Ac = -5, FlatSpellDamage = 30, AtkSpeedPct = 10 },
+            (AdvClass.RangedChi, 4) => new Attributes { Dex = 30, Wis = 20, Ac = -10, FlatSpellDamage = 45, AtkSpeedPct = 20 },
+            _                       => new Attributes()
+        };
+
+        //Tempest's own evolution note calls out "lower Mana drain" alongside stat improvements - no other
+        //specialization's Form has this, so it's a per-tier multiplier on the base drain formula rather than a
+        //universal one. Stays 1.0 (no change) for Beast/Ironscale.
+        DrainMultiplier = (specialization, Tier) switch
+        {
+            (AdvClass.RangedChi, 1) => 1.0m,
+            (AdvClass.RangedChi, 2) => 0.85m,
+            (AdvClass.RangedChi, 3) => 0.7m,
+            (AdvClass.RangedChi, 4) => 0.5m,
+            _                       => 1.0m
         };
 
         if (AislingSubject is not null)
@@ -95,7 +123,7 @@ public sealed class MartialFormEffect : IntervalEffectBase
     /// <inheritdoc />
     protected override void OnIntervalElapsed()
     {
-        var drainPerSecond = 5 + (Subject.StatSheet.MaximumMp * 0.005);
+        var drainPerSecond = (5 + (Subject.StatSheet.MaximumMp * 0.005m)) * DrainMultiplier;
         Subject.StatSheet.SubtractMp(Convert.ToInt32(drainPerSecond));
         AislingSubject?.Client.SendAttributes(StatUpdateType.Vitality);
 

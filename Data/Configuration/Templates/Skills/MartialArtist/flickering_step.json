@@ -1,0 +1,26 @@
+{
+  "templateKey": "flickering_step",
+  "name": "Flickering Step",
+  "description": "Instantly reposition, leaving behind an afterimage.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 6000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": ["flickeringStep"],
+  "scriptVars": {
+    "flickeringStep": {
+      "range": 4,
+      "departureAnimation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "arrivalAnimation": { "targetAnimation": 134, "animationSpeed": 100 },
+      "sound": 8
+    }
+  }
+}

@@ -1,6 +1,36 @@
 {
   "templateKey": "martial_artist_tempest_test_npc_confirm",
-  "text": "The Tempest specialization hasn't been built yet - check back after its own checkpoint. Try Beast or Ironscale instead.",
+  "text": "It is done.",
   "type": "Normal",
-  "options": []
+  "options": [],
+  "scriptKeys": ["becomeClass"],
+  "scriptVars": {
+    "becomeClass": {
+      "className": "Martial Artist (Tempest)",
+      "baseClass": "MartialArtist",
+      "advClass": "RangedChi",
+      "skillTemplateKeys": [
+        "assail",
+        "tiger_strike",
+        "roundhouse_kick",
+        "valkors_fervor",
+        "meditate",
+        "martial_form",
+        "hail_of_feathers",
+        "void_palm",
+        "tempest_focus",
+        "star_cross",
+        "chi_bullet",
+        "flickering_step",
+        "feather_prison",
+        "flowing_chi",
+        "perfect_rhythm",
+        "one_with_the_wind"
+      ],
+      "spellTemplateKeys": [],
+      "gearTemplateKeys": ["martial_artist_wep_1"],
+      "armorTemplateKeyMale": "fl1_armor_martial_artist_m",
+      "armorTemplateKeyFemale": "fl1_armor_martial_artist_f"
+    }
+  }
 }

@@ -1,0 +1,31 @@
+{
+  "templateKey": "star_cross",
+  "name": "Star Cross",
+  "description": "Fire multiple chi stars at nearby enemies.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 10000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 3, "con": 1 }
+  },
+  "scriptKeys": ["starCross"],
+  "scriptVars": {
+    "starCross": {
+      "baseDamage": 40,
+      "damageStat": "wis",
+      "damageStatMultiplier": 2,
+      "maxTargets": 3,
+      "range": 6,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

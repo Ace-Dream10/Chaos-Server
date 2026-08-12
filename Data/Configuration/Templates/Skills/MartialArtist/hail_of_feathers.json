@@ -1,0 +1,29 @@
+{
+  "templateKey": "hail_of_feathers",
+  "name": "Hail of Feathers",
+  "description": "Launch a storm of razor feathers over an area - evolves into a larger, deadlier feather storm.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 12000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 5, "int": 1, "wis": 5, "con": 1 }
+  },
+  "scriptKeys": ["hailOfFeathers"],
+  "scriptVars": {
+    "hailOfFeathers": {
+      "baseDamage": 30,
+      "damageStat": "wis",
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 133, "animationSpeed": 100 },
+      "sound": 15
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "templateKey": "one_with_the_wind",
+  "name": "One with the Wind",
+  "description": "(Passive) Mobility and chi techniques briefly increase movement speed and evasion.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 100,
+  "levelsUp": false,
+  "isPassive": true,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 1, "int": 1, "wis": 1, "con": 1 }
+  },
+  "scriptKeys": []
+}

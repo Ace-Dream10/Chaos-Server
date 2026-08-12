@@ -207,6 +207,9 @@ public sealed class Aisling : Creature, IScripted<IAislingScript>, IDialogSource
             ScriptBase.GetScriptKey(typeof(CrescendoScript)),
             ScriptBase.GetScriptKey(typeof(SpiritualAttunementScript)),
             ScriptBase.GetScriptKey(typeof(BedrockScript)),
+            ScriptBase.GetScriptKey(typeof(FlowingChiScript)),
+            ScriptBase.GetScriptKey(typeof(PerfectRhythmScript)),
+            ScriptBase.GetScriptKey(typeof(OneWithTheWindScript)),
             ScriptBase.GetScriptKey(typeof(AscensionFloorTrackerScript)),
             ScriptBase.GetScriptKey(typeof(SorcererProgressionScript))
         };

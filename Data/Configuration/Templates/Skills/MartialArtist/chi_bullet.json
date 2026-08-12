@@ -1,0 +1,33 @@
+{
+  "templateKey": "chi_bullet",
+  "name": "Chi Bullet",
+  "description": "Piercing chi projectile that detonates after passing through the target.",
+  "panelSprite": 46,
+  "class": "MartialArtist",
+  "level": 1,
+  "maxLevel": 255,
+  "levelsUp": true,
+  "cooldownMs": 9000,
+  "learningRequirements": {
+    "itemRequirements": [],
+    "prerequisiteSkills": [],
+    "prerequisiteSpells": [],
+    "requiredStats": { "str": 1, "dex": 3, "int": 1, "wis": 5, "con": 1 }
+  },
+  "scriptKeys": ["chiBullet"],
+  "scriptVars": {
+    "chiBullet": {
+      "baseDamage": 60,
+      "damageStat": "wis",
+      "damageStatMultiplier": 2.5,
+      "detonationRadius": 2,
+      "detonationDamagePct": 60,
+      "range": 8,
+      "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "None",
+      "animation": { "targetAnimation": 35, "animationSpeed": 100 },
+      "detonationAnimation": { "targetAnimation": 40, "animationSpeed": 100 },
+      "sound": 98
+    }
+  }
+}
