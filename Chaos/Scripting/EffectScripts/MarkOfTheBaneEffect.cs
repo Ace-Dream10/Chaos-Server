@@ -23,11 +23,19 @@ public sealed class MarkOfTheBaneEffect : EffectBase
 {
     public const string BonusDamagePctTag = "mark_of_the_bane_bonus_pct";
 
+    /// <summary>
+    ///     How often the mark visual is re-played while the effect is active - same refresh-tick pattern
+    ///     <see cref="StasisEffect" /> already established for "needs an ongoing, not just apply-once, visual".
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(1500);
+
     private static readonly Animation MarkAnimation = new()
     {
         TargetAnimation = 56,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(10);
@@ -49,10 +57,28 @@ public sealed class MarkOfTheBaneEffect : EffectBase
     {
         Subject.Trackers.Tags[BonusDamagePctTag] = BonusDamagePct.ToString();
         Subject.Animate(MarkAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
     public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(BonusDamagePctTag, out _);
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(MarkAnimation, Source.Id);
+    }
 
     /// <summary>
     ///     Always allow reapplication so Precision can refresh the mark's duration mid-fight, matching

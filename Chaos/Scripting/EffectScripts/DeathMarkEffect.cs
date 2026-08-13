@@ -29,11 +29,19 @@ public sealed class DeathMarkEffect : EffectBase
 {
     public const string MarkTag = "deathMark";
 
+    /// <summary>
+    ///     How often the mark visual is re-played while the effect is active - same refresh-tick pattern
+    ///     <see cref="StasisEffect" /> already established for "needs an ongoing, not just apply-once, visual".
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(1500);
+
     private static readonly Animation MarkAnimation = new()
     {
         TargetAnimation = 374,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(8000);
@@ -67,10 +75,28 @@ public sealed class DeathMarkEffect : EffectBase
     {
         Subject.Trackers.Tags[MarkTag] = bool.TrueString;
         Subject.Animate(MarkAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
     public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(MarkTag, out _);
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(MarkAnimation, Source.Id);
+    }
 
     /// <summary>
     ///     Called from the damage pipeline the instant a Death-Marked monster dies. Looks up the live effect
