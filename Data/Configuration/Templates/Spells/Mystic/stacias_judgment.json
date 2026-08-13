@@ -1,7 +1,7 @@
 {
   "templateKey": "stacias_judgment",
   "name": "Stacia's Judgment",
-  "description": "Summon a divine shrine that strikes down all nearby enemies - evolves into a larger, harder-hitting, longer-lingering shrine that ultimately strikes twice.",
+  "description": "Summon a divine shrine that strikes down all nearby enemies.",
   "panelSprite": 12,
   "class": "Mystic",
   "spellType": "Targeted",
@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasJudgment"],
   "scriptVars": {
     "staciasJudgment": {
+      "manaCost": 20,
       "baseDamage": 40,
       "damageStat": "wis",
       "damageStatMultiplier": 2,

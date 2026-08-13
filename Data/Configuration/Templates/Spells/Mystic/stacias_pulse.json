@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasPulse"],
   "scriptVars": {
     "staciasPulse": {
+      "manaCost": 15,
       "range": 5,
       "baseDamage": 60,
       "baseHeal": 80,

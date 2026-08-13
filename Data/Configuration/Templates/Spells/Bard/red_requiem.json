@@ -13,6 +13,7 @@
   "scriptKeys": ["redRequiem"],
   "scriptVars": {
     "redRequiem": {
+      "manaCost": 40,
       "reviveHpPct": 25,
       "filter": "friendlyOnly, deadOnly",
       "singleTarget": true,

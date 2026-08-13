@@ -23,6 +23,15 @@ public class FireShieldScript : ConfigurableSpellScriptBase
     {
         var source = context.Source;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         if (Sound.HasValue)
@@ -59,6 +68,11 @@ public class FireShieldScript : ConfigurableSpellScriptBase
     ///     The damage dealt to each nearby enemy on eruption (break or expiry)
     /// </summary>
     public int EruptDamage { get; init; } = 60;
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The amount of damage the shield can absorb

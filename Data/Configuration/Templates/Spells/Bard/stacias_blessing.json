@@ -1,7 +1,7 @@
 {
   "templateKey": "stacias_blessing",
   "name": "Stacia's Blessing",
-  "description": "Invoke the goddess's grace upon all allies. Evolves from raw defense into HP, stats, damage reduction, and crowd-control resistance.",
+  "description": "Invoke the goddess's grace upon all allies.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "NoTarget",
@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasBlessing"],
   "scriptVars": {
     "staciasBlessing": {
+      "manaCost": 40,
       "filter": "friendlyOnly, aliveOnly, aislingsOnly",
       "bodyAnimation": "HandsUp2",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },

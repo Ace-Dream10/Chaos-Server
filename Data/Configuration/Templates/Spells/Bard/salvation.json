@@ -1,7 +1,7 @@
 {
   "templateKey": "salvation",
   "name": "Salvation",
-  "description": "An evolving emergency healing miracle - a large heal that grows stronger, gains splash healing, and eventually surges further for critically wounded allies.",
+  "description": "An emergency healing miracle - a large heal with splash healing for nearby allies.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "Targeted",

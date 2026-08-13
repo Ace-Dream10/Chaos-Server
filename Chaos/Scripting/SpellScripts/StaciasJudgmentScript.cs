@@ -61,6 +61,15 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
         var spawnPoint = Point.From(target);
         var tier = GetTierValues();
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         SpawnShrine(source, map, spawnPoint, tier);
@@ -176,6 +185,11 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
     ///     damages
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     How long, in milliseconds, after the first shrine that the Tier IV second shrine spawns

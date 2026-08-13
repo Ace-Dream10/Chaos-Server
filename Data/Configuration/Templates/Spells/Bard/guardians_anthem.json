@@ -1,7 +1,7 @@
 {
   "templateKey": "guardians_anthem",
   "name": "Guardian's Anthem",
-  "description": "Bard's iconic raid-saving cooldown - grants brief 100% damage immunity. Evolves from a single ally into the entire party.",
+  "description": "Bard's iconic raid-saving cooldown - grants brief 100% damage immunity.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "Targeted",

@@ -1,7 +1,7 @@
 {
   "templateKey": "communion_rite",
   "name": "Communion Rite",
-  "description": "Revives a skulled ally - Mystic's own evolving personal revive, growing from a modest return to a fuller one with a brief protective ward.",
+  "description": "Revives a skulled ally - Mystic's own personal revive.",
   "panelSprite": 12,
   "class": "Mystic",
   "spellType": "Targeted",
@@ -13,6 +13,7 @@
   "scriptKeys": ["communionRite"],
   "scriptVars": {
     "communionRite": {
+      "manaCost": 30,
       "range": 3,
       "filter": "friendlyOnly",
       "bodyAnimation": "PriestCast",

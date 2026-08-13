@@ -1,7 +1,7 @@
 {
   "templateKey": "bards_malediction",
   "name": "Bard's Malediction",
-  "description": "An evolving curse that increasingly weakens an enemy - reducing their defense, then their damage dealt, then leaving them vulnerable to critical strikes.",
+  "description": "A curse that weakens an enemy, reducing their defense and damage dealt.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "Targeted",

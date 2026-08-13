@@ -57,6 +57,15 @@ public class CommunionRiteScript : ConfigurableSpellScriptBase
         var map = context.TargetMap;
         var tier = GetTierValues();
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         if (target is Aisling aislingTarget)
@@ -109,6 +118,11 @@ public class CommunionRiteScript : ConfigurableSpellScriptBase
     ///     The filter used to determine whether the selected target is valid
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum distance, in tiles, a target can be selected from

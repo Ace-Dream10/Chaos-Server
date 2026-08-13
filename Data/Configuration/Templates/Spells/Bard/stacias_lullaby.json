@@ -13,6 +13,7 @@
   "scriptKeys": ["applyEffect"],
   "scriptVars": {
     "applyEffect": {
+      "manaCost": 20,
       "effectKey": "Lullaby",
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "singleTarget": true,

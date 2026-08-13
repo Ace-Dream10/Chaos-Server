@@ -1,7 +1,7 @@
 {
   "templateKey": "moonfall",
   "name": "Moonfall",
-  "description": "Fire an arrow skyward that returns as celestial arrows striking multiple enemies. Evolves toward more targets and a wider area.",
+  "description": "Fire an arrow skyward that returns as celestial arrows striking multiple enemies.",
   "panelSprite": 25,
   "class": "Fletcher",
   "spellType": "Targeted",

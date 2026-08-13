@@ -13,6 +13,7 @@
   "scriptKeys": ["combustion"],
   "scriptVars": {
     "combustion": {
+      "manaCost": 15,
       "baseDamage": 60,
       "stackMultiplier": 40,
       "range": 8,

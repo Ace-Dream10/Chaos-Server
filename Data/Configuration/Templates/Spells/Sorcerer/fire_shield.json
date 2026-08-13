@@ -13,6 +13,7 @@
   "scriptKeys": ["fireShield"],
   "scriptVars": {
     "fireShield": {
+      "manaCost": 20,
       "shieldAmount": 150,
       "eruptDamage": 60,
       "eruptBurnStacks": 2,

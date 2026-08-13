@@ -65,6 +65,15 @@ public class RegressionScript : ConfigurableSpellScriptBase
         var target = context.TargetCreature!;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         foreach (var effect in target.Effects.ToArray())
@@ -93,6 +102,11 @@ public class RegressionScript : ConfigurableSpellScriptBase
     ///     The filter used to determine whether the selected target is valid
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum distance, in tiles, a target can be selected from

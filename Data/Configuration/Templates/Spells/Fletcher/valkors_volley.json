@@ -1,7 +1,7 @@
 {
   "templateKey": "valkors_volley",
   "name": "Valkor's Volley",
-  "description": "Call upon Valkor, unleashing a divine rain of arrows upon a target area. Evolves toward more volleys and a wider area.",
+  "description": "Call upon Valkor, unleashing a divine rain of arrows upon a target area.",
   "panelSprite": 25,
   "class": "Fletcher",
   "spellType": "Targeted",

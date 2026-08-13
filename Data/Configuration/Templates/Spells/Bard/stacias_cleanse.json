@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasCleanse"],
   "scriptVars": {
     "staciasCleanse": {
+      "manaCost": 15,
       "filter": "friendlyOnly, aliveOnly, othersOnly",
       "range": 8,
       "bodyAnimation": "None",

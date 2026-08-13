@@ -1,7 +1,7 @@
 {
   "templateKey": "blooming_life",
   "name": "Blooming Life",
-  "description": "An evolving heal-over-time - grows from a single-target bloom into a stronger, splashing regeneration that spreads to nearby allies.",
+  "description": "A heal-over-time that spreads to nearby allies.",
   "panelSprite": 46,
   "class": "Mystic",
   "spellType": "Targeted",

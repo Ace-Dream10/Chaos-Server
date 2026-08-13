@@ -19,6 +19,7 @@
   "scriptKeys": ["damage"],
   "scriptVars": {
     "damage": {
+      "manaCost": 15,
       "baseDamage": 15,
       "damageStat": "int",
       "damageStatMultiplier": 3,

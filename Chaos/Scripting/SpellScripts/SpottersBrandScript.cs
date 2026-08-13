@@ -55,7 +55,7 @@ public class SpottersBrandScript : ConfigurableSpellScriptBase
 
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
-            context.SourceAisling?.SendOrangeBarMessage("Not enough focus.");
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
 
             return;
         }

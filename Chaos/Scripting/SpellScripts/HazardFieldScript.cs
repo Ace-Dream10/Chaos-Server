@@ -36,6 +36,15 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
         var map = context.TargetMap;
         var origin = context.TargetPoint;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         foreach (var point in ResolveFootprint(origin))
@@ -152,6 +161,11 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
     ///     The monster template key used for each hazard tile
     /// </summary>
     public string HazardTemplateKey { get; init; } = "elemental_hazard";
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The number of milliseconds between pulses

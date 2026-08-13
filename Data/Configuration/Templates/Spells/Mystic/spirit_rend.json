@@ -1,7 +1,7 @@
 {
   "templateKey": "spirit_rend",
   "name": "Spirit Rend",
-  "description": "Evolves through behavior, not just numbers: marks the next magical hit for bonus damage, then grows into a lasting window where every magical hit against the target lands harder and DoTs bite deeper.",
+  "description": "Marks an enemy - their next magical hit taken deals bonus damage.",
   "panelSprite": 15,
   "class": "Mystic",
   "spellType": "Targeted",

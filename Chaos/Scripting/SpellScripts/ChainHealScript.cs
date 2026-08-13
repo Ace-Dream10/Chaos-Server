@@ -30,6 +30,15 @@ public class ChainHealScript : ConfigurableSpellScriptBase
         if ((context.TargetCreature is not { IsAlive: true } initialTarget) || !Filter.IsValidTarget(source, initialTarget))
             return;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         var healedTargets = new List<Creature>
         {
             initialTarget
@@ -169,6 +178,11 @@ public class ChainHealScript : ConfigurableSpellScriptBase
     ///     The number of milliseconds to wait before each chain jump lands
     /// </summary>
     public int JumpDelayMs { get; init; } = 750;
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum distance a jump can travel to find its next target

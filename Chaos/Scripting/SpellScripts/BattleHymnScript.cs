@@ -33,6 +33,15 @@ public class BattleHymnScript : ConfigurableSpellScriptBase
         var map = context.TargetMap;
         var tier = GetTierValues();
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         foreach (var aisling in map.GetEntities<Aisling>())
@@ -88,6 +97,11 @@ public class BattleHymnScript : ConfigurableSpellScriptBase
     ///     The filter used to determine which Aislings on the map are valid buff targets
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     Sound played at the caster's position on cast

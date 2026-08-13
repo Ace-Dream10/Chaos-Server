@@ -1,7 +1,7 @@
 {
   "templateKey": "battle_hymn",
   "name": "Battle Hymn",
-  "description": "A rousing hymn that empowers all allies. Evolves from raw attack into accuracy, attack speed, critical strike chance, and mana regeneration.",
+  "description": "A rousing hymn that empowers all allies.",
   "panelSprite": 15,
   "class": "Bard",
   "spellType": "NoTarget",
@@ -13,6 +13,7 @@
   "scriptKeys": ["battleHymn"],
   "scriptVars": {
     "battleHymn": {
+      "manaCost": 30,
       "filter": "friendlyOnly, aliveOnly, aislingsOnly",
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 14, "animationSpeed": 100 },

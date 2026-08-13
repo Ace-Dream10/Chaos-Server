@@ -46,6 +46,15 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
         var map = context.TargetMap;
         var spawnPoint = Point.From(target);
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var shrine = MonsterFactory.Create(ShrineTemplateKey, map, spawnPoint);
@@ -93,6 +102,11 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
     ///     The radius around the shrine that gets healed on each pulse
     /// </summary>
     public int HealRange { get; init; } = 3;
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The templateKey of the shrine monster to spawn

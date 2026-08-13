@@ -1,7 +1,7 @@
 {
   "templateKey": "wardens_net",
   "name": "Warden's Net",
-  "description": "Net arrow that roots and slows a target. Evolves into a small AoE snare.",
+  "description": "Net arrow that roots and slows a target.",
   "panelSprite": 25,
   "class": "Fletcher",
   "spellType": "Targeted",

@@ -13,6 +13,7 @@
   "scriptKeys": ["heal"],
   "scriptVars": {
     "heal": {
+      "manaCost": 15,
       "baseHeal": 200,
       "healStat": "wis",
       "healStatMultiplier": 4,

@@ -13,6 +13,7 @@
   "scriptKeys": ["regression"],
   "scriptVars": {
     "regression": {
+      "manaCost": 15,
       "range": 8,
       "filter": "friendlyOnly, aliveOnly",
       "bodyAnimation": "PriestCast",

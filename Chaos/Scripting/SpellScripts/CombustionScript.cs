@@ -68,6 +68,15 @@ public class CombustionScript : ConfigurableSpellScriptBase
             return;
         }
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var stackCount = 0;
@@ -112,6 +121,11 @@ public class CombustionScript : ConfigurableSpellScriptBase
     ///     The filter used to determine whether the first creature encountered in the scan is a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum number of tiles scanned in front of the caster for a target

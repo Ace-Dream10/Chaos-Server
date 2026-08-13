@@ -10,6 +10,7 @@
   "scriptKeys": ["applyEffect"],
   "scriptVars": {
     "applyEffect": {
+      "manaCost": 25,
       "effectKey": "Stasis",
       "effectDurationOverride": "00:00:03.500",
       "shape": "allAround",

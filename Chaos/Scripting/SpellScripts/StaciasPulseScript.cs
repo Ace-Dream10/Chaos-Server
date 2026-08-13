@@ -36,6 +36,15 @@ public class StaciasPulseScript : ConfigurableSpellScriptBase
         var source = context.Source;
         var map = context.TargetMap;
 
+        if (!source.StatSheet.TrySubtractMp(ManaCost))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("Not enough mana.");
+
+            return;
+        }
+
+        context.SourceAisling?.Client.SendAttributes(StatUpdateType.Vitality);
+
         source.AnimateBody(BodyAnimation);
 
         var endPoint = source.DirectionalOffset(source.Direction, Range);
@@ -155,6 +164,11 @@ public class StaciasPulseScript : ConfigurableSpellScriptBase
     ///     The multiplier applied to <see cref="DamageStat" /> when calculating bonus healing
     /// </summary>
     public decimal? HealStatMultiplier { get; init; }
+
+    /// <summary>
+    ///     The MP cost to use this spell
+    /// </summary>
+    public int ManaCost { get; init; }
 
     /// <summary>
     ///     The maximum number of tiles the wave travels before returning

@@ -49,7 +49,7 @@ public class FlechetteScript : ConfigurableSpellScriptBase
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
             if (source is Aisling manaAisling)
-                manaAisling.SendOrangeBarMessage("Not enough focus.");
+                manaAisling.SendOrangeBarMessage("Not enough mana.");
 
             return;
         }

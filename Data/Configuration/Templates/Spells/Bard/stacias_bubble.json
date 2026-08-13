@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasBubble"],
   "scriptVars": {
     "staciasBubble": {
+      "manaCost": 20,
       "baseShield": 200,
       "shieldStat": "wis",
       "shieldStatMultiplier": 5,

@@ -13,6 +13,7 @@
   "scriptKeys": ["staciasShrine"],
   "scriptVars": {
     "staciasShrine": {
+      "manaCost": 20,
       "healPerTick": 60,
       "shrineTemplateKey": "stacias_shrine",
       "healRange": 3,
