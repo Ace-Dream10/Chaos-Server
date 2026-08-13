@@ -1,24 +1,26 @@
 {
-  "templateKey": "delirium",
-  "name": "Delirium",
-  "description": "Fracture an enemy's mind, causing them to attack random nearby targets. Evolves from a single target into an area that can afflict entire groups.",
+  "templateKey": "puppeteer",
+  "name": "Puppeteer",
+  "description": "Take complete control of an enemy, forcing them to fight for your side.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "Targeted",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
-  "cooldownMs": 12000,
+  "cooldownMs": 25000,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],
     "prerequisiteSpells": [],
-    "requiredStats": { "str": 1, "dex": 5, "int": 3, "wis": 1, "con": 1 }
+    "requiredStats": { "str": 1, "dex": 5, "int": 5, "wis": 1, "con": 1 }
   },
-  "scriptKeys": ["delirium"],
+  "scriptKeys": ["puppeteer"],
   "scriptVars": {
-    "delirium": {
-      "range": 6,
+    "puppeteer": {
       "filter": "hostileOnly, aliveOnly, othersOnly",
+      "range": 4,
       "bodyAnimation": "None",
       "animation": { "targetAnimation": 46, "animationSpeed": 100 },
       "sound": 10

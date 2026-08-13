@@ -1,9 +1,11 @@
 {
   "templateKey": "deceivers_cache",
   "name": "Deceiver's Cache",
-  "description": "Plant an illusory treasure chest on the ground. When an enemy approaches or opens it, it detonates: deals damage and applies a random mental affliction. Evolves toward a bigger blast, more afflictions, and chain-triggering nearby caches.",
+  "description": "Plant an illusory treasure chest on the ground. When an enemy approaches or opens it, it detonates: deals damage and applies a random mental affliction.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

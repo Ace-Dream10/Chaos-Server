@@ -1,13 +1,15 @@
 {
   "templateKey": "mirror_image",
   "name": "Hall of Mirrors",
-  "description": "Create illusionary copies of yourself that confuse enemies and draw their attacks. Evolves toward more illusions, longer duration, and illusions that fight back.",
+  "description": "Create illusionary copies of yourself that confuse enemies and draw their attacks.",
   "panelSprite": 74,
   "cooldownMs": 15000,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "learningRequirements": {
     "itemRequirements": [],
     "prerequisiteSkills": [],

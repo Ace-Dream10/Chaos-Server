@@ -12,7 +12,7 @@ using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.ReactorTileScripts;
-using Chaos.Scripting.SkillScripts;
+using Chaos.Scripting.SpellScripts;
 using Chaos.Services.Factories.Abstractions;
 using Chaos.Testing.Infrastructure.Harnesses;
 using Chaos.Testing.Infrastructure.Mocks;
@@ -37,7 +37,7 @@ public sealed class TricksterNewSkillsTests
         registry.Register(ApplyAttackDamageScript.Key, typeof(ApplyAttackDamageScript));
     }
 
-    private static void EnsureScriptVars(Skill skill, string scriptKey) => skill.Template.ScriptVars[scriptKey] = new EmptyScriptVars();
+    private static void EnsureScriptVars(Spell spell, string scriptKey) => spell.Template.ScriptVars[scriptKey] = new EmptyScriptVars();
 
     private static IServiceProvider CreateServiceProviderWithReactorTileFactory()
     {
@@ -75,8 +75,8 @@ public sealed class TricksterNewSkillsTests
     public void Delirium_ShouldAffectMultipleTargets_AtHigherTiers()
     {
         //Tier I (single target) vs Tier III (AoE) - relative comparison
-        var lowTierHarness = new SkillScriptHarness<DeliriumScript>(
-            skillSetup: s =>
+        var lowTierHarness = new SpellScriptHarness<DeliriumScript>(
+            spellSetup: s =>
             {
                 s.Level = 1;
                 EnsureScriptVars(s, "delirium");
@@ -90,8 +90,8 @@ public sealed class TricksterNewSkillsTests
                      .Should()
                      .BeTrue("Tier I Delirium should still afflict the single target directly in front");
 
-        var highTierHarness = new SkillScriptHarness<DeliriumScript>(
-            skillSetup: s =>
+        var highTierHarness = new SpellScriptHarness<DeliriumScript>(
+            spellSetup: s =>
             {
                 s.Level = 20;
                 EnsureScriptVars(s, "delirium");
@@ -119,8 +119,8 @@ public sealed class TricksterNewSkillsTests
     [Test]
     public void Puppeteer_ShouldControlMultipleTargets_AtTierIV()
     {
-        var harness = new SkillScriptHarness<PuppeteerScript>(
-            skillSetup: s =>
+        var harness = new SpellScriptHarness<PuppeteerScript>(
+            spellSetup: s =>
             {
                 s.Level = 20;
                 EnsureScriptVars(s, "puppeteer");
@@ -167,8 +167,8 @@ public sealed class TricksterNewSkillsTests
                                                   .Build()
                                                   .Object;
 
-        var harness = new SkillScriptHarness<MirrorImageScript>(
-            skillSetup: s =>
+        var harness = new SpellScriptHarness<MirrorImageScript>(
+            spellSetup: s =>
             {
                 s.Level = 16;
                 EnsureScriptVars(s, "mirrorImage");
@@ -189,9 +189,9 @@ public sealed class TricksterNewSkillsTests
     [Test]
     public void CrackTheWhip_ShouldDamageAndStaggerTargetsInACone()
     {
-        var harness = new SkillScriptHarness<CrackTheWhipScript>(
+        var harness = new SpellScriptHarness<CrackTheWhipScript>(
             scriptFactory: skill => new CrackTheWhipScript(skill),
-            skillSetup: s =>
+            spellSetup: s =>
             {
                 s.Level = 1;
                 EnsureScriptVars(s, "crackTheWhip");
@@ -215,7 +215,7 @@ public sealed class TricksterNewSkillsTests
     [Test]
     public void CurtainCall_ShouldVanishTheCasterAndGroupMembers()
     {
-        var harness = new SkillScriptHarness<CurtainCallScript>(skillSetup: s => EnsureScriptVars(s, "curtainCall"));
+        var harness = new SpellScriptHarness<CurtainCallScript>(spellSetup: s => EnsureScriptVars(s, "curtainCall"));
 
         harness.Use();
 
@@ -227,7 +227,7 @@ public sealed class TricksterNewSkillsTests
     [Test]
     public void Switcheroo_ShouldSwapPositions()
     {
-        var harness = new SkillScriptHarness<SwitcherooScript>(skillSetup: s => EnsureScriptVars(s, "switcheroo"));
+        var harness = new SpellScriptHarness<SwitcherooScript>(spellSetup: s => EnsureScriptVars(s, "switcheroo"));
         harness.WithTargetMonster();
 
         var sourcePointBefore = Point.From(harness.Source);
@@ -250,8 +250,8 @@ public sealed class TricksterNewSkillsTests
     {
         var serviceProvider = CreateServiceProviderWithReactorTileFactory();
 
-        var harness = new SkillScriptHarness<DeceiversCacheScript>(
-            skillSetup: s =>
+        var harness = new SpellScriptHarness<DeceiversCacheScript>(
+            spellSetup: s =>
             {
                 s.Level = 1;
                 EnsureScriptVars(s, "deceiversCache");
@@ -318,7 +318,7 @@ public sealed class TricksterNewSkillsTests
     [Test]
     public void GrandFinale_ShouldConsumeAfflictionsAndDealScaledDamage()
     {
-        var harness = new SkillScriptHarness<GrandFinaleScript>(skillSetup: s => EnsureScriptVars(s, "grandFinale"));
+        var harness = new SpellScriptHarness<GrandFinaleScript>(spellSetup: s => EnsureScriptVars(s, "grandFinale"));
 
         var afflictedMonster = MockMonster.Create(harness.Map);
         afflictedMonster.StatSheet.SetHp(100000);
@@ -359,8 +359,8 @@ public sealed class TricksterNewSkillsTests
 
         var trickster = MockAisling.Create();
         trickster.UserStatSheet.SetBaseClass(BaseClass.Trickster);
-        var warfareSkill = MockSkill.Create(name: "Psychological Warfare", templateSetup: t => t with { TemplateKey = "psychological_warfare" });
-        trickster.SkillBook.TryAddToNextSlot(warfareSkill);
+        var warfareSpell = MockSpell.Create(name: "Psychological Warfare", templateSetup: t => t with { TemplateKey = "psychological_warfare" });
+        trickster.SpellBook.TryAddToNextSlot(warfareSpell);
 
         var attacker = MockAisling.Create();
 
@@ -390,8 +390,8 @@ public sealed class TricksterNewSkillsTests
     {
         var trickster = MockAisling.Create();
         trickster.UserStatSheet.SetBaseClass(BaseClass.Trickster);
-        var chainReactionSkill = MockSkill.Create(name: "Chain Reaction", templateSetup: t => t with { TemplateKey = "chain_reaction" });
-        trickster.SkillBook.TryAddToNextSlot(chainReactionSkill);
+        var chainReactionSpell = MockSpell.Create(name: "Chain Reaction", templateSetup: t => t with { TemplateKey = "chain_reaction" });
+        trickster.SpellBook.TryAddToNextSlot(chainReactionSpell);
 
         var monster = MockMonster.Create();
 
@@ -446,12 +446,12 @@ public sealed class TricksterNewSkillsTests
 
         harness.Source.UserStatSheet.SetBaseClass(BaseClass.Trickster);
 
-        var smokeAndMirrorsSkill = MockSkill.Create(name: "Smoke and Mirrors", templateSetup: t => t with { TemplateKey = "smoke_and_mirrors" });
-        harness.Source.SkillBook.TryAddToNextSlot(smokeAndMirrorsSkill);
+        var smokeAndMirrorsSpell = MockSpell.Create(name: "Smoke and Mirrors", templateSetup: t => t with { TemplateKey = "smoke_and_mirrors" });
+        harness.Source.SpellBook.TryAddToNextSlot(smokeAndMirrorsSpell);
 
-        var vanishingAct = MockSkill.Create(name: "Vanishing Act", templateSetup: t => t with { TemplateKey = "vanishing_act" });
-        harness.Source.Trackers.LastUsedSkill = vanishingAct;
-        harness.Source.Trackers.LastSkillUse = DateTime.UtcNow;
+        var vanishingAct = MockSpell.Create(name: "Vanishing Act", templateSetup: t => t with { TemplateKey = "vanishing_act" });
+        harness.Source.Trackers.LastUsedSpell = vanishingAct;
+        harness.Source.Trackers.LastSpellUse = DateTime.UtcNow;
 
         var entityCountBefore = map.GetEntities<Monster>().Count();
 

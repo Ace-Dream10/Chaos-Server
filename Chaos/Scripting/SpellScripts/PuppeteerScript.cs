@@ -8,10 +8,10 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Scans the direct line in front of the caster for hostile monsters within range and turns them against
@@ -27,14 +27,14 @@ namespace Chaos.Scripting.SkillScripts;
 ///     of tier; only duration and target count actually change tier-to-tier. Flagging the gap rather than building
 ///     a new classification system tonight. All placeholder values, not balance-tested.
 /// </remarks>
-public class PuppeteerScript : ConfigurableSkillScriptBase
+public class PuppeteerScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public PuppeteerScript(Skill subject)
+    public PuppeteerScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

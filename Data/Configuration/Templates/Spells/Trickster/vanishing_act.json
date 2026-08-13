@@ -4,6 +4,8 @@
   "description": "Disappear in a flash, teleporting forward and vanishing from enemy sight for 3 seconds.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

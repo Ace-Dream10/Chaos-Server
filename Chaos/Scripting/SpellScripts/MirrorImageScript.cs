@@ -5,11 +5,11 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Scripting.MonsterScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 using Chaos.Services.Factories.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Renamed in-place to Hall of Mirrors - display name/description only. The templateKey stays
@@ -28,7 +28,7 @@ namespace Chaos.Scripting.SkillScripts;
 ///     is simplified to the same strength as spawning more shadow_clones, same "flagged simplification, not
 ///     silently dropped" treatment as Assassin's Shadow Clone Tier IV. All placeholder values, not balance-tested.
 /// </remarks>
-public class MirrorImageScript : ConfigurableSkillScriptBase
+public class MirrorImageScript : ConfigurableSpellScriptBase
 {
     private const string AttackingDecoyTemplateKey = "shadow_clone";
     private const string PassiveDecoyTemplateKey = "mirror_image_decoy";
@@ -36,12 +36,12 @@ public class MirrorImageScript : ConfigurableSkillScriptBase
     private readonly IMonsterFactory MonsterFactory;
 
     /// <inheritdoc />
-    public MirrorImageScript(Skill subject, IMonsterFactory monsterFactory)
+    public MirrorImageScript(Spell subject, IMonsterFactory monsterFactory)
         : base(subject)
         => MonsterFactory = monsterFactory;
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

@@ -8,23 +8,23 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Teleports the caster forward through empty space (same pattern as Jaunt/Arrowstep/Void Slash), then vanishes
 ///     from enemy sight via <see cref="VanishEffect" />.
 /// </summary>
-public class VanishingActScript : ConfigurableSkillScriptBase
+public class VanishingActScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public VanishingActScript(Skill subject)
+    public VanishingActScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

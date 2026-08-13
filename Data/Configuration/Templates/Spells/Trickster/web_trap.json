@@ -4,6 +4,8 @@
   "description": "Place an invisible web trap. The first enemy to step on it is rooted and slowed.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

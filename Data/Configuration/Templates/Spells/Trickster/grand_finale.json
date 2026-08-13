@@ -4,6 +4,8 @@
   "description": "Consume every mental affliction affecting nearby enemies, ending their effects and dealing devastating damage based on the number and variety of afflictions removed.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

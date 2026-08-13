@@ -92,7 +92,7 @@ public static class TricksterAfflictions
     {
         if ((source is not Aisling aisling)
             || (aisling.UserStatSheet.BaseClass != BaseClass.Trickster)
-            || !aisling.SkillBook.TryGetObjectByTemplateKey("chain_reaction", out _))
+            || !aisling.SpellBook.TryGetObjectByTemplateKey("chain_reaction", out _))
             return;
 
         if (Random.Shared.NextDouble() >= ChainReactionProcChance)

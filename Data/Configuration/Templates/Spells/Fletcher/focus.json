@@ -1,9 +1,11 @@
 {
   "templateKey": "focus",
   "name": "Focus",
-  "description": "Take aim, greatly increasing accuracy and damage of your next shots. Evolves toward a stronger, longer-lasting bonus.",
+  "description": "Take aim, greatly increasing accuracy and damage of your next shots.",
   "panelSprite": 25,
   "class": "Fletcher",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

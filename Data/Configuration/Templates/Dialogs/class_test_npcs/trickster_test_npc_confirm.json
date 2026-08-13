@@ -10,7 +10,10 @@
       "baseClass": "Trickster",
       "advClass": null,
       "skillTemplateKeys": [
-        "assail",
+        "assail"
+      ],
+      "spellTemplateKeys": [
+        "shadow_step",
         "vanishing_act",
         "crack_the_whip",
         "blackout",
@@ -26,7 +29,6 @@
         "chain_reaction",
         "psychological_warfare"
       ],
-      "spellTemplateKeys": ["shadow_step"],
       "gearTemplateKeys": ["trickster_wep_1"],
       "armorTemplateKeyMale": "fl1_armor_trickster_m",
       "armorTemplateKeyFemale": "fl1_armor_trickster_f"

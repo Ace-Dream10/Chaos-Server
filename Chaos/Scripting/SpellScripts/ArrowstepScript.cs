@@ -9,23 +9,23 @@ using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Windrunner (Fletcher passive) hook lives here: if the caster has learned it, using Arrowstep applies
 ///     <see cref="WindrunnerEffect" /> - see that effect's doc comment for the full mechanic.
 /// </summary>
-public class ArrowstepScript : ConfigurableSkillScriptBase
+public class ArrowstepScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public ArrowstepScript(Skill subject)
+    public ArrowstepScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;
@@ -40,7 +40,7 @@ public class ArrowstepScript : ConfigurableSkillScriptBase
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
             if (source is Aisling manaAisling)
-                manaAisling.SendOrangeBarMessage("Not enough focus.");
+                manaAisling.SendOrangeBarMessage("Not enough mana.");
 
             return;
         }
@@ -80,7 +80,7 @@ public class ArrowstepScript : ConfigurableSkillScriptBase
         if (Sound.HasValue)
             map.PlaySound(Sound.Value, lastWalkablePoint);
 
-        if ((source is Aisling windrunnerAisling) && windrunnerAisling.SkillBook.TryGetObjectByTemplateKey("windrunner", out _))
+        if ((source is Aisling windrunnerAisling) && windrunnerAisling.SpellBook.TryGetObjectByTemplateKey("windrunner", out _))
             windrunnerAisling.Effects.Apply(windrunnerAisling, new WindrunnerEffect(), this);
     }
 

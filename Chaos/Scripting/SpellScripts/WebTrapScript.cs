@@ -6,29 +6,29 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Scripting.ReactorTileScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 using Chaos.Services.Factories.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Places a web trap reactor tile at the caster's current position. Limited to <see cref="MaxTraps" /> active
 ///     traps per caster at once, tracked via <see cref="WebTrapReactorScript.TrapCountCounterKey" />.
 /// </summary>
-public class WebTrapScript : ConfigurableSkillScriptBase
+public class WebTrapScript : ConfigurableSpellScriptBase
 {
     private const string TrapTemplateKey = "web_trap";
 
     private readonly IReactorTileFactory ReactorTileFactory;
 
     /// <inheritdoc />
-    public WebTrapScript(Skill subject, IReactorTileFactory reactorTileFactory)
+    public WebTrapScript(Spell subject, IReactorTileFactory reactorTileFactory)
         : base(subject)
         => ReactorTileFactory = reactorTileFactory;
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

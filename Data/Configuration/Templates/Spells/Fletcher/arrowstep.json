@@ -4,6 +4,8 @@
   "description": "A swift dash propelled by the force of a loosed arrow.",
   "panelSprite": 74,
   "class": "Fletcher",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

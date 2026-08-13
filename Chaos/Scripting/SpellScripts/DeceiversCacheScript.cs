@@ -6,11 +6,11 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Scripting.ReactorTileScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 using Chaos.Services.Factories.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     Replaces "Smoke Bomb" per the locked design's own note ("deemed too redundant with Blackout, and too
@@ -23,19 +23,19 @@ namespace Chaos.Scripting.SkillScripts;
 ///     floor arc (Floor6 intro, Floor7, Floor8, Floor9 max) via the same "Level ≈ 2×Floor" ratio used throughout
 ///     tonight - see <see cref="GetTierValues" />. All placeholder values, not balance-tested.
 /// </remarks>
-public class DeceiversCacheScript : ConfigurableSkillScriptBase
+public class DeceiversCacheScript : ConfigurableSpellScriptBase
 {
     private const string CacheTemplateKey = "deceivers_cache";
 
     private readonly IReactorTileFactory ReactorTileFactory;
 
     /// <inheritdoc />
-    public DeceiversCacheScript(Skill subject, IReactorTileFactory reactorTileFactory)
+    public DeceiversCacheScript(Spell subject, IReactorTileFactory reactorTileFactory)
         : base(subject)
         => ReactorTileFactory = reactorTileFactory;
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

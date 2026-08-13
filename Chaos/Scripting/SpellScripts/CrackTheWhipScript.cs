@@ -1,4 +1,4 @@
-#region
+﻿#region
 using Chaos.Collections;
 using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
@@ -9,10 +9,10 @@ using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     A direct build - nothing existing matched "crack your enchanted whip in a wide arc, damaging enemies in
@@ -25,20 +25,20 @@ namespace Chaos.Scripting.SkillScripts;
 /// <remarks>
 ///     One of Trickster's 5 evolving abilities. Tiers per the locked design ("wider arc and longer stagger
 ///     duration") mapped to Trickster's own floor arc (Floor1-2 intro/stall, Floor3, Floor4, Floor5 max) via the
-///     same "Level ≈ 2×Floor" ratio used throughout tonight - see <see cref="GetTierValues" />. All placeholder
+///     same "Level â‰ˆ 2Ã—Floor" ratio used throughout tonight - see <see cref="GetTierValues" />. All placeholder
 ///     values, not balance-tested.
 /// </remarks>
-public class CrackTheWhipScript : ConfigurableSkillScriptBase
+public class CrackTheWhipScript : ConfigurableSpellScriptBase
 {
     private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public CrackTheWhipScript(Skill subject)
+    public CrackTheWhipScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

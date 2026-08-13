@@ -9,10 +9,10 @@ using Chaos.Models.World;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     A direct build - nothing existing matched "consume every mental affliction affecting nearby enemies, ending
@@ -22,17 +22,17 @@ namespace Chaos.Scripting.SkillScripts;
 ///     effects' concept") - here the consumed resource is affliction count/variety instead of MP. Flat,
 ///     non-evolving per the locked design's updated floor schedule (unlocks Floor 7).
 /// </summary>
-public class GrandFinaleScript : ConfigurableSkillScriptBase
+public class GrandFinaleScript : ConfigurableSpellScriptBase
 {
     private readonly IApplyDamageScript ApplyDamageScript;
 
     /// <inheritdoc />
-    public GrandFinaleScript(Skill subject)
+    public GrandFinaleScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

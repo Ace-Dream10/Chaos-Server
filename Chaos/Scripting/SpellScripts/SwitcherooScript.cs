@@ -7,24 +7,24 @@ using Chaos.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     A direct build - nothing existing matched "instantly swap positions with an ally or enemy." Filter defaults
 ///     to allowing both friendly and hostile targets (neither hostileOnly nor friendlyOnly) since the locked
 ///     description explicitly covers both. Flat, non-evolving - not one of Trickster's 5 evolving abilities.
 /// </summary>
-public class SwitcherooScript : ConfigurableSkillScriptBase
+public class SwitcherooScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public SwitcherooScript(Skill subject)
+    public SwitcherooScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

@@ -4,10 +4,10 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     One of Fletcher's 5 evolving abilities. Switched from the generic <see cref="ApplyEffectScript" /> to a
@@ -18,10 +18,10 @@ namespace Chaos.Scripting.SkillScripts;
 ///     Keeps the explicit Fletcher "focus" MP cost/message this skill already had. All placeholder values, not
 ///     balance-tested.
 /// </summary>
-public class FletcherFocusScript : ConfigurableSkillScriptBase
+public class FletcherFocusScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public FletcherFocusScript(Skill subject)
+    public FletcherFocusScript(Spell subject)
         : base(subject) { }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class FletcherFocusScript : ConfigurableSkillScriptBase
     public int ManaCost { get; init; }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var tier = GetTierValues();
@@ -38,7 +38,7 @@ public class FletcherFocusScript : ConfigurableSkillScriptBase
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
             if (source is Aisling manaAisling)
-                manaAisling.SendOrangeBarMessage("Not enough focus.");
+                manaAisling.SendOrangeBarMessage("Not enough mana.");
 
             return;
         }

@@ -9,10 +9,10 @@ using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     One of Trickster's 5 evolving abilities. Switched from the generic applyEffect script to a dedicated one so
@@ -21,14 +21,14 @@ namespace Chaos.Scripting.SkillScripts;
 ///     arc (Floor3 intro, Floor4, Floor5, Floor6 max) via the same "Level ≈ 2×Floor" ratio used throughout tonight
 ///     - see <see cref="GetTierValues" />. All placeholder values, not balance-tested.
 /// </summary>
-public class DeliriumScript : ConfigurableSkillScriptBase
+public class DeliriumScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public DeliriumScript(Skill subject)
+    public DeliriumScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

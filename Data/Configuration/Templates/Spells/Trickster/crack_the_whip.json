@@ -1,9 +1,11 @@
 {
   "templateKey": "crack_the_whip",
   "name": "Crack the Whip",
-  "description": "Crack your enchanted whip in a wide arc, damaging enemies in front of you and briefly staggering them. Evolves toward a wider arc and longer stagger.",
+  "description": "Crack your enchanted whip in a wide arc, damaging enemies in front of you and briefly staggering them.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

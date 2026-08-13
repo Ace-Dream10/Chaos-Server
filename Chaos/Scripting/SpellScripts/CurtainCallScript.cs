@@ -5,10 +5,10 @@ using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.SkillScripts.Abstractions;
+using Chaos.Scripting.SpellScripts.Abstractions;
 #endregion
 
-namespace Chaos.Scripting.SkillScripts;
+namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
 ///     A direct build - nothing existing matched "cloak your entire party in illusion magic, causing all allies to
@@ -18,14 +18,14 @@ namespace Chaos.Scripting.SkillScripts;
 ///     Group-iteration pattern <see cref="DivineInterventionScript" />'s Tier IV established for Valkyrie. Flat,
 ///     non-evolving per the locked design's updated floor schedule (unlocks Floor 10 as part of the finale).
 /// </summary>
-public class CurtainCallScript : ConfigurableSkillScriptBase
+public class CurtainCallScript : ConfigurableSpellScriptBase
 {
     /// <inheritdoc />
-    public CurtainCallScript(Skill subject)
+    public CurtainCallScript(Spell subject)
         : base(subject) { }
 
     /// <inheritdoc />
-    public override void OnUse(ActivationContext context)
+    public override void OnUse(SpellContext context)
     {
         var source = context.Source;
         var map = context.TargetMap;

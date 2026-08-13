@@ -303,7 +303,7 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
         if (TricksterAfflictions.Factories.Keys.Any(
                 afflictionName => target.Effects.TryGetEffect(afflictionName, out var afflictionEffect)
                                    && (afflictionEffect!.Source is Aisling { UserStatSheet.BaseClass: BaseClass.Trickster } warfareAisling)
-                                   && warfareAisling.SkillBook.TryGetObjectByTemplateKey("psychological_warfare", out _)))
+                                   && warfareAisling.SpellBook.TryGetObjectByTemplateKey("psychological_warfare", out _)))
             damage = Convert.ToInt32(damage * PsychologicalWarfareMultiplier);
 
         //Slayer's Oath (Slayer passive) - a true always-on passive, stateless like Bastion's Retribution: the

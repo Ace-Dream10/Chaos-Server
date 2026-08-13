@@ -4,6 +4,8 @@
   "description": "Cloak your entire party in illusion magic, causing all allies to vanish from enemy sight and immediately drop aggro.",
   "panelSprite": 46,
   "class": "Trickster",
+  "spellType": "NoTarget",
+  "castLines": 0,
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

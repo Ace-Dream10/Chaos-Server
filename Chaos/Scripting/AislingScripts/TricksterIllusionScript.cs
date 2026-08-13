@@ -60,7 +60,7 @@ public class TricksterIllusionScript : AislingScriptBase
             return;
         }
 
-        if (!Subject.SkillBook.TryGetObjectByTemplateKey("smoke_and_mirrors", out _))
+        if (!Subject.SpellBook.TryGetObjectByTemplateKey("smoke_and_mirrors", out _))
             return;
 
         var lastSkillUse = Subject.Trackers.LastSkillUse;
