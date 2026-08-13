@@ -22,7 +22,6 @@ namespace Chaos.Scripting.DialogScripts;
 public class BecomeClassScript : ConfigurableDialogScriptBase
 {
     private const int ResourceMpFloor = 100;
-    private const string ResourceMpFloorTag = "ResourceMpFloorBonus";
 
     private readonly IItemFactory ItemFactory;
     private readonly ISkillFactory SkillFactory;
@@ -73,25 +72,36 @@ public class BecomeClassScript : ConfigurableDialogScriptBase
         //AssassinFrenzyScript/BerserkerRageScript/ValkyrieFuryScript), bypassing the normal max-mp clamp entirely -
         //but the client is sent both CurrentMp and MaximumMp (see AislingMapperProfile), and visually clamps/display
         //-glitches whenever CurrentMp exceeds MaximumMp. So max mp also needs a floor of 100 for these classes,
-        //purely so the bar displays correctly - removed and recomputed on every class change so it never stacks.
-        if (source.Trackers.Tags.TryRemove(ResourceMpFloorTag, out var previousBonusStr)
-            && int.TryParse(previousBonusStr, out var previousBonus))
-            source.StatSheet.SubtractBonus(new Attributes { MaximumMp = previousBonus });
-
-        //Assassin/Berserker/Valkyrie moved from AdvClass to BaseClass values in the class-flatten - check BaseClass
-        //directly now instead of the (now Sorcerer/MartialArtist-specialization-only) AdvClass scriptVar
+        //purely so the bar displays correctly.
+        //
+        //Reworked from a tag-tracked "remember what I added last time" delta to a direct read-and-zero of the
+        //live MaximumMpMod before recomputing: investigating a reported "110 instead of 100" bug turned up no
+        //reproducible cause in this method's own math (it's provably self-correcting to exactly ResourceMpFloor
+        //by construction) - gear/armor grant no MaximumMp, the level-up formula and SetLevel don't touch
+        //MaximumMpMod, and no passive skill grants a bonus on learn. Given the bug reportedly shows immediately
+        //on class selection, the most likely explanation left is some other, not-yet-identified source also
+        //touching MaximumMpMod - reading the tag's remembered amount instead of the actual live Mod value would
+        //silently under-subtract in that case, letting a foreign contribution survive the "cleanup" and stack
+        //with the fresh floor bonus. Reading MaximumMpMod directly and zeroing it out entirely first closes that
+        //gap regardless of the contribution's source, since nothing else currently has a legitimate reason to
+        //leave a MaximumMp modifier on an Assassin/Berserker/Valkyrie between class swaps.
         if (BaseClass is Chaos.DarkAges.Definitions.BaseClass.Assassin
             or Chaos.DarkAges.Definitions.BaseClass.Berserker
             or Chaos.DarkAges.Definitions.BaseClass.Valkyrie)
         {
+            var existingMod = source.StatSheet.MaximumMpMod;
+
+            if (existingMod != 0)
+                source.StatSheet.SubtractBonus(new Attributes { MaximumMp = existingMod });
+
             var shortfall = ResourceMpFloor - (int)source.StatSheet.EffectiveMaximumMp;
 
             if (shortfall > 0)
-            {
                 source.StatSheet.AddBonus(new Attributes { MaximumMp = shortfall });
-                source.Trackers.Tags[ResourceMpFloorTag] = shortfall.ToString();
-            }
-        }
+        } else if (source.StatSheet.MaximumMpMod != 0)
+            //switching away from these 3 classes - clean up any leftover floor-enforcement Mod so it doesn't
+            //silently carry into whatever class comes next either
+            source.StatSheet.SubtractBonus(new Attributes { MaximumMp = source.StatSheet.MaximumMpMod });
 
         //d. remove weapon/armor/helmet/shield only - accessories are handled by the separate Equipment Vendor NPC and
         //are left untouched here (whether currently equipped or not)

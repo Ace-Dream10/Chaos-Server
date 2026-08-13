@@ -93,9 +93,13 @@ public class AssassinFrenzyScript : AislingScriptBase
 
         var currentMp = Subject.StatSheet.CurrentMp;
 
-        //neutralize passive regen (or anything else) that crept mp up without a kill
-        if (LastKnownMp.HasValue && !killedSinceLastTick && (currentMp > LastKnownMp.Value))
-            Subject.StatSheet.SubtractMp(currentMp - LastKnownMp.Value);
+        //neutralize passive regen (or anything else) that crept mp up without a kill - also covers the very
+        //FIRST tick after becoming an Assassin (LastKnownMp not yet set): the old `LastKnownMp.HasValue &&` guard
+        //skipped this check entirely on that first tick, letting one round of ordinary passive regen slip through
+        //and get silently adopted as "banked kill energy" once LastKnownMp was set below - confirmed root cause
+        //of "Assassin starts with ~20 MP for no reason".
+        if (!killedSinceLastTick && (currentMp > (LastKnownMp ?? 0)))
+            Subject.StatSheet.SubtractMp(currentMp - (LastKnownMp ?? 0));
 
         if (killedSinceLastTick)
             Subject.StatSheet.SetMp(Math.Min(Subject.StatSheet.CurrentMp + EnergyPerKill, HardCap));
