@@ -1,7 +1,7 @@
 {
   "templateKey": "spear_of_heaven",
   "name": "Spear of Heaven",
-  "description": "Dive forward and slam down on the landing point - evolves from a simple impact into a holy explosion that stuns at its center.",
+  "description": "Dive forward and slam down on the landing point.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,

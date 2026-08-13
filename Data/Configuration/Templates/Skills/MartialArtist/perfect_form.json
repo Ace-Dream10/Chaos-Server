@@ -1,7 +1,7 @@
 {
   "templateKey": "perfect_form",
   "name": "Perfect Form",
-  "description": "Greatly increase Attack Speed - evolves into a stronger, longer-lasting buff.",
+  "description": "Greatly increase Attack Speed.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

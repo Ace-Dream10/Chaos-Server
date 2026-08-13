@@ -1,7 +1,7 @@
 {
   "templateKey": "execute",
   "name": "Execute",
-  "description": "Instantly kill non-boss enemies below a health threshold. Threshold grows from 15% to 30% as this ability evolves.",
+  "description": "Instantly kill non-boss enemies below a health threshold.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,

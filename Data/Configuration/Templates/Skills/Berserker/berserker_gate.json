@@ -1,7 +1,7 @@
 {
   "templateKey": "berserker_gate",
   "name": "Berserker Gate",
-  "description": "Throw open the gates of rage, trading defense for devastating damage. Grows stronger and safer to use as you master it.",
+  "description": "Throw open the gates of rage, trading defense for devastating damage.",
   "panelSprite": 46,
   "class": "Berserker",
   "level": 1,

@@ -1,7 +1,7 @@
 {
   "templateKey": "spectral_wraith",
   "name": "Spectral Wraith",
-  "description": "Become a living shadow, striking multiple enemies before materializing at the final target. Evolves from 2 targets up to the entire screen.",
+  "description": "Become a living shadow, striking multiple enemies before materializing at the final target.",
   "panelSprite": 46,
   "class": "Assassin",
   "level": 1,

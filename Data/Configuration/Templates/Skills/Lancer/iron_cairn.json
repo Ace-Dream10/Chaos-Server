@@ -1,7 +1,7 @@
 {
   "templateKey": "iron_cairn",
   "name": "Iron Cairn",
-  "description": "Erupt the ground around you, damaging and rooting nearby enemies. Grows from a small eruption into a massive, lingering zone of battlefield control as it levels up.",
+  "description": "Erupt the ground around you, damaging and rooting nearby enemies.",
   "panelSprite": 46,
   "class": "Bastion",
   "level": 1,

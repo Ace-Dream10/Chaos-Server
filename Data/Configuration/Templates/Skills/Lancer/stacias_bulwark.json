@@ -1,7 +1,7 @@
 {
   "templateKey": "stacias_bulwark",
   "name": "Stacia's Bulwark",
-  "description": "Become invulnerable for a short time. Gains duration, a self-heal on expiry, and a taunting pulse as it levels up.",
+  "description": "Become invulnerable for a short time.",
   "panelSprite": 50,
   "class": "Bastion",
   "level": 1,

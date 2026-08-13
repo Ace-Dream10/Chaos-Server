@@ -1,7 +1,7 @@
 {
   "templateKey": "cyclone",
   "name": "Cyclone",
-  "description": "Spin clockwise, striking any hostile creature adjacent to you with each swing. Gains additional rotations as it levels up.",
+  "description": "Spin clockwise, striking any hostile creature adjacent to you with each swing.",
   "panelSprite": 46,
   "class": "Berserker",
   "level": 1,

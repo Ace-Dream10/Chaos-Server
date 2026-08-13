@@ -1,7 +1,7 @@
 {
   "templateKey": "tempest_focus",
   "name": "Tempest Focus",
-  "description": "Increase attack speed, cast speed, and movement speed - evolves into a self-buff that increasingly enhances your combat flow.",
+  "description": "Increase attack speed, cast speed, and movement speed.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

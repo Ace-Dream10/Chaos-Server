@@ -1,7 +1,7 @@
 {
   "templateKey": "howling_sequence",
   "name": "Howling Sequence",
-  "description": "A rapid multi-hit claw combo - evolves into more, harder-hitting strikes.",
+  "description": "A rapid multi-hit claw combo.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

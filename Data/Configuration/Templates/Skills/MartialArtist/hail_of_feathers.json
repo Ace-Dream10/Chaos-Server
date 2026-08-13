@@ -1,7 +1,7 @@
 {
   "templateKey": "hail_of_feathers",
   "name": "Hail of Feathers",
-  "description": "Launch a storm of razor feathers over an area - evolves into a larger, deadlier feather storm.",
+  "description": "Launch a storm of razor feathers over an area.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

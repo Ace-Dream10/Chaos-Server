@@ -1,7 +1,7 @@
 {
   "templateKey": "challenging_shout",
   "name": "Challenging Shout",
-  "description": "Bellow a war cry that forces every enemy on the field to focus on you. Gains a defensive resolve, brief taunt immunity, and an attack-speed-weakening effect on affected enemies as it levels up.",
+  "description": "Bellow a war cry that forces every enemy on the field to focus on you.",
   "panelSprite": 50,
   "class": "Bastion",
   "level": 1,

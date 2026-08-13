@@ -1,7 +1,7 @@
 {
   "templateKey": "shockwave",
   "name": "Shockwave",
-  "description": "Emit a damaging shockwave around you, generating threat and controlling nearby enemies - evolves into the Ironscale's signature battlefield control ability.",
+  "description": "Emit a damaging shockwave around you, generating threat and controlling nearby enemies.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

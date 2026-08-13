@@ -1,7 +1,7 @@
 {
   "templateKey": "iron_body",
   "name": "Iron Body",
-  "description": "Become immobile, generating massive threat while reflecting incoming damage - evolves into an even longer, harder-hitting reflect.",
+  "description": "Become immobile, generating massive threat while reflecting incoming damage.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

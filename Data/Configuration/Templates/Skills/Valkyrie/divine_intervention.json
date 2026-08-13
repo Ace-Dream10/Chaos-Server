@@ -1,7 +1,7 @@
 {
   "templateKey": "divine_intervention",
   "name": "Divine Intervention",
-  "description": "Grants a protective shield - evolves from self-only to a targeted ally, then nearby allies, then your whole party.",
+  "description": "Grants a protective shield to allies.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,

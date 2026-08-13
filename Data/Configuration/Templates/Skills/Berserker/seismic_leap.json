@@ -1,7 +1,7 @@
 {
   "templateKey": "seismic_leap",
   "name": "Seismic Leap",
-  "description": "Leap forward and slam down with earth-shaking force, damaging everything nearby. Grows more punishing as you master it, eventually stunning on impact.",
+  "description": "Leap forward and slam down with earth-shaking force, damaging everything nearby.",
   "panelSprite": 46,
   "class": "Berserker",
   "level": 1,

@@ -1,7 +1,7 @@
 {
   "templateKey": "godsfall",
   "name": "Godsfall",
-  "description": "The ultimate holy AoE, centered on you - evolves into a wider blast with a shockwave, and finally lingering consecrated ground.",
+  "description": "The ultimate holy AoE, centered on you.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,

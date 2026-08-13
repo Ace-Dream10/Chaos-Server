@@ -1,7 +1,7 @@
 {
   "templateKey": "void_palm",
   "name": "Void Palm",
-  "description": "A ranged palm strike whose impact materializes directly on the target - evolves from a simple strike into an iconic chi technique.",
+  "description": "A ranged palm strike whose impact materializes directly on the target.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

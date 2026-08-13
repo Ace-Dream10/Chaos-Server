@@ -1,7 +1,7 @@
 {
   "templateKey": "heavenly_strike",
   "name": "Heavenly Strike",
-  "description": "Valkyrie's signature attack - evolves from a single strike into a triple hit, a cone, and finally a pillar of holy light. Marks the target for Valhalla.",
+  "description": "Valkyrie's signature attack. Marks the target for Valhalla.",
   "panelSprite": 46,
   "class": "Valkyrie",
   "level": 1,

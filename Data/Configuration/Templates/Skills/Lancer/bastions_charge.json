@@ -19,7 +19,7 @@
   },
   "class": "Bastion",
   "cooldownMs": 10000,
-  "description": "Charge forward, attacking the first enemy in your path. Gains range, damage, and the ability to knock nearby enemies aside as it levels up.",
+  "description": "Charge forward, attacking the first enemy in your path.",
   "level": 1,
   "maxLevel": 255,
   "levelsUp": true,

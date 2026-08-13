@@ -1,7 +1,7 @@
 {
   "templateKey": "bifrost_step",
   "name": "Bifrost Step",
-  "description": "Dash forward - evolves to leave a bridge behind that allies can use, then a longer-lasting bridge, then one that blesses whoever crosses it.",
+  "description": "Dash forward, leaving a bridge behind that allies can use.",
   "panelSprite": 30,
   "class": "Valkyrie",
   "level": 1,

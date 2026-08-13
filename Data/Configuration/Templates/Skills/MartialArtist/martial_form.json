@@ -1,7 +1,7 @@
 {
   "templateKey": "martial_form",
   "name": "Martial Form",
-  "description": "Channel your inner Chi to transform into your chosen martial form - evolves toward an increasingly powerful form over time. Drains Chi over time.",
+  "description": "Channel your inner Chi to transform into your chosen martial form. Drains Chi over time.",
   "panelSprite": 50,
   "class": "MartialArtist",
   "level": 1,

@@ -1,7 +1,7 @@
 {
   "templateKey": "alpha_strike",
   "name": "Alpha Strike",
-  "description": "Strike multiple enemies in a blink, ending behind the final target - evolves into more targets and faster strikes.",
+  "description": "Strike multiple enemies in a blink, ending behind the final target.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,

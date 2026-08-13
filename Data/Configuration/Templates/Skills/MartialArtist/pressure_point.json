@@ -1,7 +1,7 @@
 {
   "templateKey": "pressure_point",
   "name": "Pressure Point",
-  "description": "Expose an enemy's weak point, increasing all damage they take - evolves into a full raid-support debuff that spreads to nearby enemies.",
+  "description": "Expose an enemy's weak point, increasing all damage they take.",
   "panelSprite": 46,
   "class": "MartialArtist",
   "level": 1,
