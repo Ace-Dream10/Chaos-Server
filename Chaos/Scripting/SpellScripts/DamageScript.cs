@@ -1,6 +1,7 @@
 #region
 using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
+using Chaos.Extensions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
@@ -21,6 +22,29 @@ public class DamageScript : ConfigurableSpellScriptBase,
     public DamageScript(Spell subject)
         : base(subject)
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
+
+    /// <summary>
+    ///     Without this override, ConfigurableSpellScriptBase's default CanUse (always true) let single-target
+    ///     damage spells fire against an invalid target - notably yourself, when Filter is "othersOnly" - burning
+    ///     mana and starting the cooldown even though GetTargetsAbilityComponent would go on to find zero valid
+    ///     targets inside OnUse and do nothing. Confirmed root cause of "self-casting a damage spell still
+    ///     triggers its cooldown". AoE/NoTarget-shaped damage spells (SingleTarget false) are intentionally left
+    ///     unchecked here - they don't anchor on a specific creature target the same way.
+    /// </summary>
+    public override bool CanUse(SpellContext context)
+    {
+        if (!context.Source.IsAlive)
+            return false;
+
+        if (SingleTarget && ((context.TargetCreature is not { IsAlive: true } target) || !Filter.IsValidTarget(context.Source, target)))
+        {
+            context.SourceAisling?.SendOrangeBarMessage("You must select a valid target.");
+
+            return false;
+        }
+
+        return true;
+    }
 
     /// <inheritdoc />
     public override void OnUse(SpellContext context)
