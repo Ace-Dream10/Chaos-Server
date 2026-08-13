@@ -15,9 +15,11 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     A short rush, modeled on Bastion's Charge - stops at the first creature in its path (unpassable) rather than
-///     crashing through everything, dealing damage there. Rage flows through the existing
-///     <see cref="Chaos.Scripting.AislingScripts.BerserkerRageScript" /> hook whenever a hit lands.
+///     A short rush. Passable, not unpassable - per corrected design intent, this and
+///     <see cref="SeismicLeapScript" /> had their collision behavior swapped from what was originally built: this
+///     now crashes straight through every creature in its path (damaging each one along the way) rather than
+///     stopping at the first, while Seismic Leap is the one that now stops at first contact. Rage flows through the
+///     existing <see cref="Chaos.Scripting.AislingScripts.BerserkerRageScript" /> hook whenever a hit lands.
 /// </summary>
 public class BerserkerChargeScript : ConfigurableSkillScriptBase
 {
@@ -44,30 +46,24 @@ public class BerserkerChargeScript : ConfigurableSkillScriptBase
             if (map.IsWall(point) || map.IsBlockingReactor(point))
                 break;
 
+            lastWalkablePoint = point;
+
+            //passable - hit and damage every creature crossed, but keep charging through to the full rush distance
             var creature = map.GetEntitiesAtPoints<Creature>(point).TopOrDefault();
 
-            //unpassable - the charge stops at the first creature in its path, valid target or not, rather than
-            //continuing through them
-            if (creature != null)
+            if ((creature != null) && Filter.IsValidTarget(source, creature))
             {
-                if (Filter.IsValidTarget(source, creature))
-                {
-                    var damage = CalculateDamage(source);
+                var damage = CalculateDamage(source);
 
-                    if (damage > 0)
-                        ApplyDamageScript.ApplyDamage(source, creature, this, damage);
+                if (damage > 0)
+                    ApplyDamageScript.ApplyDamage(source, creature, this, damage);
 
-                    if (Animation != null)
-                        creature.Animate(Animation, source.Id);
+                if (Animation != null)
+                    creature.Animate(Animation, source.Id);
 
-                    if (Sound.HasValue)
-                        map.PlaySound(Sound.Value, point);
-                }
-
-                break;
+                if (Sound.HasValue)
+                    map.PlaySound(Sound.Value, point);
             }
-
-            lastWalkablePoint = point;
         }
 
         source.WarpTo(lastWalkablePoint);

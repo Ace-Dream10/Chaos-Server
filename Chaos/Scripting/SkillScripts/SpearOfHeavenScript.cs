@@ -58,6 +58,11 @@ public class SpearOfHeavenScript : ConfigurableSkillScriptBase
             }
 
             landingPoint = point;
+
+            //unpassable - stop (and slam down) at the first creature in the dive's path, rather than sailing
+            //clean over it to the full leap distance
+            if (map.GetEntitiesAtPoints<Creature>(point).TopOrDefault() != null)
+                break;
         }
 
         source.WarpTo(landingPoint);

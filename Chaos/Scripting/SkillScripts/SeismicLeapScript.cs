@@ -24,7 +24,10 @@ namespace Chaos.Scripting.SkillScripts;
 ///     <see cref="Thunderstrike" />-style templates). One of Berserker's 5 evolving abilities: tier scales with the
 ///     skill's own level, using the same level-bracket convention <see cref="CycloneScript" /> already established
 ///     (1-2/3-4/5-6/7+ &#8594; tier I/II/III/IV), per the design's "larger impact &#8594; bigger radius &#8594;
-///     slow &#8594; stun at max" evolution note.
+///     slow &#8594; stun at max" evolution note. Unpassable, not passable - per corrected design intent, this and
+///     <see cref="BerserkerChargeScript" /> had their collision behavior swapped from what was originally built:
+///     this now stops (and slams down) at the first creature in its path instead of sailing clean over it to the
+///     full leap distance.
 /// </summary>
 /// <remarks>
 ///     Tier III applies the existing, reusable <see cref="SlowEffect" />; tier IV applies the existing, reusable
@@ -70,6 +73,15 @@ public class SeismicLeapScript : ConfigurableSkillScriptBase
         {
             if (map.IsWall(point) || map.IsBlockingReactor(point))
                 break;
+
+            //unpassable - stop (and slam down) at the first creature in the leap's path, rather than sailing
+            //clean over it to the full leap distance
+            if (map.GetEntitiesAtPoints<Creature>(point).TopOrDefault() != null)
+            {
+                lastWalkablePoint = point;
+
+                break;
+            }
 
             lastWalkablePoint = point;
         }
