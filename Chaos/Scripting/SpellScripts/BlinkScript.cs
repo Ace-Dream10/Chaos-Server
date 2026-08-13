@@ -33,12 +33,16 @@ public class BlinkScript : ConfigurableSpellScriptBase
             if (map.IsWall(point) || map.IsBlockingReactor(point))
                 break;
 
+            //a creature blocks LANDING on its tile, but not travel past it - previously this stopped the blink
+            //dead at the first occupied tile (including one immediately adjacent), refusing to fire at all with
+            //"nowhere to blink to" even when open space existed just beyond. Now it skips over occupied tiles
+            //and keeps advancing toward the farthest open tile in range, the same way a real "blink past a
+            //threat" ability should behave.
             var creature = map.GetEntitiesAtPoints<Creature>(point)
                               .TopOrDefault();
 
-            //can't blink through someone
             if (creature != null)
-                break;
+                continue;
 
             lastWalkablePoint = point;
         }

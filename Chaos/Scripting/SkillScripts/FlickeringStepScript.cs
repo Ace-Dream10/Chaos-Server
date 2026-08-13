@@ -42,12 +42,16 @@ public class FlickeringStepScript : ConfigurableSkillScriptBase
             if (map.IsWall(point) || map.IsBlockingReactor(point))
                 break;
 
+            //a creature blocks LANDING on its tile, but not travel past it - previously this stopped the step
+            //dead at the first occupied tile (including one immediately adjacent), refusing to fire at all with
+            //"nowhere to step to" even when open space existed just beyond. Now it skips over occupied tiles and
+            //keeps advancing toward the farthest open tile in range, the same way a real "step past a threat"
+            //ability should behave.
             var creature = map.GetEntitiesAtPoints<Creature>(point)
                               .TopOrDefault();
 
-            //can't step through someone
             if (creature != null)
-                break;
+                continue;
 
             lastWalkablePoint = point;
         }
