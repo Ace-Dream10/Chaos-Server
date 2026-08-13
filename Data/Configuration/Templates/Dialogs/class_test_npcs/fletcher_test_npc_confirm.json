@@ -11,6 +11,7 @@
       "advClass": null,
       "skillTemplateKeys": ["bow_assail"],
       "spellTemplateKeys": [
+        "aimed_shot",
         "arrowstep",
         "focus",
         "eagle_eye",

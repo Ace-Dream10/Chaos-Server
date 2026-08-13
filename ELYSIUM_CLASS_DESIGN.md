@@ -678,25 +678,32 @@ defined, including gameplay loop and class fantasy.**
 
 **Gameplay Loop:** Position → Empower → Control → Execute
 
-**Active Abilities (12):**
+**Active Abilities (13 — confirmed accepted exception to the usual
+15-count; Aimed Shot added post-launch alongside the standard 12 to give
+Fletcher a genuinely targetable basic attack, since Arrow Shot/bow_assail
+can only ever hit whatever's directly ahead with no target selection):**
 1. **Arrow Shot** *(Assail)* — bread-and-butter ranged attack.
-2. **Arrowstep** — dash a short distance while maintaining aim.
-3. **Focus** — greatly empowers your next ranged attack.
-4. **Pinpoint Shot** — heavy single-target damage that briefly stuns the
+2. **Aimed Shot** — a real targeted basic attack: select a specific
+   enemy and loose an arrow at them directly, regardless of facing.
+   Reliable, low cooldown, low mana cost — mechanically Arrow Shot's
+   targetable counterpart, not a replacement for it.
+3. **Arrowstep** — dash a short distance while maintaining aim.
+4. **Focus** — greatly empowers your next ranged attack.
+5. **Pinpoint Shot** — heavy single-target damage that briefly stuns the
    target.
-5. **Flechette** — piercing arrow that tears through enemies.
-6. **Warden's Net** — net arrow that evolves into a small AoE snare.
-7. **Gravity Arrow** — pull nearby enemies toward the impact point.
-8. **Spotter's Brand** — marks an enemy, increasing the critical strike
+6. **Flechette** — piercing arrow that tears through enemies.
+7. **Warden's Net** — net arrow that evolves into a small AoE snare.
+8. **Gravity Arrow** — pull nearby enemies toward the impact point.
+9. **Spotter's Brand** — marks an enemy, increasing the critical strike
    chance they receive from you and your allies.
-9. **Moonfall** — fire an arrow skyward that returns as celestial arrows
-   striking multiple enemies.
-10. **Valkor's Volley** — call upon Valkor, unleashing a divine rain of
+10. **Moonfall** — fire an arrow skyward that returns as celestial arrows
+    striking multiple enemies.
+11. **Valkor's Volley** — call upon Valkor, unleashing a divine rain of
     arrows upon a target area. *(Ties directly into the Valkor pantheon
     lore.)*
-11. **Fulmination** — fire a legendary lightning arrow that pierces
+12. **Fulmination** — fire a legendary lightning arrow that pierces
     everything in a straight line.
-12. **Multishot** — fire a rapid succession of arrows into a single
+13. **Multishot** — fire a rapid succession of arrows into a single
     target, each dealing reduced damage.
 
 **Passive Abilities (3):**
@@ -719,7 +726,7 @@ to fill these in like the other classes' evolving sections.)*
 **Floor Schedule (LOCKED):**
 | Floor | Evolving activity | Flat unlocks |
 |:---:|:---:|:---:|
-| 1 | — | Arrow Shot, Arrowstep, Pinpoint Shot |
+| 1 | — | Arrow Shot, Aimed Shot, Arrowstep, Pinpoint Shot |
 | 2 | Focus (intro) | Eagle Eye |
 | 3 | Focus II (first evolution), Flechette (intro) | Windrunner |
 | 4 | Focus III, Flechette II, Warden's Net (intro) | — |
@@ -737,7 +744,10 @@ on Arrowstep/Flechette/Focus already existing).
 
 **Status: ✅ DESIGN LOCKED — full active/passive kit defined. Evolving
 ability specifics (the "what changes per tier" detail other classes have)
-not yet written. Class renamed Archer → Fletcher, confirmed final.**
+not yet written. Class renamed Archer → Fletcher, confirmed final. Aimed
+Shot added as a confirmed 13th active ability (Floor 1) — a genuinely
+targetable Spell counterpart to Arrow Shot, which as a Skill can only
+ever hit whatever's directly ahead.**
 
 ---
 

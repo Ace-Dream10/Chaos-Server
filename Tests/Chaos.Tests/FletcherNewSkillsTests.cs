@@ -5,6 +5,7 @@ using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
 using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
+using Chaos.Geometry.Abstractions.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
@@ -61,6 +62,64 @@ public sealed class FletcherNewSkillsTests
         harness.Target.Effects.TryGetEffect("Blackout", out _)
                .Should()
                .BeTrue("Pinpoint Shot should briefly stun the target");
+    }
+
+    [Test]
+    public void AimedShot_ShouldHitTheExplicitlySelectedTarget_RegardlessOfCasterFacingDirection()
+    {
+        //aimed_shot uses the shared generic "damage" scriptKey directly (no dedicated script class), so this
+        //harnesses DamageScript itself with the same scriptVars aimed_shot.json configures
+        var harness = new SpellScriptHarness<Chaos.Scripting.SpellScripts.DamageScript>(
+            scriptFactory: spell => new Chaos.Scripting.SpellScripts.DamageScript(spell)
+            {
+                BaseDamage = 60,
+                DamageStat = Stat.DEX,
+                DamageStatMultiplier = 3,
+                Range = 8,
+                Shape = AoeShape.Circle,
+                SingleTarget = true
+
+                //Filter intentionally left default (None) here, matching the PinpointShot precedent above -
+                //the mock Aisling's script doesn't stub IsHostileTo, so a HostileOnly filter would silently
+                //exclude the mock monster. Filtering is generic DamageScript behavior already exercised
+                //elsewhere; this test is specifically about targeting resolution, not the hostility filter.
+            },
+            spellSetup: s => EnsureSpellVars(s, "damage"));
+
+        //face the source AWAY from where the selected target will be placed - this is the whole point of
+        //the ability. bow_assail (a Skill) can only ever hit whatever's directly ahead of the caster's
+        //current facing; Aimed Shot is a real Spell that resolves off the explicitly selected target
+        //(context.TargetCreature) regardless of the caster's facing, per GetTargetsAbilityComponent.
+        harness.Source.Direction = Direction.Down;
+
+        var selectedTarget = MockMonster.Create(harness.Map);
+        selectedTarget.StatSheet.SetHp(100000);
+        var behindPoint = Point.From(harness.Source.DirectionalOffset(Direction.Up, 3));
+        selectedTarget.WarpTo(behindPoint);
+        harness.Map.AddEntity(selectedTarget, behindPoint);
+
+        //a second monster sits directly in front of the source (where a Front-shaped Skill would hit
+        //instead) - it must take no damage, proving the hit resolves off the selected target, not facing
+        var frontMonster = MockMonster.Create(harness.Map);
+        frontMonster.StatSheet.SetHp(100000);
+        var frontPoint = Point.From(harness.Source.DirectionalOffset(harness.Source.Direction, 2));
+        frontMonster.WarpTo(frontPoint);
+        harness.Map.AddEntity(frontMonster, frontPoint);
+
+        harness.WithTarget(selectedTarget);
+
+        var selectedHpBefore = selectedTarget.StatSheet.CurrentHp;
+        var frontHpBefore = frontMonster.StatSheet.CurrentHp;
+
+        harness.Use();
+
+        selectedTarget.StatSheet.CurrentHp
+                      .Should()
+                      .BeLessThan(selectedHpBefore, "Aimed Shot should damage the explicitly selected target even though it isn't in the caster's front-facing direction");
+
+        frontMonster.StatSheet.CurrentHp
+                    .Should()
+                    .Be(frontHpBefore, "Aimed Shot should NOT hit an unselected monster just because it's in front of the caster");
     }
 
     [Test]
@@ -171,22 +230,22 @@ public sealed class FletcherNewSkillsTests
     [Test]
     public void Focus_ShouldGrantAStrongerBonus_AtHigherTiers()
     {
-        var lowTierHarness = new SkillScriptHarness<FletcherFocusScript>(
-            skillSetup: s =>
+        var lowTierHarness = new SpellScriptHarness<FletcherFocusScript>(
+            spellSetup: s =>
             {
                 s.Level = 1;
-                EnsureScriptVars(s, "fletcherFocus");
+                EnsureSpellVars(s, "fletcherFocus");
             });
 
         lowTierHarness.Use();
         lowTierHarness.Source.Effects.TryGetEffect("Focus", out var lowEffect);
         var lowDmgBonus = (lowEffect as FocusEffect)?.DmgBonus ?? 0;
 
-        var highTierHarness = new SkillScriptHarness<FletcherFocusScript>(
-            skillSetup: s =>
+        var highTierHarness = new SpellScriptHarness<FletcherFocusScript>(
+            spellSetup: s =>
             {
                 s.Level = 20;
-                EnsureScriptVars(s, "fletcherFocus");
+                EnsureSpellVars(s, "fletcherFocus");
             });
 
         highTierHarness.Use();
@@ -457,15 +516,15 @@ public sealed class FletcherNewSkillsTests
     {
         var applyDamageScript = ApplyAttackDamageScript.Create();
 
-        var harness = new SkillScriptHarness<ArrowstepScript>(skillSetup: s => EnsureScriptVars(s, "arrowstep"));
+        var harness = new SpellScriptHarness<ArrowstepScript>(spellSetup: s => EnsureSpellVars(s, "arrowstep"));
         harness.Source.StatSheet.SetMp(100);
 
         //Arrowstep requires a bow equipped
         var bow = MockItem.Create(name: "TestBow", templateSetup: t => t with { Category = "bow", EquipmentType = EquipmentType.Weapon });
         harness.Source.Equipment.TryEquip(EquipmentType.Weapon, bow, out _);
 
-        var windrunnerSkill = MockSkill.Create(name: "Windrunner", templateSetup: t => t with { TemplateKey = "windrunner" });
-        harness.Source.SkillBook.TryAddToNextSlot(windrunnerSkill);
+        var windrunnerSpell = MockSpell.Create(name: "Windrunner", templateSetup: t => t with { TemplateKey = "windrunner" });
+        harness.Source.SpellBook.TryAddToNextSlot(windrunnerSpell);
 
         harness.Use();
 
