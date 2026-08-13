@@ -22,7 +22,7 @@
       "damageStatMultiplier": 2.5,
       "range": 6,
       "filter": "hostileOnly, aliveOnly, othersOnly",
-      "bodyAnimation": "None",
+      "bodyAnimation": "Punch",
       "animation": { "targetAnimation": 10, "animationSpeed": 100 },
       "sound": 98
     }

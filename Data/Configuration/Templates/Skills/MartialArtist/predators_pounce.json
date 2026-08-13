@@ -23,7 +23,7 @@
       "pushbackTiles": 2,
       "stunDurationMs": 1000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
-      "bodyAnimation": "None",
+      "bodyAnimation": "Punch",
       "animation": { "targetAnimation": 35, "animationSpeed": 100 },
       "sound": 98
     }

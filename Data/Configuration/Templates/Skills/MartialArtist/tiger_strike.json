@@ -23,7 +23,7 @@
       "shape": "front",
       "range": 1,
       "filter": "hostileOnly, aliveOnly, othersOnly",
-      "bodyAnimation": "Assail",
+      "bodyAnimation": "Punch",
       "animation": { "targetAnimation": 1, "animationSpeed": 100 },
       "sound": 10
     }
