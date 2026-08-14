@@ -5,6 +5,7 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Geometry.Abstractions;
+using Chaos.Geometry.Abstractions.Definitions;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Scripting.MonsterScripts;
@@ -47,7 +48,7 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
 
         source.AnimateBody(BodyAnimation);
 
-        foreach (var point in ResolveFootprint(origin))
+        foreach (var point in ResolveFootprint(origin, source.Direction))
         {
             if (map.IsWall(point))
                 continue;
@@ -89,8 +90,21 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
             map.PlaySound(Sound.Value, origin);
     }
 
-    private List<Point> ResolveFootprint(Point origin)
-        => Footprint switch
+    /// <summary>
+    ///     "lineN" (e.g. "line4", "line5") lays out N tiles in a single row extending away from the caster in
+    ///     their current facing direction, 1 tile wide - added for Fire Wall's rework from a 3x3 square blob to a
+    ///     real wall shape per playtest feedback.
+    /// </summary>
+    private List<Point> ResolveFootprint(Point origin, Direction direction)
+    {
+        if (Footprint.StartsWith("line", StringComparison.OrdinalIgnoreCase)
+            && int.TryParse(Footprint.AsSpan(4), out var lineLength)
+            && (lineLength > 0))
+            return Enumerable.Range(0, lineLength)
+                             .Select(i => origin.DirectionalOffset(direction, i))
+                             .ToList();
+
+        return Footprint switch
         {
             "grid2x2" =>
             [
@@ -105,6 +119,7 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
                                               .ToList(),
             _ => [origin]
         };
+    }
 
     #region ScriptVars
     /// <summary>
@@ -153,7 +168,8 @@ public class HazardFieldScript : ConfigurableSpellScriptBase
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     The shape of tiles the hazards are placed on: "single", "grid2x2", "grid3x3", or "circle2"
+    ///     The shape of tiles the hazards are placed on: "single", "grid2x2", "grid3x3", "circle2", or "lineN"
+    ///     (e.g. "line4", "line5" - a 1-tile-wide row of N tiles extending away from the caster's facing direction)
     /// </summary>
     public string Footprint { get; init; } = "single";
 

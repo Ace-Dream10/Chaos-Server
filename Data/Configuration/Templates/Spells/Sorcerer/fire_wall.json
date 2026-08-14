@@ -14,7 +14,7 @@
   "scriptVars": {
     "hazardField": {
       "manaCost": 20,
-      "footprint": "grid3x3",
+      "footprint": "line5",
       "hazardTemplateKey": "elemental_hazard",
       "baseDamage": 20,
       "damageStat": "int",
