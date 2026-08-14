@@ -62,6 +62,13 @@ public sealed class FletcherNewSkillsTests
         harness.Target.Effects.TryGetEffect("Blackout", out _)
                .Should()
                .BeTrue("Pinpoint Shot should briefly stun the target");
+
+        //per playtest feedback ("Pinpoint Shot doesn't actually stop/stun the enemy at all"): Blackout alone only
+        //blocks attacking/casting, not movement, so a "stunned" target could still walk right past the player -
+        //Root is required too for the stun to actually stop the target
+        harness.Target.Effects.TryGetEffect("Root", out _)
+               .Should()
+               .BeTrue("Pinpoint Shot's stun should also prevent the target from moving, not just attacking");
     }
 
     [Test]

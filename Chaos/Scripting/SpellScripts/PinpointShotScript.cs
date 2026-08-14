@@ -12,10 +12,12 @@ namespace Chaos.Scripting.SpellScripts;
 /// <summary>
 ///     Renamed from Precise Shot - kept its exact heavy-single-target-hit mechanic (a direct match for the locked
 ///     design's "heavy single-target damage"), layered on the shared <see cref="DamageScript" /> logic exactly as
-///     before. Adds the other half of the locked description ("briefly stuns the target"): reuses
-///     <see cref="BlackoutEffect" /> directly for the stun (prevents attacking/casting) rather than inventing a
-///     parallel stun-tag system that would also require touching <c>AttackingScript</c>/<c>CastingScript</c> - same
-///     reuse decision Trickster's Crack the Whip made tonight for its own "briefly staggering" wording.
+///     before. Adds the other half of the locked description ("briefly stuns the target"): applies BOTH
+///     <see cref="BlackoutEffect" /> (prevents attacking/casting) AND <see cref="RootEffect" /> (prevents moving)
+///     together for a real, full stun. Per playtest feedback ("Pinpoint Shot doesn't actually stop/stun the enemy
+///     at all"), Blackout alone was the confirmed gap - it only blocks the target's own attacks/casts, so a
+///     "stunned" monster could still walk right up to and past the player, which doesn't read as a stun at all.
+///     Neither effect alone is a full stun in this engine - see builder.md's CC gotchas.
 /// </summary>
 public class PinpointShotScript : DamageScript
 {
@@ -51,9 +53,13 @@ public class PinpointShotScript : DamageScript
 
         if ((context.TargetCreature is { IsAlive: true } target) && Filter.IsValidTarget(source, target))
         {
-            var stunEffect = new BlackoutEffect();
-            stunEffect.SetDuration(TimeSpan.FromMilliseconds(StunDurationMs));
-            target.Effects.Apply(source, stunEffect, this);
+            var blackoutEffect = new BlackoutEffect();
+            blackoutEffect.SetDuration(TimeSpan.FromMilliseconds(StunDurationMs));
+            target.Effects.Apply(source, blackoutEffect, this);
+
+            var rootEffect = new RootEffect();
+            rootEffect.SetDuration(TimeSpan.FromMilliseconds(StunDurationMs));
+            target.Effects.Apply(source, rootEffect, this);
         }
     }
 }
