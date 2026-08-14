@@ -43,7 +43,13 @@ public class ValkyrieFuryScript : AislingScriptBase
     /// <inheritdoc />
     public override void Update(TimeSpan delta)
     {
-        if (Subject.UserStatSheet.BaseClass != BaseClass.Valkyrie)
+        //the locked design's own description of Divine Fury is "assails and abilities generate Fury. The more
+        //Fury you possess, the stronger your Holy abilities become" - that's this entire script, not just the
+        //damage-bonus half, so the whole thing requires the passive to actually be learned rather than gating
+        //only on BaseClass (same real-passive-gating fix applied to Valkyrie's other 3 passives). Safe in
+        //practice since Divine Fury is granted on Floor 1 alongside Ragnarok itself per the locked floor
+        //schedule, so a Valkyrie who can cast Ragnarok always already has Divine Fury too.
+        if ((Subject.UserStatSheet.BaseClass != BaseClass.Valkyrie) || !Subject.SkillBook.ContainsByTemplateKey("divine_fury"))
         {
             if (LastAppliedDamageBonus != 0)
                 RemoveDamageBonus();

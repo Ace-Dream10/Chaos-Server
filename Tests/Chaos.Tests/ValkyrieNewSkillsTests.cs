@@ -139,6 +139,11 @@ public sealed class ValkyrieNewSkillsTests
         harness.Source.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
         harness.Source.StatSheet.SetMp(0);
 
+        //Divine Fury (the passive this whole script implements) now requires actually being learned, not just
+        //BaseClass == Valkyrie - see ValkyrieFuryScript's own updated doc comment
+        var divineFury = MockSkill.Create(name: "Divine Fury", templateSetup: t => t with { TemplateKey = "divine_fury" });
+        harness.Source.SkillBook.TryAddToNextSlot(divineFury);
+
         var glaiveLeap = MockSkill.Create(name: "Glaive Leap", templateSetup: t => t with { TemplateKey = "glaive_leap" });
         harness.Source.Trackers.LastUsedSkill = glaiveLeap;
         harness.Source.Trackers.LastSkillUse = DateTime.UtcNow;
@@ -157,6 +162,9 @@ public sealed class ValkyrieNewSkillsTests
         harness.Source.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
         harness.Source.StatSheet.SetMp(50);
 
+        var divineFury = MockSkill.Create(name: "Divine Fury", templateSetup: t => t with { TemplateKey = "divine_fury" });
+        harness.Source.SkillBook.TryAddToNextSlot(divineFury);
+
         var before = harness.Source.StatSheet.EffectiveFlatSkillDamage;
 
         harness.Update(TimeSpan.FromMilliseconds(1));
@@ -174,6 +182,9 @@ public sealed class ValkyrieNewSkillsTests
         var valkyrie = MockAisling.Create(map);
         valkyrie.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
         valkyrie.StatSheet.SetHp(10000);
+
+        var divineVerdict = MockSkill.Create(name: "Divine Verdict", templateSetup: t => t with { TemplateKey = "divine_verdict" });
+        valkyrie.SkillBook.TryAddToNextSlot(divineVerdict);
 
         var monster = MockMonster.Create(map);
         var monsterPoint = Chaos.Geometry.Point.From(valkyrie);
@@ -194,6 +205,31 @@ public sealed class ValkyrieNewSkillsTests
     }
 
     [Test]
+    public void DivineVerdict_ShouldNotTrigger_WhenNotLearned()
+    {
+        //per playtest feedback: Valkyrie's 4 passives previously triggered for anyone with BaseClass == Valkyrie,
+        //regardless of whether the passive was actually learned - free power just for picking the class. This
+        //proves the fix: no divine_verdict skillbook entry means no lightning burst, even past the threshold.
+        var applyDamageScript = ApplyAttackDamageScript.Create();
+        var map = MockMapInstance.Create();
+        var valkyrie = MockAisling.Create(map);
+        valkyrie.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
+        valkyrie.StatSheet.SetHp(10000);
+
+        var monster = MockMonster.Create(map);
+        var monsterPoint = Chaos.Geometry.Point.From(valkyrie);
+        monster.WarpTo(monsterPoint);
+        map.AddEntity(monster, monsterPoint);
+        var monsterHpBefore = monster.StatSheet.CurrentHp;
+
+        applyDamageScript.ApplyDamage(monster, valkyrie, MockSkill.Create().Script, 1000);
+
+        monster.StatSheet.CurrentHp
+               .Should()
+               .Be(monsterHpBefore, "Divine Verdict should not trigger for a Valkyrie who hasn't learned it");
+    }
+
+    [Test]
     public void WingsOfStacia_ShouldGrantShield_WhenHpDropsBelowThreshold()
     {
         var applyDamageScript = ApplyAttackDamageScript.Create();
@@ -205,6 +241,9 @@ public sealed class ValkyrieNewSkillsTests
         //path real gear/stats would use
         valkyrie.StatSheet.AddBonus(new Attributes { MaximumHp = 1000 });
         valkyrie.StatSheet.SetHp(300);
+
+        var wingsOfStacia = MockSkill.Create(name: "Wings of Stacia", templateSetup: t => t with { TemplateKey = "wings_of_stacia" });
+        valkyrie.SkillBook.TryAddToNextSlot(wingsOfStacia);
 
         var monster = MockMonster.Create(map);
 
@@ -225,6 +264,9 @@ public sealed class ValkyrieNewSkillsTests
         valkyrie.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
         valkyrie.StatSheet.AddBonus(new Attributes { MaximumHp = 1000 });
         valkyrie.StatSheet.SetHp(500);
+
+        var chooserOfTheSlain = MockSkill.Create(name: "Chooser of the Slain", templateSetup: t => t with { TemplateKey = "chooser_of_the_slain" });
+        valkyrie.SkillBook.TryAddToNextSlot(chooserOfTheSlain);
 
         var monster = MockMonster.Create(map);
         monster.StatSheet.SetHp(10);
@@ -253,6 +295,9 @@ public sealed class ValkyrieNewSkillsTests
         valkyrie.UserStatSheet.SetBaseClass(BaseClass.Valkyrie);
         valkyrie.StatSheet.AddBonus(new Attributes { MaximumHp = 1000 });
         valkyrie.StatSheet.SetHp(500);
+
+        var chooserOfTheSlain = MockSkill.Create(name: "Chooser of the Slain", templateSetup: t => t with { TemplateKey = "chooser_of_the_slain" });
+        valkyrie.SkillBook.TryAddToNextSlot(chooserOfTheSlain);
 
         var monster = MockMonster.Create(map);
         monster.StatSheet.SetHp(10);

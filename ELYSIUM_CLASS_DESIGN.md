@@ -460,17 +460,21 @@ a nice early/mid-game peak before the real Floor 10 finale):**
 |:---:|:---:|:---:|
 | 1 | Ragnarok (intro) | Glaive Leap, Divine Fury |
 | 2 | Ragnarok (no change — stall), Bifrost Step (intro) | Chooser of the Slain |
-| 3 | Ragnarok II (first evolution), Bifrost Step II, Spear of Heaven (intro) | — |
-| 4 | Ragnarok III, Bifrost Step III, Spear of Heaven II, Heavenly Strike (intro) | — |
-| 5 | Ragnarok IV (max), Bifrost Step IV (max), Spear of Heaven III, Heavenly Strike II | Wings of Stacia |
-| 6 | Spear of Heaven IV (max), Heavenly Strike III | Divine Verdict |
-| 7 | Heavenly Strike IV (max), Divine Intervention (intro), Godsfall (intro) | — |
+| 3 | Ragnarok II (first evolution), Bifrost Step II | — |
+| 4 | Ragnarok III, Bifrost Step III, Spear of Heaven (intro), Heavenly Strike (intro) | — |
+| 5 | Ragnarok IV (max), Bifrost Step IV (max), Spear of Heaven II, Heavenly Strike II | Wings of Stacia |
+| 6 | Spear of Heaven III, Heavenly Strike III | Divine Verdict |
+| 7 | Spear of Heaven IV (max), Heavenly Strike IV (max), Divine Intervention (intro), Godsfall (intro) | — |
 | 8 | Divine Intervention II, Godsfall II | Ascending Light |
 | 9 | Divine Intervention III, Godsfall III | Maelstrom |
 | 10 | Divine Intervention IV (max), Godsfall IV (max) | Stacia's Reprieve, Dreamslash |
 
 **Status: ✅ DESIGN LOCKED — full active/passive/evolving kit defined,
-floor schedule finalized. 11 active / 4 passive / 6 evolving all
+floor schedule finalized (amended per playtest feedback: Spear of
+Heaven's intro moved from Floor 3 to Floor 4, alongside Heavenly
+Strike, since granting 3 gap-closers - Glaive Leap, Bifrost Step, and
+Spear of Heaven - by Floor 3 was too much early mobility for the
+class). 11 active / 4 passive / 6 evolving all
 confirmed intentional deviations from the standard template.**
 
 ---

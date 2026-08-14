@@ -876,10 +876,15 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                             ApplyDamage(aisling, source, script, ironBodyReflect);
                     }
 
-                    //Divine Verdict (Valkyrie passive) - a true always-on passive: taking damage builds Judgment
-                    //(persisted via Trackers.Counters, same simple stack-counter shape as Severance/Burn stacks
-                    //elsewhere), and holy lightning strikes nearby enemies once the threshold is reached.
-                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Valkyrie) && aisling.IsAlive)
+                    //Divine Verdict (Valkyrie passive) - taking damage builds Judgment (persisted via
+                    //Trackers.Counters, same simple stack-counter shape as Severance/Burn stacks elsewhere), and
+                    //holy lightning strikes nearby enemies once the threshold is reached. Requires the passive to
+                    //actually be learned (ContainsByTemplateKey) - previously gated only on BaseClass, which gave
+                    //every Valkyrie this for free regardless of progression, same real-passive-gating fix applied
+                    //to all 4 of Valkyrie's passives here.
+                    if ((aisling.UserStatSheet.BaseClass == BaseClass.Valkyrie)
+                        && aisling.IsAlive
+                        && aisling.SkillBook.ContainsByTemplateKey("divine_verdict"))
                     {
                         var judgment = aisling.Trackers.Counters.AddOrIncrement(DivineVerdictCounterKey, damage);
 
@@ -908,11 +913,12 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         }
                     }
 
-                    //Wings of Stacia (Valkyrie passive) - a true always-on passive: falling below a health
-                    //threshold grants a divine shield, on a cooldown tracked the same ready-at-timestamp way as
-                    //Chooser of the Slain below.
+                    //Wings of Stacia (Valkyrie passive) - falling below a health threshold grants a divine
+                    //shield, on a cooldown tracked the same ready-at-timestamp way as Chooser of the Slain below.
+                    //Requires the passive to actually be learned - see Divine Verdict's note above.
                     if ((aisling.UserStatSheet.BaseClass == BaseClass.Valkyrie) && aisling.IsAlive
-                                                                                 && !aisling.Trackers.Counters.ContainsKey(WingsOfStaciaShieldEffect.ShieldCounter))
+                        && aisling.SkillBook.ContainsByTemplateKey("wings_of_stacia")
+                        && !aisling.Trackers.Counters.ContainsKey(WingsOfStaciaShieldEffect.ShieldCounter))
                     {
                         var maxHp = aisling.StatSheet.EffectiveMaximumHp;
                         var hpPct = maxHp <= 0 ? 1m : aisling.StatSheet.CurrentHp / (decimal)maxHp;
@@ -1022,13 +1028,15 @@ public class ApplyAttackDamageScript : ScriptBase, IApplyDamageScript
                         }
                     }
 
-                    //Chooser of the Slain (Valkyrie passive) - a true always-on passive: defeating a MARKED enemy
-                    //restores health and empowers you, on a cooldown. The ambiguity flagged when this was first
-                    //built (nothing in Valkyrie's kit applied a mark) is now resolved - Heavenly Strike applies
+                    //Chooser of the Slain (Valkyrie passive) - defeating a MARKED enemy restores health and
+                    //empowers you, on a cooldown. The ambiguity flagged when this was first built (nothing in
+                    //Valkyrie's kit applied a mark) is now resolved - Heavenly Strike applies
                     //MarkedForValhallaEffect on hit, so this checks for that tag at the moment of death rather
-                    //than triggering on any killing blow.
+                    //than triggering on any killing blow. Requires the passive to actually be learned - see
+                    //Divine Verdict's note above.
                     if ((source is Aisling chooserAisling)
                         && (chooserAisling.UserStatSheet.BaseClass == BaseClass.Valkyrie)
+                        && chooserAisling.SkillBook.ContainsByTemplateKey("chooser_of_the_slain")
                         && monster.Trackers.Tags.ContainsKey(MarkedForValhallaEffect.MarkedTag))
                     {
                         var nowSeconds = Convert.ToInt32(DateTimeOffset.UtcNow.ToUnixTimeSeconds());

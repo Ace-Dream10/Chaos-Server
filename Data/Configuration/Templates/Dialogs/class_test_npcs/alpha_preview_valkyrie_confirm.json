@@ -1,6 +1,6 @@
 {
   "templateKey": "alpha_preview_valkyrie_confirm",
-  "text": "It is done. Valkyrie Floor 1-3 kit granted: Ragnarok, Glaive Leap, Divine Fury, Chooser of the Slain, Bifrost Step, Spear of Heaven.",
+  "text": "It is done. Valkyrie Floor 1-3 kit granted: Ragnarok, Glaive Leap, Divine Fury, Chooser of the Slain, Bifrost Step.",
   "type": "Normal",
   "options": [],
   "scriptKeys": ["becomeClass"],
@@ -10,7 +10,7 @@
       "baseClass": "Valkyrie",
       "advClass": null,
       "level": 6,
-      "skillTemplateKeys": ["assail", "ragnarok", "glaive_leap", "divine_fury", "chooser_of_the_slain", "bifrost_step", "spear_of_heaven"],
+      "skillTemplateKeys": ["assail", "ragnarok", "glaive_leap", "divine_fury", "chooser_of_the_slain", "bifrost_step"],
       "spellTemplateKeys": [],
       "gearTemplateKeys": ["wm_polearm_1"],
       "armorTemplateKeyMale": "fl1_armor_valkyrie_m",

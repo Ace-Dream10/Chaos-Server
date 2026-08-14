@@ -19,11 +19,21 @@ public sealed class MarkedForValhallaEffect : EffectBase
 {
     public const string MarkedTag = "markedForValhalla";
 
+    /// <summary>
+    ///     How often the mark visual is re-played while the effect is active - same refresh-tick pattern used for
+    ///     Mark of the Bane/Death Mark (per playtest feedback: an apply-once visual fades well before the effect
+    ///     ends, so the connection between "this enemy is marked" and Chooser of the Slain triggering on its death
+    ///     wasn't visible/clear to players).
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(1500);
+
     private static readonly Animation MarkAnimation = new()
     {
         TargetAnimation = 56,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <summary>
     ///     Placeholder duration - not balance-tested, per every other number in this class's kit.
@@ -41,10 +51,28 @@ public sealed class MarkedForValhallaEffect : EffectBase
     {
         Subject.Trackers.Tags[MarkedTag] = bool.TrueString;
         Subject.Animate(MarkAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
     public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(MarkedTag, out _);
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(MarkAnimation, Source.Id);
+    }
 
     /// <summary>
     ///     Always allow reapplication - each Heavenly Strike hit refreshes the mark's duration, same reasoning as
