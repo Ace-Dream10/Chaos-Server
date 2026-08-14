@@ -192,17 +192,49 @@ public sealed class BastionNewSkillsTests
     }
 
     [Test]
-    public void PivotStrike_ShouldNotThrow_WithTargetInPath()
+    public void PivotStrike_ShouldDealDamageAndStun_WithoutRepositioningTheCaster()
     {
-        var harness = new SkillScriptHarness<PivotStrikeScript>(skillSetup: s => EnsureScriptVars(s, "pivotStrike"));
+        //reworked per playtest feedback: dropped the old teleport-behind-target mechanic (a third gap-closer,
+        //too mobile for a tank) in favor of a purely stationary strike+stun - this asserts both the new stun
+        //behavior AND that the caster genuinely no longer moves, not just "doesn't throw"
+        var harness = new SkillScriptHarness<PivotStrikeScript>(
+            scriptFactory: skill => new PivotStrikeScript(skill)
+            {
+                BaseDamage = 30,
+                DamageStat = Stat.STR,
+                DamageStatMultiplier = 1.5m,
+                RangeTiles = 4,
+                StunDurationMs = 1000
+            },
+            skillSetup: s => EnsureScriptVars(s, "pivotStrike"));
 
-        harness.WithTargetMonster(m => m.SetLocation(new Point(harness.Source.X + 2, harness.Source.Y)));
+        var target = MockMonster.Create(
+            harness.Map,
+            setup: m =>
+            {
+                m.SetLocation(new Point(harness.Source.X + 2, harness.Source.Y));
+                m.StatSheet.SetHp(100000);
+            });
+
         harness.Source.Direction = Direction.Right;
 
-        var act = harness.Use;
+        var sourceOriginalPoint = Point.From(harness.Source);
+        var hpBefore = target.StatSheet.CurrentHp;
 
-        act.Should()
-           .NotThrow();
+        harness.WithTarget(target);
+        harness.Use();
+
+        target.StatSheet.CurrentHp
+              .Should()
+              .BeLessThan(hpBefore, "Pivot Strike should deal damage");
+
+        target.Effects.Contains("Root")
+              .Should()
+              .BeTrue("Pivot Strike should briefly stun the target");
+
+        Point.From(harness.Source)
+             .Should()
+             .Be(sourceOriginalPoint, "Pivot Strike should no longer reposition the caster");
     }
 
     [Test]

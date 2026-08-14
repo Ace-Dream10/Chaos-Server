@@ -79,13 +79,18 @@ public class BastionsChargeScript : ConfigurableSkillScriptBase
                     if (damage > 0)
                         ApplyDamageScript.ApplyDamage(source, creature, this, damage);
 
-                    var stasisEffect = new StasisEffect();
-                    stasisEffect.SetDuration(TimeSpan.FromMilliseconds(tier.StasisDurationMs));
-                    creature.Effects.Apply(source, stasisEffect, this);
+                    //Tier III+: stun the primary target on impact
+                    if (tier.StunOnImpact)
+                    {
+                        var rootEffect = new RootEffect();
+                        rootEffect.SetDuration(TimeSpan.FromMilliseconds(StunDurationMs));
+                        creature.Effects.Apply(source, rootEffect, this);
+                    }
 
                     PlayHitEffects(context, creature);
 
-                    if (tier.KnocksAside)
+                    //Tier IV: AoE damage + stun on nearby enemies
+                    if (tier.AoeOnImpact)
                         KnockAsideNearby(map, source, creature, point);
                 } else
                 {
@@ -130,16 +135,11 @@ public class BastionsChargeScript : ConfigurableSkillScriptBase
     }
 
     /// <summary>
-    ///     Placeholder tier values - not balance-tested.
+    ///     Tier-specific values, now read from scriptVars (one template per tier) instead of Subject.Level.
+    ///     See ELYSIUM_CLASS_DESIGN.md Bastion §Bastion's Charge I-IV.
     /// </summary>
-    private (int RushDistance, int BaseDamage, decimal DamageStatMultiplier, int StasisDurationMs, bool KnocksAside) GetTierValues() =>
-        Subject.Level switch
-        {
-            <= 2 => (5, 5, 1.5m, 5000, false),
-            <= 4 => (6, 10, 1.75m, 5000, false),
-            <= 6 => (7, 15, 2.0m, 6000, true),
-            _    => (8, 20, 2.25m, 6000, true)
-        };
+    private (int RushDistance, int BaseDamage, decimal DamageStatMultiplier, bool StunOnImpact, bool AoeOnImpact) GetTierValues() =>
+        (RushDistance, BaseDamage, DamageStatMultiplier, StunOnImpact, AoeOnImpact);
 
     private int CalculateDamage(Creature source, int baseDamage, decimal damageStatMultiplier)
     {
@@ -178,6 +178,16 @@ public class BastionsChargeScript : ConfigurableSkillScriptBase
     public IApplyDamageScript ApplyDamageScript { get; init; }
 
     /// <summary>
+    ///     Whether this tier also damages/stuns nearby enemies on impact (Tier IV).
+    /// </summary>
+    public bool AoeOnImpact { get; init; }
+
+    /// <summary>
+    ///     Flat base damage dealt to the target on impact.
+    /// </summary>
+    public int BaseDamage { get; init; }
+
+    /// <summary>
     ///     The body animation played by the caster when the charge begins
     /// </summary>
     public BodyAnimation BodyAnimation { get; init; }
@@ -186,14 +196,34 @@ public class BastionsChargeScript : ConfigurableSkillScriptBase
     public Stat? DamageStat { get; init; }
 
     /// <summary>
+    ///     Multiplier applied to the damage stat value and added to BaseDamage.
+    /// </summary>
+    public decimal DamageStatMultiplier { get; init; }
+
+    /// <summary>
     ///     The filter used to determine whether the first creature encountered is a valid (hostile) target
     /// </summary>
     public TargetFilter Filter { get; init; }
 
     /// <summary>
+    ///     The number of tiles the charge travels. I=3, II=5, III=5, IV=5 (or as configured).
+    /// </summary>
+    public int RushDistance { get; init; }
+
+    /// <summary>
     ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
+
+    /// <summary>
+    ///     Duration in ms of the stun (Root) applied on impact at Tier III+.
+    /// </summary>
+    public int StunDurationMs { get; init; }
+
+    /// <summary>
+    ///     Whether this tier stuns the target on impact (Tier III+).
+    /// </summary>
+    public bool StunOnImpact { get; init; }
 
     /// <summary>
     ///     Sound played during the rush on each tile traversed (optional, separate from hit sound)

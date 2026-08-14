@@ -17,8 +17,6 @@
   "scriptKeys": ["lancersLeash"],
   "scriptVars": {
     "lancersLeash": {
-      "maxTargets": 6,
-      "rootDurationMs": 1500,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "Swipe",
       "animation": { "targetAnimation": 19, "animationSpeed": 100 },

@@ -1,7 +1,7 @@
 {
   "templateKey": "pivot_strike",
   "name": "Pivot Strike",
-  "description": "Close the distance and reposition directly behind an enemy, striking as you land.",
+  "description": "A precise strike that briefly stuns the target in place.",
   "panelSprite": 40,
   "class": "Bastion",
   "level": 1,
@@ -21,7 +21,9 @@
       "baseDamage": 30,
       "damageStat": "str",
       "damageStatMultiplier": 1.5,
+      "stunDurationMs": 1000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
+      "bodyAnimation": "Punch",
       "sound": 3,
       "animation": { "targetAnimation": 69, "animationSpeed": 100 }
     }

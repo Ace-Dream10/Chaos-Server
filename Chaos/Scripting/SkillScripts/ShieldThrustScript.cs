@@ -7,6 +7,7 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -21,6 +22,12 @@ namespace Chaos.Scripting.SkillScripts;
 ///     minimal "keep Shield Bash's root, just relabel it" swap. Push logic mirrors
 ///     <see cref="Chaos.Scripting.SpellScripts.KnockbackAoeScript" />'s technique (directional offset away from
 ///     the source + a walkability check before landing).
+///
+///     Per playtest feedback, the knockback now advances tile-by-tile (rather than a single fixed-distance
+///     offset) so a mid-flight collision can be detected: if the knocked-back target runs into a wall, another
+///     creature, or a blocking reactor before reaching the full KnockbackTiles distance, it stops short AND gets
+///     briefly rooted ("stunned") from the impact - the classic "knock into something" payoff. A clean knockback
+///     with nothing in the way applies no stun at all.
 /// </summary>
 public class ShieldThrustScript : ConfigurableSkillScriptBase
 {
@@ -59,10 +66,42 @@ public class ShieldThrustScript : ConfigurableSkillScriptBase
 
         if (creature.IsAlive && (KnockbackTiles > 0))
         {
-            var landingPoint = creature.DirectionalOffset(source.Direction, KnockbackTiles);
+            var landingPoint = Point.From(creature);
+            var collided = false;
 
-            if (map.IsWalkable(landingPoint, creature, false))
+            for (var i = 1; i <= KnockbackTiles; i++)
+            {
+                var nextPoint = creature.DirectionalOffset(source.Direction, i);
+
+                if (map.IsWall(nextPoint) || map.IsBlockingReactor(nextPoint))
+                {
+                    collided = true;
+
+                    break;
+                }
+
+                var blocker = map.GetEntitiesAtPoints<Creature>(nextPoint)
+                                 .FirstOrDefault(entity => !entity.Equals(creature));
+
+                if (blocker != null)
+                {
+                    collided = true;
+
+                    break;
+                }
+
+                landingPoint = nextPoint;
+            }
+
+            if (!landingPoint.Equals(Point.From(creature)) && map.IsWalkable(landingPoint, creature, false))
                 creature.WarpTo(landingPoint);
+
+            if (collided)
+            {
+                var rootEffect = new RootEffect();
+                rootEffect.SetDuration(TimeSpan.FromMilliseconds(CollisionStunDurationMs));
+                creature.Effects.Apply(source, rootEffect, this);
+            }
         }
 
         if (Animation != null)
@@ -118,7 +157,14 @@ public class ShieldThrustScript : ConfigurableSkillScriptBase
     /// <summary>
     ///     How many tiles the target is knocked back, away from the caster
     /// </summary>
-    public int KnockbackTiles { get; init; } = 2;
+    public int KnockbackTiles { get; init; } = 1;
+
+    /// <summary>
+    ///     How long, in milliseconds, the target is rooted for if the knockback collides with a wall, blocking
+    ///     reactor, or another creature before covering the full KnockbackTiles distance. Not applied at all on a
+    ///     clean knockback.
+    /// </summary>
+    public int CollisionStunDurationMs { get; init; } = 1000;
 
     /// <summary>
     ///     Sound played on hit

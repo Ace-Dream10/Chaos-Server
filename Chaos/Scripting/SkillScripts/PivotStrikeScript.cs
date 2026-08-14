@@ -6,6 +6,7 @@ using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
+using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
@@ -14,14 +15,13 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     Genuinely new (Floor 3, "moved earlier for early mobility"). The locked design's description is just
-///     "Reposition behind target" - no further elaboration surfaced when re-checked, same as Shield Thrust. The
-///     reposition itself reuses Assassin's <see cref="AmbushScript" /> algorithm (walk the direct path toward the
-///     target, then try each point behind/around it in turn for a walkable landing spot) rather than being built
-///     from scratch. Unlike Ambush, which is a pure repositioning utility with no damage of its own, this is
-///     named "Pivot <b>Strike</b>" - since the locked design doesn't spell out a damage component, a modest hit on
-///     landing was added to justify the name. Flagged as an interpretation, not a literal requirement from the
-///     doc.
+///     Reworked per playtest feedback: the original "reposition directly behind an enemy" version gave Bastion a
+///     third gap-closer alongside Bastion's Charge and Lancer's Leash, which read as too mobile/agile for a tank
+///     archetype. Both the reposition/teleport-behind-target mechanic AND a considered taunt/mark alternative
+///     were confirmed dropped - this is now a purely stationary control tool: a straight-ahead strike (same
+///     forward line-scan as Shield Thrust, no movement at all) that deals a modest hit and applies a brief stun.
+///     No aggro/taunt component - Bastion still has no single-target taunt tool, which is a known, deliberately
+///     deferred gap, not something this fix attempts to solve.
 /// </summary>
 public class PivotStrikeScript : ConfigurableSkillScriptBase
 {
@@ -36,6 +36,8 @@ public class PivotStrikeScript : ConfigurableSkillScriptBase
         var source = context.Source;
         var map = context.TargetMap;
 
+        source.AnimateBody(BodyAnimation);
+
         var endPoint = source.DirectionalOffset(source.Direction, RangeTiles);
 
         var points = source.GetDirectPath(endPoint)
@@ -49,35 +51,30 @@ public class PivotStrikeScript : ConfigurableSkillScriptBase
             var target = map.GetEntitiesAtPoints<Creature>(point)
                             .TopOrDefault();
 
-            if ((target == null) || !Filter.IsValidTarget(source, target))
+            if (target == null)
                 continue;
 
-            var behindTargetDirection = target.DirectionalRelationTo(context.SourcePoint);
-
-            foreach (var direction in behindTargetDirection.AsEnumerable())
-            {
-                var destinationPoint = target.DirectionalOffset(direction);
-
-                if (!map.IsWalkable(destinationPoint, source, false))
-                    continue;
-
-                source.WarpTo(destinationPoint);
-                source.Turn(target.DirectionalRelationTo(source));
-
-                var damage = (BaseDamage ?? 0)
-                             + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.STR) * (DamageStatMultiplier ?? 1));
-
-                if (damage > 0)
-                    ApplyDamageScript.ApplyDamage(source, target, this, damage);
-
-                if (Animation != null)
-                    target.Animate(Animation, source.Id);
-
-                if (Sound.HasValue)
-                    map.PlaySound(Sound.Value, target);
-
+            if (!Filter.IsValidTarget(source, target))
                 return;
+
+            var damage = (BaseDamage ?? 0)
+                         + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.STR) * (DamageStatMultiplier ?? 1));
+
+            if (damage > 0)
+                ApplyDamageScript.ApplyDamage(source, target, this, damage);
+
+            if (target.IsAlive && (StunDurationMs > 0))
+            {
+                var rootEffect = new RootEffect();
+                rootEffect.SetDuration(TimeSpan.FromMilliseconds(StunDurationMs));
+                target.Effects.Apply(source, rootEffect, this);
             }
+
+            if (Animation != null)
+                target.Animate(Animation, source.Id);
+
+            if (Sound.HasValue)
+                map.PlaySound(Sound.Value, target);
 
             return;
         }
@@ -85,16 +82,21 @@ public class PivotStrikeScript : ConfigurableSkillScriptBase
 
     #region ScriptVars
     /// <summary>
-    ///     The animation played on the target once struck from behind
+    ///     The animation played on the target when struck
     /// </summary>
     public Animation? Animation { get; init; }
 
     public IApplyDamageScript ApplyDamageScript { get; init; }
 
     /// <summary>
-    ///     The flat portion of the damage dealt on landing
+    ///     The flat portion of the damage dealt
     /// </summary>
     public int? BaseDamage { get; init; }
+
+    /// <summary>
+    ///     The body animation played by the caster
+    /// </summary>
+    public BodyAnimation BodyAnimation { get; init; }
 
     /// <inheritdoc cref="Chaos.Scripting.Components.AbilityComponents.DamageAbilityComponent.IDamageComponentOptions.DamageStat" />
     public Stat? DamageStat { get; init; }
@@ -108,13 +110,18 @@ public class PivotStrikeScript : ConfigurableSkillScriptBase
     public TargetFilter Filter { get; init; }
 
     /// <summary>
-    ///     The maximum number of tiles searched for a target to reposition behind
+    ///     The maximum number of tiles scanned in front of the caster for a target
     /// </summary>
     public int RangeTiles { get; init; } = 4;
 
     /// <summary>
-    ///     Sound played on landing/striking
+    ///     Sound played on hit
     /// </summary>
     public byte? Sound { get; init; }
+
+    /// <summary>
+    ///     How long, in milliseconds, the target is stunned for
+    /// </summary>
+    public int StunDurationMs { get; init; } = 1000;
     #endregion
 }
