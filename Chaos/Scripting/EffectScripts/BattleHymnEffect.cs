@@ -25,8 +25,13 @@ public sealed class BattleHymnEffect : EffectBase
 
     private TimeSpan SinceLastMpTick = TimeSpan.Zero;
 
-    /// <inheritdoc />
-    protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(30000);
+    /// <summary>
+    ///     Bumped from 30000 (30s) to 180000 (3min) per playtest feedback ("Battle Hymn's duration feels too
+    ///     short") - 30s read as barely worth casting for a party-wide multi-stat buff. Placeholder, not
+    ///     balance-tested; still well short of Stacia's Blessing's 30-minute buff, keeping some differentiation
+    ///     between the two.
+    /// </summary>
+    protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(180000);
 
     public int AtkSpeedBonus { get; set; }
     public int CritChanceBonusPct { get; set; }

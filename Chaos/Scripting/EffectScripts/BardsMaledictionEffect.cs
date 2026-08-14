@@ -25,11 +25,21 @@ public sealed class BardsMaledictionEffect : EffectBase
     public const string CritVulnerabilityTag = "maledictionCritVulnerability";
     public const string DamageDealtReductionTag = "maledictionDamageDealtReduction";
 
+    /// <summary>
+    ///     How often the visual is re-played while active - per playtest feedback ("Bard's Malediction needs a
+    ///     visible target effect"), the original apply-once Animate() call faded well before this 15-second debuff
+    ///     actually ended. Same fix shape as Mark of the Bane/Death Mark/Marked for Valhalla/Shadowmark/Blackout/
+    ///     Delirium.
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(1500);
+
     private static readonly Animation MarkAnimation = new()
     {
         TargetAnimation = 56,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(15);
@@ -56,6 +66,7 @@ public sealed class BardsMaledictionEffect : EffectBase
             Subject.Trackers.Tags[CritVulnerabilityTag] = CritVulnerabilityPct.ToString();
 
         Subject.Animate(MarkAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
@@ -64,5 +75,22 @@ public sealed class BardsMaledictionEffect : EffectBase
         Subject.StatSheet.SubtractBonus(new Attributes { Ac = AcPenalty });
         Subject.Trackers.Tags.TryRemove(DamageDealtReductionTag, out _);
         Subject.Trackers.Tags.TryRemove(CritVulnerabilityTag, out _);
+    }
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(MarkAnimation, Source.Id);
     }
 }
