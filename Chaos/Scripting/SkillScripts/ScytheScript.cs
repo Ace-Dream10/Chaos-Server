@@ -71,15 +71,21 @@ public class ScytheScript : ConfigurableSkillScriptBase
             return;
         }
 
-        source.AnimateBody(BodyAnimation);
-
         var stackCount = 0;
 
         if (target.Trackers.Tags.TryGetValue(StacksTag, out var stacksStr))
             int.TryParse(stacksStr, out stackCount);
 
+        //dummy-protected: a target with zero Severance stacks has nothing to reap - no-op instead of firing for
+        //flat base damage alone and burning the cooldown/full MP pool on an empty cast
         if (stackCount == 0)
+        {
             context.SourceAisling?.SendOrangeBarMessage("No severance stacks on target.");
+
+            return;
+        }
+
+        source.AnimateBody(BodyAnimation);
 
         var damage = tier.BaseDamage + (stackCount * tier.StackMultiplier);
 

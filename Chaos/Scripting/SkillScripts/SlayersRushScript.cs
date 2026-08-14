@@ -22,6 +22,10 @@ namespace Chaos.Scripting.SkillScripts;
 /// </summary>
 public class SlayersRushScript : ConfigurableSkillScriptBase
 {
+    private const string SeveranceTargetTag = "severanceTarget";
+    private const string SeveredTag = "severed";
+    private const int MpPerStack = 20;
+
     /// <inheritdoc />
     public SlayersRushScript(Skill subject)
         : base(subject)
@@ -39,6 +43,12 @@ public class SlayersRushScript : ConfigurableSkillScriptBase
         var points = source.GetDirectPath(endPoint).Skip(1);
 
         var lastWalkablePoint = Point.From(source);
+
+        //Rush can hit multiple creatures in one pass, but the caster's MP bar can only visually represent stacks
+        //on ONE tracked target at a time (see SeveranceTargetSync) - only the first creature hit this cast is
+        //synced to that display, matching "rush in, START stacking" (the one you engage first). Every other
+        //creature crossed still gets real stacks applied, just without disturbing the tracked-target display.
+        var syncedFirstHit = false;
 
         foreach (var point in points)
         {
@@ -58,8 +68,25 @@ public class SlayersRushScript : ConfigurableSkillScriptBase
                 rootEffect.SetDuration(TimeSpan.FromMilliseconds(RootDurationMs));
                 creature.Effects.Apply(source, rootEffect, this);
 
-                var severanceEffect = new SeveranceEffect { StacksToApply = SeveranceStacksToApply };
-                creature.Effects.Apply(source, severanceEffect, this);
+                if (!syncedFirstHit)
+                {
+                    syncedFirstHit = true;
+
+                    SeveranceTargetSync.SwitchTargetIfNeeded(
+                        context.SourceAisling,
+                        map,
+                        creature,
+                        SeveranceTargetTag,
+                        SeveranceEffect.StacksTag,
+                        SeveredTag);
+                }
+
+                creature.Effects.Apply(source, new SeveranceEffect { StacksToApply = SeveranceStacksToApply }, this);
+
+                if (context.SourceAisling is { } rushAisling
+                    && rushAisling.Trackers.Tags.TryGetValue(SeveranceTargetTag, out var trackedIdStr)
+                    && (trackedIdStr == creature.Id.ToString()))
+                    SeveranceTargetSync.SyncMpToStacks(rushAisling, creature, SeveranceEffect.StacksTag, MpPerStack);
 
                 if (Animation != null)
                     creature.Animate(Animation, source.Id);

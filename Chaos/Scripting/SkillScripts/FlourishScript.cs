@@ -6,6 +6,7 @@ using Chaos.Extensions;
 using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
+using Chaos.Models.World;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
@@ -30,6 +31,10 @@ namespace Chaos.Scripting.SkillScripts;
 /// </remarks>
 public class FlourishScript : ConfigurableSkillScriptBase
 {
+    private const string SeveranceTargetTag = "severanceTarget";
+    private const string SeveredTag = "severed";
+    private const int MpPerStack = 20;
+
     private readonly List<PendingHit> PendingHits = [];
 
     /// <inheritdoc />
@@ -100,8 +105,16 @@ public class FlourishScript : ConfigurableSkillScriptBase
         if (damage > 0)
             ApplyDamageScript.ApplyDamage(source, target, this, damage);
 
-        //Better Execution generation per tier - each Flourish hit now applies a Severance stack, scaling with tier
+        //Better Execution generation per tier - each Flourish hit now applies a Severance stack, scaling with tier.
+        //Also keeps the caster's MP-bar-as-stack-visual in sync every hit (see SeveranceTargetSync) - previously
+        //Flourish applied real stacks without ever touching that display, so a player relying on Flourish to
+        //build stacks saw no visible feedback at all and reasonably assumed stacking was broken.
+        var flourishAisling = source as Aisling;
+        SeveranceTargetSync.SwitchTargetIfNeeded(flourishAisling, map, target, SeveranceTargetTag, SeveranceEffect.StacksTag, SeveredTag);
+
         target.Effects.Apply(source, new SeveranceEffect { StacksToApply = stacksPerHit }, this);
+
+        SeveranceTargetSync.SyncMpToStacks(flourishAisling, target, SeveranceEffect.StacksTag, MpPerStack);
 
         if (Animation != null)
             target.Animate(Animation, source.Id);

@@ -9,9 +9,13 @@ using Chaos.Scripting.SkillScripts.Abstractions;
 namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
-///     A swift backward step. Tries the tile directly behind the caster first; if that's blocked by a wall or a
-///     creature, it skips to the tile 2 tiles behind instead. If both are blocked, the caster stays put but still
-///     plays the dash animation.
+///     A swift backward step. Tries the tile directly behind the caster first; if that's blocked specifically by a
+///     creature, it skips to the tile 2 tiles behind instead. If the near tile is blocked by a wall (or a
+///     blocking reactor), it stops there rather than trying the far tile - IsWalkable only checks the destination
+///     tile itself, not the path to it, so falling back to "2 behind" whenever "1 behind" merely failed would let
+///     a 1-tile-thick wall get hopped straight through/over (confirmed real bug, not an admin/god-mode artifact -
+///     IsWalkable's ignoreWalls only defaults true for WalkThrough creatures). If both attempts are blocked, the
+///     caster stays put but still plays the dash animation.
 /// </summary>
 public class EvadeScript : ConfigurableSkillScriptBase
 {
@@ -31,7 +35,9 @@ public class EvadeScript : ConfigurableSkillScriptBase
 
         if (map.IsWalkable(oneBehind, source, false))
             source.WarpTo(oneBehind);
-        else if (map.IsWalkable(twoBehind, source, false))
+        else if (!map.IsWall(oneBehind)
+                 && !map.IsBlockingReactor(oneBehind)
+                 && map.IsWalkable(twoBehind, source, false))
             source.WarpTo(twoBehind);
 
         source.AnimateBody(BodyAnimation);

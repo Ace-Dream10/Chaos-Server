@@ -1,5 +1,6 @@
 #region
 using Chaos.Models.Data;
+using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts.Abstractions;
 #endregion
 
@@ -55,4 +56,13 @@ public sealed class ShadowmarkEffect : EffectBase
 
     /// <inheritdoc />
     public override void OnTerminated() => Subject.Trackers.Tags.TryRemove(OwnerTag, out _);
+
+    /// <summary>
+    ///     Always allow reapplication so every third hit refreshes the mark's duration instead of being silently
+    ///     rejected by EffectBase's default "already affected" block once landed within the same 6-second window -
+    ///     confirmed root cause of the "Target is already affected by Shadowmark" orange message showing up during
+    ///     ordinary combat. Same reasoning as <see cref="SeveranceEffect.ShouldApply" />/
+    ///     <see cref="MarkOfTheBaneEffect.ShouldApply" />: a repeating proc-based mark should refresh, not reject.
+    /// </summary>
+    public override bool ShouldApply(Creature source, Creature target) => true;
 }
