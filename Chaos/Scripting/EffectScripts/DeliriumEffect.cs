@@ -14,11 +14,19 @@ public sealed class DeliriumEffect : EffectBase
 {
     private const string DeliriumTag = "delirium";
 
+    /// <summary>
+    ///     How often the visual is re-played while active - same apply-once-fades-too-early fix as Blackout/Mark
+    ///     of the Bane/Death Mark/Marked for Valhalla/Shadowmark, per the same playtest report.
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(500);
+
     private static readonly Animation ApplyAnimation = new()
     {
         TargetAnimation = 46,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(2000);
@@ -34,6 +42,7 @@ public sealed class DeliriumEffect : EffectBase
     {
         Subject.Trackers.Tags[DeliriumTag] = bool.TrueString;
         Subject.Animate(ApplyAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
@@ -41,5 +50,22 @@ public sealed class DeliriumEffect : EffectBase
     {
         Subject.Trackers.Tags.TryRemove(DeliriumTag, out _);
         TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
+    }
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(ApplyAnimation, Source.Id);
     }
 }

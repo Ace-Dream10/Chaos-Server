@@ -63,6 +63,7 @@ public class AggroTargetingScript : MonsterScriptBase
         if (!TargetUpdateTimer.IntervalElapsed)
             return;
 
+        var previousTarget = Target;
         Target = null;
 
         if (!Map.HasAislings)
@@ -81,7 +82,15 @@ public class AggroTargetingScript : MonsterScriptBase
                                                     && Subject.CanSee(creature))
                                 .ToArray();
 
-            Target = candidates.Length > 0 ? candidates[Random.Shared.Next(candidates.Length)] : null;
+            //re-rolling a brand new random target every time this timer elapses (every ~250ms) meant a confused
+            //monster's target flickered constantly and never stayed still long enough to actually close distance
+            //and land a hit - confirmed root cause of "the confused target doesn't appear to actually attack
+            //another nearby creature". Stick with the current target as long as it's still a valid candidate;
+            //only re-roll when it isn't (dead, out of range, no longer visible, or none picked yet).
+            if ((previousTarget != null) && candidates.Contains(previousTarget))
+                Target = previousTarget;
+            else
+                Target = candidates.Length > 0 ? candidates[Random.Shared.Next(candidates.Length)] : null;
 
             return;
         }

@@ -17,6 +17,7 @@ using Chaos.Services.Factories.Abstractions;
 using Chaos.Testing.Infrastructure.Harnesses;
 using Chaos.Testing.Infrastructure.Mocks;
 using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 #endregion
 
@@ -460,6 +461,174 @@ public sealed class TricksterNewSkillsTests
         map.GetEntities<Monster>().Count()
            .Should()
            .BeGreaterThan(entityCountBefore, "Smoke and Mirrors should spawn an illusion after a mobility ability is used");
+    }
+
+    [Test]
+    public void SmokeAndMirrors_ShouldSpawnTheIllusion_AtTheCastersStartingPoint_NotWhereTheyLanded()
+    {
+        //per playtest feedback: the illusion previously spawned at the caster's CURRENT position at the moment
+        //this deferred (next-tick) detection fires - which, for a mobility ability like Vanishing Act, is already
+        //the LANDING point, since the teleport happens synchronously inside the ability's own OnUse, before this
+        //script ever observes the LastSpellUse change. This proves the fix: a normal tick (establishing the
+        //pre-move position) followed by a simulated teleport followed by the triggering tick should spawn the
+        //illusion near the ORIGINAL point, not the moved-to one.
+        MapInstance? map = null;
+        var monsterFactoryMock = new Mock<IMonsterFactory>();
+
+        monsterFactoryMock
+            .Setup(
+                f => f.Create(
+                    It.IsAny<string>(),
+                    It.IsAny<MapInstance>(),
+                    It.IsAny<Chaos.Geometry.Abstractions.IPoint>(),
+                    It.IsAny<ICollection<string>?>()))
+            .Returns(
+                (string templateKey, MapInstance _, Chaos.Geometry.Abstractions.IPoint spawnPoint, ICollection<string>? _) =>
+                    MockMonster.Create(map!, templateSetup: t => t with { TemplateKey = templateKey }, setup: m => m.WarpTo(spawnPoint)));
+
+        var serviceProvider = MockServiceProvider.CreateBuilder()
+                                                  .SetupService(monsterFactoryMock.Object)
+                                                  .Build()
+                                                  .Object;
+
+        var harness = new AislingScriptHarness<TricksterIllusionScript>(serviceProvider: serviceProvider);
+        map = harness.Map;
+
+        harness.Source.UserStatSheet.SetBaseClass(BaseClass.Trickster);
+
+        var smokeAndMirrorsSpell = MockSpell.Create(name: "Smoke and Mirrors", templateSetup: t => t with { TemplateKey = "smoke_and_mirrors" });
+        harness.Source.SpellBook.TryAddToNextSlot(smokeAndMirrorsSpell);
+
+        //establish LastKnownPosition at the starting point, no trigger yet
+        var startingPoint = Point.From(harness.Source);
+        harness.Update(TimeSpan.FromMilliseconds(1));
+
+        //simulate Vanishing Act's teleport already having moved the caster before this tick fires
+        var landingPoint = new Point(startingPoint.X + 3, startingPoint.Y);
+        harness.Source.WarpTo(landingPoint);
+
+        var vanishingAct = MockSpell.Create(name: "Vanishing Act", templateSetup: t => t with { TemplateKey = "vanishing_act" });
+        harness.Source.Trackers.LastUsedSpell = vanishingAct;
+        harness.Source.Trackers.LastSpellUse = DateTime.UtcNow;
+
+        harness.Update(TimeSpan.FromMilliseconds(1));
+
+        var illusion = map.GetEntities<Monster>()
+                          .Should()
+                          .ContainSingle()
+                          .Which;
+
+        var distanceFromStart = Point.From(illusion).ManhattanDistanceFrom(startingPoint);
+        var distanceFromLanding = Point.From(illusion).ManhattanDistanceFrom(landingPoint);
+
+        distanceFromStart.Should()
+                          .BeLessThan(distanceFromLanding, "the illusion should spawn near where the caster STARTED, not where they landed");
+    }
+
+    [Test]
+    public void ShadowStep_ShouldSpawnTheIllusion_BeforeTheTeleport_NotAfter()
+    {
+        //per playtest feedback: Shadow Step is special-cased with a DIRECT hook into TricksterIllusionHelper
+        //(called at the top of its own OnUse, before the teleport) rather than the normal deferred/one-tick-later
+        //observer pattern every other Smoke and Mirrors trigger uses - the deferred pattern can only ever detect
+        //an ability after it's already fully executed, which is why it was wrong for this specific case. This
+        //proves the illusion spawns near the caster's PRE-teleport position, not behind the target where Shadow
+        //Step lands.
+        MapInstance? map = null;
+        var monsterFactoryMock = new Mock<IMonsterFactory>();
+
+        monsterFactoryMock
+            .Setup(
+                f => f.Create(
+                    It.IsAny<string>(),
+                    It.IsAny<MapInstance>(),
+                    It.IsAny<Chaos.Geometry.Abstractions.IPoint>(),
+                    It.IsAny<ICollection<string>?>()))
+            .Returns(
+                (string templateKey, MapInstance _, Chaos.Geometry.Abstractions.IPoint spawnPoint, ICollection<string>? _) =>
+                    MockMonster.Create(map!, templateSetup: t => t with { TemplateKey = templateKey }, setup: m => m.WarpTo(spawnPoint)));
+
+        var serviceProvider = MockServiceProvider.CreateBuilder()
+                                                  .SetupService(monsterFactoryMock.Object)
+                                                  .Build()
+                                                  .Object;
+
+        var harness = new SpellScriptHarness<ShadowStepScript>(spellSetup: s => EnsureScriptVars(s, "shadowStep"), serviceProvider: serviceProvider);
+        map = harness.Map;
+
+        harness.Source.UserStatSheet.SetBaseClass(BaseClass.Trickster);
+        var smokeAndMirrorsSpell = MockSpell.Create(name: "Smoke and Mirrors", templateSetup: t => t with { TemplateKey = "smoke_and_mirrors" });
+        harness.Source.SpellBook.TryAddToNextSlot(smokeAndMirrorsSpell);
+
+        var startingPoint = Point.From(harness.Source);
+
+        //target far enough away that landing behind it is nowhere near the caster's starting point
+        var target = MockMonster.Create(harness.Map, setup: m => m.WarpTo(new Point(startingPoint.X + 5, startingPoint.Y)));
+        harness.Map.AddEntity(target, Point.From(target));
+
+        harness.WithTarget(target);
+        harness.Use();
+
+        var landingPoint = Point.From(harness.Source);
+        var illusion = map.GetEntities<Monster>()
+                          .Should()
+                          .ContainSingle(m => m.Template.TemplateKey == "mirror_image_decoy")
+                          .Which;
+
+        var distanceFromStart = Point.From(illusion).ManhattanDistanceFrom(startingPoint);
+        var distanceFromLanding = Point.From(illusion).ManhattanDistanceFrom(landingPoint);
+
+        distanceFromStart.Should()
+                          .BeLessThan(distanceFromLanding, "the illusion should spawn near where the caster STARTED, not where Shadow Step lands");
+    }
+
+    [Test]
+    public void ShadowStep_ShouldNotDoubleSpawnAnIllusion_ViaTheDeferredObserverToo()
+    {
+        //Shadow Step must be handled ONLY by the direct hook - if it were still also in
+        //TricksterIllusionScript's TriggeringTemplateKeys, a single Shadow Step use would spawn two illusions
+        //(one from the direct hook, one a tick later from the deferred observer)
+        MapInstance? map = null;
+        var monsterFactoryMock = new Mock<IMonsterFactory>();
+
+        monsterFactoryMock
+            .Setup(
+                f => f.Create(
+                    It.IsAny<string>(),
+                    It.IsAny<MapInstance>(),
+                    It.IsAny<Chaos.Geometry.Abstractions.IPoint>(),
+                    It.IsAny<ICollection<string>?>()))
+            .Returns(
+                (string templateKey, MapInstance _, Chaos.Geometry.Abstractions.IPoint spawnPoint, ICollection<string>? _) =>
+                    MockMonster.Create(map!, templateSetup: t => t with { TemplateKey = templateKey }, setup: m => m.WarpTo(spawnPoint)));
+
+        var serviceProvider = MockServiceProvider.CreateBuilder()
+                                                  .SetupService(monsterFactoryMock.Object)
+                                                  .Build()
+                                                  .Object;
+
+        var spellHarness = new SpellScriptHarness<ShadowStepScript>(spellSetup: s => EnsureScriptVars(s, "shadowStep"), serviceProvider: serviceProvider);
+        map = spellHarness.Map;
+
+        spellHarness.Source.UserStatSheet.SetBaseClass(BaseClass.Trickster);
+        var smokeAndMirrorsSpell = MockSpell.Create(name: "Smoke and Mirrors", templateSetup: t => t with { TemplateKey = "smoke_and_mirrors" });
+        spellHarness.Source.SpellBook.TryAddToNextSlot(smokeAndMirrorsSpell);
+
+        var target = MockMonster.Create(spellHarness.Map, setup: m => m.WarpTo(new Point(spellHarness.Source.X + 5, spellHarness.Source.Y)));
+        spellHarness.Map.AddEntity(target, Point.From(target));
+
+        spellHarness.WithTarget(target);
+        spellHarness.Use();
+
+        //simulate the AislingScript's next tick on the SAME caster, which would double-spawn if Shadow Step were
+        //still in its deferred trigger set
+        var illusionScript = ActivatorUtilities.CreateInstance<TricksterIllusionScript>(serviceProvider, spellHarness.Source);
+        illusionScript.Update(TimeSpan.FromMilliseconds(1));
+
+        map.GetEntities<Monster>()
+           .Count(m => m.Template.TemplateKey == "mirror_image_decoy")
+           .Should()
+           .Be(1, "Shadow Step should only spawn one illusion via the direct hook, not a second one from the deferred observer");
     }
 
     private sealed class EmptyScriptVars : IScriptVars

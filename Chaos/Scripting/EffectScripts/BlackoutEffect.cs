@@ -15,11 +15,21 @@ public sealed class BlackoutEffect : EffectBase
 {
     private const string BlackoutTag = "blackout";
 
+    /// <summary>
+    ///     How often the visual is re-played while active - per playtest feedback ("Blackout needs a visible
+    ///     effect on the target, which is currently missing"), the original apply-once Animate() call faded well
+    ///     before this 2-second effect actually ended. Same fix shape as Mark of the Bane/Death Mark/Marked for
+    ///     Valhalla/Shadowmark.
+    /// </summary>
+    private static readonly TimeSpan AnimationRefreshInterval = TimeSpan.FromMilliseconds(500);
+
     private static readonly Animation ApplyAnimation = new()
     {
         TargetAnimation = 133,
         AnimationSpeed = 100
     };
+
+    private TimeSpan SinceLastAnimation;
 
     /// <inheritdoc />
     protected override TimeSpan Duration { get; set; } = TimeSpan.FromMilliseconds(2000);
@@ -35,6 +45,7 @@ public sealed class BlackoutEffect : EffectBase
     {
         Subject.Trackers.Tags[BlackoutTag] = bool.TrueString;
         Subject.Animate(ApplyAnimation, Source.Id);
+        SinceLastAnimation = TimeSpan.Zero;
     }
 
     /// <inheritdoc />
@@ -42,5 +53,22 @@ public sealed class BlackoutEffect : EffectBase
     {
         Subject.Trackers.Tags.TryRemove(BlackoutTag, out _);
         TricksterAfflictions.TryChainReact(Subject, Source, Name, SourceScript);
+    }
+
+    /// <inheritdoc />
+    public override void Update(TimeSpan delta)
+    {
+        base.Update(delta);
+
+        if (!Subject.IsAlive)
+            return;
+
+        SinceLastAnimation += delta;
+
+        if (SinceLastAnimation < AnimationRefreshInterval)
+            return;
+
+        SinceLastAnimation = TimeSpan.Zero;
+        Subject.Animate(ApplyAnimation, Source.Id);
     }
 }
