@@ -2,6 +2,7 @@
 using Chaos.Collections;
 using Chaos.Common.Abstractions;
 using Chaos.DarkAges.Definitions;
+using Chaos.Definitions;
 using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Geometry.Abstractions.Definitions;
@@ -235,10 +236,13 @@ public sealed class MartialArtistBeastTests
     }
 
     [Test]
-    public void PredatorsPounce_ShouldDamageAndStunTheTarget()
+    public void PredatorsPounce_ShouldStunButDealNoDamage()
     {
+        //reworked per playtest feedback: this previously dealt damage on top of the shove+stun, reading too much
+        //like Bastion's Shield Thrust (damage + knockback) instead of having its own identity - now a pure stun,
+        //no damage at all
         var harness = new SkillScriptHarness<PredatorsPounceScript>(
-            scriptFactory: skill => new PredatorsPounceScript(skill) { BaseDamage = 100, StunDurationMs = 1000 },
+            scriptFactory: skill => new PredatorsPounceScript(skill) { StunDurationMs = 1000 },
             skillSetup: s => EnsureScriptVars(s, "predatorsPounce"));
 
         harness.Source.Direction = Direction.Down;
@@ -251,11 +255,43 @@ public sealed class MartialArtistBeastTests
 
         harness.Target.StatSheet.CurrentHp
                .Should()
-               .BeLessThan(hpBefore, "Predator's Pounce should deal damage");
+               .Be(hpBefore, "Predator's Pounce should deal no damage");
 
         harness.Target.Effects.TryGetEffect("Root", out _)
                .Should()
                .BeTrue("Predator's Pounce should stun the target on landing");
+    }
+
+    [Test]
+    public void RoundhouseKick_ShouldHitAnEnemyBesideTheCaster_NotJustDirectlyInFront()
+    {
+        //reworked per playtest feedback ("only hits monsters directly in front, not to the sides") - switched
+        //from a frontal cone (which structurally can never include a tile directly beside the caster, only tiles
+        //ahead) to a circle centered on the caster, matching a real sweeping roundhouse motion. This asserts a
+        //target positioned BESIDE the caster (perpendicular to facing, not ahead of it) still takes damage.
+        var harness = new SkillScriptHarness<Chaos.Scripting.SkillScripts.DamageScript>(
+            scriptFactory: skill => new Chaos.Scripting.SkillScripts.DamageScript(skill)
+            {
+                BaseDamage = 50,
+                DamageStat = Stat.DEX,
+                DamageStatMultiplier = 2,
+                Shape = AoeShape.Circle,
+                Range = 1
+            },
+            skillSetup: s => EnsureScriptVars(s, "damage"));
+
+        harness.Source.Direction = Direction.Down;
+
+        var besideTarget = MockMonster.Create(harness.Map, setup: m => m.WarpTo(new Point(harness.Source.X + 1, harness.Source.Y)));
+        harness.Map.AddEntity(besideTarget, Point.From(besideTarget));
+        besideTarget.StatSheet.SetHp(100000);
+
+        var hpBefore = besideTarget.StatSheet.CurrentHp;
+        harness.Use();
+
+        besideTarget.StatSheet.CurrentHp
+                    .Should()
+                    .BeLessThan(hpBefore, "Roundhouse Kick should hit an enemy standing beside the caster, not just directly ahead");
     }
 
     [Test]

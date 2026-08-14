@@ -17,9 +17,6 @@
   "scriptKeys": ["predatorsPounce"],
   "scriptVars": {
     "predatorsPounce": {
-      "baseDamage": 150,
-      "damageStat": "str",
-      "damageStatMultiplier": 5,
       "pushbackTiles": 2,
       "stunDurationMs": 1000,
       "filter": "hostileOnly, aliveOnly, othersOnly",

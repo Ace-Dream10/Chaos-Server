@@ -8,8 +8,6 @@ using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.EffectScripts;
-using Chaos.Scripting.FunctionalScripts.Abstractions;
-using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SkillScripts.Abstractions;
 #endregion
 
@@ -17,17 +15,17 @@ namespace Chaos.Scripting.SkillScripts;
 
 /// <summary>
 ///     One of Beast's 7 specialization actives (formerly "One Inch Punch", now renamed/reused as Predator's
-///     Pounce/Wolf Fang) - "a heavy strike that stuns the target" per the locked design. A single, devastating
-///     punch on the target directly in front - massive damage, a hard shove straight away from the caster (same
-///     pushback logic as Heaven's Recoil), and a brief stun on landing. Not one of Beast's 3 evolving abilities -
-///     flat.
+///     Pounce/Wolf Fang) - "a heavy strike that stuns the target" per the locked design. Reworked per playtest
+///     feedback: this dealt damage on top of the shove+stun, reading too much like Bastion's Shield Thrust
+///     (damage + knockback) rather than its own identity. Now a PURE stun - no damage at all, just a hard shove
+///     straight away from the caster (same pushback logic as Heaven's Recoil) and a brief root on landing. Not one
+///     of Beast's 3 evolving abilities - flat.
 /// </summary>
 public class PredatorsPounceScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
     public PredatorsPounceScript(Skill subject)
-        : base(subject)
-        => ApplyDamageScript = ApplyAttackDamageScript.Create();
+        : base(subject) { }
 
     /// <inheritdoc />
     public override void OnUse(ActivationContext context)
@@ -44,12 +42,6 @@ public class PredatorsPounceScript : ConfigurableSkillScriptBase
 
         if ((target == null) || !Filter.IsValidTarget(source, target))
             return;
-
-        var damage = (BaseDamage ?? 0)
-                     + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.STR) * (DamageStatMultiplier ?? 1));
-
-        if (damage > 0)
-            ApplyDamageScript.ApplyDamage(source, target, this, damage);
 
         if (target.IsAlive)
         {
@@ -78,27 +70,10 @@ public class PredatorsPounceScript : ConfigurableSkillScriptBase
     /// </summary>
     public Animation? Animation { get; init; }
 
-    public IApplyDamageScript ApplyDamageScript { get; init; }
-
-    /// <summary>
-    ///     The flat portion of the damage dealt
-    /// </summary>
-    public int? BaseDamage { get; init; }
-
     /// <summary>
     ///     The body animation played by the caster
     /// </summary>
     public BodyAnimation BodyAnimation { get; init; }
-
-    /// <summary>
-    ///     The stat used to scale bonus damage
-    /// </summary>
-    public Stat? DamageStat { get; init; }
-
-    /// <summary>
-    ///     The multiplier applied to <see cref="DamageStat" /> when calculating bonus damage
-    /// </summary>
-    public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
     ///     The filter used to determine whether the tile directly in front of the caster holds a valid target
