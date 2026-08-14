@@ -3,6 +3,8 @@ using Chaos.Collections;
 using Chaos.Models.World;
 using Chaos.Networking.Abstractions;
 using Chaos.Networking.Entities.Server;
+using Chaos.Scripting.FunctionalScripts;
+using Chaos.Scripting.FunctionalScripts.LevelUp;
 using Chaos.Scripting.MonsterScripts;
 using Chaos.Storage.Abstractions;
 using Chaos.Testing.Infrastructure.Harnesses;
@@ -14,8 +16,27 @@ using Moq;
 
 namespace Chaos.Tests;
 
+/// <summary>
+///     AscensionBossDeathScript's constructor calls DefaultLevelUpScript.Create(), which resolves through the
+///     shared static FunctionalScriptRegistry - this test class previously had no static constructor registering
+///     it, silently relying on some unrelated test class happening to register "DefaultLevelUp" first in whatever
+///     order the whole suite ran in. Confirmed via git-stash isolation: passed alone at a clean checkout, failed
+///     alone with a `KeyNotFoundException: Script with key 'DefaultLevelUp' not found` after simply adding an
+///     unrelated new test file elsewhere in the assembly (shifting test discovery/scheduling enough to expose the
+///     gap). Registering it here directly makes this file self-sufficient, matching every other test class's
+///     convention of registering exactly what it needs.
+/// </summary>
 public sealed class AscensionBossDeathScriptTests
 {
+    static AscensionBossDeathScriptTests()
+    {
+        var registry = new FunctionalScriptRegistry(MockServiceProvider.CreateBuilder()
+                                                                        .Build()
+                                                                        .Object);
+
+        registry.Register(DefaultLevelUpScript.Key, typeof(DefaultLevelUpScript));
+    }
+
     private static (MonsterScriptHarness<AscensionBossDeathScript> Harness, Mock<IStore<AscensionFloorState>> FloorStore, Mock<
         IClientRegistry<IChaosWorldClient>> ClientRegistry) CreateHarness(int floorNumber = 1, List<IChaosWorldClient>? onlineClients = null)
     {
