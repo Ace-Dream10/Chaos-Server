@@ -17,6 +17,8 @@
   "scriptKeys": ["staciasBulwark"],
   "scriptVars": {
     "staciasBulwark": {
+      "_stopgapNote": "TEMPORARY - populated with stacias_bulwark_i.json's Tier I durationMs so this still-granted old template works against the rewritten scriptvars-driven StaciasBulwarkScript.cs. Not the real fix - the migration/architecture question is still pending. Remove this note once that's resolved.",
+      "durationMs": 2000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "bodyAnimation": "HandsUp2",
       "sound": 10

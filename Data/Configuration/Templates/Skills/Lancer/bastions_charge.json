@@ -28,6 +28,13 @@
   "scriptKeys": ["bastionsCharge"],
   "scriptVars": {
     "bastionsCharge": {
+      "_stopgapNote": "TEMPORARY - populated with bastions_charge_i.json's Tier I values so this still-granted old template works against the rewritten scriptvars-driven BastionsChargeScript.cs. Not the real fix - the migration/architecture question (does this file get retired in favor of the _i/_ii/_iii/_iv templates, or something else) is still pending. Remove this note once that's resolved.",
+      "rushDistance": 3,
+      "baseDamage": 10,
+      "damageStatMultiplier": 1.5,
+      "stunOnImpact": false,
+      "aoeOnImpact": false,
+      "stunDurationMs": 2000,
       "filter": "hostileOnly, aliveOnly, othersOnly",
       "damageStat": "str",
       "sound": 3,

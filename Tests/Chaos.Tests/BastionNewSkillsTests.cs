@@ -2,6 +2,7 @@
 using Chaos.Collections;
 using Chaos.Common.Abstractions;
 using Chaos.DarkAges.Definitions;
+using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Geometry.Abstractions.Definitions;
 using Chaos.Models.Data;
@@ -105,6 +106,74 @@ public sealed class BastionNewSkillsTests
 
         act.Should()
            .NotThrow();
+    }
+
+    [Test]
+    public void BastionsCharge_StopgapValues_ShouldActuallyRushAndDealDamage()
+    {
+        //bastions_charge.json (the old, still-granted single-file template) had no scriptVars at all for the
+        //rewritten BastionsChargeScript.cs, which no longer has an internal Level-switch fallback - every
+        //property silently defaulted to 0/false, so the live ability did nothing (0-tile rush, 0 damage), no
+        //exception thrown. Stopgap: populated bastions_charge.json's scriptVars with bastions_charge_i.json's
+        //Tier I values. This test uses those same real values to confirm the ability actually functions again -
+        //not the real fix, just confirming the bleeding has stopped.
+        var harness = new SkillScriptHarness<BastionsChargeScript>(
+            scriptFactory: skill => new BastionsChargeScript(skill)
+            {
+                RushDistance = 3,
+                BaseDamage = 10,
+                DamageStatMultiplier = 1.5m,
+                StunOnImpact = false,
+                AoeOnImpact = false,
+                StunDurationMs = 2000,
+                DamageStat = Stat.STR
+            },
+            skillSetup: s => EnsureScriptVars(s, "bastionsCharge"));
+
+        harness.Source.Direction = Direction.Down;
+        var target = MockMonster.Create(harness.Map, setup: m => m.WarpTo(harness.Source.DirectionalOffset(Direction.Down, 2)));
+        harness.Map.AddEntity(target, Point.From(target));
+        target.StatSheet.SetHp(100000);
+
+        var sourceStartPoint = Point.From(harness.Source);
+        var hpBefore = target.StatSheet.CurrentHp;
+
+        harness.Use();
+
+        Point.From(harness.Source)
+             .ManhattanDistanceFrom(sourceStartPoint)
+             .Should()
+             .BeGreaterThan(0, "Bastion's Charge should actually move the caster forward, not stay at rush distance 0");
+
+        target.StatSheet.CurrentHp
+              .Should()
+              .BeLessThan(hpBefore, "Bastion's Charge should deal real damage again, not 0");
+    }
+
+    [Test]
+    public void StaciasBulwark_StopgapValues_ShouldGrantARealDuration()
+    {
+        //stacias_bulwark.json (the old, still-granted single-file template) had no durationMs at all for the
+        //rewritten StaciasBulwarkScript.cs - it silently defaulted to 0, making the invulnerability window
+        //effectively instant. Stopgap: populated stacias_bulwark.json's scriptVars with stacias_bulwark_i.json's
+        //Tier I durationMs (2000). Confirms the effect is still active a meaningful amount of time after cast.
+        var harness = new SkillScriptHarness<StaciasBulwarkScript>(
+            scriptFactory: skill => new StaciasBulwarkScript(skill) { DurationMs = 2000 },
+            skillSetup: s => EnsureScriptVars(s, "staciasBulwark"));
+
+        harness.Use();
+
+        harness.Source.Effects.TryGetEffect("Stacia's Bulwark", out var effect);
+
+        effect.Should()
+              .NotBeNull("Stacia's Bulwark should apply its invulnerability effect");
+
+        harness.Source.Effects.Update(TimeSpan.FromMilliseconds(1500));
+
+        harness.Source.Effects.TryGetEffect("Stacia's Bulwark", out var stillActive);
+
+        stillActive.Should()
+                   .NotBeNull("with a real 2000ms duration, the effect should still be active 1500ms later, not already expired");
     }
 
     [Test]
