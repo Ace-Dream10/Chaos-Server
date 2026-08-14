@@ -1,7 +1,7 @@
 {
   "templateKey": "spirit_rend",
   "name": "Spirit Rend",
-  "description": "Marks an enemy - their next magical hit taken deals bonus damage.",
+  "description": "Rend an enemy's spirit, shattering their resistance to Darkness magic and marking them to take bonus magical damage.",
   "panelSprite": 15,
   "class": "Mystic",
   "spellType": "Targeted",

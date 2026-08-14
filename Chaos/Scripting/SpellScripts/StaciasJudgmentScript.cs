@@ -3,6 +3,7 @@ using Chaos.Collections;
 using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
 using Chaos.Extensions;
+using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
@@ -15,16 +16,18 @@ using Chaos.Services.Factories.Abstractions;
 namespace Chaos.Scripting.SpellScripts;
 
 /// <summary>
-///     Spawns a Stacia's Judgment shrine at a hostile target's location - same pattern as
+///     Spawns a Stacia's Judgment shrine at a clicked ground point - same pattern as
 ///     <see cref="StaciasShrineScript" />, but the spawned shrine damages nearby hostiles instead of healing allies.
-///     One of Mystic's 5 evolving abilities, part of the core trio (alongside Stacia's Shrine and Spirit Rend) that
-///     spans the whole game. The locked design gives Judgment its own detailed 5-stage arc (Lv.1 single impact,
-///     Lv.25 larger impact, Lv.50 higher damage, Lv.75 lingering spirit field, Lv.100 double-strike) laid over the
-///     same 4-checkpoint floor schedule as the rest of the trio - "larger impact" and "higher damage" are folded
-///     together into Tier II (the same 5-named-stages-onto-4-checkpoints squeeze used repeatedly for Bard). Tier IV
-///     ("Judgment strikes TWICE - falls, booms, then a second boom ~2 seconds later") is implemented as a delayed
-///     second shrine spawn, tracked via <see cref="Update" /> the same way <see cref="StaciasPulseScript" /> tracks
-///     its own delayed hits.
+///     Reworked per playtest feedback from entity-targeted to ground-targeted casting (see
+///     <see cref="StaciasShrineScript" />'s own doc comment for the reasoning/pipeline). One of Mystic's 5 evolving
+///     abilities, part of the core trio (alongside Stacia's Shrine and Spirit Rend) that spans the whole game. The
+///     locked design gives Judgment its own detailed 5-stage arc (Lv.1 single impact, Lv.25 larger impact, Lv.50
+///     higher damage, Lv.75 lingering spirit field, Lv.100 double-strike) laid over the same 4-checkpoint floor
+///     schedule as the rest of the trio - "larger impact" and "higher damage" are folded together into Tier II
+///     (the same 5-named-stages-onto-4-checkpoints squeeze used repeatedly for Bard). Tier IV ("Judgment strikes
+///     TWICE - falls, booms, then a second boom ~2 seconds later") is implemented as a delayed second shrine spawn,
+///     tracked via <see cref="Update" /> the same way <see cref="StaciasPulseScript" /> tracks its own delayed
+///     hits.
 /// </summary>
 public class StaciasJudgmentScript : ConfigurableSpellScriptBase
 {
@@ -42,9 +45,9 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
         if (!context.Source.IsAlive)
             return false;
 
-        if ((context.TargetCreature is not { IsAlive: true } target) || !Filter.IsValidTarget(context.Source, target))
+        if (context.SourcePoint.ManhattanDistanceFrom(context.TargetPoint) > Range)
         {
-            context.SourceAisling?.SendOrangeBarMessage("You must select a valid target.");
+            context.SourceAisling?.SendOrangeBarMessage("Too far away.");
 
             return false;
         }
@@ -56,9 +59,8 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
     public override void OnUse(SpellContext context)
     {
         var source = context.Source;
-        var target = context.TargetCreature!;
         var map = context.TargetMap;
-        var spawnPoint = Point.From(target);
+        var spawnPoint = context.TargetPoint;
         var tier = GetTierValues();
 
         if (!source.StatSheet.TrySubtractMp(ManaCost))
@@ -181,8 +183,7 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
     public decimal DamageStatMultiplier { get; init; } = 2;
 
     /// <summary>
-    ///     The filter used to determine both the initial target's validity and which nearby monsters the shrine
-    ///     damages
+    ///     The filter used to determine which nearby monsters the shrine damages
     /// </summary>
     public TargetFilter Filter { get; init; }
 
@@ -190,6 +191,11 @@ public class StaciasJudgmentScript : ConfigurableSpellScriptBase
     ///     The MP cost to use this spell
     /// </summary>
     public int ManaCost { get; init; }
+
+    /// <summary>
+    ///     The maximum distance, in tiles, the clicked ground point can be cast at
+    /// </summary>
+    public int Range { get; init; } = 8;
 
     /// <summary>
     ///     How long, in milliseconds, after the first shrine that the Tier IV second shrine spawns

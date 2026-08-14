@@ -1,10 +1,11 @@
 #region
+using Chaos.Collections;
 using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
 using Chaos.Extensions;
-using Chaos.Extensions.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
+using Chaos.Models.World.Abstractions;
 using Chaos.Scripting.FunctionalScripts.Abstractions;
 using Chaos.Scripting.FunctionalScripts.ApplyDamage;
 using Chaos.Scripting.SpellScripts.Abstractions;
@@ -16,10 +17,15 @@ namespace Chaos.Scripting.SpellScripts;
 ///     A direct build - the locked design lists Spirit Burst as reusing "an existing built ability," but a
 ///     thorough repo search (Spells, Skills, and every MonsterScript, across every class) turned up nothing named
 ///     spirit_burst/spiritburst anywhere - flagging this as a design-doc inaccuracy rather than silently building
-///     something else and calling it a match. Built fresh as Mystic's flat single-target damage workhorse: solid
-///     but deliberately unremarkable direct damage, so it doesn't compete with Sorcerer's raw DPS role per Mystic's
+///     something else and calling it a match. Built fresh as Mystic's flat damage workhorse: solid but
+///     deliberately unremarkable direct damage, so it doesn't compete with Sorcerer's raw DPS role per Mystic's
 ///     own design philosophy. Not one of the 5 evolving abilities - flat, non-evolving.
 /// </summary>
+/// <remarks>
+///     Reworked per playtest feedback from single-target to a frontal cone AoE, matching Trickster's Crack the
+///     Whip - same <see cref="AoeShape.FrontalCone" /> pattern, same NoTarget spellType (no entity selection, hits
+///     whatever's in front of the caster).
+/// </remarks>
 public class SpiritBurstScript : ConfigurableSpellScriptBase
 {
     private readonly IApplyDamageScript ApplyDamageScript;
@@ -30,33 +36,9 @@ public class SpiritBurstScript : ConfigurableSpellScriptBase
         => ApplyDamageScript = ApplyAttackDamageScript.Create();
 
     /// <inheritdoc />
-    public override bool CanUse(SpellContext context)
-    {
-        if (!context.Source.IsAlive)
-            return false;
-
-        if ((context.TargetCreature is not { IsAlive: true } target) || !Filter.IsValidTarget(context.Source, target))
-        {
-            context.SourceAisling?.SendOrangeBarMessage("You must select a valid target.");
-
-            return false;
-        }
-
-        if (context.SourcePoint.ManhattanDistanceFrom(context.TargetPoint) > Range)
-        {
-            context.SourceAisling?.SendOrangeBarMessage("Your target is too far away.");
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /// <inheritdoc />
     public override void OnUse(SpellContext context)
     {
         var source = context.Source;
-        var target = context.TargetCreature!;
         var map = context.TargetMap;
 
         if (!source.StatSheet.TrySubtractMp(ManaCost))
@@ -70,21 +52,37 @@ public class SpiritBurstScript : ConfigurableSpellScriptBase
 
         source.AnimateBody(BodyAnimation);
 
+        var options = new AoeShapeOptions
+        {
+            Source = source,
+            Range = Range,
+            Direction = source.Direction
+        };
+
+        var points = AoeShape.FrontalCone.ResolvePoints(options);
         var damage = (BaseDamage ?? 0) + Convert.ToInt32(source.StatSheet.GetEffectiveStat(DamageStat ?? Stat.WIS) * (DamageStatMultiplier ?? 1));
 
-        if (damage > 0)
-            ApplyDamageScript.ApplyDamage(source, target, this, damage, Element.Darkness);
+        foreach (var point in points)
+        {
+            var target = map.GetEntitiesAtPoints<Creature>(point).TopOrDefault();
 
-        if (Animation != null)
-            target.Animate(Animation, source.Id);
+            if ((target == null) || !Filter.IsValidTarget(source, target))
+                continue;
+
+            if (damage > 0)
+                ApplyDamageScript.ApplyDamage(source, target, this, damage, Element.Darkness);
+
+            if (Animation != null)
+                target.Animate(Animation, source.Id);
+        }
 
         if (Sound.HasValue)
-            map.PlaySound(Sound.Value, context.TargetPoint);
+            map.PlaySound(Sound.Value, context.SourcePoint);
     }
 
     #region ScriptVars
     /// <summary>
-    ///     The animation played on the target on hit
+    ///     The animation played on each struck target
     /// </summary>
     public Animation? Animation { get; init; }
 
@@ -109,7 +107,7 @@ public class SpiritBurstScript : ConfigurableSpellScriptBase
     public decimal? DamageStatMultiplier { get; init; }
 
     /// <summary>
-    ///     The filter used to determine whether the selected target is valid
+    ///     The filter used to determine whether a given tile holds a valid target
     /// </summary>
     public TargetFilter Filter { get; init; }
 
@@ -119,12 +117,12 @@ public class SpiritBurstScript : ConfigurableSpellScriptBase
     public int ManaCost { get; init; }
 
     /// <summary>
-    ///     The maximum distance, in tiles, a target can be selected from
+    ///     The range, in tiles, of the frontal cone
     /// </summary>
     public int Range { get; init; }
 
     /// <summary>
-    ///     Sound played on hit
+    ///     Sound played once, on cast
     /// </summary>
     public byte? Sound { get; init; }
     #endregion

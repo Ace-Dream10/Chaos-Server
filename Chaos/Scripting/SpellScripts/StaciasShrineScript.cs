@@ -2,6 +2,7 @@
 using Chaos.DarkAges.Definitions;
 using Chaos.Definitions;
 using Chaos.Extensions;
+using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
@@ -13,6 +14,14 @@ using Chaos.Services.Factories.Abstractions;
 
 namespace Chaos.Scripting.SpellScripts;
 
+/// <summary>
+///     Reworked per playtest feedback from entity-targeted to ground-targeted casting - "summon a shrine where I
+///     click," not "summon a shrine on top of whichever ally I selected." Uses the same
+///     <c>groundTargeted</c>/<see cref="SpellContext" /> point-based-target pipeline proven out by
+///     <c>test_ground_target.json</c> earlier this session. <see cref="Range" /> now gates cast distance directly
+///     (there was no distance check at all before, since the old entity-target flow relied on the target already
+///     being a valid selectable creature within normal selection range).
+/// </summary>
 public class StaciasShrineScript : ConfigurableSpellScriptBase
 {
     private readonly IMonsterFactory MonsterFactory;
@@ -28,9 +37,9 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
         if (!context.Source.IsAlive)
             return false;
 
-        if ((context.TargetCreature is not { IsAlive: true } target) || !Filter.IsValidTarget(context.Source, target))
+        if (context.SourcePoint.ManhattanDistanceFrom(context.TargetPoint) > Range)
         {
-            context.SourceAisling?.SendOrangeBarMessage("You must select a valid target.");
+            context.SourceAisling?.SendOrangeBarMessage("Too far away.");
 
             return false;
         }
@@ -42,9 +51,8 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
     public override void OnUse(SpellContext context)
     {
         var source = context.Source;
-        var target = context.TargetCreature!;
         var map = context.TargetMap;
-        var spawnPoint = Point.From(target);
+        var spawnPoint = context.TargetPoint;
 
         if (!source.StatSheet.TrySubtractMp(ManaCost))
         {
@@ -89,7 +97,7 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
     public BodyAnimation BodyAnimation { get; init; }
 
     /// <summary>
-    ///     The filter used to determine both the initial target's validity and which nearby Aislings the shrine heals
+    ///     The filter used to determine which nearby Aislings the shrine heals
     /// </summary>
     public TargetFilter Filter { get; init; }
 
@@ -107,6 +115,11 @@ public class StaciasShrineScript : ConfigurableSpellScriptBase
     ///     The MP cost to use this spell
     /// </summary>
     public int ManaCost { get; init; }
+
+    /// <summary>
+    ///     The maximum distance, in tiles, the clicked ground point can be cast at
+    /// </summary>
+    public int Range { get; init; } = 8;
 
     /// <summary>
     ///     The templateKey of the shrine monster to spawn

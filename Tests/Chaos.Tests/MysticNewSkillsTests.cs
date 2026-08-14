@@ -2,11 +2,13 @@
 using Chaos.Collections;
 using Chaos.Common.Abstractions;
 using Chaos.DarkAges.Definitions;
+using Chaos.Definitions;
 using Chaos.Extensions.Geometry;
 using Chaos.Geometry;
 using Chaos.Models.Data;
 using Chaos.Models.Panel;
 using Chaos.Models.World;
+using Chaos.Networking.Abstractions;
 using Chaos.Scripting.AislingScripts;
 using Chaos.Scripting.EffectScripts;
 using Chaos.Scripting.FunctionalScripts;
@@ -123,6 +125,67 @@ public sealed class MysticNewSkillsTests
     }
 
     [Test]
+    public void SpiritRend_ShouldSwapDefenseElementToDarkness_WhileActive_AndRestoreItOnTermination()
+    {
+        //reworked to actually function like retail Dark Ages' "Fas Nadur" (researched, not guessed at): swaps the
+        //target's defensive element to make them vulnerable to a follow-up Darkness spell, restoring their
+        //original element when the mark ends - regardless of natural expiry or Tier I's on-hit consumption
+        var harness = new SpellScriptHarness<SpiritRendScript>(
+            spellSetup: s =>
+            {
+                s.Level = 20; //Tier IV - standing window, not single-consumption, easier to assert mid-effect
+                EnsureSpellVars(s, "spiritRend");
+            });
+
+        harness.WithTargetMonster(m => m.StatSheet.SetDefenseElement(Element.Fire));
+        var originalElement = harness.Target!.StatSheet.DefenseElement;
+
+        harness.Use();
+
+        harness.Target.StatSheet.DefenseElement
+               .Should()
+               .Be(Element.Darkness, "Spirit Rend should make the target vulnerable to Darkness while active");
+
+        harness.Target.Effects.Terminate("Spirit Rend");
+
+        harness.Target.StatSheet.DefenseElement
+               .Should()
+               .Be(originalElement, "the target's original defense element should be restored once Spirit Rend ends");
+    }
+
+    [Test]
+    public void SpiritRend_ShouldReAnimate_NotJustApplyOnce()
+    {
+        //per the explicit instruction not to ship this as an invisible stat change - confirms the persistent
+        //re-animating indicator actually fires again over time, not just once on application. Animate() on a
+        //Creature broadcasts to nearby Aislings observing it, so the caster needs to be registered in the map's
+        //spatial index to actually receive (and let us count) those broadcasts - same gotcha noted in builder.md.
+        var harness = new SpellScriptHarness<SpiritRendScript>(
+            spellSetup: s =>
+            {
+                s.Level = 20;
+                EnsureSpellVars(s, "spiritRend");
+            });
+
+        harness.Map.AddEntity(harness.Source, Point.From(harness.Source));
+        harness.WithTargetMonster();
+        harness.Map.AddEntity(harness.Target!, Point.From(harness.Target!));
+
+        harness.Use();
+
+        var animateCallsBefore = Mock.Get(harness.Source.Client)
+                                     .Invocations.Count(i => i.Method.Name == nameof(IChaosWorldClient.SendAnimation));
+
+        harness.Target!.Effects.Update(TimeSpan.FromMilliseconds(1300));
+
+        var animateCallsAfter = Mock.Get(harness.Source.Client)
+                                    .Invocations.Count(i => i.Method.Name == nameof(IChaosWorldClient.SendAnimation));
+
+        animateCallsAfter.Should()
+                         .BeGreaterThan(animateCallsBefore, "Spirit Rend's visual should keep re-playing while active, not just on initial apply");
+    }
+
+    [Test]
     public void CommunionRite_ShouldReviveWithMoreHealth_AtHigherTiers()
     {
         var lowTierHarness = new SpellScriptHarness<CommunionRiteScript>(spellSetup: s =>
@@ -209,20 +272,82 @@ public sealed class MysticNewSkillsTests
     }
 
     [Test]
-    public void SpiritBurst_ShouldDealDamage()
+    public void StaciasShrine_ShouldCastAtAGroundPoint_RegardlessOfWhatEntityIsThere()
     {
+        //reworked per playtest feedback from entity-targeted to ground-targeted casting. Proves the rework: the
+        //real template's filter is "friendlyOnly" - under the OLD entity-targeted CanUse, selecting a HOSTILE
+        //monster would have failed that filter check outright. Now that cast-time validation only checks range
+        //to the clicked point (not the entity there), this should succeed and spawn the shrine at that point.
+        MapInstance? map = null;
+        var monsterFactoryMock = new Mock<IMonsterFactory>();
+
+        monsterFactoryMock
+            .Setup(
+                f => f.Create(
+                    It.IsAny<string>(),
+                    It.IsAny<MapInstance>(),
+                    It.IsAny<Chaos.Geometry.Abstractions.IPoint>(),
+                    It.IsAny<ICollection<string>?>()))
+            .Returns(
+                (string templateKey, MapInstance _, Chaos.Geometry.Abstractions.IPoint spawnPoint, ICollection<string>? _) =>
+                    MockMonster.Create(map!, templateSetup: t => t with { TemplateKey = templateKey }, setup: m => m.WarpTo(spawnPoint)));
+
+        var serviceProvider = MockServiceProvider.CreateBuilder()
+                                                  .SetupService(monsterFactoryMock.Object)
+                                                  .Build()
+                                                  .Object;
+
+        var harness = new SpellScriptHarness<StaciasShrineScript>(
+            scriptFactory: spell => new StaciasShrineScript(spell, monsterFactoryMock.Object)
+            {
+                Filter = TargetFilter.FriendlyOnly | TargetFilter.AliveOnly,
+                Range = 8,
+                ShrineTemplateKey = "stacias_shrine"
+            },
+            spellSetup: s => EnsureSpellVars(s, "staciasShrine"),
+            serviceProvider: serviceProvider);
+
+        map = harness.Map;
+        harness.Source.StatSheet.SetHp(500);
+
+        //a HOSTILE monster at the clicked point - would have failed the old friendlyOnly entity-target check
+        harness.WithTargetMonster();
+        var clickedPoint = Point.From(harness.Target!);
+
+        harness.CanUse()
+               .Should()
+               .BeTrue("Stacia's Shrine should only validate range to the clicked point now, not the entity standing there");
+
+        harness.Use();
+
+        var shrine = map.GetEntities<Monster>()
+                        .Should()
+                        .ContainSingle(m => m.Template.TemplateKey == "stacias_shrine")
+                        .Which;
+
+        Point.From(shrine)
+             .Should()
+             .Be(clickedPoint, "the shrine should spawn at the clicked ground point");
+    }
+
+    [Test]
+    public void SpiritBurst_ShouldDamageTargetsInAFrontalCone()
+    {
+        //reworked per playtest feedback from single-target to a frontal cone (matching Crack the Whip's shape) -
+        //this asserts a target directly in front of the caster takes damage from the NoTarget cone cast
         var harness = new SpellScriptHarness<SpiritBurstScript>(
-            scriptFactory: spell => new SpiritBurstScript(spell) { BaseDamage = 60, Range = 8 },
+            scriptFactory: spell => new SpiritBurstScript(spell) { BaseDamage = 60, Range = 3 },
             spellSetup: s => EnsureSpellVars(s, "spiritBurst"));
 
         harness.WithTargetMonster(m => m.StatSheet.SetHp(100000));
+        harness.Target!.WarpTo(harness.Source.DirectionalOffset(harness.Source.Direction));
 
-        var hpBefore = harness.Target!.StatSheet.CurrentHp;
+        var hpBefore = harness.Target.StatSheet.CurrentHp;
         harness.Use();
 
         harness.Target.StatSheet.CurrentHp
                .Should()
-               .BeLessThan(hpBefore, "Spirit Burst should deal damage");
+               .BeLessThan(hpBefore, "Spirit Burst should damage targets in its frontal cone");
     }
 
     [Test]

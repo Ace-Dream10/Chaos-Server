@@ -1,10 +1,10 @@
 {
   "templateKey": "spirit_burst",
   "name": "Spirit Burst",
-  "description": "Unleashes a burst of spirit energy at a single enemy.",
+  "description": "Unleash a wide burst of spirit energy in front of you.",
   "panelSprite": 15,
   "class": "Mystic",
-  "spellType": "Targeted",
+  "spellType": "NoTarget",
   "cooldownMs": 2000,
   "castLines": 0,
   "level": 1,
