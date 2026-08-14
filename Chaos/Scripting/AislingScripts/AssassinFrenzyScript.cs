@@ -27,11 +27,12 @@ namespace Chaos.Scripting.AislingScripts;
 ///     The underlying kill-energy resource system below (banking, hard cap, the Execute-cooldown-bypass hook) is
 ///     exactly the "already built, reusable" mechanic the class design doc calls out - only the trigger changed:
 ///     it now fires itself the instant the bank hits <see cref="HardCap" />, instead of waiting for a manual
-///     Bloodlust cast. <see cref="AutoTriggerDurationMs" /> is a placeholder, not balance-tested.
+///     Bloodlust cast. <see cref="AutoTriggerDurationMs" /> is a placeholder, not balance-tested - bumped from
+///     6000 to 12000 per playtest feedback that the frenzy window felt too short to meaningfully use.
 /// </remarks>
 public class AssassinFrenzyScript : AislingScriptBase
 {
-    private const int AutoTriggerDurationMs = 6000;
+    private const int AutoTriggerDurationMs = 12000;
     private const int EnergyPerKill = 20;
     private const int HardCap = 100;
     private static readonly TimeSpan AuraPulseInterval = TimeSpan.FromMilliseconds(1000);

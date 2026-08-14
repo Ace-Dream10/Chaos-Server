@@ -530,6 +530,39 @@ public sealed class AssassinNewSkillsTests
     }
 
     [Test]
+    public void Execute_ShouldGuaranteeAKill_EvenAgainstHighAc()
+    {
+        //per playtest feedback ("Execute sometimes doesn't kill even when its animation plays"): the below-
+        //threshold branch's raw currentHp*3 damage used to go through the normal AC-mitigated pipeline like any
+        //other hit, so a high-AC target could survive with a sliver of HP left. Confirms the fix - a target well
+        //below threshold with strong defense should still end up fully dead, not just "took a lot of damage."
+        var harness = new SkillScriptHarness<ExecuteScript>(
+            skillSetup: s =>
+            {
+                s.Level = 20;
+                EnsureScriptVars(s, "execute");
+            });
+
+        harness.WithTargetMonster(
+            m =>
+            {
+                m.StatSheet.AddBonus(new Attributes { MaximumHp = 1000, Ac = -50 });
+                m.StatSheet.SetHp(50);
+            });
+
+        harness.Target!.WarpTo(harness.Source.DirectionalOffset(harness.Source.Direction));
+        harness.Use();
+
+        harness.Target.StatSheet.CurrentHp
+               .Should()
+               .BeLessThanOrEqualTo(0, "Execute should guarantee a kill below threshold regardless of the target's AC");
+
+        harness.Target.IsAlive
+               .Should()
+               .BeFalse();
+    }
+
+    [Test]
     public void VanishingSlash_ShouldReturnCasterToHide_AfterTheStrike()
     {
         var harness = new SkillScriptHarness<VanishingSlashScript>(

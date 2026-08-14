@@ -6,10 +6,10 @@ using Chaos.Scripting.EffectScripts.Abstractions;
 namespace Chaos.Scripting.EffectScripts;
 
 /// <summary>
-///     Boosts attack speed and skill damage for a duration proportional to the kill energy spent to activate it.
-///     <see cref="AtkSpeedBonus" /> and <see cref="FlatDamageBonus" /> are set by
-///     <see cref="Chaos.Scripting.SkillScripts.BloodlustScript" /> before applying, since scriptVars aren't
-///     auto-populated onto effect instances the way they are for scripts.
+///     Boosts attack speed and skill damage while active. Auto-triggered by
+///     <see cref="Chaos.Scripting.AislingScripts.AssassinFrenzyScript" /> the instant banked kill energy hits its
+///     hard cap, for a flat duration (not proportional to anything) - this class's own <see cref="Duration" />
+///     default is unused in practice since the caller always overrides it via <c>SetDuration</c>.
 /// </summary>
 public sealed class BloodlustEffect : EffectBase
 {

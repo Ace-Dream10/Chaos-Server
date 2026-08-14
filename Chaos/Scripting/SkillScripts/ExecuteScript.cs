@@ -20,6 +20,12 @@ namespace Chaos.Scripting.SkillScripts;
 ///     same "Level ≈ 2×Floor" ratio used throughout tonight - see <see cref="GetTierValues" />. Placeholder
 ///     brackets, not balance-tested.
 /// </summary>
+/// <remarks>
+///     The template description says "non-boss enemies" but there is no Boss <c>CreatureType</c> or equivalent
+///     flag anywhere in this engine yet - that phrasing is aspirational, not backed by an actual exemption check.
+///     Flagging rather than guessing at what "boss" should mean here; this can execute anything below threshold
+///     right now, monster or otherwise.
+/// </remarks>
 public class ExecuteScript : ConfigurableSkillScriptBase
 {
     /// <inheritdoc />
@@ -44,8 +50,14 @@ public class ExecuteScript : ConfigurableSkillScriptBase
         if ((creature == null) || !Filter.IsValidTarget(source, creature))
             return;
 
+        //below-threshold branch must be a GUARANTEED kill, not just "usually enough" - the raw currentHp*3 value
+        //still goes through the shared damage pipeline's normal AC mitigation like any other hit, so against a
+        //high-AC target it could land for less than currentHp and leave them alive at a sliver of HP even though
+        //Execute's animation already played. Confirmed root cause of "Execute sometimes doesn't kill". Using the
+        //same defense-ignore pre-compensation Slayer's Cruel Thrust/Precision/Measured Slice already established,
+        //at 100% ignore, so this specific hit lands fully unmitigated regardless of the target's AC.
         var damage = creature.StatSheet.HealthPercent <= executeThresholdPct
-            ? creature.StatSheet.CurrentHp * 3
+            ? DefenseIgnoreHelper.ApplyIgnoreDefense(creature, creature.StatSheet.CurrentHp * 3, 1.0m)
             : CalculateDamage(source);
 
         if (damage > 0)
