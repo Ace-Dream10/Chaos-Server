@@ -1,0 +1,12 @@
+[
+  {
+    "scriptKeys": ["warp"],
+    "scriptVars": {
+      "warp": {
+        "destination": "map20004:(25, 45)"
+      }
+    },
+    "shouldBlockPathfinding": false,
+    "source": "(92, 80)"
+  }
+]

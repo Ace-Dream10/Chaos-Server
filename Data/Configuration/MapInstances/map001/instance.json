@@ -1,0 +1,9 @@
+{
+  "instanceId": "map001",
+  "templateKey": "1",
+  "name": "Haven",
+  "music": 1,
+  "flags": "None",
+  "autoDayNightCycle": true,
+  "scriptKeys": []
+}
